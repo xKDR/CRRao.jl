@@ -7,3 +7,8 @@
 [![Build Status](https://api.cirrus-ci.com/github/xKDR/CRRao.jl.svg)](https://cirrus-ci.com/github/xKDR/CRRao.jl)
 [![Coverage](https://codecov.io/gh/xKDR/CRRao.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/xKDR/CRRao.jl)
 [![Coverage](https://coveralls.io/repos/github/xKDR/CRRao.jl/badge.svg?branch=main)](https://coveralls.io/github/xKDR/CRRao.jl?branch=main)
+
+## To install: 
+```Julia
+ add "https://github.com/xKDR/CRRao.jl.git"
+```
