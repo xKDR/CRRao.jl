@@ -1,6 +1,6 @@
 module CRRao
 
-using DataFrames, CSV, HTTP, ShiftedArrays, Plots, GLM, Turing, StatsModels, StatsBase, StatsPlots, LazyArrays
+using DataFrames, GLM, Turing, StatsModels, StatsBase, Distributions
 
 export CRRao
 
@@ -10,3 +10,6 @@ include("optimisation.jl")
 include("crrao/crrao.jl")
 
 end
+
+
+
