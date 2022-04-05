@@ -1,8 +1,62 @@
 """
-CRRao function accepts a formula etc. 
+CRRao function implements the Statistical models. The implementation 
+   of Statistical models become straightforward for most Julia users 
+   with the help of this package. This is going to be wrapper package;
+   leveraging the strength of wonderful Julia packages that already exists, 
+   such as StatsBase, 
+   StatsModels, Distributions,GLM, Turing, DataFrames,
+   LinearAlgebra, etc.
+
+   **Note**: You can read more about **Prof C.R. Rao** [Click Here](https://en.wikipedia.org/wiki/C._R._Rao)
+
+CRRao needs six inputs to fit (or train) a model.
+
+### Input:
+
+1. **formula** (explain relationship between the variables)
+  `y~x1+x2+...`
+
+2. **data** : it will contain y and X, typically DataFrames (**Notes**: Currently it only works on DataFrames)
+
+3. **model class**: provide name of the model class. For example: lm, logistic, poisson, ARIMA, etc.
+  Note: Detail of the model class is provided below.
+
+4. **distribution**
++ data model or likelihood model
++ prior (if NULL - non-informative flat prior is default. In that case the estimates will be MLE.)
+
+5. **link**
+  Provide appropriate link function
+
+6. **fitting methodology** :
+
++ Optimization (Package Dependence: Optim, GLM)
++ MCMC (Package Dependence: Turing, Soss)
++ Bootstrap
+
+### Syntax
+
+```Julia
+CRRao(formula::FormulaTerm,data,modelClass="LinearReg",LikelihoodMod="Gauss",PriorMod="NIP",Link::String="Identity"
+       ,ComputeMethod::String="Optimization",h::Float64=0.01,level::Real=0.95,sim_size::Int64=10000)
+
+```
+
++  `formula` Provide the equation
++  `data` Provide DataFrame
++  `modelClass` Provide the name of the class of model. Default is "LinearReg". Other classes are "LogisticReg" for logistic regression, "CountReg" for count regression etc.
++  `LikelihoodMod` Provide the likelihood model (aka., data model). Default is "Gauss" for Gaussian distribution.
++  `PriorMod` Provide the prior model or prior distributions on parameters. Default is NIP, i.e., "Non-Informative Prior" aka. "Flat Prior"
++  `Link` Provide the link function. Default is "Identity".
++  `ComputeMethod` Provide the computational methods. Default is "Optimization". Other methods are MCMC and Bootstrap. The MCMC method implements the NUTS algorithm of Hamiltonian Monte Carlo class. The Bootstrap method is under development.
++  `h` Provide the value of `h` for Ridge prior, where `h>0`. If `h` is close to 0, the the Ridge prior contain no-information. It will be non-informative flat prior. But if you want your Ridge prior to have effect and correct for multicollinearity, then you should try some positive value for `h`. Effectively it assigns `beta ~ N(0 , 1/h)` as prior on unknown coefficients.
++  `level` assign level for confidence interval
++  `sim_size` Provide value for simulation size for MCMC method.
+
+
 
 """
-function CRRao(formula::FormulaTerm,data,modelClass::String="LinearReg",LikelihoodMod::String="Gauss",PriorMod::String="NIP",Link::String="Identity",ComputeMethod::String="Optimization",h::Float64=0.01,level::Real=0.95,sim_size::Int64=10000)
+function CRRao(formula::FormulaTerm, data::DataFrame, modelClass::String="LinearReg", LikelihoodMod::String="Gauss", PriorMod::String="NIP", Link::String="Identity", ComputeMethod::String="Optimization", h::Real=0.01, level::Real=0.95, sim_size::Int64=10000)
    ## arguement sanitisation
    sant_args = arguement_sanitisation(modelClass, LikelihoodMod,PriorMod,Link,ComputeMethod)
    modelClass = sant_args.modelClass
