@@ -1,3 +1,7 @@
+"""
+CRRao function accepts a formula etc. 
+
+"""
 function CRRao(formula::FormulaTerm,data,modelClass::String="LinearReg",LikelihoodMod::String="Gauss",PriorMod::String="NIP",Link::String="Identity",ComputeMethod::String="Optimization",h::Float64=0.01,level::Real=0.95,sim_size::Int64=10000)
    ## arguement sanitisation
    sant_args = arguement_sanitisation(modelClass, LikelihoodMod,PriorMod,Link,ComputeMethod)
