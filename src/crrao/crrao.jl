@@ -355,3 +355,4 @@ function CRRao(formula::FormulaTerm, data::DataFrame, modelClass::String="Linear
       println(dumbo)
    end
 end
+
