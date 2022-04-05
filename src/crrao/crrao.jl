@@ -37,8 +37,8 @@ CRRao needs six inputs to fit (or train) a model.
 ### Syntax
 
 ```Julia
-CRRao(formula::FormulaTerm,data,modelClass="LinearReg",LikelihoodMod="Gauss",PriorMod="NIP",Link::String="Identity"
-       ,ComputeMethod::String="Optimization",h::Float64=0.01,level::Real=0.95,sim_size::Int64=10000)
+CRRao(formula::FormulaTerm, data::DataFrame, modelClass="LinearReg", LikelihoodMod="Gauss", PriorMod="NIP", Link::String="Identity"
+       , ComputeMethod::String="Optimization", h::Float64=0.01,level::Real=0.95, sim_size::Int64=10000)
 
 ```
 
