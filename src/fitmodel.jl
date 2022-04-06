@@ -56,7 +56,7 @@ CRRao(formula::FormulaTerm, data::DataFrame, modelClass="LinearReg", LikelihoodM
 
 
 """
-function CRRao(formula::FormulaTerm, data::DataFrame, modelClass::String="LinearReg", LikelihoodMod::String="Gauss", PriorMod::String="NIP", Link::String="Identity", ComputeMethod::String="Optimization", h::Real=0.01, level::Real=0.95, sim_size::Int64=10000)
+function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::String="LinearReg", LikelihoodMod::String="Gauss", PriorMod::String="NIP", Link::String="Identity", ComputeMethod::String="Optimization", h::Real=0.01, level::Real=0.95, sim_size::Int64=10000)
    ## arguement sanitisation
    sant_args = arguement_sanitisation(modelClass, LikelihoodMod,PriorMod,Link,ComputeMethod)
    modelClass = sant_args.modelClass
