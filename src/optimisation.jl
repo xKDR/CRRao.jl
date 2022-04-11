@@ -8,7 +8,6 @@ struct analysis_lm_Gauss_NIP_Optim
   res
   fit
   LogLike::Float64
-  LogPost::Float64
   AIC::Float64
   BIC::Float64
   R_sqr::Float64
@@ -53,7 +52,7 @@ function lm_Gauss_NIP_Optim(formula::FormulaTerm,data::DataFrame)
 
     cooks_distance = GLM.StatsBase.cooksdistance(res); 
     ans = analysis_lm_Gauss_NIP_Optim(formla,modelClass,LikelihoodMod,PriorMod
-    ,Link,ComputeMethod,res,fit, logLike, logLike, AIC, BIC, R_sqr
+    ,Link,ComputeMethod,res,fit, logLike, AIC, BIC, R_sqr
     ,Adjusted_R_sqr,sigma, fittedResponse,resid,cooks_distance)
 
     return ans
@@ -416,6 +415,9 @@ function logistic_Binom_Gen_Optim(formula::FormulaTerm,data,PriorMod::String="Ri
       res = glm(formula,data,Binomial(), CloglogLink());
   
   end
+  
+  println(res)
+  
   beta_hat = coef(res);
   
   initial_values = append!(beta_hat,log(h));
@@ -479,6 +481,7 @@ function logistic_Binom_Gen_Optim(formula::FormulaTerm,data,PriorMod::String="Ri
 
   numerical_hessian = hessian!(func,theta_hat)
   var_cov_matrix = inv(numerical_hessian)
+  println(var_cov_matrix);
   post_var = diag(var_cov_matrix)
   post_sd = real.(sqrt.(Complex.(post_var)))
   #post_sd = sqrt.(post_var);
@@ -516,9 +519,6 @@ function logistic_Binom_Gen_Optim(formula::FormulaTerm,data,PriorMod::String="Ri
   AIC = 2*npar - 2*loglike
   BIC = log(n)*npar - 2*loglike
   
-
-
-
   ans = analysis_GLM_Gen_Optim(formula,modelClass,LikelihoodMod,PriorMod
   ,Link,ComputeMethod,fit,beta_bar,post_sd_beta,Lower,Upper
   ,lambda_hat,lambda_hat_lower,lambda_hat_upper,loglike,AIC,BIC)
@@ -528,20 +528,19 @@ end
 
 ## Poisson regression
 
-
 struct analysis_Poisson_Regression
-  formula::FormulaTerm
-  modelClass::String
-  LikelihoodMod::String
-  PriorMod::String
-  Link::String
-  ComputeMethod::String
+  formula
+  #modelClass::PoissonRegression
+  #LikelihoodMod::String
+  #PriorMod::String
+  #Link::String
+  #ComputeMethod::String
   fit
   beta
-  LogLike::Float64
-  LogPost::Float64
-  AIC::Float64
-  BIC::Float64
+  LogLike
+  #LogPost::Float64
+  AIC
+  BIC
   #R_sqr::Float64
   #Adjusted_R_sqr::Float64
   #sigma::Float64
@@ -549,11 +548,9 @@ struct analysis_Poisson_Regression
 end
 
 
-function Count_Poisson_NIP_Optim(formula::FormulaTerm,data,Link::String="LogLink")
-  modelClass = "CountReg";
-  LikelihoodMod="Poisson";
-  PriorMod="NIP";
-  ComputeMethod="Optimization";
+
+function Poisson_Regression_fit(formula::FormulaTerm,data::DataFrame)
+   
   formula = apply_schema(formula, schema(formula, data));
   y, X = modelcols(formula, data);
   fm_frame=ModelFrame(formula,data);
@@ -561,25 +558,19 @@ function Count_Poisson_NIP_Optim(formula::FormulaTerm,data,Link::String="LogLink
   p = size(X, 2);
   n = size(X, 1);
   
-  if(Link=="LogLink")
-      res = glm(formula,data,Poisson(), LogLink());
-  else
-      println("This link function is not part of Poisson regression family.")
-      println("-------------------------------------------------------------")
-  end
+  ## Fit Model
+  res = glm(formula,data,Poisson(), LogLink());
   
+
   fit = coeftable(res)
   beta_hat = coef(res)
   logLike = GLM.loglikelihood(res)
-  LogPost = logLike
   npar = p;
   AIC = 2*npar - 2*logLike
   BIC = log(n)*npar - 2*logLike
-  
-  ans = analysis_Count_Poisson_NIP_Optim(formula,modelClass,LikelihoodMod
-          ,PriorMod,Link,ComputeMethod,fit,beta_hat
-          ,logLike,LogPost,AIC,BIC)
-  ans
+  xyz=analysis_Poisson_Regression
+  #ans = analysis_Poisson_Regression(formula,fit,beta_hat,logLike,AIC,BIC)
+  #ans
 
 end
 
