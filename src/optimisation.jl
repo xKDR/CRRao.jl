@@ -529,7 +529,7 @@ end
 ## Poisson regression
 
 
-struct analysis_Count_Poisson_NIP_Optim
+struct analysis_Poisson_Regression
   formula::FormulaTerm
   modelClass::String
   LikelihoodMod::String
