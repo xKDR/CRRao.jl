@@ -1,10 +1,30 @@
+"""
+CRRao is a Julia package that implements the Statistical models. The implementation 
+   of Statistical models become straightforward for most Julia users 
+   with the help of this package. This is going to be wrapper package;
+   leveraging the strength of wonderful Julia packages that already exists, 
+   such as StatsBase, StatsModels, Distributions,GLM, Turing, DataFrames,
+   LinearAlgebra, etc.
+
+   
+   CRRao is a consistent framework through which callers interact with 
+   a large suite of models. For the end-user, it reduces the cost and complexity 
+   of estimating/training statistical models. It offers convenient guidelines through 
+   which development of additional statistical models can take place 
+   in the future.
+
+   We follow framework which makes contribution to this package easy.
+
+   **Note**: You can read more about **Prof C.R. Rao** [Click Here](https://en.wikipedia.org/wiki/C._R._Rao)
+   
+"""
 module CRRao
 
 using DataFrames, GLM, Turing, StatsModels
 using StatsBase, Distributions, LinearAlgebra
 using Optim, NLSolversBase
 
-
+struct NegBinomRegression end
 struct PoissonRegression end
 struct LinearRegression end
 struct LogisticRegression end
@@ -20,14 +40,18 @@ struct Cauchit end
 
 
 
-export LogisticRegression, LinearRegression, PoissonRegression
+export LinearRegression, LogisticRegression, PoissonRegression, NegBinomRegression
 export Prior_Ridge, Prior_Laplace, Prior_Cauchy, Prior_TDist, Prior_Uniform
-export Logit, Probit, Cloglog, Cauchit, fitmodel, analysis_Poisson_Regression
+export Logit, Probit, Cloglog, Cauchit, fitmodel
 
 include("general_stats.jl")
-include("mcmc.jl")
-include("optimisation.jl")
-include("logistic_regression.jl")
+#include("mcmc.jl")
+#include("optimisation.jl")
+include("LinearRegression.jl")
+include("LogisticRegression.jl")
+include("PoissonRegression.jl")
+include("NegBinomialRegression.jl")
+
 include("fitmodel.jl")
 
 end
