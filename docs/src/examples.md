@@ -1,11 +1,10 @@
-```meta
-using CRRao,  RDatasets, StatsModels, StatsPlots, NLSolversBase; 
-```
-
 ### Example 1: Linear Regression
 ```jldoctest
+julia> using CRRao,  RDatasets, StatsModels, StatsPlots, NLSolversBase; 
+
 julia> df = dataset("datasets", "mtcars");
-julia> first(df, 10)
+
+julia> print(first(df, 10))
 10×12 DataFrame
  Row │ Model              MPG      Cyl    Disp     HP     DRat     WT       QSec     VS     AM     Gear   Carb  
      │ String31           Float64  Int64  Float64  Int64  Float64  Float64  Float64  Int64  Int64  Int64  Int64 
@@ -20,6 +19,7 @@ julia> first(df, 10)
    8 │ Merc 240D             24.4      4    146.7     62     3.69    3.19     20.0       1      0      4      2
    9 │ Merc 230              22.8      4    140.8     95     3.92    3.15     22.9       1      0      4      2
   10 │ Merc 280              19.2      6    167.6    123     3.92    3.44     18.3       1      0      4      4
+
 julia> m1_1 = fitmodel(@formula(MPG ~ HP + WT+Gear), df, LinearRegression());
 
 julia> m1_1.fit  
@@ -39,29 +39,38 @@ julia> m1_1.LogLike
 
 julia> m1_1.AIC
 157.05277871921942
+
 julia> m1_1.BIC
 164.38145823321804
+
 julia> m1_1.R_sqr
 0.8352309600685555
+
 julia> m1_1.Adjusted_R_sqr
 0.8175771343616149
+
 julia> m1_1.fittedResponse;
+
 julia> first(m1_1.fittedResponse, 5)
-10-element Vector{Float64}:
+5-element Vector{Float64}:
  23.668849952338704
  22.853408243206346
  25.253556140740866
  20.746171762311327
  17.63557054383011
+
 julia> m1_1.residuals;
+
 julia> first(m1_1.residuals, 5)
-10-element Vector{Float64}:
+5-element Vector{Float64}:
  -2.6688499523387037
  -1.8534082432063457
  -2.453556140740865
   0.6538282376886713
   1.06442945616989
-julia> m1_1.Cooks_distance
+
+julia> m1_1.Cooks_distance;
+
 julia> first(m1_1.Cooks_distance, 5)
 5-element Vector{Float64}:
  0.013342034282302684
