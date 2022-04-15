@@ -12,3 +12,12 @@
 ```Julia
  add "https://github.com/xKDR/CRRao.jl.git"
 ```
+
+
+CRRao is consistent framework for statistical models. There is value in having a consistent API for a wide variety of statistical models. The CRRao package offers this design, and at present has four models. We will build more in coming days, and we hope other authors of models will also build new models in this framework.
+
+The current version includes the following four models: (1) Linear Regression, (2) Logistic Regression, (3) Poisson Regression, and (4)  Negative Binomial Regression. For all four models, we implemented both likelihood and variety of Bayesian models using Turing.jl package of Julia. 
+
+Currently the Bayesian versions of these four models can handle variety of Prior distribution class, such as (1) Ridge Prior, (2) Laplace prior, (3) Cauchy Prior, (4) T-Distributed prior, and (5) Uniform flat prior. For Logistic Regression it can handles four link functions: (1) Logit Link, (2) Probit Link, (3) Cloglog Link and (4) Cauchy Link.
+
+Soon we will publish a developer doc so that more people can contribute to it.
