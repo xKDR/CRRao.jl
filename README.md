@@ -42,7 +42,7 @@ CRRao leverage the strength of wonderful Julia packages that already exists, suc
 + We are at the very early stage of the development.
 + **Note**: You can read more about **Prof C.R. Rao** [Click Here](https://en.wikipedia.org/wiki/C._R._Rao)
 
-**Why one should use CRRao in Julia over lm in R?**
+## **Why one should use CRRao in Julia over lm in R?**
 
 Julia works much faster in terms of time and memory management. Hence it is suitable for handling really large data. We demonstrate that just to implement the OLS regression Julia is approximately 3x times faster than `R`.
 
