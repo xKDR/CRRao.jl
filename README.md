@@ -42,3 +42,38 @@ CRRao leverage the strength of wonderful Julia packages that already exists, suc
 + We are at the very early stage of the development.
 + **Note**: You can read more about **Prof C.R. Rao** [Click Here](https://en.wikipedia.org/wiki/C._R._Rao)
 
+**Why one should use CRRao in Julia over lm in R?**
+
+We took `mtcars` data and fit a simple linear regression using `lm` in `R` for 100000 using the following code and it took about 21.1 seconds
+
+```{R}
+> start = Sys.time()
+> for(i in 1:100000){
++   dum = lm(mpg~hp+wt)
++ }
+> stop = Sys.time()
+> stop-start
+Time difference of 21.1077 secs
+```
+
+We fit the exact same model using the `fitmodel` API of `CRRao` in `Julia` for 100000 using the following code and it took about 7.76 seconds
+
+```{Julia}
+using RDatasets, CRRao
+
+df = dataset("datasets", "mtcars");
+
+## performance Check
+
+function check_time(n)
+    for i in 1:n
+        dum = fitmodel(@formula(MPG ~ HP + WT),df,LinearRegression());
+    end
+end
+
+@time check_time(100000)
+
+7.755036 seconds (65.90 M allocations: 8.304 GiB, 9.34% gc time)
+```
+Clearly we see a gain of 270% or 2.7 times gain in time if you use the CRRao in `Julia` instead of `lm` in `R`.
+
