@@ -61,9 +61,9 @@ Unit: microseconds
 We fit the exact same model using the `fitmodel` API of `CRRao` in `Julia` and benchmarked the process using the BenchmarkTools package.
 
 ```julia
-julia> using RDatasets, CRRao, BenchmarkTools, StatsModels
-julia> df = dataset("datasets", "mtcars");
-julia> @benchmark fitmodel(@formula(MPG ~ HP + WT), df, LinearRegression())
+using RDatasets, CRRao, BenchmarkTools, StatsModels
+df = dataset("datasets", "mtcars");
+@benchmark fitmodel(@formula(MPG ~ HP + WT), df, LinearRegression())
 ```
 
 ```julia
