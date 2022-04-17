@@ -44,36 +44,41 @@ CRRao leverage the strength of wonderful Julia packages that already exists, suc
 
 **Why one should use CRRao in Julia over lm in R?**
 
-We took `mtcars` data and fit a simple linear regression using `lm` in `R` for 100000 times using the following code and it took about 21.1 seconds
+We took `mtcars` data and fit a simple linear regression using `lm` in `R` and benchmarked the process using the microbenchmark library. 
 
 ```{R}
-> start = Sys.time()
-> for(i in 1:100000){
-+   dum = lm(mpg~hp+wt)
-+ }
-> stop = Sys.time()
-> stop-start
-Time difference of 21.1077 secs
+> attach(datasets::mtcars)
+> library(microbenchmark)
+> microbenchmark(lm(mpg~hp+wt))
 ```
 
-We fit the exact same model using the `fitmodel` API of `CRRao` in `Julia` for 100000 times using the following code and it took about 7.76 seconds
+```
+Unit: microseconds
+              expr     min      lq     mean   median      uq      max neval
+ lm(mpg ~ hp + wt) 290.534 311.209 380.1334 325.9485 395.288 2223.736   100
+```
+
+We fit the exact same model using the `fitmodel` API of `CRRao` in `Julia` and benchmarked the process using the BenchmarkTools package.
 
 ```{Julia}
-using RDatasets, CRRao
-
-df = dataset("datasets", "mtcars");
-
-## performance Check
-
-function check_time(n)
-    for i in 1:n
-        dum = fitmodel(@formula(MPG ~ HP + WT),df,LinearRegression());
-    end
-end
-
-@time check_time(100000)
-
-7.755036 seconds (65.90 M allocations: 8.304 GiB, 9.34% gc time)
+julia> using RDatasets, CRRao, BenchmarkTools, StatsModels
+julia> df = dataset("datasets", "mtcars");
+julia> @benchmark fitmodel(@formula(MPG ~ HP + WT), df, LinearRegression())
 ```
-Clearly we see a gain of 270% or 2.7 times gain in time if you use the CRRao in `Julia` instead of `lm` in `R`.
+
+```
+BenchmarkTools.Trial: 10000 samples with 1 evaluation.
+ Range (min … max):   90.092 μs …  34.761 ms  ┊ GC (min … max): 0.00% … 0.00%
+ Time  (median):     127.941 μs               ┊ GC (median):    0.00%
+ Time  (mean ± σ):   160.215 μs ± 559.192 μs  ┊ GC (mean ± σ):  4.54% ± 3.30%
+
+        ▄▇█▆▄▃▂                                                 ▂
+  █▆▆▅▆██████████▆▆▅▆▆▅▅▅▅▅▅▄▄▅▅▆▅▅▅▄▅▄▄▆▃▅▄▄▄▁▄▄▄▁▃▁▄▃▃▁▄▁▁▅▄▃ █
+  90.1 μs       Histogram: log(frequency) by time        365 μs <
+
+ Memory estimate: 83.77 KiB, allocs estimate: 723.
+```
+
+
+Clearly we see a gain of 254% or 2.54 times gain in time if you use the CRRao in `Julia` instead of `lm` in `R`.
 
