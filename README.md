@@ -46,13 +46,13 @@ CRRao leverage the strength of wonderful Julia packages that already exists, suc
 
 We took `mtcars` data and fit a simple linear regression using `lm` in `R` and benchmarked the process using the microbenchmark library. 
 
-```{R}
+```{r}
 > attach(datasets::mtcars)
 > library(microbenchmark)
 > microbenchmark(lm(mpg~hp+wt))
 ```
 
-```
+```{r}
 Unit: microseconds
               expr     min      lq     mean   median      uq      max neval
  lm(mpg ~ hp + wt) 290.534 311.209 380.1334 325.9485 395.288 2223.736   100
@@ -60,13 +60,13 @@ Unit: microseconds
 
 We fit the exact same model using the `fitmodel` API of `CRRao` in `Julia` and benchmarked the process using the BenchmarkTools package.
 
-```{Julia}
+```julia
 julia> using RDatasets, CRRao, BenchmarkTools, StatsModels
 julia> df = dataset("datasets", "mtcars");
 julia> @benchmark fitmodel(@formula(MPG ~ HP + WT), df, LinearRegression())
 ```
 
-```
+```julia
 BenchmarkTools.Trial: 10000 samples with 1 evaluation.
  Range (min … max):   90.092 μs …  34.761 ms  ┊ GC (min … max): 0.00% … 0.00%
  Time  (median):     127.941 μs               ┊ GC (median):    0.00%
