@@ -13,164 +13,164 @@ Gear          1.01998    0.851408     1.20    0.2410  -0.72405     2.76401
 ────────────────────────────────────────────────────────────────────────────</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m1_1.sigma</code><code class="nohighlight hljs ansi" style="display:block;">2.5741691724978972</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m1_1.LogLike</code><code class="nohighlight hljs ansi" style="display:block;">-73.52638935960971</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m1_1.AIC</code><code class="nohighlight hljs ansi" style="display:block;">157.05277871921942</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m1_1.BIC</code><code class="nohighlight hljs ansi" style="display:block;">164.38145823321804</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m1_1.R_sqr</code><code class="nohighlight hljs ansi" style="display:block;">0.8352309600685555</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m1_1.Adjusted_R_sqr</code><code class="nohighlight hljs ansi" style="display:block;">0.8175771343616149</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m1_1.fittedResponse</code><code class="nohighlight hljs ansi" style="display:block;">32-element Vector{Float64}:
  23.668849952338718
  22.85340824320634
- 25.253556140740894
+ 25.253556140740898
  20.746171762311384
- 17.635570543830177
+ 17.635570543830173
  20.14663845388644
  14.644831040166633
  23.61182872351372
- 22.525801204993822
+ 22.525801204993826
  20.568426475004856
   ⋮
- 13.781422171673526
+ 13.781422171673524
  16.340457241090512
  27.47793682112109
- 26.922715039574857
- 28.11844900519874
+ 26.92271503957486
+ 28.118449005198745
  17.264981908248554
- 21.818065399379595
- 13.374047477198516
+ 21.8180653993796
+ 13.374047477198514
  23.193986311384343</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m1_1.residuals</code><code class="nohighlight hljs ansi" style="display:block;">32-element Vector{Float64}:
  -2.668849952338718
  -1.8534082432063386
- -2.4535561407408935
+ -2.453556140740897
   0.6538282376886144
-  1.0644294561698224
+  1.064429456169826
  -2.0466384538864375
  -0.3448310401666319
   0.7881712764862776
-  0.2741987950061784
+  0.27419879500617483
  -1.3684264750048563
   ⋮
- -0.4814221716735254
+ -0.48142217167352364
   2.8595427589094875
  -0.1779368211210901
- -0.9227150395748573
-  2.2815509948012576
+ -0.9227150395748609
+  2.281550994801254
  -1.4649819082485536
- -2.1180653993795957
-  1.6259525228014837
+ -2.1180653993795993
+  1.6259525228014855
  -1.7939863113843444</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m1_1.Cooks_distance</code><code class="nohighlight hljs ansi" style="display:block;">32-element Vector{Float64}:
  0.013342034282302798
  0.006887282667312197
- 0.015495847517059161
+ 0.015495847517059205
  0.0014309089637597765
- 0.004471979213923591
+ 0.004471979213923622
  0.014588985833725164
  0.001540100419881934
  0.005826402580871439
- 0.00030743156824582164
+ 0.0003074315682458136
  0.00701180372448546
  ⋮
- 0.002076825609693457
+ 0.002076825609693442
  0.022039704192128577
  0.0001378106083285506
- 0.006862929526074502
- 0.04703889945177857
+ 0.006862929526074554
+ 0.04703889945177843
  0.038120451318087265
- 0.035404694590360615
- 0.1371534135504359
+ 0.03540469459036073
+ 0.1371534135504362
  0.006145660329519691</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; ## Linear Regression - Ridge Prior</code><code class="nohighlight hljs ansi" style="display:block;">CRRao.MCMC_chain(MCMC chain (10000×18×1 Array{Float64, 3}), Summary Statistics (6 x 8), Quantiles (6 x 6))</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m1_2.summaries</code><code class="nohighlight hljs ansi" style="display:block;">Summary Statistics
   parameters      mean       std   naive_se      mcse         ess      rhat    ⋯
       Symbol   Float64   Float64    Float64   Float64     Float64   Float64    ⋯
 
-           v    6.8111    3.8625     0.0386    0.0590   3725.0918    0.9999    ⋯
-           σ    2.6754    0.3818     0.0038    0.0066   3500.2719    1.0003    ⋯
-           α   28.5708    5.3412     0.0534    0.1044   2366.7485    0.9999    ⋯
-        β[1]   -0.0398    0.0105     0.0001    0.0002   3829.8439    1.0000    ⋯
-        β[2]   -2.6773    0.9464     0.0095    0.0175   2558.3116    0.9999    ⋯
-        β[3]    1.6098    0.9668     0.0097    0.0182   2543.5099    1.0000    ⋯
+           v    6.8242    3.8569     0.0386    0.0660   3898.5288    0.9999    ⋯
+           σ    2.6775    0.3808     0.0038    0.0060   4255.1299    1.0005    ⋯
+           α   28.6234    5.2545     0.0525    0.1118   2204.8651    0.9999    ⋯
+        β[1]   -0.0398    0.0104     0.0001    0.0002   3731.1844    1.0002    ⋯
+        β[2]   -2.6843    0.9222     0.0092    0.0187   2314.6624    1.0001    ⋯
+        β[3]    1.6021    0.9598     0.0096    0.0194   2420.8019    0.9999    ⋯
                                                                 1 column omitted</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m1_2.quantiles</code><code class="nohighlight hljs ansi" style="display:block;">Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           v    2.5009    4.4144    5.9508    8.0650   16.3978
-           σ    2.0537    2.4070    2.6363    2.8997    3.5316
-           α   17.4044   25.2993   28.8064   32.1313   38.2888
-        β[1]   -0.0615   -0.0465   -0.0398   -0.0328   -0.0194
-        β[2]   -4.4470   -3.3139   -2.7119   -2.0791   -0.7085
-        β[3]   -0.1718    0.9549    1.5734    2.2126    3.6272</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; ## Linear Regression - Laplace Prior
+           v    2.4948    4.4777    5.9381    8.0454   16.6436
+           σ    2.0639    2.4045    2.6358    2.9020    3.5611
+           α   17.8353   25.2838   28.8190   32.2277   38.4014
+        β[1]   -0.0607   -0.0465   -0.0396   -0.0330   -0.0196
+        β[2]   -4.3985   -3.3097   -2.7100   -2.0882   -0.8067
+        β[3]   -0.1859    0.9507    1.5636    2.2125    3.5429</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; ## Linear Regression - Laplace Prior
        
        m1_3 = fitmodel(@formula(MPG ~ HP + WT+Gear),df,LinearRegression(),Prior_Laplace());</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m1_3.summaries</code><code class="nohighlight hljs ansi" style="display:block;">Summary Statistics
   parameters      mean       std   naive_se      mcse         ess      rhat    ⋯
       Symbol   Float64   Float64    Float64   Float64     Float64   Float64    ⋯
 
-           v    4.2933    3.2464     0.0325    0.0633   2954.8597    0.9999    ⋯
-           σ    2.6704    0.3615     0.0036    0.0059   3412.9167    1.0008    ⋯
-           α   28.9348    5.2092     0.0521    0.1011   2300.2310    1.0001    ⋯
-        β[1]   -0.0398    0.0103     0.0001    0.0002   3644.6443    1.0000    ⋯
-        β[2]   -2.6994    0.9356     0.0094    0.0181   2329.2285    1.0001    ⋯
-        β[3]    1.5340    0.9430     0.0094    0.0174   2492.5263    1.0001    ⋯
+           v    4.2608    3.3761     0.0338    0.0604   3363.8770    1.0002    ⋯
+           σ    2.6684    0.3721     0.0037    0.0051   5012.1441    1.0000    ⋯
+           α   29.0032    5.1036     0.0510    0.0908   3067.7805    0.9999    ⋯
+        β[1]   -0.0398    0.0103     0.0001    0.0002   3875.8308    1.0000    ⋯
+        β[2]   -2.7033    0.9132     0.0091    0.0173   2848.8385    0.9999    ⋯
+        β[3]    1.5176    0.9282     0.0093    0.0155   3393.4946    0.9999    ⋯
                                                                 1 column omitted</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m1_3.quantiles</code><code class="nohighlight hljs ansi" style="display:block;">Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           v    1.2404    2.3726    3.4428    5.1850   12.4037
-           σ    2.0914    2.4087    2.6322    2.8825    3.4903
-           α   18.0037   25.6400   29.1791   32.4376   38.5963
-        β[1]   -0.0603   -0.0465   -0.0397   -0.0330   -0.0198
-        β[2]   -4.4850   -3.3303   -2.7240   -2.1095   -0.7401
-        β[3]   -0.2251    0.9045    1.4896    2.1192    3.4982</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; ## Linear Regression - Cauchy Prior
+           v    1.2614    2.3924    3.4159    5.0597   12.2893
+           σ    2.0599    2.4028    2.6351    2.8894    3.4948
+           α   18.1793   25.8174   29.1932   32.4891   38.4471
+        β[1]   -0.0603   -0.0465   -0.0396   -0.0331   -0.0197
+        β[2]   -4.4443   -3.3060   -2.7402   -2.1362   -0.7859
+        β[3]   -0.2114    0.8918    1.4826    2.1136    3.4660</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; ## Linear Regression - Cauchy Prior
        
        m1_4 = fitmodel(@formula(MPG ~ HP + WT+Gear),df,LinearRegression(),Prior_Cauchy(),20000);</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m1_4.summaries</code><code class="nohighlight hljs ansi" style="display:block;">Summary Statistics
-  parameters      mean       std   naive_se      mcse          ess      rhat   ⋯
-      Symbol   Float64   Float64    Float64   Float64      Float64   Float64   ⋯
+  parameters      mean       std   naive_se      mcse         ess      rhat    ⋯
+      Symbol   Float64   Float64    Float64   Float64     Float64   Float64    ⋯
 
-           σ    2.5859    0.3461     0.0024    0.0031   10525.5017    1.0002   ⋯
-           α   30.3709    4.6779     0.0331    0.0674    4537.9985    1.0002   ⋯
-        β[1]   -0.0393    0.0099     0.0001    0.0001    7136.3533    1.0001   ⋯
-        β[2]   -2.8526    0.8546     0.0060    0.0121    4628.0561    1.0001   ⋯
-        β[3]    1.2591    0.8535     0.0060    0.0118    4899.7406    1.0002   ⋯
+           σ    2.5857    0.3425     0.0024    0.0037   8090.3385    1.0001    ⋯
+           α   30.1745    4.5833     0.0324    0.0583   5606.2646    1.0000    ⋯
+        β[1]   -0.0395    0.0100     0.0001    0.0001   7972.2485    1.0000    ⋯
+        β[2]   -2.8167    0.8506     0.0060    0.0101   5879.4609    1.0000    ⋯
+        β[3]    1.2894    0.8361     0.0059    0.0105   5993.7813    1.0000    ⋯
                                                                 1 column omitted</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m1_4.quantiles</code><code class="nohighlight hljs ansi" style="display:block;">Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           σ    2.0206    2.3429    2.5459    2.7895    3.3697
-           α   20.9214   27.3347   30.4540   33.4989   39.3852
-        β[1]   -0.0593   -0.0457   -0.0393   -0.0327   -0.0198
-        β[2]   -4.5185   -3.4225   -2.8586   -2.3063   -1.1365
-        β[3]   -0.3713    0.6949    1.2392    1.8078    2.9842</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; ## Linear Regression - T-Distributed Prior
+           σ    2.0224    2.3434    2.5467    2.7883    3.3573
+           α   20.7643   27.2546   30.2725   33.2142   38.9392
+        β[1]   -0.0593   -0.0461   -0.0394   -0.0329   -0.0201
+        β[2]   -4.4748   -3.3826   -2.8233   -2.2599   -1.1425
+        β[3]   -0.3191    0.7313    1.2778    1.8228    2.9924</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; ## Linear Regression - T-Distributed Prior
        
        m1_5 = fitmodel(@formula(MPG ~ HP + WT+Gear),df,LinearRegression(),Prior_TDist());</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m1_5.summaries</code><code class="nohighlight hljs ansi" style="display:block;">Summary Statistics
   parameters      mean       std   naive_se      mcse         ess      rhat    ⋯
       Symbol   Float64   Float64    Float64   Float64     Float64   Float64    ⋯
 
-           ν    1.0445    0.5536     0.0055    0.0071   6443.2915    1.0000    ⋯
-           σ    2.6254    0.3578     0.0036    0.0044   5766.7054    0.9999    ⋯
-           α   30.2241    4.7915     0.0479    0.0983   2424.8473    1.0001    ⋯
-        β[1]   -0.0394    0.0102     0.0001    0.0002   3711.3323    0.9999    ⋯
-        β[2]   -2.8231    0.8820     0.0088    0.0182   2464.5699    1.0000    ⋯
-        β[3]    1.2790    0.8682     0.0087    0.0172   2584.6762    1.0000    ⋯
+           ν    1.0386    0.5406     0.0054    0.0067   6472.8206    0.9999    ⋯
+           σ    2.6214    0.3603     0.0036    0.0053   5057.2770    0.9999    ⋯
+           α   30.2944    4.6741     0.0467    0.0788   3566.9460    1.0005    ⋯
+        β[1]   -0.0393    0.0102     0.0001    0.0001   4446.6479    1.0002    ⋯
+        β[2]   -2.8332    0.8728     0.0087    0.0145   3480.6857    1.0003    ⋯
+        β[3]    1.2649    0.8458     0.0085    0.0139   3667.5092    1.0007    ⋯
                                                                 1 column omitted</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m1_5.quantiles</code><code class="nohighlight hljs ansi" style="display:block;">Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           ν    0.3785    0.6633    0.9157    1.2702    2.4673
-           σ    2.0430    2.3713    2.5868    2.8333    3.4447
-           α   20.5064   27.2016   30.3762   33.3144   39.3752
-        β[1]   -0.0595   -0.0461   -0.0394   -0.0325   -0.0195
-        β[2]   -4.5204   -3.4149   -2.8318   -2.2452   -1.0238
-        β[3]   -0.3528    0.7014    1.2509    1.8375    3.0487</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; ## Linear Regression - Uniform Prior
+           ν    0.3854    0.6734    0.9148    1.2620    2.4194
+           σ    2.0320    2.3680    2.5841    2.8350    3.4260
+           α   20.8515   27.2031   30.3949   33.4201   39.2737
+        β[1]   -0.0593   -0.0460   -0.0392   -0.0326   -0.0193
+        β[2]   -4.5009   -3.4224   -2.8468   -2.2531   -1.0782
+        β[3]   -0.3442    0.6921    1.2476    1.8169    2.9872</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; ## Linear Regression - Uniform Prior
        m1_6 = fitmodel(@formula(MPG ~ HP + WT+Gear),df,LinearRegression(),Prior_TDist());</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m1_6.summaries</code><code class="nohighlight hljs ansi" style="display:block;">Summary Statistics
   parameters      mean       std   naive_se      mcse         ess      rhat    ⋯
       Symbol   Float64   Float64    Float64   Float64     Float64   Float64    ⋯
 
-           ν    1.0557    0.5539     0.0055    0.0069   6145.6385    1.0006    ⋯
-           σ    2.6212    0.3567     0.0036    0.0043   4986.6739    0.9999    ⋯
-           α   30.3775    4.6524     0.0465    0.0735   3252.8078    1.0004    ⋯
-        β[1]   -0.0393    0.0101     0.0001    0.0001   4346.1069    1.0001    ⋯
-        β[2]   -2.8443    0.8603     0.0086    0.0141   3336.3144    1.0002    ⋯
-        β[3]    1.2547    0.8502     0.0085    0.0127   3571.1202    1.0006    ⋯
+           ν    1.0448    0.5741     0.0057    0.0078   5123.0367    1.0001    ⋯
+           σ    2.6258    0.3650     0.0037    0.0055   4515.9311    1.0001    ⋯
+           α   30.1554    4.6262     0.0463    0.0735   3487.8592    1.0001    ⋯
+        β[1]   -0.0393    0.0101     0.0001    0.0001   4731.5535    1.0003    ⋯
+        β[2]   -2.8214    0.8563     0.0086    0.0133   3634.3969    1.0002    ⋯
+        β[3]    1.2915    0.8412     0.0084    0.0130   3688.4158    1.0001    ⋯
                                                                 1 column omitted</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m1_6.quantiles</code><code class="nohighlight hljs ansi" style="display:block;">Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           ν    0.3876    0.6728    0.9189    1.2933    2.5026
-           σ    2.0326    2.3690    2.5859    2.8322    3.4148
-           α   20.8660   27.3744   30.5410   33.5277   39.1533
-        β[1]   -0.0596   -0.0461   -0.0392   -0.0324   -0.0197
-        β[2]   -4.5010   -3.4275   -2.8565   -2.2727   -1.1093
-        β[3]   -0.3627    0.6772    1.2228    1.8126    2.9829</code></pre><h2 id="Example-2:-LogisticReg"><a class="docs-heading-anchor" href="#Example-2:-LogisticReg">Example 2: LogisticReg</a><a id="Example-2:-LogisticReg-1"></a><a class="docs-heading-anchor-permalink" href="#Example-2:-LogisticReg" title="Permalink"></a></h2><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; using RDatasets, StatsModels, StatsPlots, NLSolversBase, CRRao, Logging</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; Logging.disable_logging(Logging.Warn); CRRao.setprogress!(false)</code><code class="nohighlight hljs ansi" style="display:block;">false</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; turnout = dataset(&quot;Zelig&quot;, &quot;turnout&quot;);</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_1 = fitmodel(@formula(Vote ~ Age + Race +Income + Educate)
+           ν    0.3835    0.6636    0.9168    1.2601    2.5187
+           σ    2.0256    2.3642    2.5873    2.8420    3.4457
+           α   20.9347   27.0947   30.2825   33.2803   38.9837
+        β[1]   -0.0591   -0.0459   -0.0394   -0.0326   -0.0192
+        β[2]   -4.4883   -3.4077   -2.8367   -2.2403   -1.1093
+        β[3]   -0.3329    0.7274    1.2734    1.8396    2.9649</code></pre><h2 id="Example-2:-LogisticReg"><a class="docs-heading-anchor" href="#Example-2:-LogisticReg">Example 2: LogisticReg</a><a id="Example-2:-LogisticReg-1"></a><a class="docs-heading-anchor-permalink" href="#Example-2:-LogisticReg" title="Permalink"></a></h2><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; using RDatasets, StatsModels, StatsPlots, NLSolversBase, CRRao, Logging</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; Logging.disable_logging(Logging.Warn); CRRao.setprogress!(false)</code><code class="nohighlight hljs ansi" style="display:block;">false</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; turnout = dataset(&quot;Zelig&quot;, &quot;turnout&quot;);</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_1 = fitmodel(@formula(Vote ~ Age + Race +Income + Educate)
                        ,turnout,LogisticRegression(),Logit());</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_1.fit</code><code class="nohighlight hljs ansi" style="display:block;">────────────────────────────────────────────────────────────────────────────
                   Coef.  Std. Error      z  Pr(&gt;|z|)   Lower 95%   Upper 95%
 ────────────────────────────────────────────────────────────────────────────
@@ -179,7 +179,7 @@ Age           0.0283543  0.00346034   8.19    &lt;1e-15   0.0215722   0.0351365
 Race: white   0.250798   0.146457     1.71    0.0868  -0.0362521   0.537847
 Income        0.177112   0.0271516    6.52    &lt;1e-10   0.123896    0.230328
 Educate       0.175634   0.0203308    8.64    &lt;1e-17   0.135786    0.215481
-────────────────────────────────────────────────────────────────────────────</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_1.modelClass</code><code class="nohighlight hljs ansi" style="display:block;">&quot;LogisticReg&quot;</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_1.LogLike</code><code class="nohighlight hljs ansi" style="display:block;">-1011.9906318515576</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_1.AIC</code><code class="nohighlight hljs ansi" style="display:block;">2033.9812637031152</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_1.BIC</code><code class="nohighlight hljs ansi" style="display:block;">2061.985776000826</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_2 = fitmodel(@formula(Vote ~ Age + Race +Income + Educate)
+────────────────────────────────────────────────────────────────────────────</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_1.modelClass</code><code class="nohighlight hljs ansi" style="display:block;">&quot;LogisticReg&quot;</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_1.LogLike</code><code class="nohighlight hljs ansi" style="display:block;">-1011.9906318515575</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_1.AIC</code><code class="nohighlight hljs ansi" style="display:block;">2033.981263703115</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_1.BIC</code><code class="nohighlight hljs ansi" style="display:block;">2061.9857760008254</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_2 = fitmodel(@formula(Vote ~ Age + Race +Income + Educate)
                        ,turnout,LogisticRegression(),Probit());</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_2.fit</code><code class="nohighlight hljs ansi" style="display:block;">────────────────────────────────────────────────────────────────────────────
                   Coef.  Std. Error      z  Pr(&gt;|z|)   Lower 95%   Upper 95%
 ────────────────────────────────────────────────────────────────────────────
@@ -188,7 +188,7 @@ Age           0.0164973  0.00199897   8.25    &lt;1e-15   0.0125794   0.0204152
 Race: white   0.162856   0.0876885    1.86    0.0633  -0.0090108   0.334722
 Income        0.0963117  0.0149675    6.43    &lt;1e-09   0.066976    0.125647
 Educate       0.10417    0.0116713    8.93    &lt;1e-18   0.0812949   0.127046
-────────────────────────────────────────────────────────────────────────────</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_2.BIC</code><code class="nohighlight hljs ansi" style="display:block;">2062.201026236795</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_3 = fitmodel(@formula(Vote ~ Age + Race +Income + Educate)
+────────────────────────────────────────────────────────────────────────────</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_2.BIC</code><code class="nohighlight hljs ansi" style="display:block;">2062.2010262367953</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_3 = fitmodel(@formula(Vote ~ Age + Race +Income + Educate)
                        ,turnout,LogisticRegression(),Cloglog());</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_3.fit</code><code class="nohighlight hljs ansi" style="display:block;">─────────────────────────────────────────────────────────────────────────────
                   Coef.  Std. Error       z  Pr(&gt;|z|)   Lower 95%   Upper 95%
 ─────────────────────────────────────────────────────────────────────────────
@@ -197,7 +197,7 @@ Age           0.0147857  0.00184088    8.03    &lt;1e-15   0.0111776   0.0183937
 Race: white   0.185139   0.087101      2.13    0.0335   0.014424    0.355854
 Income        0.0768268  0.0126411     6.08    &lt;1e-08   0.0520506   0.101603
 Educate       0.0983976  0.0108857     9.04    &lt;1e-18   0.077062    0.119733
-─────────────────────────────────────────────────────────────────────────────</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_3.BIC</code><code class="nohighlight hljs ansi" style="display:block;">2064.6946337492095</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_4 = fitmodel(@formula(Vote ~ Age + Race +Income + Educate)
+─────────────────────────────────────────────────────────────────────────────</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_3.BIC</code><code class="nohighlight hljs ansi" style="display:block;">2064.69463374921</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_4 = fitmodel(@formula(Vote ~ Age + Race +Income + Educate)
                        ,turnout,LogisticRegression(),Cauchit());</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_4.fit</code><code class="nohighlight hljs ansi" style="display:block;">────────────────────────────────────────────────────────────────────────────
                   Coef.  Std. Error      z  Pr(&gt;|z|)   Lower 95%   Upper 95%
 ────────────────────────────────────────────────────────────────────────────
@@ -214,420 +214,420 @@ Educate       0.169276   0.0240098    7.05    &lt;1e-11   0.122217    0.216334
   parameters      mean       std   naive_se      mcse         ess      rhat    ⋯
       Symbol   Float64   Float64    Float64   Float64     Float64   Float64    ⋯
 
-           λ    1.5328    0.6439     0.0064    0.0085   4735.8502    1.0000    ⋯
-        β[1]   -2.8774    0.3336     0.0033    0.0045   4775.8375    1.0002    ⋯
-        β[2]    0.0272    0.0035     0.0000    0.0000   6391.1228    1.0001    ⋯
-        β[3]    0.2313    0.1460     0.0015    0.0017   6948.4291    0.9999    ⋯
-        β[4]    0.1771    0.0269     0.0003    0.0003   5922.3365    0.9999    ⋯
-        β[5]    0.1685    0.0206     0.0002    0.0003   4925.5691    1.0001    ⋯
+           λ    1.5358    0.6955     0.0070    0.0115   2917.7909    0.9999    ⋯
+        β[1]   -2.8708    0.3363     0.0034    0.0042   5234.8224    1.0000    ⋯
+        β[2]    0.0271    0.0035     0.0000    0.0000   7354.8535    0.9999    ⋯
+        β[3]    0.2303    0.1466     0.0015    0.0015   8120.1116    0.9999    ⋯
+        β[4]    0.1769    0.0270     0.0003    0.0003   5926.7673    0.9999    ⋯
+        β[5]    0.1680    0.0207     0.0002    0.0002   5200.7043    1.0001    ⋯
                                                                 1 column omitted</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_5.quantiles</code><code class="nohighlight hljs ansi" style="display:block;">Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           λ    0.7667    1.1051    1.3845    1.7814    3.2039
-        β[1]   -3.5431   -3.0981   -2.8769   -2.6543   -2.2266
-        β[2]    0.0205    0.0248    0.0272    0.0295    0.0341
-        β[3]   -0.0574    0.1336    0.2303    0.3294    0.5187
-        β[4]    0.1252    0.1587    0.1769    0.1951    0.2301
-        β[5]    0.1283    0.1545    0.1688    0.1823    0.2091</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_6 = fitmodel(@formula(Vote ~ Age + Race +Income + Educate),turnout
+           λ    0.7540    1.0977    1.3823    1.7796    3.1983
+        β[1]   -3.5377   -3.0994   -2.8651   -2.6448   -2.2225
+        β[2]    0.0203    0.0248    0.0271    0.0295    0.0341
+        β[3]   -0.0599    0.1312    0.2288    0.3302    0.5199
+        β[4]    0.1260    0.1585    0.1762    0.1948    0.2309
+        β[5]    0.1281    0.1538    0.1681    0.1820    0.2089</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_6 = fitmodel(@formula(Vote ~ Age + Race +Income + Educate),turnout
                        ,LogisticRegression(),Probit(),Prior_Ridge(),1.0)</code><code class="nohighlight hljs ansi" style="display:block;">CRRao.MCMC_chain(MCMC chain (10000×18×1 Array{Float64, 3}), Summary Statistics (6 x 8), Quantiles (6 x 6))</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_6.summaries</code><code class="nohighlight hljs ansi" style="display:block;">Summary Statistics
   parameters      mean       std   naive_se      mcse         ess      rhat    ⋯
       Symbol   Float64   Float64    Float64   Float64     Float64   Float64    ⋯
 
-           λ    0.9019    0.3616     0.0036    0.0046   4968.0041    1.0000    ⋯
-        β[1]   -1.6648    0.1908     0.0019    0.0027   4321.4234    0.9999    ⋯
-        β[2]    0.0158    0.0020     0.0000    0.0000   6787.0299    0.9999    ⋯
-        β[3]    0.1517    0.0873     0.0009    0.0010   6503.5801    0.9999    ⋯
-        β[4]    0.0961    0.0146     0.0001    0.0002   6301.2619    1.0007    ⋯
-        β[5]    0.0997    0.0119     0.0001    0.0002   4619.9826    1.0000    ⋯
+           λ    0.9068    0.3771     0.0038    0.0061   3895.3761    1.0006    ⋯
+        β[1]   -1.6660    0.1923     0.0019    0.0027   5289.9868    1.0000    ⋯
+        β[2]    0.0158    0.0020     0.0000    0.0000   8205.4234    1.0001    ⋯
+        β[3]    0.1491    0.0873     0.0009    0.0010   7473.5240    1.0007    ⋯
+        β[4]    0.0966    0.0148     0.0001    0.0002   7009.6790    1.0002    ⋯
+        β[5]    0.0998    0.0118     0.0001    0.0002   5548.6750    1.0000    ⋯
                                                                 1 column omitted</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_6.quantiles</code><code class="nohighlight hljs ansi" style="display:block;">Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           λ    0.4638    0.6634    0.8230    1.0441    1.8521
-        β[1]   -2.0431   -1.7948   -1.6624   -1.5355   -1.2960
-        β[2]    0.0120    0.0144    0.0158    0.0171    0.0198
-        β[3]   -0.0138    0.0918    0.1504    0.2090    0.3244
-        β[4]    0.0682    0.0861    0.0961    0.1061    0.1245
-        β[5]    0.0763    0.0915    0.0997    0.1076    0.1229</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_7 = fitmodel(@formula(Vote ~ Age + Race +Income + Educate),turnout
+           λ    0.4679    0.6624    0.8193    1.0437    1.8405
+        β[1]   -2.0415   -1.7988   -1.6664   -1.5326   -1.2893
+        β[2]    0.0118    0.0144    0.0158    0.0172    0.0198
+        β[3]   -0.0259    0.0904    0.1486    0.2078    0.3218
+        β[4]    0.0677    0.0867    0.0964    0.1066    0.1254
+        β[5]    0.0772    0.0915    0.0998    0.1079    0.1227</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_7 = fitmodel(@formula(Vote ~ Age + Race +Income + Educate),turnout
                        ,LogisticRegression(),Cloglog(),Prior_Ridge(),1.0)</code><code class="nohighlight hljs ansi" style="display:block;">CRRao.MCMC_chain(MCMC chain (10000×18×1 Array{Float64, 3}), Summary Statistics (6 x 8), Quantiles (6 x 6))</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_7.summaries</code><code class="nohighlight hljs ansi" style="display:block;">Summary Statistics
   parameters      mean       std   naive_se      mcse         ess      rhat    ⋯
       Symbol   Float64   Float64    Float64   Float64     Float64   Float64    ⋯
 
-           λ    0.9873    0.3919     0.0039    0.0055   5090.6950    0.9999    ⋯
-        β[1]   -1.8664    0.1846     0.0018    0.0025   5593.0578    0.9999    ⋯
-        β[2]    0.0142    0.0018     0.0000    0.0000   8566.3085    1.0001    ⋯
-        β[3]    0.1746    0.0863     0.0009    0.0010   6699.5040    0.9999    ⋯
-        β[4]    0.0767    0.0121     0.0001    0.0002   6682.7430    0.9999    ⋯
-        β[5]    0.0947    0.0110     0.0001    0.0001   5445.0684    1.0000    ⋯
+           λ    0.9848    0.3691     0.0037    0.0053   4609.4632    1.0000    ⋯
+        β[1]   -1.8699    0.1864     0.0019    0.0026   5212.3553    0.9999    ⋯
+        β[2]    0.0143    0.0018     0.0000    0.0000   7497.1184    0.9999    ⋯
+        β[3]    0.1722    0.0859     0.0009    0.0010   8098.4813    1.0001    ⋯
+        β[4]    0.0768    0.0120     0.0001    0.0001   6767.2597    1.0000    ⋯
+        β[5]    0.0951    0.0111     0.0001    0.0001   5396.3385    0.9999    ⋯
                                                                 1 column omitted</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_7.quantiles</code><code class="nohighlight hljs ansi" style="display:block;">Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           λ    0.5181    0.7296    0.8993    1.1426    1.9531
-        β[1]   -2.2272   -1.9902   -1.8660   -1.7438   -1.4994
-        β[2]    0.0108    0.0130    0.0142    0.0155    0.0177
-        β[3]    0.0046    0.1164    0.1736    0.2328    0.3446
-        β[4]    0.0531    0.0686    0.0769    0.0847    0.1002
-        β[5]    0.0731    0.0874    0.0946    0.1020    0.1164</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_8 = fitmodel(@formula(Vote ~ Age + Race +Income + Educate),turnout
+           λ    0.5253    0.7342    0.9058    1.1419    1.9025
+        β[1]   -2.2322   -1.9988   -1.8663   -1.7446   -1.5059
+        β[2]    0.0107    0.0130    0.0143    0.0155    0.0178
+        β[3]    0.0036    0.1150    0.1721    0.2302    0.3416
+        β[4]    0.0533    0.0688    0.0768    0.0849    0.1004
+        β[5]    0.0739    0.0876    0.0952    0.1026    0.1171</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_8 = fitmodel(@formula(Vote ~ Age + Race +Income + Educate),turnout
                        ,LogisticRegression(),Cauchit(),Prior_Ridge(),1.0)</code><code class="nohighlight hljs ansi" style="display:block;">CRRao.MCMC_chain(MCMC chain (10000×18×1 Array{Float64, 3}), Summary Statistics (6 x 8), Quantiles (6 x 6))</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_8.summaries</code><code class="nohighlight hljs ansi" style="display:block;">Summary Statistics
   parameters      mean       std   naive_se      mcse         ess      rhat    ⋯
       Symbol   Float64   Float64    Float64   Float64     Float64   Float64    ⋯
 
-           λ    1.5100    0.5854     0.0059    0.0083   4977.8400    1.0000    ⋯
-        β[1]   -2.9746    0.3966     0.0040    0.0050   4336.2472    0.9999    ⋯
-        β[2]    0.0288    0.0044     0.0000    0.0001   5586.9323    1.0000    ⋯
-        β[3]    0.1596    0.1501     0.0015    0.0017   8253.4857    1.0000    ⋯
-        β[4]    0.2391    0.0397     0.0004    0.0005   7121.3609    0.9999    ⋯
-        β[5]    0.1596    0.0242     0.0002    0.0003   4795.0901    0.9999    ⋯
+           λ    1.5073    0.6004     0.0060    0.0089   4405.8502    1.0001    ⋯
+        β[1]   -2.9601    0.3901     0.0039    0.0062   3853.2853    0.9999    ⋯
+        β[2]    0.0287    0.0044     0.0000    0.0001   4658.8567    0.9999    ⋯
+        β[3]    0.1582    0.1523     0.0015    0.0023   5512.3864    0.9999    ⋯
+        β[4]    0.2385    0.0401     0.0004    0.0005   6943.4833    1.0006    ⋯
+        β[5]    0.1589    0.0242     0.0002    0.0004   4189.4151    1.0000    ⋯
                                                                 1 column omitted</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_8.quantiles</code><code class="nohighlight hljs ansi" style="display:block;">Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           λ    0.7795    1.1135    1.3846    1.7502    2.9981
-        β[1]   -3.7942   -3.2313   -2.9627   -2.7062   -2.2383
-        β[2]    0.0205    0.0257    0.0287    0.0316    0.0379
-        β[3]   -0.1382    0.0608    0.1596    0.2589    0.4549
-        β[4]    0.1638    0.2124    0.2376    0.2649    0.3191
-        β[5]    0.1133    0.1429    0.1588    0.1751    0.2104</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; ### LogisticReg - with Laplace Prior
+           λ    0.7727    1.1091    1.3724    1.7389    3.0420
+        β[1]   -3.7454   -3.2228   -2.9443   -2.6990   -2.2178
+        β[2]    0.0203    0.0256    0.0286    0.0316    0.0374
+        β[3]   -0.1412    0.0574    0.1608    0.2609    0.4496
+        β[4]    0.1611    0.2108    0.2383    0.2651    0.3178
+        β[5]    0.1128    0.1426    0.1582    0.1752    0.2081</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; ### LogisticReg - with Laplace Prior
        
        
        m2_9 = fitmodel(@formula(Vote ~ Age + Race +Income + Educate),turnout
                        ,LogisticRegression(),Logit(),Prior_Laplace())</code><code class="nohighlight hljs ansi" style="display:block;">CRRao.MCMC_chain(MCMC chain (10000×18×1 Array{Float64, 3}), Summary Statistics (6 x 8), Quantiles (6 x 6))</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_9.summaries</code><code class="nohighlight hljs ansi" style="display:block;">Summary Statistics
-  parameters      mean       std   naive_se      mcse         ess      rhat    ⋯
-      Symbol   Float64   Float64    Float64   Float64     Float64   Float64    ⋯
+  parameters       mean       std   naive_se      mcse       ess      rhat   e ⋯
+      Symbol    Float64   Float64    Float64   Float64   Float64   Float64     ⋯
 
-           λ    0.8680    0.4973     0.0050    0.0064   5254.8663    0.9999    ⋯
-        β[1]   -2.8771    0.3390     0.0034    0.0049   4675.3013    1.0009    ⋯
-        β[2]    0.0273    0.0035     0.0000    0.0000   6155.5402    1.0006    ⋯
-        β[3]    0.2079    0.1435     0.0014    0.0018   7060.9465    1.0000    ⋯
-        β[4]    0.1771    0.0270     0.0003    0.0004   6412.0579    0.9999    ⋯
-        β[5]    0.1694    0.0207     0.0002    0.0003   5147.5208    1.0004    ⋯
+           λ     3.7568    0.0014     0.0000    0.0001   21.9410    1.3997     ⋯
+        β[1]   -17.8147    0.0006     0.0000    0.0001   21.1034    1.5238     ⋯
+        β[2]     0.7302    0.0000     0.0000    0.0000   41.6478    1.2536     ⋯
+        β[3]    -1.5725    0.0005     0.0000    0.0001   20.7499    1.4809     ⋯
+        β[4]    -0.8079    0.0015     0.0000    0.0002   20.3143    2.5696     ⋯
+        β[5]    -8.6539    0.0042     0.0000    0.0004   20.2616    2.8508     ⋯
                                                                 1 column omitted</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_9.quantiles</code><code class="nohighlight hljs ansi" style="display:block;">Quantiles
-  parameters      2.5%     25.0%     50.0%     75.0%     97.5%
-      Symbol   Float64   Float64   Float64   Float64   Float64
+  parameters       2.5%      25.0%      50.0%      75.0%      97.5%
+      Symbol    Float64    Float64    Float64    Float64    Float64
 
-           λ    0.3219    0.5478    0.7482    1.0339    2.1586
-        β[1]   -3.5376   -3.1067   -2.8774   -2.6446   -2.2230
-        β[2]    0.0205    0.0250    0.0273    0.0297    0.0343
-        β[3]   -0.0613    0.1096    0.2063    0.3026    0.4933
-        β[4]    0.1250    0.1590    0.1771    0.1953    0.2312
-        β[5]    0.1295    0.1554    0.1695    0.1836    0.2100</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_10 = fitmodel(@formula(Vote ~ Age + Race +Income + Educate),turnout
+           λ     3.7541     3.7558     3.7570     3.7576     3.7592
+        β[1]   -17.8162   -17.8149   -17.8145   -17.8143   -17.8140
+        β[2]     0.7301     0.7302     0.7302     0.7302     0.7302
+        β[3]    -1.5738    -1.5728    -1.5723    -1.5721    -1.5719
+        β[4]    -0.8106    -0.8092    -0.8080    -0.8067    -0.8053
+        β[5]    -8.6609    -8.6581    -8.6538    -8.6499    -8.6469</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_10 = fitmodel(@formula(Vote ~ Age + Race +Income + Educate),turnout
                        ,LogisticRegression(),Probit(),Prior_Laplace())</code><code class="nohighlight hljs ansi" style="display:block;">CRRao.MCMC_chain(MCMC chain (10000×18×1 Array{Float64, 3}), Summary Statistics (6 x 8), Quantiles (6 x 6))</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_10.summaries</code><code class="nohighlight hljs ansi" style="display:block;">Summary Statistics
   parameters      mean       std   naive_se      mcse         ess      rhat    ⋯
       Symbol   Float64   Float64    Float64   Float64     Float64   Float64    ⋯
 
-           λ    0.8726    0.4651     0.0047    0.0068   4432.2516    0.9999    ⋯
-        β[1]   -2.8704    0.3282     0.0033    0.0042   5263.8306    1.0000    ⋯
-        β[2]    0.0273    0.0034     0.0000    0.0000   7546.8640    1.0000    ⋯
-        β[3]    0.2105    0.1446     0.0014    0.0016   7797.6094    0.9999    ⋯
-        β[4]    0.1774    0.0272     0.0003    0.0003   7560.9312    1.0000    ⋯
-        β[5]    0.1687    0.0204     0.0002    0.0003   5362.4885    1.0000    ⋯
+           λ    0.8700    0.4932     0.0049    0.0073   5246.0492    1.0003    ⋯
+        β[1]   -2.8720    0.3440     0.0034    0.0046   4718.2743    1.0000    ⋯
+        β[2]    0.0273    0.0036     0.0000    0.0000   6588.5060    1.0000    ⋯
+        β[3]    0.2100    0.1441     0.0014    0.0017   6928.1624    0.9999    ⋯
+        β[4]    0.1774    0.0274     0.0003    0.0003   7125.5850    0.9999    ⋯
+        β[5]    0.1688    0.0210     0.0002    0.0003   5122.1839    0.9999    ⋯
                                                                 1 column omitted</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_10.quantiles</code><code class="nohighlight hljs ansi" style="display:block;">Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           λ    0.3349    0.5599    0.7592    1.0531    2.0441
-        β[1]   -3.5096   -3.0883   -2.8722   -2.6455   -2.2295
-        β[2]    0.0206    0.0250    0.0273    0.0296    0.0340
-        β[3]   -0.0582    0.1092    0.2082    0.3104    0.4942
-        β[4]    0.1253    0.1589    0.1773    0.1953    0.2316
-        β[5]    0.1299    0.1545    0.1685    0.1826    0.2092</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_11 = fitmodel(@formula(Vote ~ Age + Race +Income + Educate),turnout
+           λ    0.3324    0.5556    0.7455    1.0407    2.1646
+        β[1]   -3.5533   -3.1041   -2.8701   -2.6407   -2.1991
+        β[2]    0.0203    0.0249    0.0273    0.0297    0.0343
+        β[3]   -0.0657    0.1123    0.2090    0.3052    0.4967
+        β[4]    0.1251    0.1586    0.1769    0.1959    0.2328
+        β[5]    0.1285    0.1543    0.1687    0.1828    0.2107</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_11 = fitmodel(@formula(Vote ~ Age + Race +Income + Educate),turnout
                        ,LogisticRegression(),Cloglog(),Prior_Laplace(),1.0)</code><code class="nohighlight hljs ansi" style="display:block;">CRRao.MCMC_chain(MCMC chain (10000×18×1 Array{Float64, 3}), Summary Statistics (6 x 8), Quantiles (6 x 6))</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_11.summaries</code><code class="nohighlight hljs ansi" style="display:block;">Summary Statistics
   parameters      mean       std   naive_se      mcse         ess      rhat    ⋯
       Symbol   Float64   Float64    Float64   Float64     Float64   Float64    ⋯
 
-           λ    0.8896    0.4454     0.0045    0.0066   5673.3110    0.9999    ⋯
-        β[1]   -2.8873    0.3280     0.0033    0.0053   4429.7513    0.9999    ⋯
-        β[2]    0.0274    0.0034     0.0000    0.0000   5998.5267    0.9999    ⋯
-        β[3]    0.2121    0.1438     0.0014    0.0019   6200.8500    1.0001    ⋯
-        β[4]    0.1769    0.0269     0.0003    0.0003   7588.1073    1.0001    ⋯
-        β[5]    0.1697    0.0204     0.0002    0.0003   4805.4312    0.9999    ⋯
+           λ    0.8858    0.4336     0.0043    0.0052   5918.4850    0.9999    ⋯
+        β[1]   -2.8916    0.3285     0.0033    0.0044   5181.7768    1.0002    ⋯
+        β[2]    0.0274    0.0035     0.0000    0.0000   7028.2748    1.0000    ⋯
+        β[3]    0.2126    0.1430     0.0014    0.0015   7451.3557    1.0000    ⋯
+        β[4]    0.1776    0.0273     0.0003    0.0003   7879.2898    1.0000    ⋯
+        β[5]    0.1697    0.0203     0.0002    0.0003   5431.8612    1.0002    ⋯
                                                                 1 column omitted</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_11.quantiles</code><code class="nohighlight hljs ansi" style="display:block;">Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           λ    0.3735    0.5979    0.7862    1.0551    2.0187
-        β[1]   -3.5356   -3.1049   -2.8851   -2.6671   -2.2556
-        β[2]    0.0208    0.0251    0.0274    0.0297    0.0342
-        β[3]   -0.0576    0.1139    0.2102    0.3086    0.4997
-        β[4]    0.1244    0.1587    0.1764    0.1950    0.2303
-        β[5]    0.1296    0.1559    0.1697    0.1836    0.2095</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_12 = fitmodel(@formula(Vote ~ Age + Race +Income + Educate),turnout
+           λ    0.3747    0.5987    0.7873    1.0560    1.9858
+        β[1]   -3.5460   -3.1110   -2.8892   -2.6717   -2.2475
+        β[2]    0.0205    0.0251    0.0275    0.0298    0.0342
+        β[3]   -0.0628    0.1151    0.2120    0.3061    0.5004
+        β[4]    0.1243    0.1593    0.1771    0.1965    0.2315
+        β[5]    0.1303    0.1560    0.1696    0.1834    0.2095</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_12 = fitmodel(@formula(Vote ~ Age + Race +Income + Educate),turnout
                        ,LogisticRegression(),Cauchit(),Prior_Laplace(),1.0)</code><code class="nohighlight hljs ansi" style="display:block;">CRRao.MCMC_chain(MCMC chain (10000×18×1 Array{Float64, 3}), Summary Statistics (6 x 8), Quantiles (6 x 6))</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_12.summaries</code><code class="nohighlight hljs ansi" style="display:block;">Summary Statistics
   parameters      mean       std   naive_se      mcse         ess      rhat    ⋯
       Symbol   Float64   Float64    Float64   Float64     Float64   Float64    ⋯
 
-           λ    0.9053    0.4759     0.0048    0.0074   5108.3720    1.0001    ⋯
-        β[1]   -2.8913    0.3254     0.0033    0.0048   4452.6666    1.0005    ⋯
-        β[2]    0.0274    0.0034     0.0000    0.0000   6976.7136    1.0006    ⋯
-        β[3]    0.2121    0.1460     0.0015    0.0018   7701.9360    0.9999    ⋯
-        β[4]    0.1779    0.0271     0.0003    0.0003   8059.2356    1.0000    ⋯
-        β[5]    0.1697    0.0201     0.0002    0.0003   4954.3091    1.0001    ⋯
+           λ    0.8947    0.4467     0.0045    0.0063   5703.7051    0.9999    ⋯
+        β[1]   -2.8774    0.3275     0.0033    0.0042   5532.9941    0.9999    ⋯
+        β[2]    0.0273    0.0035     0.0000    0.0000   7410.7279    0.9999    ⋯
+        β[3]    0.2111    0.1437     0.0014    0.0015   7991.5591    1.0000    ⋯
+        β[4]    0.1779    0.0273     0.0003    0.0003   7272.7148    1.0000    ⋯
+        β[5]    0.1689    0.0204     0.0002    0.0003   5972.1247    1.0001    ⋯
                                                                 1 column omitted</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_12.quantiles</code><code class="nohighlight hljs ansi" style="display:block;">Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           λ    0.3707    0.5990    0.7958    1.0798    2.0815
-        β[1]   -3.5334   -3.1119   -2.8872   -2.6691   -2.2586
-        β[2]    0.0210    0.0251    0.0274    0.0297    0.0343
-        β[3]   -0.0650    0.1116    0.2092    0.3093    0.5040
-        β[4]    0.1260    0.1595    0.1773    0.1960    0.2322
-        β[5]    0.1305    0.1563    0.1695    0.1833    0.2096</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; ### LogisticReg - with Cauchy Prior
+           λ    0.3734    0.5979    0.7882    1.0691    2.0415
+        β[1]   -3.5240   -3.0985   -2.8751   -2.6526   -2.2311
+        β[2]    0.0206    0.0250    0.0273    0.0297    0.0341
+        β[3]   -0.0657    0.1111    0.2112    0.3099    0.4887
+        β[4]    0.1246    0.1591    0.1779    0.1959    0.2326
+        β[5]    0.1292    0.1553    0.1688    0.1827    0.2092</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; ### LogisticReg - with Cauchy Prior
        
        m2_13 = fitmodel(@formula(Vote ~ Age + Race +Income + Educate),turnout
                        ,LogisticRegression(),Logit(),Prior_Cauchy(),1.0)</code><code class="nohighlight hljs ansi" style="display:block;">CRRao.MCMC_chain(MCMC chain (10000×18×1 Array{Float64, 3}), Summary Statistics (6 x 8), Quantiles (6 x 6))</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_13.summaries</code><code class="nohighlight hljs ansi" style="display:block;">Summary Statistics
   parameters      mean       std   naive_se      mcse         ess      rhat    ⋯
       Symbol   Float64   Float64    Float64   Float64     Float64   Float64    ⋯
 
-           λ    0.2998    0.2248     0.0022    0.0027   6635.7075    1.0003    ⋯
-        β[1]   -2.9169    0.3235     0.0032    0.0041   5428.0604    0.9999    ⋯
-        β[2]    0.0279    0.0034     0.0000    0.0000   7261.4294    0.9999    ⋯
-        β[3]    0.1794    0.1367     0.0014    0.0018   6110.6707    0.9999    ⋯
-        β[4]    0.1768    0.0271     0.0003    0.0003   6795.5750    0.9999    ⋯
-        β[5]    0.1728    0.0201     0.0002    0.0002   5724.6351    0.9999    ⋯
+           λ    0.3076    0.2379     0.0024    0.0030   5959.7536    0.9999    ⋯
+        β[1]   -2.9098    0.3252     0.0033    0.0041   5060.3309    1.0008    ⋯
+        β[2]    0.0279    0.0034     0.0000    0.0000   7139.5318    1.0001    ⋯
+        β[3]    0.1772    0.1378     0.0014    0.0015   6325.0926    1.0002    ⋯
+        β[4]    0.1769    0.0271     0.0003    0.0004   6956.5905    1.0001    ⋯
+        β[5]    0.1724    0.0201     0.0002    0.0003   5542.0542    1.0005    ⋯
                                                                 1 column omitted</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_13.quantiles</code><code class="nohighlight hljs ansi" style="display:block;">Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           λ    0.0645    0.1547    0.2395    0.3719    0.8913
-        β[1]   -3.5474   -3.1387   -2.9131   -2.6942   -2.2911
-        β[2]    0.0215    0.0256    0.0279    0.0302    0.0347
-        β[3]   -0.0620    0.0797    0.1701    0.2712    0.4658
-        β[4]    0.1255    0.1580    0.1765    0.1950    0.2295
-        β[5]    0.1343    0.1590    0.1728    0.1861    0.2129</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_14 = fitmodel(@formula(Vote ~ Age + Race +Income + Educate),turnout
+           λ    0.0638    0.1555    0.2424    0.3821    0.9451
+        β[1]   -3.5627   -3.1287   -2.9044   -2.6857   -2.2955
+        β[2]    0.0212    0.0255    0.0278    0.0302    0.0347
+        β[3]   -0.0650    0.0773    0.1705    0.2689    0.4565
+        β[4]    0.1242    0.1587    0.1765    0.1951    0.2305
+        β[5]    0.1337    0.1586    0.1719    0.1858    0.2119</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_14 = fitmodel(@formula(Vote ~ Age + Race +Income + Educate),turnout
                        ,LogisticRegression(),Probit(),Prior_Cauchy(),2.0,30000)</code><code class="nohighlight hljs ansi" style="display:block;">CRRao.MCMC_chain(MCMC chain (10000×18×1 Array{Float64, 3}), Summary Statistics (6 x 8), Quantiles (6 x 6))</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_14.summaries</code><code class="nohighlight hljs ansi" style="display:block;">Summary Statistics
   parameters      mean       std   naive_se      mcse         ess      rhat    ⋯
       Symbol   Float64   Float64    Float64   Float64     Float64   Float64    ⋯
 
-           λ    0.3108    0.2627     0.0026    0.0032   4489.8528    1.0003    ⋯
-        β[1]   -2.9176    0.3263     0.0033    0.0048   4303.5291    0.9999    ⋯
-        β[2]    0.0279    0.0034     0.0000    0.0000   6554.7146    0.9999    ⋯
-        β[3]    0.1777    0.1395     0.0014    0.0017   5919.0037    1.0000    ⋯
-        β[4]    0.1769    0.0274     0.0003    0.0003   7756.8393    1.0003    ⋯
-        β[5]    0.1728    0.0204     0.0002    0.0003   4424.7880    1.0001    ⋯
+           λ    0.3038    0.2293     0.0023    0.0033   6339.2157    0.9999    ⋯
+        β[1]   -2.9088    0.3337     0.0033    0.0049   4614.0172    0.9999    ⋯
+        β[2]    0.0279    0.0035     0.0000    0.0000   6165.2603    1.0000    ⋯
+        β[3]    0.1752    0.1369     0.0014    0.0017   6671.7272    0.9999    ⋯
+        β[4]    0.1768    0.0269     0.0003    0.0004   6338.5848    1.0007    ⋯
+        β[5]    0.1724    0.0204     0.0002    0.0003   5003.4564    1.0000    ⋯
                                                                 1 column omitted</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_14.quantiles</code><code class="nohighlight hljs ansi" style="display:block;">Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           λ    0.0644    0.1549    0.2442    0.3827    0.9661
-        β[1]   -3.5748   -3.1349   -2.9119   -2.6918   -2.2919
-        β[2]    0.0211    0.0256    0.0279    0.0302    0.0345
-        β[3]   -0.0699    0.0758    0.1696    0.2716    0.4680
-        β[4]    0.1239    0.1582    0.1769    0.1954    0.2305
-        β[5]    0.1337    0.1587    0.1724    0.1866    0.2136</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_15 = fitmodel(@formula(Vote ~ Age + Race +Income + Educate),turnout
+           λ    0.0652    0.1575    0.2420    0.3787    0.8979
+        β[1]   -3.5677   -3.1315   -2.9012   -2.6881   -2.2578
+        β[2]    0.0211    0.0255    0.0279    0.0302    0.0347
+        β[3]   -0.0665    0.0767    0.1672    0.2673    0.4635
+        β[4]    0.1247    0.1586    0.1765    0.1946    0.2303
+        β[5]    0.1321    0.1587    0.1723    0.1861    0.2125</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_15 = fitmodel(@formula(Vote ~ Age + Race +Income + Educate),turnout
                        ,LogisticRegression(),Cloglog(),Prior_Cauchy(),1.0)</code><code class="nohighlight hljs ansi" style="display:block;">CRRao.MCMC_chain(MCMC chain (10000×18×1 Array{Float64, 3}), Summary Statistics (6 x 8), Quantiles (6 x 6))</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_15.summaries</code><code class="nohighlight hljs ansi" style="display:block;">Summary Statistics
-  parameters       mean       std   naive_se      mcse       ess      rhat   e ⋯
-      Symbol    Float64   Float64    Float64   Float64   Float64   Float64     ⋯
-
-           λ     3.7761    0.0024     0.0000    0.0002   20.9912    2.1301     ⋯
-        β[1]   -47.0028    0.0010     0.0000    0.0001   20.6796    1.5469     ⋯
-        β[2]    -0.1511    0.0039     0.0000    0.0004   20.2675    2.7052     ⋯
-        β[3]     6.6729    0.0008     0.0000    0.0001   20.7980    1.5990     ⋯
-        β[4]     3.8750    0.0059     0.0001    0.0006   20.2620    2.5194     ⋯
-        β[5]     1.9404    0.0043     0.0000    0.0004   20.2850    2.8218     ⋯
-                                                                1 column omitted</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_15.quantiles</code><code class="nohighlight hljs ansi" style="display:block;">Quantiles
-  parameters       2.5%      25.0%      50.0%      75.0%      97.5%
-      Symbol    Float64    Float64    Float64    Float64    Float64
-
-           λ     3.7723     3.7743     3.7755     3.7783     3.7804
-        β[1]   -47.0046   -47.0033   -47.0026   -47.0023   -47.0010
-        β[2]    -0.1577    -0.1541    -0.1516    -0.1475    -0.1450
-        β[3]     6.6717     6.6723     6.6727     6.6732     6.6747
-        β[4]     3.8659     3.8703     3.8749     3.8796     3.8848
-        β[5]     1.9338     1.9360     1.9416     1.9437     1.9479</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_16 = fitmodel(@formula(Vote ~ Age + Race +Income + Educate),turnout
-                       ,LogisticRegression(),Cauchit(),Prior_Cauchy(),1.0)</code><code class="nohighlight hljs ansi" style="display:block;">CRRao.MCMC_chain(MCMC chain (10000×18×1 Array{Float64, 3}), Summary Statistics (6 x 8), Quantiles (6 x 6))</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_16.summaries</code><code class="nohighlight hljs ansi" style="display:block;">Summary Statistics
   parameters      mean       std   naive_se      mcse         ess      rhat    ⋯
       Symbol   Float64   Float64    Float64   Float64     Float64   Float64    ⋯
 
-           λ    0.3072    0.2489     0.0025    0.0035   5735.3775    1.0004    ⋯
-        β[1]   -2.9136    0.3259     0.0033    0.0044   5704.6353    1.0001    ⋯
-        β[2]    0.0279    0.0034     0.0000    0.0000   7499.6016    1.0001    ⋯
-        β[3]    0.1783    0.1390     0.0014    0.0015   6565.1599    0.9999    ⋯
-        β[4]    0.1773    0.0269     0.0003    0.0003   7844.6517    0.9999    ⋯
-        β[5]    0.1724    0.0201     0.0002    0.0003   6184.2091    1.0000    ⋯
-                                                                1 column omitted</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_16.quantiles</code><code class="nohighlight hljs ansi" style="display:block;">Quantiles
+           λ    0.3020    0.2285     0.0023    0.0031   6339.5657    0.9999    ⋯
+        β[1]   -2.9111    0.3295     0.0033    0.0048   4614.4439    1.0005    ⋯
+        β[2]    0.0279    0.0035     0.0000    0.0000   7098.3834    1.0002    ⋯
+        β[3]    0.1782    0.1370     0.0014    0.0018   5946.6912    0.9999    ⋯
+        β[4]    0.1767    0.0274     0.0003    0.0004   5841.9388    0.9999    ⋯
+        β[5]    0.1725    0.0203     0.0002    0.0003   4804.4419    1.0003    ⋯
+                                                                1 column omitted</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_15.quantiles</code><code class="nohighlight hljs ansi" style="display:block;">Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           λ    0.0685    0.1588    0.2446    0.3731    0.9463
-        β[1]   -3.5568   -3.1335   -2.9109   -2.6965   -2.2825
-        β[2]    0.0212    0.0256    0.0279    0.0302    0.0348
-        β[3]   -0.0660    0.0779    0.1706    0.2730    0.4619
-        β[4]    0.1256    0.1590    0.1771    0.1956    0.2309
-        β[5]    0.1330    0.1589    0.1723    0.1857    0.2122</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; ### LogisticReg - with T-Dist Prior
+           λ    0.0658    0.1567    0.2416    0.3755    0.9047
+        β[1]   -3.5718   -3.1248   -2.9111   -2.6877   -2.2758
+        β[2]    0.0212    0.0255    0.0278    0.0302    0.0347
+        β[3]   -0.0657    0.0796    0.1700    0.2692    0.4631
+        β[4]    0.1233    0.1581    0.1771    0.1947    0.2320
+        β[5]    0.1327    0.1587    0.1720    0.1864    0.2126</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_16 = fitmodel(@formula(Vote ~ Age + Race +Income + Educate),turnout
+                       ,LogisticRegression(),Cauchit(),Prior_Cauchy(),1.0)</code><code class="nohighlight hljs ansi" style="display:block;">CRRao.MCMC_chain(MCMC chain (10000×18×1 Array{Float64, 3}), Summary Statistics (6 x 8), Quantiles (6 x 6))</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_16.summaries</code><code class="nohighlight hljs ansi" style="display:block;">Summary Statistics
+  parameters       mean       std   naive_se      mcse       ess      rhat   e ⋯
+      Symbol    Float64   Float64    Float64   Float64   Float64   Float64     ⋯
+
+           λ     0.7001    0.0002     0.0000    0.0000   22.5729    1.1612     ⋯
+        β[1]     3.0700    0.0005     0.0000    0.0000   21.4914    1.1164     ⋯
+        β[2]     0.4523    0.0000     0.0000    0.0000   47.9644    1.1523     ⋯
+        β[3]    -0.7977    0.0004     0.0000    0.0000   22.1432    1.1698     ⋯
+        β[4]    -0.9564    0.0016     0.0000    0.0002   20.2976    2.3029     ⋯
+        β[5]   -13.7170    0.0037     0.0000    0.0004   20.2605    2.5164     ⋯
+                                                                1 column omitted</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_16.quantiles</code><code class="nohighlight hljs ansi" style="display:block;">Quantiles
+  parameters       2.5%      25.0%      50.0%      75.0%      97.5%
+      Symbol    Float64    Float64    Float64    Float64    Float64
+
+           λ     0.6997     0.6999     0.7000     0.7002     0.7005
+        β[1]     3.0694     3.0697     3.0699     3.0701     3.0713
+        β[2]     0.4522     0.4522     0.4523     0.4523     0.4523
+        β[3]    -0.7987    -0.7979    -0.7977    -0.7974    -0.7972
+        β[4]    -0.9590    -0.9580    -0.9563    -0.9548    -0.9538
+        β[5]   -13.7230   -13.7203   -13.7171   -13.7142   -13.7110</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; ### LogisticReg - with T-Dist Prior
        
        m2_17 = fitmodel(@formula(Vote ~ Age + Race +Income + Educate),turnout
                        ,LogisticRegression(),Logit(),Prior_TDist(),1.0)</code><code class="nohighlight hljs ansi" style="display:block;">CRRao.MCMC_chain(MCMC chain (10000×19×1 Array{Float64, 3}), Summary Statistics (7 x 8), Quantiles (7 x 6))</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_17.summaries</code><code class="nohighlight hljs ansi" style="display:block;">Summary Statistics
   parameters      mean       std   naive_se      mcse         ess      rhat    ⋯
       Symbol   Float64   Float64    Float64   Float64     Float64   Float64    ⋯
 
-           λ    0.5215    0.3456     0.0035    0.0054   3800.4597    1.0002    ⋯
-           ν    3.0082   39.8143     0.3981    0.5879   4421.7824    1.0000    ⋯
-        β[1]   -2.9342    0.3294     0.0033    0.0057   4046.1070    1.0001    ⋯
-        β[2]    0.0278    0.0035     0.0000    0.0001   6101.4481    0.9999    ⋯
-        β[3]    0.2064    0.1397     0.0014    0.0017   6857.8206    1.0005    ⋯
-        β[4]    0.1772    0.0268     0.0003    0.0003   6966.7298    1.0002    ⋯
-        β[5]    0.1725    0.0206     0.0002    0.0003   4220.6994    1.0000    ⋯
+           λ    0.5325    0.3641     0.0036    0.0062   3623.5174    1.0001    ⋯
+           ν    2.3668   18.2984     0.1830    0.2759   4207.2197    0.9999    ⋯
+        β[1]   -2.9434    0.3259     0.0033    0.0050   3743.9829    1.0008    ⋯
+        β[2]    0.0279    0.0035     0.0000    0.0000   6005.3304    1.0004    ⋯
+        β[3]    0.2068    0.1389     0.0014    0.0016   6531.2738    0.9999    ⋯
+        β[4]    0.1776    0.0268     0.0003    0.0003   7083.5320    1.0000    ⋯
+        β[5]    0.1727    0.0203     0.0002    0.0003   4222.4036    1.0003    ⋯
                                                                 1 column omitted</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_17.quantiles</code><code class="nohighlight hljs ansi" style="display:block;">Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           λ    0.1748    0.3059    0.4244    0.6188    1.4194
-           ν    0.3672    0.7698    1.1468    1.8337    7.2044
-        β[1]   -3.5819   -3.1551   -2.9278   -2.7115   -2.2851
-        β[2]    0.0210    0.0254    0.0278    0.0302    0.0346
-        β[3]   -0.0615    0.1086    0.2050    0.2999    0.4822
-        β[4]    0.1261    0.1588    0.1770    0.1950    0.2307
-        β[5]    0.1331    0.1586    0.1724    0.1863    0.2132</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_18 = fitmodel(@formula(Vote ~ Age + Race +Income + Educate),turnout
+           λ    0.1738    0.3043    0.4301    0.6403    1.4870
+           ν    0.3704    0.7672    1.1734    1.9029    7.9170
+        β[1]   -3.5980   -3.1529   -2.9391   -2.7290   -2.3054
+        β[2]    0.0212    0.0256    0.0279    0.0302    0.0349
+        β[3]   -0.0635    0.1123    0.2042    0.3018    0.4801
+        β[4]    0.1250    0.1593    0.1772    0.1953    0.2304
+        β[5]    0.1329    0.1592    0.1726    0.1863    0.2127</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_18 = fitmodel(@formula(Vote ~ Age + Race +Income + Educate),turnout
                        ,LogisticRegression(),Probit(),Prior_TDist(),1.0)</code><code class="nohighlight hljs ansi" style="display:block;">CRRao.MCMC_chain(MCMC chain (10000×19×1 Array{Float64, 3}), Summary Statistics (7 x 8), Quantiles (7 x 6))</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_18.summaries</code><code class="nohighlight hljs ansi" style="display:block;">Summary Statistics
-  parameters      mean       std   naive_se      mcse       ess      rhat   es ⋯
-      Symbol   Float64   Float64    Float64   Float64   Float64   Float64      ⋯
+  parameters       mean       std   naive_se      mcse       ess      rhat   e ⋯
+      Symbol    Float64   Float64    Float64   Float64   Float64   Float64     ⋯
 
-           λ    1.9370    0.0064     0.0001    0.0006   22.3753    1.0503      ⋯
-           ν    5.3908    0.0294     0.0003    0.0029   20.3130    3.0229      ⋯
-        β[1]    0.8137    0.0024     0.0000    0.0002   21.1304    1.9811      ⋯
-        β[2]    0.4857    0.0002     0.0000    0.0000   34.5442    1.2271      ⋯
-        β[3]   -1.4921    0.0055     0.0001    0.0005   20.5439    2.3718      ⋯
-        β[4]   -1.9439    0.0299     0.0003    0.0030   20.5374    2.1029      ⋯
-        β[5]   -0.9598    0.0915     0.0009    0.0092   20.4652    2.2000      ⋯
+           λ     1.2155    0.0013     0.0000    0.0001   21.2392    1.0519     ⋯
+           ν     0.2946    0.0001     0.0000    0.0000   22.7477    1.0021     ⋯
+        β[1]     1.0490    0.0004     0.0000    0.0000   22.0992    1.2718     ⋯
+        β[2]     0.4618    0.0002     0.0000    0.0000   20.2989    2.6631     ⋯
+        β[3]   -52.8123    0.0009     0.0000    0.0001   20.4258    2.5458     ⋯
+        β[4]    -0.5291    0.0020     0.0000    0.0002   20.3021    2.5639     ⋯
+        β[5]    -0.5642    0.0060     0.0001    0.0006   20.2382    2.7285     ⋯
                                                                 1 column omitted</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_18.quantiles</code><code class="nohighlight hljs ansi" style="display:block;">Quantiles
-  parameters      2.5%     25.0%     50.0%     75.0%     97.5%
-      Symbol   Float64   Float64   Float64   Float64   Float64
+  parameters       2.5%      25.0%      50.0%      75.0%      97.5%
+      Symbol    Float64    Float64    Float64    Float64    Float64
 
-           λ    1.9251    1.9319    1.9368    1.9429    1.9478
-           ν    5.3516    5.3597    5.3915    5.4169    5.4368
-        β[1]    0.8099    0.8117    0.8134    0.8161    0.8184
-        β[2]    0.4853    0.4857    0.4858    0.4859    0.4859
-        β[3]   -1.5016   -1.4972   -1.4906   -1.4877   -1.4819
-        β[4]   -1.9797   -1.9691   -1.9519   -1.9280   -1.8702
-        β[5]   -1.0845   -1.0350   -0.9731   -0.9065   -0.7443</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_19 = fitmodel(@formula(Vote ~ Age + Race +Income + Educate),turnout
+           λ     1.2129     1.2148     1.2155     1.2167     1.2173
+           ν     0.2943     0.2945     0.2947     0.2947     0.2948
+        β[1]     1.0484     1.0487     1.0489     1.0491     1.0500
+        β[2]     0.4614     0.4616     0.4618     0.4620     0.4622
+        β[3]   -52.8138   -52.8132   -52.8120   -52.8115   -52.8110
+        β[4]    -0.5322    -0.5304    -0.5292    -0.5277    -0.5257
+        β[5]    -0.5739    -0.5702    -0.5639    -0.5584    -0.5548</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_19 = fitmodel(@formula(Vote ~ Age + Race +Income + Educate),turnout
                        ,LogisticRegression(),Cloglog(),Prior_TDist(),1.0)</code><code class="nohighlight hljs ansi" style="display:block;">CRRao.MCMC_chain(MCMC chain (10000×19×1 Array{Float64, 3}), Summary Statistics (7 x 8), Quantiles (7 x 6))</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_19.summaries</code><code class="nohighlight hljs ansi" style="display:block;">Summary Statistics
-  parameters      mean        std   naive_se      mcse         ess      rhat   ⋯
-      Symbol   Float64    Float64    Float64   Float64     Float64   Float64   ⋯
+  parameters      mean       std   naive_se      mcse         ess      rhat    ⋯
+      Symbol   Float64   Float64    Float64   Float64     Float64   Float64    ⋯
 
-           λ    0.5277     0.3431     0.0034    0.0047   4411.3976    1.0002   ⋯
-           ν   11.7930   530.8374     5.3084    9.1215   3382.7134    1.0002   ⋯
-        β[1]   -2.9306     0.3275     0.0033    0.0045   4571.9383    0.9999   ⋯
-        β[2]    0.0278     0.0034     0.0000    0.0000   6506.4208    1.0000   ⋯
-        β[3]    0.2066     0.1417     0.0014    0.0017   7730.7857    0.9999   ⋯
-        β[4]    0.1779     0.0273     0.0003    0.0003   7635.3434    1.0000   ⋯
-        β[5]    0.1720     0.0202     0.0002    0.0003   5153.5435    0.9999   ⋯
+           λ    0.5288    0.3540     0.0035    0.0053   4767.9118    1.0001    ⋯
+           ν    2.0595    8.1808     0.0818    0.1220   4121.5484    1.0000    ⋯
+        β[1]   -2.9340    0.3312     0.0033    0.0051   5371.0290    1.0009    ⋯
+        β[2]    0.0279    0.0035     0.0000    0.0000   7337.6149    1.0005    ⋯
+        β[3]    0.2048    0.1401     0.0014    0.0014   8702.4011    0.9999    ⋯
+        β[4]    0.1775    0.0268     0.0003    0.0003   7845.9208    0.9999    ⋯
+        β[5]    0.1723    0.0207     0.0002    0.0003   5697.8994    1.0007    ⋯
                                                                 1 column omitted</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_19.quantiles</code><code class="nohighlight hljs ansi" style="display:block;">Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           λ    0.1742    0.3020    0.4296    0.6410    1.4703
-           ν    0.3692    0.7754    1.1804    1.8639    7.6453
-        β[1]   -3.5775   -3.1471   -2.9333   -2.7085   -2.3005
-        β[2]    0.0212    0.0255    0.0277    0.0301    0.0347
-        β[3]   -0.0649    0.1097    0.2047    0.3006    0.4915
-        β[4]    0.1252    0.1593    0.1775    0.1959    0.2335
-        β[5]    0.1329    0.1580    0.1720    0.1859    0.2119</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_20 = fitmodel(@formula(Vote ~ Age + Race +Income + Educate),turnout
+           λ    0.1744    0.3048    0.4288    0.6364    1.4874
+           ν    0.3729    0.7666    1.1599    1.8696    7.6585
+        β[1]   -3.5915   -3.1526   -2.9354   -2.7128   -2.2868
+        β[2]    0.0211    0.0255    0.0279    0.0302    0.0348
+        β[3]   -0.0617    0.1090    0.2038    0.2991    0.4801
+        β[4]    0.1244    0.1597    0.1774    0.1953    0.2311
+        β[5]    0.1319    0.1584    0.1721    0.1862    0.2127</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_20 = fitmodel(@formula(Vote ~ Age + Race +Income + Educate),turnout
                        ,LogisticRegression(),Cauchit(),Prior_TDist(),1.0)</code><code class="nohighlight hljs ansi" style="display:block;">CRRao.MCMC_chain(MCMC chain (10000×19×1 Array{Float64, 3}), Summary Statistics (7 x 8), Quantiles (7 x 6))</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_20.summaries</code><code class="nohighlight hljs ansi" style="display:block;">Summary Statistics
-  parameters      mean       std   naive_se      mcse         ess      rhat    ⋯
-      Symbol   Float64   Float64    Float64   Float64     Float64   Float64    ⋯
+  parameters       mean       std   naive_se      mcse       ess      rhat   e ⋯
+      Symbol    Float64   Float64    Float64   Float64   Float64   Float64     ⋯
 
-           λ    0.5330    0.3602     0.0036    0.0057   4319.4354    1.0000    ⋯
-           ν    2.1547   11.1792     0.1118    0.2095   2743.4751    1.0000    ⋯
-        β[1]   -2.9338    0.3191     0.0032    0.0050   3889.7197    1.0001    ⋯
-        β[2]    0.0278    0.0034     0.0000    0.0000   5463.7746    0.9999    ⋯
-        β[3]    0.2053    0.1396     0.0014    0.0017   7581.6412    0.9999    ⋯
-        β[4]    0.1776    0.0273     0.0003    0.0003   7005.2917    0.9999    ⋯
-        β[5]    0.1724    0.0201     0.0002    0.0003   4333.4763    1.0000    ⋯
+           λ     0.2787    0.0001     0.0000    0.0000   20.8024    2.1424     ⋯
+           ν     0.6305    0.0007     0.0000    0.0001   20.4418    1.9056     ⋯
+        β[1]     0.0998    0.0005     0.0000    0.0000   21.3789    1.1417     ⋯
+        β[2]     0.5298    0.0004     0.0000    0.0000   20.3037    2.5127     ⋯
+        β[3]    -0.0987    0.0005     0.0000    0.0001   20.9185    2.1917     ⋯
+        β[4]   -39.6362    0.0018     0.0000    0.0002   20.2262    3.2821     ⋯
+        β[5]     0.0127    0.0041     0.0000    0.0004   20.2883    2.5056     ⋯
                                                                 1 column omitted</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_20.quantiles</code><code class="nohighlight hljs ansi" style="display:block;">Quantiles
-  parameters      2.5%     25.0%     50.0%     75.0%     97.5%
-      Symbol   Float64   Float64   Float64   Float64   Float64
+  parameters       2.5%      25.0%      50.0%      75.0%      97.5%
+      Symbol    Float64    Float64    Float64    Float64    Float64
 
-           λ    0.1727    0.3022    0.4287    0.6507    1.4821
-           ν    0.3666    0.7744    1.1684    1.8719    7.7252
-        β[1]   -3.5567   -3.1503   -2.9294   -2.7140   -2.3175
-        β[2]    0.0211    0.0256    0.0278    0.0302    0.0344
-        β[3]   -0.0678    0.1088    0.2048    0.3015    0.4781
-        β[4]    0.1256    0.1588    0.1768    0.1959    0.2324
-        β[5]    0.1326    0.1590    0.1722    0.1858    0.2122</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; ### LogisticReg - with Uniform Prior
+           λ     0.2785     0.2786     0.2787     0.2788     0.2790
+           ν     0.6295     0.6300     0.6305     0.6308     0.6320
+        β[1]     0.0992     0.0995     0.0997     0.1001     0.1009
+        β[2]     0.5291     0.5295     0.5298     0.5301     0.5304
+        β[3]    -0.0995    -0.0992    -0.0989    -0.0983    -0.0975
+        β[4]   -39.6385   -39.6379   -39.6367   -39.6342   -39.6338
+        β[5]     0.0061     0.0093     0.0131     0.0161     0.0200</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; ### LogisticReg - with Uniform Prior
        
        
        m2_21 = fitmodel(@formula(Vote ~ Age + Race +Income + Educate),turnout
                        ,LogisticRegression(),Logit(),Prior_Uniform(),1.0)</code><code class="nohighlight hljs ansi" style="display:block;">CRRao.MCMC_chain(MCMC chain (10000×18×1 Array{Float64, 3}), Summary Statistics (6 x 8), Quantiles (6 x 6))</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_21.summaries</code><code class="nohighlight hljs ansi" style="display:block;">Summary Statistics
-  parameters      mean         std   naive_se      mcse         ess      rhat  ⋯
-      Symbol   Float64     Float64    Float64   Float64     Float64   Float64  ⋯
+  parameters      mean       std   naive_se      mcse       ess      rhat   es ⋯
+      Symbol   Float64   Float64    Float64   Float64   Float64   Float64      ⋯
 
-           v   63.6609   2102.1415    21.0214   33.1799   3536.0853    1.0005  ⋯
-        β[1]   -0.5508      0.0000     0.0000    0.0000     20.5530    0.9999  ⋯
-        β[2]    0.0129      0.0021     0.0000    0.0000   8357.5409    0.9999  ⋯
-        β[3]   -0.5508      0.0000     0.0000    0.0000     20.5530    0.9999  ⋯
-        β[4]    0.1834      0.0260     0.0003    0.0003   7827.9592    0.9999  ⋯
-        β[5]    0.0804      0.0112     0.0001    0.0001   8250.5671    0.9999  ⋯
+           v   63.4703   96.8983     0.9690    9.6481   21.0892    1.4651      ⋯
+        β[1]   -2.2849    1.2459     0.0125    0.1250   20.6999    1.3836      ⋯
+        β[2]    0.0980    0.1523     0.0015    0.0152   21.1107    1.2391      ⋯
+        β[3]   -0.2834    1.0610     0.0106    0.1057   21.2493    1.2739      ⋯
+        β[4]    0.4216    0.5163     0.0052    0.0516   21.1653    1.2535      ⋯
+        β[5]   -0.1691    0.7215     0.0072    0.0724   20.9709    1.2580      ⋯
                                                                 1 column omitted</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_21.quantiles</code><code class="nohighlight hljs ansi" style="display:block;">Quantiles
-  parameters      2.5%     25.0%     50.0%     75.0%     97.5%
-      Symbol   Float64   Float64   Float64   Float64   Float64
+  parameters      2.5%     25.0%     50.0%     75.0%      97.5%
+      Symbol   Float64   Float64   Float64   Float64    Float64
 
-           v    0.8071    1.5850    2.8493    6.5486   84.9312
-        β[1]   -0.5508   -0.5508   -0.5508   -0.5508   -0.5508
-        β[2]    0.0089    0.0116    0.0129    0.0144    0.0170
-        β[3]   -0.5508   -0.5508   -0.5508   -0.5508   -0.5508
-        β[4]    0.1327    0.1657    0.1835    0.2007    0.2346
-        β[5]    0.0583    0.0726    0.0803    0.0880    0.1024</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_22 = fitmodel(@formula(Vote ~ Age + Race +Income + Educate),turnout
+           v    3.1423    3.7666   10.5229   98.7421   339.3375
+        β[1]   -3.1411   -3.0080   -2.8459   -2.5873     0.2830
+        β[2]    0.0209    0.0259    0.0281    0.0311     0.4293
+        β[3]   -2.4834    0.0210    0.1857    0.2952     0.4792
+        β[4]    0.1275    0.1639    0.1853    0.2156     1.5225
+        β[5]   -1.7702    0.1447    0.1647    0.1773     0.1975</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_22 = fitmodel(@formula(Vote ~ Age + Race +Income + Educate),turnout
                        ,LogisticRegression(),Probit(),Prior_Uniform(),1.0)</code><code class="nohighlight hljs ansi" style="display:block;">CRRao.MCMC_chain(MCMC chain (10000×18×1 Array{Float64, 3}), Summary Statistics (6 x 8), Quantiles (6 x 6))</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_22.summaries</code><code class="nohighlight hljs ansi" style="display:block;">Summary Statistics
   parameters      mean        std   naive_se      mcse         ess      rhat   ⋯
       Symbol   Float64    Float64    Float64   Float64     Float64   Float64   ⋯
 
-           v   50.2064   787.6264     7.8763   11.6593   4406.5034    1.0007   ⋯
-        β[1]   -3.0492     0.3284     0.0033    0.0046   4382.3964    1.0000   ⋯
-        β[2]    0.0285     0.0035     0.0000    0.0000   6514.1321    1.0000   ⋯
-        β[3]    0.2462     0.1438     0.0014    0.0017   6562.1400    0.9999   ⋯
-        β[4]    0.1785     0.0271     0.0003    0.0004   5991.4058    1.0000   ⋯
-        β[5]    0.1765     0.0205     0.0002    0.0003   4545.0271    0.9999   ⋯
+           v   11.6958   136.4442     1.3644    1.8905   4821.6839    1.0000   ⋯
+        β[1]   -0.3667     0.0000     0.0000    0.0000     20.5530    0.9999   ⋯
+        β[2]    0.0055     0.0021     0.0000    0.0000   8279.1704    0.9999   ⋯
+        β[3]    0.3667     0.0000     0.0000    0.0000     20.5530    0.9999   ⋯
+        β[4]    0.1629     0.0255     0.0003    0.0003   8466.6768    0.9999   ⋯
+        β[5]    0.0341     0.0113     0.0001    0.0001   7555.9912    0.9999   ⋯
                                                                 1 column omitted</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_22.quantiles</code><code class="nohighlight hljs ansi" style="display:block;">Quantiles
-  parameters      2.5%     25.0%     50.0%     75.0%      97.5%
-      Symbol   Float64   Float64   Float64   Float64    Float64
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5%
+      Symbol   Float64   Float64   Float64   Float64   Float64
 
-           v    3.4802    5.7751    9.5038   20.3780   200.4950
-        β[1]   -3.7084   -3.2646   -3.0476   -2.8259    -2.4100
-        β[2]    0.0218    0.0261    0.0284    0.0309     0.0354
-        β[3]   -0.0397    0.1501    0.2490    0.3415     0.5242
-        β[4]    0.1272    0.1596    0.1782    0.1967     0.2324
-        β[5]    0.1365    0.1625    0.1762    0.1904     0.2173</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_23 = fitmodel(@formula(Vote ~ Age + Race +Income + Educate),turnout
+           v    0.5861    1.2092    2.1990    5.1527   51.9080
+        β[1]   -0.3667   -0.3667   -0.3667   -0.3667   -0.3667
+        β[2]    0.0013    0.0040    0.0055    0.0069    0.0096
+        β[3]    0.3667    0.3667    0.3667    0.3667    0.3667
+        β[4]    0.1141    0.1454    0.1627    0.1796    0.2132
+        β[5]    0.0121    0.0264    0.0339    0.0417    0.0564</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_23 = fitmodel(@formula(Vote ~ Age + Race +Income + Educate),turnout
                        ,LogisticRegression(),Cloglog(),Prior_Uniform(),1.0)</code><code class="nohighlight hljs ansi" style="display:block;">CRRao.MCMC_chain(MCMC chain (10000×18×1 Array{Float64, 3}), Summary Statistics (6 x 8), Quantiles (6 x 6))</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_23.summaries</code><code class="nohighlight hljs ansi" style="display:block;">Summary Statistics
   parameters      mean        std   naive_se      mcse         ess      rhat   ⋯
       Symbol   Float64    Float64    Float64   Float64     Float64   Float64   ⋯
 
-           v   28.8890   534.3124     5.3431    9.0345   3348.2920    1.0001   ⋯
-        β[1]   -0.7966     0.0000     0.0000    0.0000     20.5530    0.9999   ⋯
-        β[2]    0.0113     0.0023     0.0000    0.0000   6525.0829    1.0002   ⋯
-        β[3]    0.0133     0.1499     0.0015    0.0021   5671.6001    1.0004   ⋯
-        β[4]    0.1713     0.0264     0.0003    0.0004   5507.0756    1.0002   ⋯
-        β[5]    0.0698     0.0128     0.0001    0.0002   4758.6560    1.0002   ⋯
+           v   19.5626   313.4235     3.1342    3.9840   6441.1810    1.0000   ⋯
+        β[1]   -0.8519     0.0000     0.0000    0.0000     20.5530    0.9999   ⋯
+        β[2]    0.0117     0.0023     0.0000    0.0000   6605.4375    1.0002   ⋯
+        β[3]    0.0229     0.1482     0.0015    0.0018   5828.1298    1.0003   ⋯
+        β[4]    0.1716     0.0258     0.0003    0.0003   7108.9888    0.9999   ⋯
+        β[5]    0.0721     0.0127     0.0001    0.0002   5668.8218    0.9999   ⋯
                                                                 1 column omitted</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_23.quantiles</code><code class="nohighlight hljs ansi" style="display:block;">Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           v    0.9988    1.7637    3.0801    6.9727   74.0434
-        β[1]   -0.7966   -0.7966   -0.7966   -0.7966   -0.7966
-        β[2]    0.0068    0.0097    0.0113    0.0129    0.0157
-        β[3]   -0.2887   -0.0874    0.0157    0.1163    0.2985
-        β[4]    0.1196    0.1536    0.1713    0.1888    0.2235
-        β[5]    0.0447    0.0610    0.0697    0.0784    0.0951</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_24 = fitmodel(@formula(Vote ~ Age + Race +Income + Educate),turnout
+           v    1.0388    1.8620    3.2829    7.0814   73.5823
+        β[1]   -0.8519   -0.8519   -0.8519   -0.8519   -0.8519
+        β[2]    0.0072    0.0102    0.0117    0.0132    0.0163
+        β[3]   -0.2726   -0.0755    0.0222    0.1232    0.3137
+        β[4]    0.1213    0.1540    0.1713    0.1890    0.2226
+        β[5]    0.0474    0.0636    0.0723    0.0807    0.0966</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_24 = fitmodel(@formula(Vote ~ Age + Race +Income + Educate),turnout
                        ,LogisticRegression(),Cauchit(),Prior_Uniform(),1.0)</code><code class="nohighlight hljs ansi" style="display:block;">CRRao.MCMC_chain(MCMC chain (10000×18×1 Array{Float64, 3}), Summary Statistics (6 x 8), Quantiles (6 x 6))</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_24.summaries</code><code class="nohighlight hljs ansi" style="display:block;">Summary Statistics
   parameters      mean        std   naive_se      mcse         ess      rhat   ⋯
       Symbol   Float64    Float64    Float64   Float64     Float64   Float64   ⋯
 
-           v   45.3213   504.5164     5.0452    7.4998   4455.4774    0.9999   ⋯
-        β[1]   -3.2573     0.0000     0.0000    0.0000     20.5530    0.9999   ⋯
-        β[2]    0.0301     0.0024     0.0000    0.0000   9586.3301    1.0000   ⋯
-        β[3]    0.2722     0.1427     0.0014    0.0018   5504.4662    1.0002   ⋯
-        β[4]    0.1783     0.0272     0.0003    0.0004   6907.3627    0.9999   ⋯
-        β[5]    0.1866     0.0129     0.0001    0.0002   5710.3453    0.9999   ⋯
+           v   11.2459   131.0013     1.3100    1.8569   4725.6154    0.9999   ⋯
+        β[1]   -0.2757     0.0000     0.0000    0.0000     20.5530    0.9999   ⋯
+        β[2]    0.0092     0.0021     0.0000    0.0000   8034.9501    1.0004   ⋯
+        β[3]   -0.2757     0.0000     0.0000    0.0000     20.5530    0.9999   ⋯
+        β[4]    0.2668     0.0290     0.0003    0.0027     25.6953    1.0979   ⋯
+        β[5]    0.0302     0.0120     0.0001    0.0008     54.2944    1.0441   ⋯
                                                                 1 column omitted</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m2_24.quantiles</code><code class="nohighlight hljs ansi" style="display:block;">Quantiles
-  parameters      2.5%     25.0%     50.0%     75.0%      97.5%
-      Symbol   Float64   Float64   Float64   Float64    Float64
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5%
+      Symbol   Float64   Float64   Float64   Float64   Float64
 
-           v    3.8108    6.1712   10.1300   21.7367   239.2577
-        β[1]   -3.2573   -3.2573   -3.2573   -3.2573    -3.2573
-        β[2]    0.0254    0.0285    0.0301    0.0317     0.0348
-        β[3]   -0.0005    0.1749    0.2726    0.3678     0.5572
-        β[4]    0.1247    0.1601    0.1782    0.1965     0.2319
-        β[5]    0.1612    0.1779    0.1866    0.1953     0.2125</code></pre><h2 id="Example-3:-Poisson-Regression"><a class="docs-heading-anchor" href="#Example-3:-Poisson-Regression">Example 3: Poisson Regression</a><a id="Example-3:-Poisson-Regression-1"></a><a class="docs-heading-anchor-permalink" href="#Example-3:-Poisson-Regression" title="Permalink"></a></h2><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; using RDatasets, StatsModels, StatsPlots, NLSolversBase, CRRao, Logging</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; Logging.disable_logging(Logging.Warn); CRRao.setprogress!(false)</code><code class="nohighlight hljs ansi" style="display:block;">false</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; sanction = dataset(&quot;Zelig&quot;, &quot;sanction&quot;);</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; sanction</code><code class="nohighlight hljs ansi" style="display:block;">78×8 DataFrame
+           v    0.5213    1.1073    2.0200    4.6831   49.6883
+        β[1]   -0.2757   -0.2757   -0.2757   -0.2757   -0.2757
+        β[2]    0.0050    0.0077    0.0091    0.0106    0.0134
+        β[3]   -0.2757   -0.2757   -0.2757   -0.2757   -0.2757
+        β[4]    0.1632    0.2757    0.2757    0.2757    0.2757
+        β[5]    0.0110    0.0225    0.0288    0.0356    0.0619</code></pre><h2 id="Example-3:-Poisson-Regression"><a class="docs-heading-anchor" href="#Example-3:-Poisson-Regression">Example 3: Poisson Regression</a><a id="Example-3:-Poisson-Regression-1"></a><a class="docs-heading-anchor-permalink" href="#Example-3:-Poisson-Regression" title="Permalink"></a></h2><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; using RDatasets, StatsModels, StatsPlots, NLSolversBase, CRRao, Logging</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; Logging.disable_logging(Logging.Warn); CRRao.setprogress!(false)</code><code class="nohighlight hljs ansi" style="display:block;">false</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; sanction = dataset(&quot;Zelig&quot;, &quot;sanction&quot;);</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; sanction</code><code class="nohighlight hljs ansi" style="display:block;">78×8 DataFrame
  Row │ Mil    Coop   Target  Import  Export  Cost   Num    NCost
      │ Int32  Int32  Int32   Int32   Int32   Int32  Int32  Cat…
 ─────┼───────────────────────────────────────────────────────────────────
@@ -657,7 +657,7 @@ Coop                 1.15127    0.0561861  20.49    &lt;1e-92   1.04114     1.26
 NCost: major loss   -0.324051   0.230055   -1.41    0.1590  -0.774951    0.126848
 NCost: modest loss   1.71973    0.100518   17.11    &lt;1e-64   1.52272     1.91674
 NCost: net gain      0.463907   0.16992     2.73    0.0063   0.13087     0.796944
-─────────────────────────────────────────────────────────────────────────────────, [-1.9139174143215623, 0.1577685467231638, 1.1512671677538393, -0.32405115738560536, 1.7197292626770255, 0.46390685724228237], -284.33693448347356, 580.6738689669471, 594.8141219270847)</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m3_1.fit</code><code class="nohighlight hljs ansi" style="display:block;">─────────────────────────────────────────────────────────────────────────────────
+─────────────────────────────────────────────────────────────────────────────────, [-1.913917414321564, 0.15776854672316407, 1.1512671677538395, -0.3240511573856053, 1.7197292626770257, 0.46390685724228303], -284.3369344834735, 580.673868966947, 594.8141219270846)</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m3_1.fit</code><code class="nohighlight hljs ansi" style="display:block;">─────────────────────────────────────────────────────────────────────────────────
                         Coef.  Std. Error      z  Pr(&gt;|z|)   Lower 95%  Upper 95%
 ─────────────────────────────────────────────────────────────────────────────────
 (Intercept)         -1.91392    0.261667   -7.31    &lt;1e-12  -2.42678    -1.40106
@@ -666,119 +666,119 @@ Coop                 1.15127    0.0561861  20.49    &lt;1e-92   1.04114     1.26
 NCost: major loss   -0.324051   0.230055   -1.41    0.1590  -0.774951    0.126848
 NCost: modest loss   1.71973    0.100518   17.11    &lt;1e-64   1.52272     1.91674
 NCost: net gain      0.463907   0.16992     2.73    0.0063   0.13087     0.796944
-─────────────────────────────────────────────────────────────────────────────────</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m3_1.LogLike</code><code class="nohighlight hljs ansi" style="display:block;">-284.33693448347356</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m3_1.AIC</code><code class="nohighlight hljs ansi" style="display:block;">580.6738689669471</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m3_1.BIC</code><code class="nohighlight hljs ansi" style="display:block;">594.8141219270847</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; ## Poisson Regression with Ridge Prior
+─────────────────────────────────────────────────────────────────────────────────</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m3_1.LogLike</code><code class="nohighlight hljs ansi" style="display:block;">-284.3369344834735</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m3_1.AIC</code><code class="nohighlight hljs ansi" style="display:block;">580.673868966947</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m3_1.BIC</code><code class="nohighlight hljs ansi" style="display:block;">594.8141219270846</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; ## Poisson Regression with Ridge Prior
        m3_2 = fitmodel(@formula(Num ~ Target + Coop + NCost), sanction,PoissonRegression(),Prior_Ridge())</code><code class="nohighlight hljs ansi" style="display:block;">CRRao.MCMC_chain(MCMC chain (10000×19×1 Array{Float64, 3}), Summary Statistics (7 x 8), Quantiles (7 x 6))</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m3_2.summaries</code><code class="nohighlight hljs ansi" style="display:block;">Summary Statistics
   parameters      mean       std   naive_se      mcse         ess      rhat    ⋯
       Symbol   Float64   Float64    Float64   Float64     Float64   Float64    ⋯
 
-           λ    1.3066    0.4775     0.0048    0.0066   5581.5094    1.0000    ⋯
-           α   -1.8037    0.2623     0.0026    0.0046   3150.7799    1.0000    ⋯
-        β[1]    0.1395    0.0661     0.0007    0.0009   4720.8081    1.0002    ⋯
-        β[2]    1.1340    0.0561     0.0006    0.0009   4224.1220    0.9999    ⋯
-        β[3]   -0.3264    0.2270     0.0023    0.0026   7691.4545    0.9999    ⋯
-        β[4]    1.7000    0.1009     0.0010    0.0011   6155.8969    0.9999    ⋯
-        β[5]    0.4100    0.1693     0.0017    0.0024   4760.8236    0.9999    ⋯
+           λ    1.3162    0.4781     0.0048    0.0062   6152.8968    0.9999    ⋯
+           α   -1.8095    0.2630     0.0026    0.0046   3703.2800    1.0002    ⋯
+        β[1]    0.1417    0.0641     0.0006    0.0009   5465.7065    1.0002    ⋯
+        β[2]    1.1343    0.0560     0.0006    0.0008   4926.2804    0.9999    ⋯
+        β[3]   -0.3291    0.2281     0.0023    0.0024   7278.1221    0.9999    ⋯
+        β[4]    1.6991    0.1006     0.0010    0.0012   6454.7221    0.9999    ⋯
+        β[5]    0.4097    0.1699     0.0017    0.0025   4933.7115    0.9999    ⋯
                                                                 1 column omitted</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m3_2.quantiles</code><code class="nohighlight hljs ansi" style="display:block;">Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           λ    0.7119    0.9841    1.2026    1.5096    2.5129
-           α   -2.3119   -1.9791   -1.8030   -1.6241   -1.2930
-        β[1]    0.0110    0.0956    0.1381    0.1841    0.2718
-        β[2]    1.0229    1.0962    1.1338    1.1715    1.2440
-        β[3]   -0.7843   -0.4752   -0.3223   -0.1726    0.1095
-        β[4]    1.5060    1.6307    1.7004    1.7671    1.8989
-        β[5]    0.0758    0.2957    0.4127    0.5277    0.7367</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; ## Poisson Regression with Laplace Prior
+           λ    0.7132    0.9959    1.2104    1.5083    2.5361
+           α   -2.3377   -1.9820   -1.8039   -1.6309   -1.3144
+        β[1]    0.0209    0.0978    0.1422    0.1850    0.2684
+        β[2]    1.0265    1.0958    1.1334    1.1720    1.2443
+        β[3]   -0.7936   -0.4773   -0.3229   -0.1727    0.0994
+        β[4]    1.5050    1.6318    1.6979    1.7674    1.9015
+        β[5]    0.0711    0.2944    0.4105    0.5265    0.7370</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; ## Poisson Regression with Laplace Prior
        m3_3 = fitmodel(@formula(Num ~ Target + Coop + NCost), sanction,PoissonRegression(),Prior_Laplace())</code><code class="nohighlight hljs ansi" style="display:block;">CRRao.MCMC_chain(MCMC chain (10000×19×1 Array{Float64, 3}), Summary Statistics (7 x 8), Quantiles (7 x 6))</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m3_3.summaries</code><code class="nohighlight hljs ansi" style="display:block;">Summary Statistics
   parameters      mean       std   naive_se      mcse         ess      rhat    ⋯
       Symbol   Float64   Float64    Float64   Float64     Float64   Float64    ⋯
 
-           λ    1.0845    0.5250     0.0053    0.0075   6429.6281    1.0000    ⋯
-           α   -1.7868    0.2637     0.0026    0.0040   4058.9762    0.9999    ⋯
-        β[1]    0.1352    0.0649     0.0006    0.0008   6020.9545    0.9999    ⋯
-        β[2]    1.1314    0.0561     0.0006    0.0008   5570.2536    0.9999    ⋯
-        β[3]   -0.2953    0.2245     0.0022    0.0030   6000.4060    0.9999    ⋯
-        β[4]    1.7021    0.1011     0.0010    0.0013   5989.9456    1.0006    ⋯
-        β[5]    0.3923    0.1748     0.0017    0.0024   5531.2222    1.0002    ⋯
+           λ    1.0897    0.5542     0.0055    0.0078   4478.9540    0.9999    ⋯
+           α   -1.7842    0.2716     0.0027    0.0039   4838.9164    1.0006    ⋯
+        β[1]    0.1352    0.0659     0.0007    0.0008   6411.4795    1.0004    ⋯
+        β[2]    1.1311    0.0570     0.0006    0.0007   6030.7322    1.0003    ⋯
+        β[3]   -0.2944    0.2250     0.0022    0.0025   7337.5245    0.9999    ⋯
+        β[4]    1.6993    0.0995     0.0010    0.0013   6660.8426    0.9999    ⋯
+        β[5]    0.3889    0.1738     0.0017    0.0022   6173.7821    1.0002    ⋯
                                                                 1 column omitted</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m3_3.quantiles</code><code class="nohighlight hljs ansi" style="display:block;">Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           λ    0.4614    0.7318    0.9645    1.2955    2.4727
-           α   -2.3156   -1.9650   -1.7855   -1.6075   -1.2874
-        β[1]    0.0094    0.0912    0.1343    0.1789    0.2642
-        β[2]    1.0249    1.0925    1.1305    1.1696    1.2427
-        β[3]   -0.7571   -0.4436   -0.2866   -0.1372    0.1158
-        β[4]    1.5073    1.6336    1.7007    1.7697    1.9039
-        β[5]    0.0484    0.2761    0.3940    0.5129    0.7312</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; ## Poisson Regression with Cauchy Prior
+           λ    0.4615    0.7336    0.9651    1.2901    2.4703
+           α   -2.3235   -1.9654   -1.7807   -1.6038   -1.2691
+        β[1]    0.0072    0.0911    0.1351    0.1798    0.2639
+        β[2]    1.0208    1.0925    1.1310    1.1695    1.2440
+        β[3]   -0.7614   -0.4408   -0.2850   -0.1366    0.1063
+        β[4]    1.5034    1.6338    1.6990    1.7638    1.8985
+        β[5]    0.0483    0.2718    0.3884    0.5047    0.7333</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; ## Poisson Regression with Cauchy Prior
        m3_4 = fitmodel(@formula(Num ~ Target + Coop + NCost), sanction,PoissonRegression(),Prior_Cauchy())</code><code class="nohighlight hljs ansi" style="display:block;">CRRao.MCMC_chain(MCMC chain (10000×19×1 Array{Float64, 3}), Summary Statistics (7 x 8), Quantiles (7 x 6))</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m3_4.summaries</code><code class="nohighlight hljs ansi" style="display:block;">Summary Statistics
   parameters      mean       std   naive_se      mcse         ess      rhat    ⋯
       Symbol   Float64   Float64    Float64   Float64     Float64   Float64    ⋯
 
-           λ    0.8332    0.4309     0.0043    0.0047   6999.9193    1.0002    ⋯
-           α   -1.8032    0.2608     0.0026    0.0037   5023.5839    0.9999    ⋯
-        β[1]    0.1401    0.0654     0.0007    0.0008   6780.0825    0.9999    ⋯
-        β[2]    1.1325    0.0556     0.0006    0.0007   5947.7691    0.9999    ⋯
-        β[3]   -0.2897    0.2114     0.0021    0.0024   7065.4116    0.9999    ⋯
-        β[4]    1.7041    0.0985     0.0010    0.0011   7713.3572    1.0001    ⋯
-        β[5]    0.3932    0.1687     0.0017    0.0021   6957.0078    0.9999    ⋯
+           λ    0.8469    0.4494     0.0045    0.0057   6318.5587    1.0000    ⋯
+           α   -1.8068    0.2608     0.0026    0.0036   4899.0986    0.9999    ⋯
+        β[1]    0.1399    0.0648     0.0006    0.0008   6406.1339    1.0000    ⋯
+        β[2]    1.1335    0.0567     0.0006    0.0007   6490.7964    0.9999    ⋯
+        β[3]   -0.2957    0.2177     0.0022    0.0025   7105.9773    0.9999    ⋯
+        β[4]    1.7045    0.0999     0.0010    0.0012   7379.1555    0.9999    ⋯
+        β[5]    0.3980    0.1704     0.0017    0.0020   6872.6611    1.0001    ⋯
                                                                 1 column omitted</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m3_4.quantiles</code><code class="nohighlight hljs ansi" style="display:block;">Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           λ    0.2922    0.5353    0.7410    1.0180    1.9325
-           α   -2.3207   -1.9770   -1.8053   -1.6286   -1.2984
-        β[1]    0.0113    0.0954    0.1399    0.1839    0.2680
-        β[2]    1.0226    1.0949    1.1318    1.1701    1.2424
-        β[3]   -0.7262   -0.4260   -0.2841   -0.1421    0.1030
-        β[4]    1.5147    1.6385    1.7034    1.7695    1.9009
-        β[5]    0.0643    0.2788    0.3943    0.5078    0.7201</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; ## Poisson Regression with TDist Prior
+           λ    0.2932    0.5406    0.7505    1.0405    1.9834
+           α   -2.3185   -1.9817   -1.8069   -1.6315   -1.2991
+        β[1]    0.0148    0.0956    0.1394    0.1841    0.2691
+        β[2]    1.0229    1.0956    1.1334    1.1713    1.2430
+        β[3]   -0.7524   -0.4395   -0.2883   -0.1438    0.1057
+        β[4]    1.5131    1.6365    1.7034    1.7717    1.9043
+        β[5]    0.0652    0.2827    0.3985    0.5157    0.7280</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; ## Poisson Regression with TDist Prior
        m3_5 = fitmodel(@formula(Num ~ Target + Coop + NCost), sanction,PoissonRegression(),Prior_TDist())</code><code class="nohighlight hljs ansi" style="display:block;">CRRao.MCMC_chain(MCMC chain (10000×20×1 Array{Float64, 3}), Summary Statistics (8 x 8), Quantiles (8 x 6))</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m3_5.summaries</code><code class="nohighlight hljs ansi" style="display:block;">Summary Statistics
   parameters      mean       std   naive_se      mcse         ess      rhat    ⋯
       Symbol   Float64   Float64    Float64   Float64     Float64   Float64    ⋯
 
-           λ    0.9955    0.4195     0.0042    0.0047   7606.8700    0.9999    ⋯
-           ν    3.0994    5.7040     0.0570    0.0921   3465.9627    1.0000    ⋯
-           α   -1.8075    0.2644     0.0026    0.0046   4303.5423    1.0006    ⋯
-        β[1]    0.1407    0.0649     0.0006    0.0009   6057.3408    1.0008    ⋯
-        β[2]    1.1334    0.0563     0.0006    0.0009   5495.6342    1.0000    ⋯
-        β[3]   -0.3076    0.2259     0.0023    0.0026   8191.3401    0.9999    ⋯
-        β[4]    1.7043    0.1006     0.0010    0.0013   7040.1518    0.9999    ⋯
-        β[5]    0.4043    0.1692     0.0017    0.0022   5622.4943    1.0000    ⋯
+           λ    0.9813    0.4109     0.0041    0.0049   7454.9134    0.9999    ⋯
+           ν    2.8061    4.3062     0.0431    0.0681   3937.7001    1.0004    ⋯
+           α   -1.8104    0.2596     0.0026    0.0038   4074.8263    0.9999    ⋯
+        β[1]    0.1400    0.0654     0.0007    0.0008   6080.8699    0.9999    ⋯
+        β[2]    1.1350    0.0562     0.0006    0.0008   5158.1560    1.0001    ⋯
+        β[3]   -0.3105    0.2237     0.0022    0.0026   8024.9808    0.9999    ⋯
+        β[4]    1.7022    0.1002     0.0010    0.0011   7310.5335    1.0000    ⋯
+        β[5]    0.4051    0.1686     0.0017    0.0020   5883.8064    1.0001    ⋯
                                                                 1 column omitted</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m3_5.quantiles</code><code class="nohighlight hljs ansi" style="display:block;">Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           λ    0.4192    0.7029    0.9167    1.1989    2.0579
-           ν    0.5440    1.1454    1.8222    3.1847   13.0396
-           α   -2.3323   -1.9836   -1.8049   -1.6269   -1.3021
-        β[1]    0.0153    0.0969    0.1397    0.1845    0.2696
-        β[2]    1.0240    1.0960    1.1327    1.1724    1.2429
-        β[3]   -0.7619   -0.4589   -0.3006   -0.1519    0.1144
-        β[4]    1.5130    1.6340    1.7033    1.7723    1.9058
-        β[5]    0.0706    0.2925    0.4056    0.5157    0.7366</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; ## Poisson Regression with Uniform Prior
+           λ    0.4078    0.6955    0.9082    1.1800    1.9810
+           ν    0.5605    1.1407    1.7864    3.0255   10.9750
+           α   -2.3280   -1.9849   -1.8138   -1.6350   -1.2950
+        β[1]    0.0127    0.0956    0.1396    0.1836    0.2693
+        β[2]    1.0250    1.0976    1.1350    1.1725    1.2468
+        β[3]   -0.7681   -0.4573   -0.3037   -0.1596    0.1082
+        β[4]    1.5083    1.6344    1.7023    1.7685    1.9005
+        β[5]    0.0695    0.2923    0.4053    0.5192    0.7357</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; ## Poisson Regression with Uniform Prior
        m3_6 = fitmodel(@formula(Num ~ Target + Coop + NCost), sanction,PoissonRegression(),Prior_Uniform())</code><code class="nohighlight hljs ansi" style="display:block;">CRRao.MCMC_chain(MCMC chain (10000×19×1 Array{Float64, 3}), Summary Statistics (7 x 8), Quantiles (7 x 6))</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m3_6.summaries</code><code class="nohighlight hljs ansi" style="display:block;">Summary Statistics
-  parameters      mean        std   naive_se      mcse          ess      rhat  ⋯
-      Symbol   Float64    Float64    Float64   Float64      Float64   Float64  ⋯
+  parameters      mean       std   naive_se      mcse         ess      rhat    ⋯
+      Symbol   Float64   Float64    Float64   Float64     Float64   Float64    ⋯
 
-           λ   39.4835   292.6712     2.9267    4.6164    3654.5347    0.9999  ⋯
-           α   -2.0875     0.0000     0.0000    0.0000      20.5530    0.9999  ⋯
-        β[1]    0.1563     0.0480     0.0005    0.0005    9680.7744    1.0000  ⋯
-        β[2]    1.1232     0.0350     0.0004    0.0004    9730.9288    1.0000  ⋯
-        β[3]   -0.0646     0.2230     0.0022    0.0021   10511.7659    1.0001  ⋯
-        β[4]    2.0875     0.0000     0.0000    0.0000      20.5530    0.9999  ⋯
-        β[5]    0.6933     0.1367     0.0014    0.0013   11120.4764    1.0002  ⋯
+           λ   10.9526   63.9750     0.6397    0.9998   4001.5415    0.9999    ⋯
+           α    0.3639    0.0000     0.0000    0.0000     20.5530    0.9999    ⋯
+        β[1]    0.3639    0.0000     0.0000    0.0000     20.5530    0.9999    ⋯
+        β[2]    0.3639    0.0000     0.0000    0.0000     20.5530    0.9999    ⋯
+        β[3]   -0.3639    0.0000     0.0000    0.0000     20.5530    0.9999    ⋯
+        β[4]    0.3639    0.0000     0.0000    0.0000     20.5530    0.9999    ⋯
+        β[5]   -0.3639    0.0000     0.0000    0.0000     20.5530    0.9999    ⋯
                                                                 1 column omitted</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m3_6.quantiles</code><code class="nohighlight hljs ansi" style="display:block;">Quantiles
-  parameters      2.5%     25.0%     50.0%     75.0%      97.5%
-      Symbol   Float64   Float64   Float64   Float64    Float64
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5%
+      Symbol   Float64   Float64   Float64   Float64   Float64
 
-           λ    2.8513    5.0971    8.6613   18.5733   199.4832
-           α   -2.0875   -2.0875   -2.0875   -2.0875    -2.0875
-        β[1]    0.0614    0.1238    0.1566    0.1887     0.2502
-        β[2]    1.0535    1.0991    1.1237    1.1470     1.1909
-        β[3]   -0.5240   -0.2076   -0.0584    0.0882     0.3534
-        β[4]    2.0875    2.0875    2.0875    2.0875     2.0875
-        β[5]    0.4148    0.6031    0.6965    0.7874     0.9547</code></pre><h2 id="Example-4:-NegativeBinomial-Regression"><a class="docs-heading-anchor" href="#Example-4:-NegativeBinomial-Regression">Example 4: NegativeBinomial Regression</a><a id="Example-4:-NegativeBinomial-Regression-1"></a><a class="docs-heading-anchor-permalink" href="#Example-4:-NegativeBinomial-Regression" title="Permalink"></a></h2><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; using RDatasets, StatsModels, StatsPlots, NLSolversBase, CRRao, Logging</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; Logging.disable_logging(Logging.Warn); CRRao.setprogress!(false)</code><code class="nohighlight hljs ansi" style="display:block;">false</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; sanction = dataset(&quot;Zelig&quot;, &quot;sanction&quot;);</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; sanction</code><code class="nohighlight hljs ansi" style="display:block;">78×8 DataFrame
+           λ    0.7981    1.6191    2.9077    6.3115   59.0554
+           α    0.3639    0.3639    0.3639    0.3639    0.3639
+        β[1]    0.3639    0.3639    0.3639    0.3639    0.3639
+        β[2]    0.3639    0.3639    0.3639    0.3639    0.3639
+        β[3]   -0.3639   -0.3639   -0.3639   -0.3639   -0.3639
+        β[4]    0.3639    0.3639    0.3639    0.3639    0.3639
+        β[5]   -0.3639   -0.3639   -0.3639   -0.3639   -0.3639</code></pre><h2 id="Example-4:-NegativeBinomial-Regression"><a class="docs-heading-anchor" href="#Example-4:-NegativeBinomial-Regression">Example 4: NegativeBinomial Regression</a><a id="Example-4:-NegativeBinomial-Regression-1"></a><a class="docs-heading-anchor-permalink" href="#Example-4:-NegativeBinomial-Regression" title="Permalink"></a></h2><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; using RDatasets, StatsModels, StatsPlots, NLSolversBase, CRRao, Logging</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; Logging.disable_logging(Logging.Warn); CRRao.setprogress!(false)</code><code class="nohighlight hljs ansi" style="display:block;">false</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; sanction = dataset(&quot;Zelig&quot;, &quot;sanction&quot;);</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; sanction</code><code class="nohighlight hljs ansi" style="display:block;">78×8 DataFrame
  Row │ Mil    Coop   Target  Import  Export  Cost   Num    NCost
      │ Int32  Int32  Int32   Int32   Int32   Int32  Int32  Cat…
 ─────┼───────────────────────────────────────────────────────────────────
@@ -808,7 +808,7 @@ Coop                 1.0506       0.111556   9.42    &lt;1e-20   0.831949   1.26
 NCost: major loss   -0.204244     0.508156  -0.40    0.6877  -1.20021    0.791723
 NCost: modest loss   1.27142      0.290427   4.38    &lt;1e-04   0.702197   1.84065
 NCost: net gain      0.176797     0.254291   0.70    0.4869  -0.321604   0.675197
-─────────────────────────────────────────────────────────────────────────────────, [-1.1093939122450291, 0.011739761450927876, 1.0505950803719273, -0.204244271269866, 1.2714237997560502, 0.1767967980815313], -175.92902143271343, 363.85804286542685, 377.9982958255644)</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m4_1.fit</code><code class="nohighlight hljs ansi" style="display:block;">─────────────────────────────────────────────────────────────────────────────────
+─────────────────────────────────────────────────────────────────────────────────, [-1.1093939122450294, 0.011739761450927892, 1.0505950803719273, -0.20424427126986622, 1.27142379975605, 0.1767967980815312], -175.92902143271345, 363.8580428654269, 377.99829582556447)</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m4_1.fit</code><code class="nohighlight hljs ansi" style="display:block;">─────────────────────────────────────────────────────────────────────────────────
                          Coef.  Std. Error      z  Pr(&gt;|z|)  Lower 95%  Upper 95%
 ─────────────────────────────────────────────────────────────────────────────────
 (Intercept)         -1.10939      0.459677  -2.41    0.0158  -2.01034   -0.208444
@@ -817,116 +817,94 @@ Coop                 1.0506       0.111556   9.42    &lt;1e-20   0.831949   1.26
 NCost: major loss   -0.204244     0.508156  -0.40    0.6877  -1.20021    0.791723
 NCost: modest loss   1.27142      0.290427   4.38    &lt;1e-04   0.702197   1.84065
 NCost: net gain      0.176797     0.254291   0.70    0.4869  -0.321604   0.675197
-─────────────────────────────────────────────────────────────────────────────────</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m4_1.AIC</code><code class="nohighlight hljs ansi" style="display:block;">363.85804286542685</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m4_1.BIC</code><code class="nohighlight hljs ansi" style="display:block;">377.9982958255644</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m4_1.lambda_hat</code><code class="nohighlight hljs ansi" style="display:block;">ERROR: type analysis_Count_NegativeBinom_NIP_Optim has no field lambda_hat</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; ## NegativeBinomial Regression with Ridge Prior
+─────────────────────────────────────────────────────────────────────────────────</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m4_1.AIC</code><code class="nohighlight hljs ansi" style="display:block;">363.8580428654269</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m4_1.BIC</code><code class="nohighlight hljs ansi" style="display:block;">377.99829582556447</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m4_1.lambda_hat</code><code class="nohighlight hljs ansi" style="display:block;">ERROR: type analysis_Count_NegativeBinom_NIP_Optim has no field lambda_hat</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; ## NegativeBinomial Regression with Ridge Prior
        m4_2 = fitmodel(@formula(Num ~ Target + Coop + NCost), sanction,NegBinomRegression(),Prior_Ridge())</code><code class="nohighlight hljs ansi" style="display:block;">CRRao.MCMC_chain(MCMC chain (10000×19×1 Array{Float64, 3}), Summary Statistics (7 x 8), Quantiles (7 x 6))</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m4_2.summaries</code><code class="nohighlight hljs ansi" style="display:block;">Summary Statistics
   parameters      mean       std   naive_se      mcse         ess      rhat    ⋯
       Symbol   Float64   Float64    Float64   Float64     Float64   Float64    ⋯
 
-           λ    2.0359    0.4414     0.0044    0.0048   8474.4131    1.0003    ⋯
-           α   -1.0747    0.5138     0.0051    0.0091   3499.8098    0.9999    ⋯
-        β[1]   -0.0083    0.1596     0.0016    0.0022   5402.5758    0.9999    ⋯
-        β[2]    1.0629    0.1327     0.0013    0.0021   4729.7293    0.9999    ⋯
-        β[3]   -0.1684    0.5541     0.0055    0.0064   7789.8224    0.9999    ⋯
-        β[4]    1.2798    0.3200     0.0032    0.0035   7205.4201    1.0000    ⋯
-        β[5]    0.1503    0.2830     0.0028    0.0038   5932.0118    0.9999    ⋯
+           λ    2.0297    0.4322     0.0043    0.0048   7616.1979    0.9999    ⋯
+           α   -1.0861    0.5167     0.0052    0.0087   4073.0440    1.0003    ⋯
+        β[1]   -0.0052    0.1606     0.0016    0.0022   5659.0333    1.0002    ⋯
+        β[2]    1.0651    0.1329     0.0013    0.0018   5783.5674    1.0001    ⋯
+        β[3]   -0.1712    0.5507     0.0055    0.0063   8277.8112    1.0000    ⋯
+        β[4]    1.2767    0.3190     0.0032    0.0038   6670.9924    1.0000    ⋯
+        β[5]    0.1556    0.2795     0.0028    0.0037   6205.7964    1.0000    ⋯
                                                                 1 column omitted</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m4_2.quantiles</code><code class="nohighlight hljs ansi" style="display:block;">Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           λ    1.3265    1.7235    1.9813    2.2946    3.0012
-           α   -2.1022   -1.4128   -1.0686   -0.7354   -0.0758
-        β[1]   -0.3254   -0.1128   -0.0081    0.0990    0.2995
-        β[2]    0.8044    0.9751    1.0614    1.1520    1.3262
-        β[3]   -1.1979   -0.5477   -0.1761    0.1913    0.9645
-        β[4]    0.6604    1.0647    1.2804    1.4896    1.9110
-        β[5]   -0.4098   -0.0381    0.1511    0.3401    0.7143</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; ## NegativeBinomial Regression with Laplace Prior
+           λ    1.3329    1.7190    1.9814    2.2868    3.0270
+           α   -2.0914   -1.4322   -1.0879   -0.7415   -0.0783
+        β[1]   -0.3282   -0.1119   -0.0037    0.1020    0.3045
+        β[2]    0.8048    0.9757    1.0662    1.1539    1.3234
+        β[3]   -1.2090   -0.5568   -0.1879    0.1952    0.9423
+        β[4]    0.6592    1.0600    1.2752    1.4900    1.9132
+        β[5]   -0.3944   -0.0321    0.1539    0.3437    0.6958</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; ## NegativeBinomial Regression with Laplace Prior
        m4_3 = fitmodel(@formula(Num ~ Target + Coop + NCost), sanction,NegBinomRegression(),Prior_Laplace())</code><code class="nohighlight hljs ansi" style="display:block;">CRRao.MCMC_chain(MCMC chain (10000×19×1 Array{Float64, 3}), Summary Statistics (7 x 8), Quantiles (7 x 6))</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m4_3.summaries</code><code class="nohighlight hljs ansi" style="display:block;">Summary Statistics
   parameters      mean       std   naive_se      mcse         ess      rhat    ⋯
       Symbol   Float64   Float64    Float64   Float64     Float64   Float64    ⋯
 
-           λ    2.1027    0.4645     0.0046    0.0055   7624.9242    1.0004    ⋯
-           α   -0.9927    0.5106     0.0051    0.0090   3026.2051    0.9999    ⋯
-        β[1]   -0.0251    0.1563     0.0016    0.0022   4504.2362    0.9999    ⋯
-        β[2]    1.0477    0.1309     0.0013    0.0020   4480.8696    0.9999    ⋯
-        β[3]   -0.1476    0.5070     0.0051    0.0047   9070.4180    0.9999    ⋯
-        β[4]    1.2787    0.3195     0.0032    0.0037   7420.0761    0.9999    ⋯
-        β[5]    0.1136    0.2727     0.0027    0.0038   4932.4718    1.0000    ⋯
+           λ    2.1138    0.4570     0.0046    0.0053   7074.7263    1.0000    ⋯
+           α   -1.0149    0.5072     0.0051    0.0096   3554.2023    1.0023    ⋯
+        β[1]   -0.0192    0.1568     0.0016    0.0025   4759.0378    1.0017    ⋯
+        β[2]    1.0506    0.1309     0.0013    0.0020   5065.4708    1.0010    ⋯
+        β[3]   -0.1481    0.5194     0.0052    0.0053   8671.7313    1.0001    ⋯
+        β[4]    1.2778    0.3193     0.0032    0.0042   6678.4300    1.0000    ⋯
+        β[5]    0.1217    0.2719     0.0027    0.0039   5672.3668    1.0011    ⋯
                                                                 1 column omitted</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m4_3.quantiles</code><code class="nohighlight hljs ansi" style="display:block;">Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           λ    1.3489    1.7680    2.0552    2.3768    3.1576
-           α   -2.0054   -1.3350   -0.9885   -0.6487   -0.0098
-        β[1]   -0.3377   -0.1273   -0.0251    0.0769    0.2869
-        β[2]    0.7931    0.9587    1.0472    1.1365    1.3071
-        β[3]   -1.1490   -0.4791   -0.1443    0.1718    0.8725
-        β[4]    0.6510    1.0656    1.2761    1.4919    1.9124
-        β[5]   -0.4183   -0.0706    0.1075    0.2931    0.6590</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; ## NegativeBinomial Regression with Cauchy Prior
+           λ    1.3662    1.7868    2.0644    2.3909    3.1333
+           α   -2.0092   -1.3636   -1.0198   -0.6673   -0.0136
+        β[1]   -0.3340   -0.1230   -0.0185    0.0851    0.2873
+        β[2]    0.7952    0.9627    1.0479    1.1385    1.3135
+        β[3]   -1.1536   -0.4948   -0.1449    0.1840    0.9007
+        β[4]    0.6564    1.0623    1.2746    1.4855    1.9303
+        β[5]   -0.4120   -0.0591    0.1166    0.3060    0.6618</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; ## NegativeBinomial Regression with Cauchy Prior
        m4_4 = fitmodel(@formula(Num ~ Target + Coop + NCost), sanction,NegBinomRegression(),Prior_Cauchy())</code><code class="nohighlight hljs ansi" style="display:block;">CRRao.MCMC_chain(MCMC chain (10000×19×1 Array{Float64, 3}), Summary Statistics (7 x 8), Quantiles (7 x 6))</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m4_4.summaries</code><code class="nohighlight hljs ansi" style="display:block;">Summary Statistics
   parameters      mean       std   naive_se      mcse         ess      rhat    ⋯
       Symbol   Float64   Float64    Float64   Float64     Float64   Float64    ⋯
 
-           λ    2.0233    0.4366     0.0044    0.0050   7337.1459    0.9999    ⋯
-           α   -1.0485    0.5234     0.0052    0.0082   3804.0928    1.0006    ⋯
-        β[1]   -0.0114    0.1623     0.0016    0.0022   5556.6065    1.0002    ⋯
-        β[2]    1.0565    0.1328     0.0013    0.0017   4943.6531    1.0006    ⋯
-        β[3]   -0.1614    0.5458     0.0055    0.0070   6053.3356    0.9999    ⋯
-        β[4]    1.2749    0.3237     0.0032    0.0038   7213.6065    0.9999    ⋯
-        β[5]    0.1374    0.2829     0.0028    0.0035   5791.3034    1.0002    ⋯
+           λ    2.0301    0.4406     0.0044    0.0050   8028.0805    1.0001    ⋯
+           α   -1.0428    0.5211     0.0052    0.0089   3360.3589    1.0006    ⋯
+        β[1]   -0.0135    0.1626     0.0016    0.0023   5361.1058    1.0003    ⋯
+        β[2]    1.0545    0.1336     0.0013    0.0020   4331.2774    1.0000    ⋯
+        β[3]   -0.1594    0.5376     0.0054    0.0064   6491.1693    0.9999    ⋯
+        β[4]    1.2795    0.3223     0.0032    0.0038   6283.3630    1.0003    ⋯
+        β[5]    0.1396    0.2788     0.0028    0.0040   5413.8301    1.0005    ⋯
                                                                 1 column omitted</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m4_4.quantiles</code><code class="nohighlight hljs ansi" style="display:block;">Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           λ    1.3180    1.7091    1.9788    2.2820    2.9997
-           α   -2.0875   -1.3877   -1.0506   -0.7003   -0.0254
-        β[1]   -0.3243   -0.1211   -0.0111    0.0959    0.3098
-        β[2]    0.8015    0.9671    1.0568    1.1437    1.3284
-        β[3]   -1.2172   -0.5293   -0.1722    0.1921    0.9501
-        β[4]    0.6394    1.0618    1.2736    1.4957    1.9104
-        β[5]   -0.4138   -0.0546    0.1369    0.3271    0.6908</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; ## NegativeBinomial Regression with TDist Prior
-       m4_5 = fitmodel(@formula(Num ~ Target + Coop + NCost), sanction,NegBinomRegression(),Prior_TDist())</code><code class="nohighlight hljs ansi" style="display:block;">CRRao.MCMC_chain(MCMC chain (10000×20×1 Array{Float64, 3}), Summary Statistics (8 x 8), Quantiles (8 x 6))</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m4_5.summaries</code><code class="nohighlight hljs ansi" style="display:block;">Summary Statistics
-  parameters      mean        std   naive_se      mcse         ess      rhat   ⋯
-      Symbol   Float64    Float64    Float64   Float64     Float64   Float64   ⋯
-
-           λ    2.0178     0.4330     0.0043    0.0051   7858.8252    0.9999   ⋯
-           ν   17.5403   107.8809     1.0788    1.6971   3908.5770    1.0012   ⋯
-           α   -1.0690     0.5229     0.0052    0.0091   3162.8885    1.0000   ⋯
-        β[1]   -0.0076     0.1619     0.0016    0.0023   4664.4104    1.0001   ⋯
-        β[2]    1.0595     0.1329     0.0013    0.0020   4313.5061    0.9999   ⋯
-        β[3]   -0.1634     0.5491     0.0055    0.0062   8349.3947    0.9999   ⋯
-        β[4]    1.2801     0.3226     0.0032    0.0042   7082.4590    1.0000   ⋯
-        β[5]    0.1475     0.2786     0.0028    0.0037   5348.4832    0.9999   ⋯
-                                                                1 column omitted</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m4_5.quantiles</code><code class="nohighlight hljs ansi" style="display:block;">Quantiles
-  parameters      2.5%     25.0%     50.0%     75.0%     97.5%
-      Symbol   Float64   Float64   Float64   Float64   Float64
-
-           λ    1.3131    1.7087    1.9669    2.2760    2.9963
-           ν    0.6677    1.8895    3.8923    8.9366   97.6027
-           α   -2.0734   -1.4182   -1.0692   -0.7252   -0.0212
-        β[1]   -0.3313   -0.1163   -0.0072    0.1031    0.3018
-        β[2]    0.7979    0.9705    1.0581    1.1486    1.3205
-        β[3]   -1.2233   -0.5306   -0.1738    0.1903    0.9564
-        β[4]    0.6600    1.0650    1.2762    1.4918    1.9309
-        β[5]   -0.4005   -0.0393    0.1461    0.3335    0.6960</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; ## NegativeBinomial Regression with Uniform Prior
+           λ    1.3083    1.7226    1.9789    2.2854    3.0491
+           α   -2.0768   -1.3905   -1.0330   -0.6889   -0.0410
+        β[1]   -0.3246   -0.1240   -0.0151    0.0945    0.3063
+        β[2]    0.7979    0.9638    1.0532    1.1423    1.3217
+        β[3]   -1.1889   -0.5235   -0.1642    0.1971    0.9298
+        β[4]    0.6476    1.0663    1.2790    1.4918    1.9117
+        β[5]   -0.4076   -0.0520    0.1397    0.3257    0.6889</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; ## NegativeBinomial Regression with TDist Prior
+       m4_5 = fitmodel(@formula(Num ~ Target + Coop + NCost), sanction,NegBinomRegression(),Prior_TDist())</code><code class="nohighlight hljs ansi" style="display:block;">ERROR: DomainError with 0.0:
+NegativeBinomial: the condition zero(p) &lt; p &lt;= one(p) is not satisfied.</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m4_5.summaries</code><code class="nohighlight hljs ansi" style="display:block;">ERROR: UndefVarError: m4_5 not defined</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m4_5.quantiles</code><code class="nohighlight hljs ansi" style="display:block;">ERROR: UndefVarError: m4_5 not defined</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; ## NegativeBinomial Regression with Uniform Prior
        m4_6 = fitmodel(@formula(Num ~ Target + Coop + NCost), sanction,NegBinomRegression(),Prior_Uniform(),1.0)</code><code class="nohighlight hljs ansi" style="display:block;">CRRao.MCMC_chain(MCMC chain (10000×19×1 Array{Float64, 3}), Summary Statistics (7 x 8), Quantiles (7 x 6))</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m4_6.summaries</code><code class="nohighlight hljs ansi" style="display:block;">Summary Statistics
   parameters      mean       std   naive_se      mcse         ess      rhat    ⋯
       Symbol   Float64   Float64    Float64   Float64     Float64   Float64    ⋯
 
-           λ    0.4495    0.0599     0.0006    0.0006   9859.7024    1.0002    ⋯
-           α    0.1473    0.0000     0.0000    0.0000     20.5530    0.9999    ⋯
-        β[1]    0.1473    0.0000     0.0000    0.0000     20.5530    0.9999    ⋯
-        β[2]    0.1473    0.0000     0.0000    0.0000     20.5530    0.9999    ⋯
-        β[3]   -0.0962    0.1115     0.0011    0.0108     22.7256    1.2372    ⋯
-        β[4]    0.1473    0.0000     0.0000    0.0000     20.5530    0.9999    ⋯
-        β[5]   -0.0016    0.1473     0.0015    0.0138     22.8477    2.2046    ⋯
+           λ    2.7739    0.5613     0.0056    0.0072   7447.9897    0.9999    ⋯
+           α   -1.0633    0.4495     0.0045    0.0074   3815.4390    0.9999    ⋯
+        β[1]   -0.0112    0.1427     0.0014    0.0018   5400.5703    0.9999    ⋯
+        β[2]    1.0585    0.1159     0.0012    0.0016   5739.8499    1.0001    ⋯
+        β[3]   -0.1842    0.4943     0.0049    0.0052   9414.0945    1.0000    ⋯
+        β[4]    1.2896    0.2763     0.0028    0.0030   8054.9229    1.0001    ⋯
+        β[5]    0.1403    0.2546     0.0025    0.0032   5829.7626    1.0002    ⋯
                                                                 1 column omitted</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; m4_6.quantiles</code><code class="nohighlight hljs ansi" style="display:block;">Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           λ    0.3426    0.4065    0.4452    0.4879    0.5773
-           α    0.1473    0.1473    0.1473    0.1473    0.1473
-        β[1]    0.1473    0.1473    0.1473    0.1473    0.1473
-        β[2]    0.1473    0.1473    0.1473    0.1473    0.1473
-        β[3]   -0.1473   -0.1473   -0.1473   -0.1473    0.1473
-        β[4]    0.1473    0.1473    0.1473    0.1473    0.1473
-        β[5]   -0.1473   -0.1473   -0.1473    0.1473    0.1473</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../">« Home</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.15 on <span class="colophon-date" title="Sunday 17 April 2022 18:21">Sunday 17 April 2022</span>. Using Julia version 1.7.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+           λ    1.8462    2.3787    2.7111    3.1077    4.0372
+           α   -1.9263   -1.3740   -1.0717   -0.7567   -0.1842
+        β[1]   -0.2982   -0.1038   -0.0104    0.0839    0.2630
+        β[2]    0.8322    0.9810    1.0586    1.1369    1.2845
+        β[3]   -1.1370   -0.5191   -0.1927    0.1478    0.8161
+        β[4]    0.7429    1.1072    1.2924    1.4728    1.8311
+        β[5]   -0.3615   -0.0314    0.1465    0.3104    0.6314</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../">« Home</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.15 on <span class="colophon-date" title="Sunday 17 April 2022 18:32">Sunday 17 April 2022</span>. Using Julia version 1.7.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
