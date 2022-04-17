@@ -82,3 +82,15 @@ BenchmarkTools.Trial: 10000 samples with 1 evaluation.
 
 Clearly we see a gain of 254% or 2.54 times gain in time if you use the CRRao in `Julia` instead of `lm` in `R`.
 
+
+In another independent machine when we compared the same statistical model on the same `mtcars` data over `Julia`, `R` and `Python`; for 100,000 iterations, we have the following results:
+
+--------------------------------------------------
+Language.  |.  Package/Function |    Time Taken
+--------------------------------------------------
+`R`        |   `stats`/`lm`     |   21.02 seconds
+--------------------------------------------------
+`Python`.  |. `statsmodes`/`ols`|.  210.66 seconds
+--------------------------------------------------
+`Julia`.   |  `CRRao`/`fitmodel`|.   8.05. seconds
+--------------------------------------------------
