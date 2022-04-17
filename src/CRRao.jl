@@ -42,7 +42,7 @@ struct Cauchit end
 
 export LinearRegression, LogisticRegression, PoissonRegression, NegBinomRegression
 export Prior_Ridge, Prior_Laplace, Prior_Cauchy, Prior_TDist, Prior_Uniform
-export Logit, Probit, Cloglog, Cauchit, fitmodel
+export Logit, Probit, Cloglog, Cauchit, fitmodel, @formula
 
 include("general_stats.jl")
 #include("mcmc.jl")
