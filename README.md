@@ -90,7 +90,8 @@ In another independent machine when we compared the same statistical model on th
 --------------------------------------------------
 Language   |   Package/Function |    Time Taken
 -----------| -------------------|------------------
-`R`        |   `stats`/`lm`     |   21.02 seconds
 `Python`   |  `statsmodes`/`ols`|  210.66 seconds
+`Python`.  |  `sklearn`/`fit`.  |   55.99 seconds
+`R`        |  `stats`/`lm`      |   21.02 seconds
 `Julia`    |  `CRRao`/`fitmodel`|    8.05 seconds
 -----------|--------------------|------------------
