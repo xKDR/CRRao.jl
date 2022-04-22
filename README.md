@@ -15,7 +15,9 @@
 
 # CRRao: Julia Statistical Modeling Package for All
 
-CRRao is a consistent framework for statistical models. There is value in having a consistent API for a wide variety of statistical models. The CRRao package offers this design, and at present has four models. We will build more in coming days, and we hope other authors of models will also build new models in this framework.
+CRRao is a consistent framework for statistical models. There is value in having a consistent API for a wide variety of statistical models. The CRRao package offers this design, and at present has four models. We will build more in coming days, and we hope other authors of models will also build new models in this framework. Here is an example of how you can implement a simple linear regression using the `fitmodel` of `CRRao`. The model that we are trying to fit here is 
+
+MPG = β0 + β1 HP + β2 WT + β3 Gear + ϵ
 
 ```Julia
 
@@ -37,6 +39,8 @@ CRRao is a consistent framework for statistical models. There is value in having
    ────────────────────────────────────────────────────────────────────────────
 
    ```
+
+
 
 The current version includes the following four models: 
 (1) Linear Regression, 
