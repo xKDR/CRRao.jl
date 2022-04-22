@@ -19,7 +19,7 @@ CRRao is a consistent framework for statistical models. There is value in having
 
 ```Julia
 
-   Julia> using RDatasets, StatsModels, StatsPlots
+   Julia> using CRRao, RDatasets, StatsModels
 
    Julia> df = dataset("datasets", "mtcars");
 
