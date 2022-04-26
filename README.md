@@ -101,13 +101,12 @@ BenchmarkTools.Trial: 10000 samples with 1 evaluation.
  Time  (mean ± σ):   160.215 μs ± 559.192 μs  ┊ GC (mean ± σ):  4.54% ± 3.30%
 ```
 
-To summarise the performance across four alternatives: 
-
+**To summarise the performance across four alternatives:**
 --------------------------------------------------
 Language   |   Package/Function |    Mean time taken
 -----------| -------------------|------------------
 `Python`   |  `statsmodes`/`ols`|  2106.6 μs
-`Python`.  |  `sklearn`/`fit`.  |   559.9 μs
+`Python`   |  `sklearn`/`fit`   |   559.9 μs
 `R`        |  `stats`/`lm`      |   380.13 μs
 `Julia`    |  `CRRao`/`fitmodel`|    160.22 μs
 -----------|--------------------|------------------
