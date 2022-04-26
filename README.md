@@ -14,7 +14,32 @@
 
 # CRRao: Julia Statistical Modeling Package for All
 
-CRRao is consistent framework for statistical models. There is value in having a consistent API for a wide variety of statistical models. The CRRao package offers this design, and at present has four models. We will build more in coming days, and we hope other authors of models will also build new models in this framework.
+CRRao is a consistent framework for statistical models. There is value in having a consistent API for a wide variety of statistical models. The CRRao package offers this design, and at present has four models. We will build more in coming days, and we hope other authors of models will also build new models in this framework. Here is an example of how you can implement a simple linear regression using the `fitmodel` of `CRRao`. The model that we are trying to fit here is 
+
+MPG = β0 + β1 HP + β2 WT + β3 Gear + ϵ
+
+```Julia
+
+   Julia> using CRRao, RDatasets, StatsModels
+
+   Julia> df = dataset("datasets", "mtcars");
+
+   Julia> model = fitmodel(@formula(MPG ~ HP + WT+Gear),df,LinearRegression());
+
+   Julia> model.fit
+
+   ────────────────────────────────────────────────────────────────────────────
+                     Coef.  Std. Error      t  Pr(>|t|)   Lower 95%   Upper 95%
+   ────────────────────────────────────────────────────────────────────────────
+   (Intercept)  32.0137     4.63226      6.91    <1e-06  22.5249     41.5024
+   HP           -0.0367861  0.00989146  -3.72    0.0009  -0.0570478  -0.0165243
+   WT           -3.19781    0.846546    -3.78    0.0008  -4.93188    -1.46374
+   Gear          1.01998    0.851408     1.20    0.2410  -0.72405     2.76401
+   ────────────────────────────────────────────────────────────────────────────
+
+   ```
+
+
 
 The current version includes the following four models: 
 (1) Linear Regression, 
@@ -41,7 +66,9 @@ CRRao leverage the strength of wonderful Julia packages that already exists, suc
 + We are at the very early stage of the development.
 + **Note**: You can read more about **Prof C.R. Rao** [Click Here](https://en.wikipedia.org/wiki/C._R._Rao)
 
-**Why one should use CRRao in Julia over lm in R?**
+## **Why one should use CRRao in Julia over lm in R?**
+
+Julia works much faster in terms of time and memory management. Hence it is suitable for handling really large data. We demonstrate that just to implement the OLS regression Julia is approximately 2.5x times faster than `R`.
 
 We took `mtcars` data and fit a simple linear regression using `lm` in `R` and benchmarked the process using the microbenchmark library. 
 
@@ -81,3 +108,14 @@ BenchmarkTools.Trial: 10000 samples with 1 evaluation.
 
 Clearly we see a gain of 254% or 2.54 times gain in time if you use the CRRao in `Julia` instead of `lm` in `R`.
 
+
+In another independent machine when we compared the same statistical model on the same `mtcars` data over `Julia`, `R` and `Python`; for 100,000 iterations, we have the following results:
+
+--------------------------------------------------
+Language   |   Package/Function |    Time Taken
+-----------| -------------------|------------------
+`Python`   |  `statsmodes`/`ols`|  210.66 seconds
+`Python`.  |  `sklearn`/`fit`.  |   55.99 seconds
+`R`        |  `stats`/`lm`      |   21.02 seconds
+`Julia`    |  `CRRao`/`fitmodel`|    8.05 seconds
+-----------|--------------------|------------------
