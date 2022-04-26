@@ -1585,3 +1585,23 @@ function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomReg
     ans = NegBinom_Reg(formula,data,"LogLink")
     ans
 end
+
+"""
+```julia
+   @fitmodel(formula, args...)
+```
+
+Macro for calling `fitmodel` without using `@formula` to create the formula. 
+
+# Example
+```julia
+using CRRao, RDatasets
+sanction = dataset("Zelig", "sanction")
+model = @fitmodel(Num ~ Target + Coop + NCost, sanction, NegBinomRegression())
+```
+"""
+macro fitmodel(formula, args...)
+   quote
+      fitmodel(@formula($formula), $(map(esc, args)...))
+   end
+end
