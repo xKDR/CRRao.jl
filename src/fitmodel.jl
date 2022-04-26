@@ -15,7 +15,7 @@
 
    Julia> df = dataset("datasets", "mtcars");
 
-   Julia> model = fitmodel(@formula(MPG ~ HP + WT+Gear),df,LinearRegression());
+   Julia> model = @fitmodel(MPG ~ HP + WT+Gear,df,LinearRegression());
 
    Julia> model.fit
 
@@ -96,7 +96,7 @@ end
       y ~ MvNormal(α .+ X * β, σ)
 
 
-   Julia> model = fitmodel(@formula(MPG ~ HP + WT+Gear),df,LinearRegression(),Prior_Ridge());
+   Julia> model = @fitmodel(MPG ~ HP + WT+Gear,df,LinearRegression(),Prior_Ridge());
 
    ┌ Info: Found initial step size
    └   ϵ = 0.003125
@@ -138,11 +138,11 @@ end
    # h is 0.01 as Default
    # sim_size is 10000
 
-   Julia> model = fitmodel(@formula(MPG ~ HP + WT+Gear),df,LinearRegression(),Prior_Laplace());
+   Julia> model = @fitmodel(MPG ~ HP + WT+Gear,df,LinearRegression(),Prior_Laplace());
 
    Alternative:
 
-   Julia> model = fitmodel(@formula(MPG ~ HP + WT+Gear),df,LinearRegression(),Prior_Laplace(),0.01,10000);
+   Julia> model = @fitmodel(MPG ~ HP + WT+Gear,df,LinearRegression(),Prior_Laplace(),0.01,10000);
 
    ┌ Warning: The current proposal will be rejected due to numerical error(s).
    │   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
@@ -186,7 +186,7 @@ end
    # sim_size is 10000 (default). In the following example we considered 20000.
 
 
-   Julia> model = fitmodel(@formula(MPG ~ HP + WT+Gear),df,LinearRegression(),Prior_Cauchy(),20000);
+   Julia> model = @fitmodel(MPG ~ HP + WT+Gear,df,LinearRegression(),Prior_Cauchy(),20000);
 
    ┌ Info: Found initial step size
    └   ϵ = 0.00078125
@@ -226,7 +226,7 @@ end
 
    # sim_size is 10000 (default).
 
-   Julia> model = fitmodel(@formula(MPG ~ HP + WT+Gear),df,LinearRegression(),Prior_TDist());
+   Julia> model = @fitmodel(MPG ~ HP + WT+Gear,df,LinearRegression(),Prior_TDist());
 
    ┌ Info: Found initial step size
    └   ϵ = 0.0001953125
@@ -285,7 +285,7 @@ end
 
    # sim_size is 10000 (default).
 
-   Julia> model = fitmodel(@formula(MPG ~ HP + WT+Gear),df
+   Julia> model = @fitmodel(MPG ~ HP + WT+Gear,df
                            ,LinearRegression()
                            ,Prior_Uniform());
 
@@ -314,7 +314,7 @@ end
    ```    
    Julia> turnout = dataset("Zelig", "turnout")
 
-   Julia> model = fitmodel(@formula(Vote ~ Age + Race +Income + Educate)
+   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
                   ,turnout,LogisticRegression(),Logit());
 
    Julia> model.fit
@@ -362,7 +362,7 @@ end
 
    Julia> turnout = dataset("Zelig", "turnout")
 
-   Julia> model = fitmodel(@formula(Vote ~ Age + Race +Income + Educate)
+   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
                   ,turnout,LogisticRegression(),Probit());
    Julia> model.fit
 
@@ -398,7 +398,7 @@ end
    ```Julia
    Julia> turnout = dataset("Zelig", "turnout")
 
-   Julia> model = fitmodel(@formula(Vote ~ Age + Race +Income + Educate)
+   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
                   ,turnout,LogisticRegression(),Cloglog());
    Julia> model.fit
 
@@ -434,7 +434,7 @@ end
     ```Julia
       Julia> turnout = dataset("Zelig", "turnout")
 
-      Julia> model = fitmodel(@formula(Vote ~ Age + Race +Income + Educate)
+      Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
                      ,turnout,LogisticRegression(),Cauchit());
       Julia> model.fit
 
@@ -477,7 +477,7 @@ end
 
    Julia> turnout = dataset("Zelig", "turnout")
 
-   Julia> model = fitmodel(@formula(Vote ~ Age + Race +Income + Educate)
+   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
                   ,turnout,LogisticRegression(),Cauchit());
 
    ```
@@ -508,7 +508,7 @@ end
 
    Julia> turnout = dataset("Zelig", "turnout")
 
-   Julia> model = fitmodel(@formula(Vote ~ Age + Race +Income + Educate)
+   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
                   ,turnout,LogisticRegression()
                   ,Probit(),Prior_Ridge());
 
@@ -540,7 +540,7 @@ end
 
    Julia> turnout = dataset("Zelig", "turnout")
 
-   Julia> model = fitmodel(@formula(Vote ~ Age + Race +Income + Educate)
+   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
                            ,turnout
                            ,LogisticRegression()
                            ,Cloglog()
@@ -574,7 +574,7 @@ end
 
    Julia> turnout = dataset("Zelig", "turnout")
 
-   Julia> model = fitmodel(@formula(Vote ~ Age + Race +Income + Educate)
+   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
                            ,turnout
                            ,LogisticRegression()
                            ,Cauchit()
@@ -608,7 +608,7 @@ end
 
    Julia> turnout = dataset("Zelig", "turnout")
 
-   Julia> model = fitmodel(@formula(Vote ~ Age + Race +Income + Educate)
+   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
                            ,turnout
                            ,LogisticRegression()
                            ,Logit()
@@ -642,7 +642,7 @@ end
 
    Julia> turnout = dataset("Zelig", "turnout")
 
-   Julia> model = fitmodel(@formula(Vote ~ Age + Race +Income + Educate)
+   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
                            ,turnout
                            ,LogisticRegression()
                            ,Probit()
@@ -676,7 +676,7 @@ end
 
    Julia> turnout = dataset("Zelig", "turnout")
 
-   Julia> model = fitmodel(@formula(Vote ~ Age + Race +Income + Educate)
+   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
                            ,turnout
                            ,LogisticRegression()
                            ,Cloglog()
@@ -710,7 +710,7 @@ end
 
    Julia> turnout = dataset("Zelig", "turnout")
 
-   Julia> model = fitmodel(@formula(Vote ~ Age + Race +Income + Educate)
+   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
                            ,turnout
                            ,LogisticRegression()
                            ,Cauchit()
@@ -747,7 +747,7 @@ end
 
    Julia> turnout = dataset("Zelig", "turnout")
 
-   Julia> model = fitmodel(@formula(Vote ~ Age + Race +Income + Educate)
+   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
                            ,turnout
                            ,LogisticRegression()
                            ,Logit()
@@ -782,7 +782,7 @@ end
 
    Julia> turnout = dataset("Zelig", "turnout")
 
-   Julia> model = fitmodel(@formula(Vote ~ Age + Race +Income + Educate)
+   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
                            ,turnout
                            ,LogisticRegression()
                            ,Probit()
@@ -817,7 +817,7 @@ end
 
    Julia> turnout = dataset("Zelig", "turnout")
 
-   Julia> model = fitmodel(@formula(Vote ~ Age + Race +Income + Educate)
+   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
                            ,turnout
                            ,LogisticRegression()
                            ,Cloglog()
@@ -852,7 +852,7 @@ end
 
    Julia> turnout = dataset("Zelig", "turnout")
 
-   Julia> model = fitmodel(@formula(Vote ~ Age + Race +Income + Educate)
+   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
                            ,turnout
                            ,LogisticRegression()
                            ,Cauchit()
@@ -889,7 +889,7 @@ end
 
    Julia> turnout = dataset("Zelig", "turnout")
 
-   Julia> model = fitmodel(@formula(Vote ~ Age + Race +Income + Educate)
+   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
                            ,turnout
                            ,LogisticRegression()
                            ,Logit()
@@ -925,7 +925,7 @@ end
 
    Julia> turnout = dataset("Zelig", "turnout")
 
-   Julia> model = fitmodel(@formula(Vote ~ Age + Race +Income + Educate)
+   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
                            ,turnout
                            ,LogisticRegression()
                            ,Probit()
@@ -961,7 +961,7 @@ end
 
    Julia> turnout = dataset("Zelig", "turnout")
 
-   Julia> model = fitmodel(@formula(Vote ~ Age + Race +Income + Educate)
+   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
                            ,turnout
                            ,LogisticRegression()
                            ,Cloglog()
@@ -997,7 +997,7 @@ end
 
    Julia> turnout = dataset("Zelig", "turnout")
 
-   Julia> model = fitmodel(@formula(Vote ~ Age + Race +Income + Educate)
+   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
                            ,turnout
                            ,LogisticRegression()
                            ,Cauchit()
@@ -1031,7 +1031,7 @@ end
 
    Julia> turnout = dataset("Zelig", "turnout")
 
-   Julia> model = fitmodel(@formula(Vote ~ Age + Race +Income + Educate)
+   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
                            ,turnout
                            ,LogisticRegression()
                            ,Logit()
@@ -1065,7 +1065,7 @@ end
 
    Julia> turnout = dataset("Zelig", "turnout")
 
-   Julia> model = fitmodel(@formula(Vote ~ Age + Race +Income + Educate)
+   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
                            ,turnout
                            ,LogisticRegression()
                            ,Probit()
@@ -1099,7 +1099,7 @@ end
 
    Julia> turnout = dataset("Zelig", "turnout")
 
-   Julia> model = fitmodel(@formula(Vote ~ Age + Race +Income + Educate)
+   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
                            ,turnout
                            ,LogisticRegression()
                            ,Cloglog()
@@ -1134,7 +1134,7 @@ end
 
    Julia> turnout = dataset("Zelig", "turnout")
 
-   Julia> model = fitmodel(@formula(Vote ~ Age + Race +Income + Educate)
+   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
                            ,turnout
                            ,LogisticRegression()
                            ,Cauchit()
@@ -1165,7 +1165,7 @@ end
 
    Julia> sanction = dataset("Zelig", "sanction");
 
-   Julia> model = fitmodel(@formula(Num ~ Target + Coop + NCost)
+   Julia> model = @fitmodel(Num ~ Target + Coop + NCost
                            , sanction
                            , PoissonRegression());
 
@@ -1199,7 +1199,7 @@ end
 
    Julia> sanction = dataset("Zelig", "sanction");
 
-   Julia> model = fitmodel(@formula(Num ~ Target + Coop + NCost)
+   Julia> model = @fitmodel(Num ~ Target + Coop + NCost
                            , sanction
                            , PoissonRegression()
                            , Prior_Ridge());
@@ -1234,7 +1234,7 @@ end
 
    Julia> sanction = dataset("Zelig", "sanction");
 
-   Julia> model = fitmodel(@formula(Num ~ Target + Coop + NCost)
+   Julia> model = @fitmodel(Num ~ Target + Coop + NCost
                            , sanction
                            , PoissonRegression()
                            , Prior_Laplace());
@@ -1268,7 +1268,7 @@ end
 
    Julia> sanction = dataset("Zelig", "sanction");
 
-   Julia> model = fitmodel(@formula(Num ~ Target + Coop + NCost)
+   Julia> model = @fitmodel(Num ~ Target + Coop + NCost
                            , sanction
                            , PoissonRegression()
                            , Prior_Cauchy());
@@ -1302,7 +1302,7 @@ end
 
    Julia> sanction = dataset("Zelig", "sanction");
 
-   Julia> model = fitmodel(@formula(Num ~ Target + Coop + NCost)
+   Julia> model = @fitmodel(Num ~ Target + Coop + NCost
                            , sanction
                            , PoissonRegression()
                            , Prior_TDist());
@@ -1337,7 +1337,7 @@ end
 
    Julia> sanction = dataset("Zelig", "sanction");
 
-   Julia> model = fitmodel(@formula(Num ~ Target + Coop + NCost)
+   Julia> model = @fitmodel(Num ~ Target + Coop + NCost
                            , sanction
                            , PoissonRegression()
                            , Prior_Uniform());
@@ -1373,7 +1373,7 @@ end
     ```Julia
     Julia> using RDatasets
     Julia> sanction = dataset("Zelig", "sanction");
-    Julia> model = fitmodel(@formula(Num ~ Target + Coop + NCost)
+    Julia> model = @fitmodel(Num ~ Target + Coop + NCost
                             , sanction
                             , NegBinomRegression()
                             , Prior_Ridge());
@@ -1426,7 +1426,7 @@ function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomReg
 
     Julia> using RDatasets
     Julia> sanction = dataset("Zelig", "sanction");
-    Julia> model = fitmodel(@formula(Num ~ Target + Coop + NCost)
+    Julia> model = @fitmodel(Num ~ Target + Coop + NCost
                             , sanction
                             , NegBinomRegression()
                             , Prior_Laplace());
@@ -1464,7 +1464,7 @@ end
 
     Julia> using RDatasets
     Julia> sanction = dataset("Zelig", "sanction");
-    Julia> model = fitmodel(@formula(Num ~ Target + Coop + NCost)
+    Julia> model = @fitmodel(Num ~ Target + Coop + NCost
                             , sanction
                             , NegBinomRegression()
                             , Prior_Cauchy());
@@ -1502,7 +1502,7 @@ end
 
     Julia> using RDatasets
     Julia> sanction = dataset("Zelig", "sanction");
-    Julia> model = fitmodel(@formula(Num ~ Target + Coop + NCost)
+    Julia> model = @fitmodel(Num ~ Target + Coop + NCost
                             , sanction
                             , NegBinomRegression()
                             , Prior_TDist());
@@ -1545,7 +1545,7 @@ end
 
     Julia> using RDatasets
     Julia> sanction = dataset("Zelig", "sanction");
-    Julia> model = fitmodel(@formula(Num ~ Target + Coop + NCost)
+    Julia> model = @fitmodel(Num ~ Target + Coop + NCost
                             , sanction
                             , NegBinomRegression()
                             , Prior_Uniform());
@@ -1574,7 +1574,7 @@ end
 
     Julia> using RDatasets
     Julia> sanction = dataset("Zelig", "sanction");
-    Julia> model = fitmodel(@formula(Num ~ Target + Coop + NCost)
+    Julia> model = @fitmodel(Num ~ Target + Coop + NCost
                             , sanction
                             , NegBinomRegression());
 
@@ -1584,4 +1584,24 @@ end
 function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression)
     ans = NegBinom_Reg(formula,data,"LogLink")
     ans
+end
+
+"""
+```julia
+   @fitmodel(formula, args...)
+```
+
+Macro for calling `fitmodel` without using `@formula` to create the formula. 
+
+# Example
+```julia
+using CRRao, RDatasets
+sanction = dataset("Zelig", "sanction")
+model = @fitmodel(Num ~ Target + Coop + NCost, sanction, NegBinomRegression())
+```
+"""
+macro fitmodel(formula, args...)
+   quote
+      fitmodel(@formula($formula), $(map(esc, args)...))
+   end
 end
