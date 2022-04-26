@@ -12,9 +12,13 @@
  add "https://github.com/xKDR/CRRao.jl.git"
 ```
 
-# CRRao: Julia Statistical Modeling Package for All
+# CRRao: A single API for diverse statistical models
 
-CRRao is a consistent framework for statistical models. There is value in having a consistent API for a wide variety of statistical models. The CRRao package offers this design, and at present has four models. We will build more in coming days, and we hope other authors of models will also build new models in this framework.
+Many statistical models can be estimated in Julia, and the diversity of the model ecosystem is steadily improving. Drawing inspiration from the [Zelig](http://docs.zeligproject.org/index.html) package in the R world, the CRRao package gives a simple and consistent API to the end user. The end-user then faces the fixed cost of getting a hang of this, once, and after that a wide array of models and associated capabilities become available with a consistent syntax. We hope others developing statistical models will build within this framework. 
+
+Here's an example of estimating the linear regression
+
+MPG = β0 + β1 HP + β2 WT + β3 Gear + ϵ
 
 ```Julia
 
@@ -37,37 +41,41 @@ CRRao is a consistent framework for statistical models. There is value in having
 
    ```
 
-The current version includes the following four models: 
-(1) Linear Regression, 
-(2) Logistic Regression, 
-(3) Poisson Regression, and 
-(4) Negative Binomial Regression. 
+This calls the generic function fitmodel(), where you supply a formula, a dataset, and pick the model.
 
-For all four models, we implemented both likelihood and variety of Bayesian models using Turing.jl package of Julia. 
+# Present capabilities
 
-Currently the Bayesian versions of these four models can handle variety of Prior distribution class, such as 
-(1) Ridge Prior, 
-(2) Laplace prior, 
-(3) Cauchy Prior, 
-(4) T-Distributed prior, and 
-(5) Uniform flat prior. 
+We have implemented four regression models:
+1. Linear
+2. Logistic (with four link functions) 
+3. Poisson 
+4. Negative binomial
 
-For Logistic Regression it can handles four link functions: (1) Logit Link, (2) Probit Link, (3) Cloglog Link and (4) Cauchy Link.
+In all cases, we have traditional frequentist models and Bayesian versions with five kinds of priors :
 
-Soon we will publish a developer doc so that more people can contribute to it.
+1. Ridge
+2. Laplace
+3. Cauchy
+4. T-Distributed
+5. Uniform flat
 
-CRRao leverage the strength of wonderful Julia packages that already exists, such as 
-   1. GLM,  2. StatsModels, 3. Turing,  4. Soss, 5. DataFrames, 6. StatsBase, 7. Distributions, 8. LinearAlgebra
+All these models are built out of foundations in the Julia package ecosystem, such as GLM.jl and Turing.jl. Here in CRRao.jl, we are not building additional models; we are only building the scaffolding for the consistent API to a diverse array of models.
 
-+ We are at the very early stage of the development.
-+ **Note**: You can read more about **Prof C.R. Rao** [Click Here](https://en.wikipedia.org/wiki/C._R._Rao)
+# Help us build this
 
-## **Why one should use CRRao in Julia over lm in R?**
+Please use CRRao and tell us what is not good about it.
 
-Julia works much faster in terms of time and memory management. Hence it is suitable for handling really large data. We demonstrate that just to implement the OLS regression Julia is approximately 2.5x times faster than `R`.
+We have exploited Julia capabilities to make it convenient to build additional functionality within CRRao, and for multiple developers to build new models.
 
-We took `mtcars` data and fit a simple linear regression using `lm` in `R` and benchmarked the process using the microbenchmark library. 
+We want to build out CRRao into a simple and consistent approach to the statistical modelling workflow. Please help us plan and build this.
 
+As a developer, you can begin contributing by adding the features requested in the [milestones](https://github.com/xKDR/CRRao.jl/milestones) section of the repository. 
+
+# Performance gains
+
+The efficiency gains of the Julia language and the package ecosystem accrue to the end-user of CRRao. (CRRao is just a thin layer, and the heavy lifting is all done by the underlying packages). Here is some measurement of the above model, done through four alternative systems.
+
+**R**
 ```{r}
 > attach(datasets::mtcars)
 > library(microbenchmark)
@@ -79,9 +87,7 @@ Unit: microseconds
               expr     min      lq     mean   median      uq      max neval
  lm(mpg ~ hp + wt) 290.534 311.209 380.1334 325.9485 395.288 2223.736   100
 ```
-
-We fit the exact same model using the `fitmodel` API of `CRRao` in `Julia` and benchmarked the process using the BenchmarkTools package.
-
+**Julia**
 ```julia
 using RDatasets, CRRao, BenchmarkTools, StatsModels
 df = dataset("datasets", "mtcars");
@@ -93,25 +99,17 @@ BenchmarkTools.Trial: 10000 samples with 1 evaluation.
  Range (min … max):   90.092 μs …  34.761 ms  ┊ GC (min … max): 0.00% … 0.00%
  Time  (median):     127.941 μs               ┊ GC (median):    0.00%
  Time  (mean ± σ):   160.215 μs ± 559.192 μs  ┊ GC (mean ± σ):  4.54% ± 3.30%
-
-        ▄▇█▆▄▃▂                                                 ▂
-  █▆▆▅▆██████████▆▆▅▆▆▅▅▅▅▅▅▄▄▅▅▆▅▅▅▄▅▄▄▆▃▅▄▄▄▁▄▄▄▁▃▁▄▃▃▁▄▁▁▅▄▃ █
-  90.1 μs       Histogram: log(frequency) by time        365 μs <
-
- Memory estimate: 83.77 KiB, allocs estimate: 723.
 ```
 
-
-Clearly we see a gain of 254% or 2.54 times gain in time if you use the CRRao in `Julia` instead of `lm` in `R`.
-
-
-In another independent machine when we compared the same statistical model on the same `mtcars` data over `Julia`, `R` and `Python`; for 100,000 iterations, we have the following results:
+To summarise the performance across four alternatives: 
 
 --------------------------------------------------
-Language   |   Package/Function |    Time Taken
+Language   |   Package/Function |    Mean time taken
 -----------| -------------------|------------------
-`Python`   |  `statsmodes`/`ols`|  210.66 seconds
-`Python`.  |  `sklearn`/`fit`.  |   55.99 seconds
-`R`        |  `stats`/`lm`      |   21.02 seconds
-`Julia`    |  `CRRao`/`fitmodel`|    8.05 seconds
+`Python`   |  `statsmodes`/`ols`|  2106.6 μs
+`Python`.  |  `sklearn`/`fit`.  |   559.9 μs
+`R`        |  `stats`/`lm`      |   380.13 μs
+`Julia`    |  `CRRao`/`fitmodel`|    160.22 μs
 -----------|--------------------|------------------
+
+where we emphasise that the performance of fitmodel() here is a tiny overhead on top of the implementation of the linear regression in GLM.jl.
