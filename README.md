@@ -1,12 +1,12 @@
 # CRRao
 
-[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://xKDR.github.io/CRRao.jl/stable)
+<!-- [![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://xKDR.github.io/CRRao.jl/stable) -->
 [![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://xKDR.github.io/CRRao.jl/dev)
-[![Build Status](https://travis-ci.com/xKDR/CRRao.jl.svg?branch=main)](https://travis-ci.com/xKDR/CRRao.jl)
-[![Build Status](https://ci.appveyor.com/api/projects/status/github/xKDR/CRRao.jl?svg=true)](https://ci.appveyor.com/project/xKDR/CRRao-jl)
-[![Build Status](https://api.cirrus-ci.com/github/xKDR/CRRao.jl.svg)](https://cirrus-ci.com/github/xKDR/CRRao.jl)
+![Build Status](https://github.com/xKDR/CRRao.jl/actions/workflows/ci.yml/badge.svg)
+![Build Status](https://github.com/xKDR/CRRao.jl/actions/workflows/documentation.yml/badge.svg)
 [![Coverage](https://codecov.io/gh/xKDR/CRRao.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/xKDR/CRRao.jl)
-[![Coverage](https://coveralls.io/repos/github/xKDR/CRRao.jl/badge.svg?branch=main)](https://coveralls.io/github/xKDR/CRRao.jl?branch=main)
+[![Milestones](https://img.shields.io/badge/-milestones-brightgreen)](https://github.com/xKDR/CRRao.jl/milestones)
+
 
 ## To install: 
 ```Julia
@@ -77,6 +77,22 @@ BenchmarkTools.Trial: 10000 samples with 1 evaluation.
   90.1 μs       Histogram: log(frequency) by time        365 μs <
 
  Memory estimate: 83.77 KiB, allocs estimate: 723.
+```
+
+```python
+import statsmodels.api as sm
+import numpy as np
+import pandas as pd
+import statsmodels.formula.api as smf
+from statsmodels.stats import anova
+import time
+mtcars = sm.datasets.get_rdataset("mtcars", "datasets", cache=True).data
+
+start = time.time()
+for i in range(10000):
+    model = smf.ols(formula='mpg ~ hp+wt ', data=mtcars).fit()
+end = time.time()
+print ("mean:", (end - start)/10000 * 10**6, "μs")
 ```
 
 
