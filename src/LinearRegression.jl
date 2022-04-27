@@ -19,6 +19,7 @@ struct analysis_lm_Gauss_NIP_Optim
 end
   
 function linear_reg(formula::FormulaTerm,data::DataFrame)
+      CRRao.seed !=  nothing && Random.seed!(CRRao.seed)
       modelClass = "LinearReg";
       LikelihoodMod="Gauss";
       PriorMod="NIP";
@@ -60,6 +61,7 @@ function linear_reg(formula::FormulaTerm,data::DataFrame)
 end
   
 function linear_reg_predicts(obj,newdata::DataFrame)
+    CRRao.seed !=  nothing && Random.seed!(CRRao.seed)
     formula = obj.formula;
     fm_frame=ModelFrame(formula,newdata);
     X=modelmatrix(fm_frame);
@@ -69,6 +71,7 @@ function linear_reg_predicts(obj,newdata::DataFrame)
 end
 
 function linear_reg(formula::FormulaTerm,data::DataFrame,PriorMod::Prior_Ridge,h::Float64,sim_size::Int64)
+    CRRao.seed !=  nothing && Random.seed!(CRRao.seed)
     formula = apply_schema(formula, schema(formula, data));
     y, X = modelcols(formula, data);
       
@@ -96,6 +99,7 @@ function linear_reg(formula::FormulaTerm,data::DataFrame,PriorMod::Prior_Ridge,h
 end
   
 function linear_reg(formula::FormulaTerm,data::DataFrame,PriorMod::Prior_Laplace,h::Float64,sim_size::Int64)
+    CRRao.seed !=  nothing && Random.seed!(CRRao.seed)
     formula = apply_schema(formula, schema(formula, data));
     y, X = modelcols(formula, data);
       
@@ -123,6 +127,7 @@ function linear_reg(formula::FormulaTerm,data::DataFrame,PriorMod::Prior_Laplace
 end
   
 function linear_reg(formula::FormulaTerm,data::DataFrame,PriorMod::Prior_Cauchy,sim_size::Int64)
+    CRRao.seed !=  nothing && Random.seed!(CRRao.seed)
     formula = apply_schema(formula, schema(formula, data));
     y, X = modelcols(formula, data);
       
@@ -147,6 +152,7 @@ function linear_reg(formula::FormulaTerm,data::DataFrame,PriorMod::Prior_Cauchy,
 end
   
 function linear_reg(formula::FormulaTerm,data::DataFrame,PriorMod::Prior_TDist,h::Float64,sim_size::Int64)
+    CRRao.seed !=  nothing && Random.seed!(CRRao.seed)
     formula = apply_schema(formula, schema(formula, data));
     y, X = modelcols(formula, data);
       
@@ -174,6 +180,7 @@ function linear_reg(formula::FormulaTerm,data::DataFrame,PriorMod::Prior_TDist,h
 end
   
 function linear_reg(formula::FormulaTerm,data::DataFrame,PriorMod::Prior_Uniform,h::Float64,sim_size::Int64)
+    CRRao.seed !=  nothing && Random.seed!(CRRao.seed)
     formula = apply_schema(formula, schema(formula, data));
     y, X = modelcols(formula, data);
       

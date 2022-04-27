@@ -20,42 +20,44 @@ struct analysis_Poisson_Reg
 end
   
 function Poisson_Reg(formula::FormulaTerm,data::DataFrame)
-     
-    formula = apply_schema(formula, schema(formula, data));
-    y, X = modelcols(formula, data);
-    fm_frame=ModelFrame(formula,data);
-    X=modelmatrix(fm_frame);
-    p = size(X, 2);
-    n = size(X, 1);
-    
-    ## Fit Model
-    res = glm(formula,data,Poisson(), LogLink());
-    
+  CRRao.seed !=  nothing && Random.seed!(CRRao.seed)
+  formula = apply_schema(formula, schema(formula, data));
+  y, X = modelcols(formula, data);
+  fm_frame=ModelFrame(formula,data);
+  X=modelmatrix(fm_frame);
+  p = size(X, 2);
+  n = size(X, 1);
   
-    fit = coeftable(res)
-    beta_hat = coef(res)
-    logLike = GLM.loglikelihood(res)
-    npar = p;
-    AIC = 2*npar - 2*logLike
-    BIC = log(n)*npar - 2*logLike
-    ans = analysis_Poisson_Reg(formula,fit,beta_hat,logLike,AIC,BIC)
-    ans
+  ## Fit Model
+  res = glm(formula,data,Poisson(), LogLink());
+  
+
+  fit = coeftable(res)
+  beta_hat = coef(res)
+  logLike = GLM.loglikelihood(res)
+  npar = p;
+  AIC = 2*npar - 2*logLike
+  BIC = log(n)*npar - 2*logLike
+  ans = analysis_Poisson_Reg(formula,fit,beta_hat,logLike,AIC,BIC)
+  ans
   
 end
   
 function Poisson_Reg_predicts(obj,newdata::DataFrame)
-    formula = obj.formula;
-    fm_frame=ModelFrame(formula,newdata);
-    X=modelmatrix(fm_frame);
-    beta = obj.beta
-    z = X*beta;
-    μ = exp.(z) ;  
-    μ
+  CRRao.seed !=  nothing && Random.seed!(CRRao.seed)
+  formula = obj.formula;
+  fm_frame=ModelFrame(formula,newdata);
+  X=modelmatrix(fm_frame);
+  beta = obj.beta
+  z = X*beta;
+  μ = exp.(z) ;  
+  μ
 end
   
   
 ## Poisson Regression with Ridge Prior
 function Poisson_Reg(formula::FormulaTerm,data::DataFrame,PriorMod::Prior_Ridge,h::Float64,sim_size::Int64)
+    CRRao.seed !=  nothing && Random.seed!(CRRao.seed)
     formula = apply_schema(formula, schema(formula, data));
     y, X = modelcols(formula, data);
     @model PoissonReg(X, y) = begin
@@ -84,6 +86,7 @@ end
   
 ## Poisson Regression with Laplace Prior
 function Poisson_Reg(formula::FormulaTerm,data::DataFrame,PriorMod::Prior_Laplace,h::Float64,sim_size::Int64)
+    CRRao.seed !=  nothing && Random.seed!(CRRao.seed)
     formula = apply_schema(formula, schema(formula, data));
     y, X = modelcols(formula, data);
     @model PoissonReg(X, y) = begin
@@ -112,6 +115,7 @@ end
   
 ## Poisson Regression with Cauchy Prior
 function Poisson_Reg(formula::FormulaTerm,data::DataFrame,PriorMod::Prior_Cauchy,h::Float64,sim_size::Int64)
+    CRRao.seed !=  nothing && Random.seed!(CRRao.seed)
     formula = apply_schema(formula, schema(formula, data));
     y, X = modelcols(formula, data);
     @model PoissonReg(X, y) = begin
@@ -140,6 +144,7 @@ end
   
 ## Poisson Regression with T-Distributed Prior
 function Poisson_Reg(formula::FormulaTerm,data::DataFrame,PriorMod::Prior_TDist,h::Float64,sim_size::Int64)
+    CRRao.seed !=  nothing && Random.seed!(CRRao.seed)
     formula = apply_schema(formula, schema(formula, data));
     y, X = modelcols(formula, data);
     @model PoissonReg(X, y) = begin
@@ -169,6 +174,7 @@ end
   
 ## Poisson Regression with Uniform Prior
 function Poisson_Reg(formula::FormulaTerm,data::DataFrame,PriorMod::Prior_Uniform,h::Float64,sim_size::Int64)
+    CRRao.seed !=  nothing && Random.seed!(CRRao.seed)
     formula = apply_schema(formula, schema(formula, data));
     y, X = modelcols(formula, data);
     @model PoissonReg(X, y) = begin

@@ -20,50 +20,52 @@ struct analysis_logistic_Binom_NIP_Optim
 end
   
 function logistic_reg(formula::FormulaTerm,data,Link::String="LogitLink")
-      modelClass = "LogisticReg";
-      LikelihoodMod="Binomial";
-      PriorMod="NIP";
-      ComputeMethod="Optimization";
-      formula = apply_schema(formula, schema(formula, data));
-      y, X = modelcols(formula, data);
-      fm_frame=ModelFrame(formula,data);
-      X=modelmatrix(fm_frame);
-      p = size(X, 2);
-      n = size(X, 1);
-      
-      if (Link=="LogitLink")
-          res = glm(formula,data,Binomial(), LogitLink());
-          
-      elseif (Link=="ProbitLink")
-          res = glm(formula,data,Binomial(), ProbitLink());
-          
-      elseif (Link=="CauchitLink")
-          res = glm(formula,data,Binomial(), CauchitLink());
-      
-      elseif (Link=="CloglogLink")
-          res = glm(formula,data,Binomial(), CloglogLink());
-      
-      else
-          println("This link function is not part of logistic regression family.")
-          println("-------------------------------------------------------------")
-      end
-      
-      fit = coeftable(res)
-      beta_hat = coef(res)
-      logLike = GLM.loglikelihood(res)
-      LogPost = logLike
-      npar = p;
-      AIC = 2*npar - 2*logLike
-      BIC = log(n)*npar - 2*logLike
-      
-      ans = analysis_logistic_Binom_NIP_Optim(formula,modelClass,LikelihoodMod
-              ,PriorMod,Link,ComputeMethod,fit,beta_hat
-              ,logLike,LogPost,AIC,BIC)
-      ans
+    CRRao.seed !=  nothing && Random.seed!(CRRao.seed)
+    modelClass = "LogisticReg";
+    LikelihoodMod="Binomial";
+    PriorMod="NIP";
+    ComputeMethod="Optimization";
+    formula = apply_schema(formula, schema(formula, data));
+    y, X = modelcols(formula, data);
+    fm_frame=ModelFrame(formula,data);
+    X=modelmatrix(fm_frame);
+    p = size(X, 2);
+    n = size(X, 1);
+    
+    if (Link=="LogitLink")
+        res = glm(formula,data,Binomial(), LogitLink());
+        
+    elseif (Link=="ProbitLink")
+        res = glm(formula,data,Binomial(), ProbitLink());
+        
+    elseif (Link=="CauchitLink")
+        res = glm(formula,data,Binomial(), CauchitLink());
+    
+    elseif (Link=="CloglogLink")
+        res = glm(formula,data,Binomial(), CloglogLink());
+    
+    else
+        println("This link function is not part of logistic regression family.")
+        println("-------------------------------------------------------------")
+    end
+    
+    fit = coeftable(res)
+    beta_hat = coef(res)
+    logLike = GLM.loglikelihood(res)
+    LogPost = logLike
+    npar = p;
+    AIC = 2*npar - 2*logLike
+    BIC = log(n)*npar - 2*logLike
+    
+    ans = analysis_logistic_Binom_NIP_Optim(formula,modelClass,LikelihoodMod
+            ,PriorMod,Link,ComputeMethod,fit,beta_hat
+            ,logLike,LogPost,AIC,BIC)
+    ans
   
 end
   
 function logistic_reg_predicts(obj,newdata::DataFrame)
+    CRRao.seed !=  nothing && Random.seed!(CRRao.seed)
     formula = obj.formula;
     fm_frame=ModelFrame(formula,newdata);
     X=modelmatrix(fm_frame);
@@ -92,7 +94,7 @@ end
 ## logistic regression with Ridge Prior
 
 function logistic_reg_internal(formula::FormulaTerm, data::DataFrame, link_function, PriorMod::Prior_Ridge, h::Float64=0.5,sim_size::Int64=10000)
-
+    CRRao.seed !=  nothing && Random.seed!(CRRao.seed)
     formula = apply_schema(formula, schema(formula, data));
     y, X = modelcols(formula, data);
     fm_frame=ModelFrame(formula,data);
@@ -150,7 +152,7 @@ end
 ## logistic regression with Laplace Prior
 
 function logistic_reg_internal(formula::FormulaTerm,data::DataFrame, link_function,PriorMod::Prior_Laplace,h::Float64=0.5,sim_size::Int64=10000)
-
+    CRRao.seed !=  nothing && Random.seed!(CRRao.seed)
     formula = apply_schema(formula, schema(formula, data));
     y, X = modelcols(formula, data);
     fm_frame=ModelFrame(formula,data);
@@ -208,7 +210,7 @@ end
 ## logistic regression with Cauchy Prior
 
 function logistic_reg_internal(formula::FormulaTerm,data,link_function,PriorMod::Prior_Cauchy,h::Float64,sim_size::Int64)
-
+    CRRao.seed !=  nothing && Random.seed!(CRRao.seed)
     formula = apply_schema(formula, schema(formula, data));
     y, X = modelcols(formula, data);
     fm_frame=ModelFrame(formula,data);
@@ -266,7 +268,7 @@ end
 ## logistic regression with TDist Prior
 
 function logistic_reg_internal(formula::FormulaTerm,data,link_function,PriorMod::Prior_TDist,h::Float64,sim_size::Int64)
-
+    CRRao.seed !=  nothing && Random.seed!(CRRao.seed)
     formula = apply_schema(formula, schema(formula, data));
     y, X = modelcols(formula, data);
     fm_frame=ModelFrame(formula,data);
@@ -326,6 +328,7 @@ end
 ## logistic regression with Uniform Prior
 
 function logistic_reg_internal(formula::FormulaTerm,data,link_function,PriorMod::Prior_Uniform,h::Float64=0.5,sim_size::Int64=10000)
+    CRRao.seed !=  nothing && Random.seed!(CRRao.seed)
     formula = apply_schema(formula, schema(formula, data));
     y, X = modelcols(formula, data);
     fm_frame=ModelFrame(formula,data);

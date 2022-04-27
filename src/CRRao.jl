@@ -22,7 +22,7 @@ module CRRao
 
 using DataFrames, GLM, Turing, StatsModels
 using StatsBase, Distributions, LinearAlgebra
-using Optim, NLSolversBase
+using Optim, NLSolversBase, Random
 
 struct NegBinomRegression end
 struct PoissonRegression end
@@ -39,11 +39,11 @@ struct Cloglog end
 struct Cauchit end
 
 
-
 export LinearRegression, LogisticRegression, PoissonRegression, NegBinomRegression
 export Prior_Ridge, Prior_Laplace, Prior_Cauchy, Prior_TDist, Prior_Uniform
-export Logit, Probit, Cloglog, Cauchit, fitmodel, @fitmodel
+export Logit, Probit, Cloglog, Cauchit, fitmodel, @fitmodel, CRRao_seed
 
+include("set_seed.jl")
 include("general_stats.jl")
 include("LinearRegression.jl")
 include("LogisticRegression.jl")
