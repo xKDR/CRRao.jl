@@ -1,12 +1,11 @@
 ## Example 1: Linear Regression
 ```@repl examples
-using RDatasets, StatsModels, StatsPlots, NLSolversBase, CRRao, Logging
+using RDatasets, NLSolversBase, CRRao, Logging
 Logging.disable_logging(Logging.Warn); CRRao.setprogress!(false)
-df = dataset("datasets", "mtcars")
-
 ```
 
 ```@repl examples
+df = dataset("datasets", "mtcars")
 m1_1 = @fitmodel((MPG ~ HP + WT+Gear),df,LinearRegression())
 
 m1_1.fit
@@ -229,21 +228,21 @@ m2_24.quantiles
 ```
 
 ## Example 3: Poisson Regression
-```@repl
-using RDatasets, StatsModels, StatsPlots, NLSolversBase, CRRao, Logging
-Logging.disable_logging(Logging.Warn); CRRao.setprogress!(false)
+
+ **Poisson Regression - Likelihood analysis**
+```@repl examples
+
 sanction = dataset("Zelig", "sanction")
 sanction
 
- Poisson Regression - Likelihood analysis
 m3_1 = @fitmodel((Num ~ Target + Coop + NCost), sanction,PoissonRegression()) 
 m3_1.fit
 m3_1.LogLike
 
 m3_1.AIC
 m3_1.BIC
-
 ```
+
  **Poisson Regression with Ridge Prior**
 ```@repl examples
 
@@ -280,15 +279,15 @@ m3_6 = @fitmodel((Num ~ Target + Coop + NCost), sanction,PoissonRegression(),Pri
 m3_6.summaries
 m3_6.quantiles
 ```
-## Example 4: NegativeBinomial Regression
+## Example 4: Negative Binomial Regression
 
 ```@repl examples
 sanction = dataset("Zelig", "sanction")
 sanction
 ```
 
+**Negative Binomial Regression - Likelihood method** 
 ```@repl examples
- NegativeBinomial Regression - Likelihood method 
 m4_1 = @fitmodel((Num ~ Target + Coop + NCost), sanction,NegBinomRegression()) 
 m4_1.fit
 m4_1.AIC
@@ -311,21 +310,21 @@ m4_3.quantiles
 ```
 
 
- **NegativeBinomial Regression with Cauchy Prior**
+ **Negative Binomial Regression with Cauchy Prior**
 ```@repl examples
 m4_4 = @fitmodel((Num ~ Target + Coop + NCost), sanction,NegBinomRegression(),Prior_Cauchy()) 
 m4_4.summaries
 m4_4.quantiles
 ```
 
- **NegativeBinomial Regression with TDist Prior**
+ **Negative Binomial Regression with TDist Prior**
 ```@repl examples
 m4_5 = @fitmodel((Num ~ Target + Coop + NCost), sanction,NegBinomRegression(),Prior_TDist()) 
 m4_5.summaries
 m4_5.quantiles
 ```
 
- **NegativeBinomial Regression with Uniform Prior**
+ **Negative Binomial Regression with Uniform Prior**
 ```@repl examples
 m4_6 = @fitmodel((Num ~ Target + Coop + NCost), sanction,NegBinomRegression(),Prior_Uniform(),1.0) 
 m4_6.summaries
