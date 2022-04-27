@@ -22,13 +22,10 @@ MPG = β0 + β1 HP + β2 WT + β3 Gear + ϵ
 
 ```Julia
 
-   Julia> using CRRao, RDatasets
-
-   Julia> df = dataset("datasets", "mtcars");
-
-   Julia> model = @fitmodel((MPG ~ HP + WT+Gear), df, LinearRegression());
-
-   Julia> model.fit
+   using CRRao, RDatasets
+   df = dataset("datasets", "mtcars")
+   model = @fitmodel((MPG ~ HP + WT+Gear), df, LinearRegression())
+   model.fit
 
    ────────────────────────────────────────────────────────────────────────────
                      Coef.  Std. Error      t  Pr(>|t|)   Lower 95%   Upper 95%
@@ -90,7 +87,7 @@ Unit: microseconds
 **Julia**
 ```julia
 using RDatasets, CRRao, BenchmarkTools
-df = dataset("datasets", "mtcars");
+df = dataset("datasets", "mtcars")
 @benchmark @fitmodel((MPG ~ HP + WT), df, LinearRegression())
 ```
 
