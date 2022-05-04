@@ -17,11 +17,11 @@ makedocs(;
         "Home" => "index.md",
         "Examples" => "examples.md"
     ],
+    strict = :doctest
 )
 
 deploydocs(;
     repo="github.com/xKDR/CRRao.jl",
     target = "build",
-    devbranch = "main",
-    strict = :doctest
+    devbranch = "main"
 )
