@@ -22,5 +22,6 @@ makedocs(;
 deploydocs(;
     repo="github.com/xKDR/CRRao.jl",
     target = "build",
-    devbranch="main",
+    devbranch = "main",
+    strict = :doctest
 )
