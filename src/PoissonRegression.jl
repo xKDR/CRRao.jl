@@ -20,7 +20,7 @@ struct analysis_Poisson_Reg
 end
   
 function Poisson_Reg(formula::FormulaTerm,data::DataFrame)
-  CRRao.seed !=  nothing && Random.seed!(CRRao.seed)
+  
   formula = apply_schema(formula, schema(formula, data));
   y, X = modelcols(formula, data);
   fm_frame=ModelFrame(formula,data);
@@ -44,7 +44,7 @@ function Poisson_Reg(formula::FormulaTerm,data::DataFrame)
 end
   
 function Poisson_Reg_predicts(obj,newdata::DataFrame)
-  CRRao.seed !=  nothing && Random.seed!(CRRao.seed)
+  
   formula = obj.formula;
   fm_frame=ModelFrame(formula,newdata);
   X=modelmatrix(fm_frame);
@@ -57,7 +57,7 @@ end
   
 ## Poisson Regression with Ridge Prior
 function Poisson_Reg(formula::FormulaTerm,data::DataFrame,PriorMod::Prior_Ridge,h::Float64,sim_size::Int64)
-    CRRao.seed !=  nothing && Random.seed!(CRRao.seed)
+    
     formula = apply_schema(formula, schema(formula, data));
     y, X = modelcols(formula, data);
     @model PoissonReg(X, y) = begin
@@ -78,7 +78,7 @@ function Poisson_Reg(formula::FormulaTerm,data::DataFrame,PriorMod::Prior_Ridge,
       end
     end
     PoissonReg_model=PoissonReg(X,y);
-    chain = sample(PoissonReg_model, NUTS(), sim_size);
+    chain = sample(CRRao_rng, PoissonReg_model, NUTS(), sim_size);
     summaries, quantiles = describe(chain);
     ans = MCMC_chain(chain,summaries,quantiles)
     ans
@@ -86,7 +86,7 @@ end
   
 ## Poisson Regression with Laplace Prior
 function Poisson_Reg(formula::FormulaTerm,data::DataFrame,PriorMod::Prior_Laplace,h::Float64,sim_size::Int64)
-    CRRao.seed !=  nothing && Random.seed!(CRRao.seed)
+    
     formula = apply_schema(formula, schema(formula, data));
     y, X = modelcols(formula, data);
     @model PoissonReg(X, y) = begin
@@ -107,7 +107,7 @@ function Poisson_Reg(formula::FormulaTerm,data::DataFrame,PriorMod::Prior_Laplac
       end
     end
     PoissonReg_model=PoissonReg(X,y);
-    chain = sample(PoissonReg_model, NUTS(), sim_size);
+    chain = sample(CRRao_rng, PoissonReg_model, NUTS(), sim_size);
     summaries, quantiles = describe(chain);
     ans = MCMC_chain(chain,summaries,quantiles)
     ans
@@ -115,7 +115,7 @@ end
   
 ## Poisson Regression with Cauchy Prior
 function Poisson_Reg(formula::FormulaTerm,data::DataFrame,PriorMod::Prior_Cauchy,h::Float64,sim_size::Int64)
-    CRRao.seed !=  nothing && Random.seed!(CRRao.seed)
+    
     formula = apply_schema(formula, schema(formula, data));
     y, X = modelcols(formula, data);
     @model PoissonReg(X, y) = begin
@@ -136,7 +136,7 @@ function Poisson_Reg(formula::FormulaTerm,data::DataFrame,PriorMod::Prior_Cauchy
       end
     end
     PoissonReg_model=PoissonReg(X,y);
-    chain = sample(PoissonReg_model, NUTS(), sim_size);
+    chain = sample(CRRao_rng, PoissonReg_model, NUTS(), sim_size);
     summaries, quantiles = describe(chain);
     ans = MCMC_chain(chain,summaries,quantiles)
     ans
@@ -144,7 +144,7 @@ end
   
 ## Poisson Regression with T-Distributed Prior
 function Poisson_Reg(formula::FormulaTerm,data::DataFrame,PriorMod::Prior_TDist,h::Float64,sim_size::Int64)
-    CRRao.seed !=  nothing && Random.seed!(CRRao.seed)
+    
     formula = apply_schema(formula, schema(formula, data));
     y, X = modelcols(formula, data);
     @model PoissonReg(X, y) = begin
@@ -166,7 +166,7 @@ function Poisson_Reg(formula::FormulaTerm,data::DataFrame,PriorMod::Prior_TDist,
       end
     end
     PoissonReg_model=PoissonReg(X,y);
-    chain = sample(PoissonReg_model, NUTS(), sim_size);
+    chain = sample(CRRao_rng, PoissonReg_model, NUTS(), sim_size);
     summaries, quantiles = describe(chain);
     ans = MCMC_chain(chain,summaries,quantiles)
     ans
@@ -174,7 +174,7 @@ end
   
 ## Poisson Regression with Uniform Prior
 function Poisson_Reg(formula::FormulaTerm,data::DataFrame,PriorMod::Prior_Uniform,h::Float64,sim_size::Int64)
-    CRRao.seed !=  nothing && Random.seed!(CRRao.seed)
+    
     formula = apply_schema(formula, schema(formula, data));
     y, X = modelcols(formula, data);
     @model PoissonReg(X, y) = begin
@@ -194,7 +194,7 @@ function Poisson_Reg(formula::FormulaTerm,data::DataFrame,PriorMod::Prior_Unifor
       end
     end
     PoissonReg_model=PoissonReg(X,y);
-    chain = sample(PoissonReg_model, NUTS(), sim_size);
+    chain = sample(CRRao_rng, PoissonReg_model, NUTS(), sim_size);
     summaries, quantiles = describe(chain);
     ans = MCMC_chain(chain,summaries,quantiles)
     ans
