@@ -15,7 +15,8 @@ jobs:
             - uses: actions/checkout@v2
             - uses: julia-actions/setup-julia@latest
               with:
-                version: '1.7'
+                version: '1.7.2'
+                arch: x86_64
             - name: Install documentation dependencies
               run: julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()'
             - name: Build and deploy
