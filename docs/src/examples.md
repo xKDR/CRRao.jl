@@ -167,3 +167,127 @@ Quantiles
         β[3]   -0.2071    0.9672    1.5988    2.2439    3.7647
 
 ```
+
+**Linear Regression - Laplace Prior**
+
+```jldoctest examples
+julia> m1_3 = @fitmodel((MPG ~ HP + WT+Gear),df,LinearRegression(),Prior_Laplace());
+
+julia> m1_3.summaries
+Summary Statistics
+  parameters      mean       std   naive_se      mcse         ess      rhat    ⋯
+      Symbol   Float64   Float64    Float64   Float64     Float64   Float64    ⋯
+
+           v    4.3182    3.3442     0.0334    0.0490   3968.7204    0.9999    ⋯
+           σ    2.6657    0.3792     0.0038    0.0056   4690.6502    1.0000    ⋯
+           α   29.0672    5.1669     0.0517    0.0918   3367.7350    1.0001    ⋯
+        β[1]   -0.0399    0.0105     0.0001    0.0002   4116.7824    1.0005    ⋯
+        β[2]   -2.7069    0.9341     0.0093    0.0170   3286.4012    1.0002    ⋯
+        β[3]    1.5082    0.9373     0.0094    0.0163   3601.6346    1.0002    ⋯
+                                                                1 column omitted
+
+julia> m1_3.quantiles
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5%
+      Symbol   Float64   Float64   Float64   Float64   Float64
+
+           v    1.2224    2.3903    3.4576    5.1836   12.4068
+           σ    2.0359    2.3975    2.6246    2.8949    3.5178
+           α   18.0169   25.8440   29.3179   32.5968   38.4400
+        β[1]   -0.0609   -0.0466   -0.0396   -0.0330   -0.0199
+        β[2]   -4.4455   -3.3403   -2.7409   -2.1152   -0.7174
+        β[3]   -0.2418    0.8759    1.4648    2.1019    3.4821
+
+```
+
+ **Linear Regression - Cauchy Prior**
+```jldoctest examples
+julia> m1_4 = @fitmodel((MPG ~ HP + WT+Gear),df,LinearRegression(),Prior_Cauchy(),20000);
+
+julia> m1_4.summaries
+Summary Statistics
+  parameters      mean       std   naive_se      mcse         ess      rhat    ⋯
+      Symbol   Float64   Float64    Float64   Float64     Float64   Float64    ⋯
+
+           σ    2.5855    0.3416     0.0024    0.0036   9218.6691    1.0001    ⋯
+           α   30.3875    4.6394     0.0328    0.0678   4559.8857    1.0001    ⋯
+        β[1]   -0.0394    0.0099     0.0001    0.0001   7652.1219    1.0000    ⋯
+        β[2]   -2.8435    0.8542     0.0060    0.0116   4998.6993    1.0001    ⋯
+        β[3]    1.2513    0.8428     0.0060    0.0120   5011.2306    1.0000    ⋯
+                                                                1 column omitted
+
+julia> m1_4.quantiles
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5%
+      Symbol   Float64   Float64   Float64   Float64   Float64
+
+           σ    2.0120    2.3452    2.5484    2.7877    3.3675
+           α   20.9628   27.4262   30.4704   33.5255   39.1492
+        β[1]   -0.0591   -0.0459   -0.0393   -0.0328   -0.0201
+        β[2]   -4.4925   -3.4133   -2.8494   -2.2897   -1.1335
+        β[3]   -0.3345    0.6759    1.2385    1.7936    2.9585
+
+```
+
+ **Linear Regression - T-Distributed Prior**
+
+```jldoctest examples
+julia> m1_5 = @fitmodel((MPG ~ HP + WT+Gear),df,LinearRegression(),Prior_TDist());
+
+julia> m1_5.summaries
+Summary Statistics
+  parameters      mean       std   naive_se      mcse         ess      rhat    ⋯
+      Symbol   Float64   Float64    Float64   Float64     Float64   Float64    ⋯
+
+           ν    1.0539    0.5597     0.0056    0.0070   5800.1893    1.0003    ⋯
+           σ    2.6265    0.3686     0.0037    0.0047   6165.5244    0.9999    ⋯
+           α   30.2167    4.8679     0.0487    0.1012   2225.6405    0.9999    ⋯
+        β[1]   -0.0393    0.0103     0.0001    0.0002   3319.3510    1.0005    ⋯
+        β[2]   -2.8300    0.8976     0.0090    0.0187   2396.9552    1.0001    ⋯
+        β[3]    1.2837    0.8841     0.0088    0.0179   2334.0136    0.9999    ⋯
+                                                                1 column omitted
+
+julia> m1_5.quantiles
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5%
+      Symbol   Float64   Float64   Float64   Float64   Float64
+
+           ν    0.3731    0.6686    0.9233    1.2896    2.4911
+           σ    2.0385    2.3621    2.5841    2.8463    3.4736
+           α   20.4434   27.0806   30.3379   33.4157   39.6471
+        β[1]   -0.0597   -0.0461   -0.0393   -0.0324   -0.0192
+        β[2]   -4.5979   -3.4317   -2.8360   -2.2500   -1.0505
+        β[3]   -0.4012    0.6970    1.2552    1.8472    3.0717
+
+```
+
+ **Linear Regression - Uniform Prior**
+```jldoctest examples
+julia> m1_6 = @fitmodel((MPG ~ HP + WT+Gear),df,LinearRegression(),Prior_TDist());
+
+julia> m1_6.summaries
+Summary Statistics
+  parameters      mean       std   naive_se      mcse         ess      rhat    ⋯
+      Symbol   Float64   Float64    Float64   Float64     Float64   Float64    ⋯
+
+           ν    1.0665    0.5900     0.0059    0.0081   5791.3987    1.0007    ⋯
+           σ    2.6276    0.3678     0.0037    0.0056   3788.8270    0.9999    ⋯
+           α   30.3304    4.7387     0.0474    0.0881   2697.4202    0.9999    ⋯
+        β[1]   -0.0394    0.0102     0.0001    0.0002   3969.3250    0.9999    ⋯
+        β[2]   -2.8421    0.8679     0.0087    0.0159   2813.1886    0.9999    ⋯
+        β[3]    1.2646    0.8642     0.0086    0.0157   2858.6901    0.9999    ⋯
+                                                                1 column omitted
+
+julia> m1_6.quantiles
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5%
+      Symbol   Float64   Float64   Float64   Float64   Float64
+
+           ν    0.3749    0.6698    0.9298    1.3095    2.5508
+           σ    2.0306    2.3712    2.5893    2.8418    3.4723
+           α   20.4677   27.3179   30.5001   33.5657   39.1292
+        β[1]   -0.0596   -0.0460   -0.0392   -0.0324   -0.0198
+        β[2]   -4.5194   -3.4288   -2.8534   -2.2704   -1.1239
+        β[3]   -0.3362    0.6886    1.2226    1.8201    3.0601
+
+```
