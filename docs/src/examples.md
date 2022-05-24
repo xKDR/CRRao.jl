@@ -7,6 +7,7 @@ julia> Logging.disable_logging(Logging.Warn); CRRao.setprogress!(false);
 
 julia> CRRao.set_rng(StableRNG(1234))
 StableRNGs.LehmerRNG(state=0x000000000000000000000000000009a5)
+
 ```
 
 ## Example 1: Linear Regression
