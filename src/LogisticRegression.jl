@@ -20,7 +20,7 @@ struct analysis_logistic_Binom_NIP_Optim
 end
   
 function logistic_reg(formula::FormulaTerm,data,Link::String="LogitLink")
-    CRRao.seed !=  nothing && Random.seed!(CRRao.seed)
+    
     modelClass = "LogisticReg";
     LikelihoodMod="Binomial";
     PriorMod="NIP";
@@ -65,7 +65,7 @@ function logistic_reg(formula::FormulaTerm,data,Link::String="LogitLink")
 end
   
 function logistic_reg_predicts(obj,newdata::DataFrame)
-    CRRao.seed !=  nothing && Random.seed!(CRRao.seed)
+    
     formula = obj.formula;
     fm_frame=ModelFrame(formula,newdata);
     X=modelmatrix(fm_frame);
@@ -94,7 +94,7 @@ end
 ## logistic regression with Ridge Prior
 
 function logistic_reg_internal(formula::FormulaTerm, data::DataFrame, link_function, PriorMod::Prior_Ridge, h::Float64=0.5,sim_size::Int64=10000)
-    CRRao.seed !=  nothing && Random.seed!(CRRao.seed)
+    
     formula = apply_schema(formula, schema(formula, data));
     y, X = modelcols(formula, data);
     fm_frame=ModelFrame(formula,data);
@@ -123,7 +123,7 @@ function logistic_reg_internal(formula::FormulaTerm, data::DataFrame, link_funct
 
     LogisticReg_model=LogisticReg(X,y);
 
-    chain = sample(LogisticReg_model, NUTS(), sim_size);
+    chain = sample(CRRao_rng, LogisticReg_model, NUTS(), sim_size);
 
     summaries, quantiles = describe(chain);
 
@@ -152,7 +152,7 @@ end
 ## logistic regression with Laplace Prior
 
 function logistic_reg_internal(formula::FormulaTerm,data::DataFrame, link_function,PriorMod::Prior_Laplace,h::Float64=0.5,sim_size::Int64=10000)
-    CRRao.seed !=  nothing && Random.seed!(CRRao.seed)
+    
     formula = apply_schema(formula, schema(formula, data));
     y, X = modelcols(formula, data);
     fm_frame=ModelFrame(formula,data);
@@ -181,7 +181,7 @@ function logistic_reg_internal(formula::FormulaTerm,data::DataFrame, link_functi
 
     LogisticReg_model=LogisticReg(X,y);
 
-    chain = sample(LogisticReg_model, NUTS(), sim_size);
+    chain = sample(CRRao_rng, LogisticReg_model, NUTS(), sim_size);
 
     summaries, quantiles = describe(chain);
 
@@ -210,7 +210,7 @@ end
 ## logistic regression with Cauchy Prior
 
 function logistic_reg_internal(formula::FormulaTerm,data,link_function,PriorMod::Prior_Cauchy,h::Float64,sim_size::Int64)
-    CRRao.seed !=  nothing && Random.seed!(CRRao.seed)
+    
     formula = apply_schema(formula, schema(formula, data));
     y, X = modelcols(formula, data);
     fm_frame=ModelFrame(formula,data);
@@ -239,7 +239,7 @@ function logistic_reg_internal(formula::FormulaTerm,data,link_function,PriorMod:
 
     LogisticReg_model=LogisticReg(X,y);
 
-    chain = sample(LogisticReg_model, NUTS(), sim_size);
+    chain = sample(CRRao_rng, LogisticReg_model, NUTS(), sim_size);
 
     summaries, quantiles = describe(chain);
 
@@ -268,7 +268,7 @@ end
 ## logistic regression with TDist Prior
 
 function logistic_reg_internal(formula::FormulaTerm,data,link_function,PriorMod::Prior_TDist,h::Float64,sim_size::Int64)
-    CRRao.seed !=  nothing && Random.seed!(CRRao.seed)
+    
     formula = apply_schema(formula, schema(formula, data));
     y, X = modelcols(formula, data);
     fm_frame=ModelFrame(formula,data);
@@ -298,7 +298,7 @@ function logistic_reg_internal(formula::FormulaTerm,data,link_function,PriorMod:
 
     LogisticReg_model=LogisticReg(X,y);
 
-    chain = sample(LogisticReg_model, NUTS(), sim_size);
+    chain = sample(CRRao_rng, LogisticReg_model, NUTS(), sim_size);
 
     summaries, quantiles = describe(chain);
 
@@ -328,7 +328,7 @@ end
 ## logistic regression with Uniform Prior
 
 function logistic_reg_internal(formula::FormulaTerm,data,link_function,PriorMod::Prior_Uniform,h::Float64=0.5,sim_size::Int64=10000)
-    CRRao.seed !=  nothing && Random.seed!(CRRao.seed)
+    
     formula = apply_schema(formula, schema(formula, data));
     y, X = modelcols(formula, data);
     fm_frame=ModelFrame(formula,data);
@@ -357,7 +357,7 @@ function logistic_reg_internal(formula::FormulaTerm,data,link_function,PriorMod:
 
     LogisticReg_model=LogisticReg(X,y);
 
-    chain = sample(LogisticReg_model, NUTS(), sim_size);
+    chain = sample(CRRao_rng, LogisticReg_model, NUTS(), sim_size);
 
     summaries, quantiles = describe(chain);
 

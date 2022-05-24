@@ -109,3 +109,7 @@ Language   |   Package/Function |    Mean time taken
 -----------|--------------------|------------------
 
 where we emphasise that the performance of fitmodel() here is a tiny overhead on top of the implementation of the linear regression in GLM.jl.
+
+# Support
+
+We gratefully acknowledge the JuliaLab at MIT for financial support for this project.
