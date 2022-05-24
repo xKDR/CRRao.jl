@@ -6,6 +6,7 @@ using RDatasets, NLSolversBase, CRRao, Logging, StableRNGs;
 Logging.disable_logging(Logging.Warn); CRRao.setprogress!(false);
 
 CRRao.set_rng(StableRNG(123))
+
 ```
 
 ## Example 1: Linear Regression
@@ -403,8 +404,11 @@ m4_3.quantiles
 **Negative Binomial Regression with Cauchy Prior**
 ```@repl examples
 m4_4 = @fitmodel((Num ~ Target + Coop + NCost), sanction,NegBinomRegression(),Prior_Cauchy())
+
 m4_4.summaries
+
 m4_4.quantiles
+
 ```
 
 **Negative Binomial Regression with TDist Prior**
