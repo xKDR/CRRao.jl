@@ -1,334 +1,170 @@
-## Example 1: Linear Regression
-```@repl examples
-using RDatasets, NLSolversBase, CRRao, Logging
-Logging.disable_logging(Logging.Warn); CRRao.setprogress!(false)
+## Examples: Setting up the code
+
+```jldoctest examples
+julia> using RDatasets, NLSolversBase, CRRao, Logging, StableRNGs;
+
+julia> Logging.disable_logging(Logging.Warn); CRRao.setprogress!(false);
+
+julia> CRRao.set_rng(StableRNG(1234))
+StableRNGs.LehmerRNG(state=0x000000000000000000000000000009a5)
+
 ```
 
-```@repl examples
-df = dataset("datasets", "mtcars")
-m1_1 = @fitmodel((MPG ~ HP + WT+Gear),df,LinearRegression())
+## Example 1: Linear Regression
 
-m1_1.fit
-m1_1.sigma
-m1_1.LogLike
+```jldoctest examples
+julia> df = dataset("datasets", "mtcars")
+32×12 DataFrame
+ Row │ Model              MPG      Cyl    Disp     HP     DRat     WT       QS ⋯
+     │ String31           Float64  Int64  Float64  Int64  Float64  Float64  Fl ⋯
+─────┼──────────────────────────────────────────────────────────────────────────
+   1 │ Mazda RX4             21.0      6    160.0    110     3.9     2.62      ⋯
+   2 │ Mazda RX4 Wag         21.0      6    160.0    110     3.9     2.875
+   3 │ Datsun 710            22.8      4    108.0     93     3.85    2.32
+   4 │ Hornet 4 Drive        21.4      6    258.0    110     3.08    3.215
+   5 │ Hornet Sportabout     18.7      8    360.0    175     3.15    3.44      ⋯
+   6 │ Valiant               18.1      6    225.0    105     2.76    3.46
+   7 │ Duster 360            14.3      8    360.0    245     3.21    3.57
+   8 │ Merc 240D             24.4      4    146.7     62     3.69    3.19
+  ⋮  │         ⋮             ⋮       ⋮       ⋮       ⋮       ⋮        ⋮        ⋱
+  26 │ Fiat X1-9             27.3      4     79.0     66     4.08    1.935     ⋯
+  27 │ Porsche 914-2         26.0      4    120.3     91     4.43    2.14
+  28 │ Lotus Europa          30.4      4     95.1    113     3.77    1.513
+  29 │ Ford Pantera L        15.8      8    351.0    264     4.22    3.17
+  30 │ Ferrari Dino          19.7      6    145.0    175     3.62    2.77      ⋯
+  31 │ Maserati Bora         15.0      8    301.0    335     3.54    3.57
+  32 │ Volvo 142E            21.4      4    121.0    109     4.11    2.78
+                                                   5 columns and 17 rows omitted
 
-m1_1.AIC
-m1_1.BIC
-m1_1.R_sqr
-m1_1.Adjusted_R_sqr
+julia> m1_1 = @fitmodel((MPG ~ HP + WT+Gear),df,LinearRegression());
 
-m1_1.fittedResponse
-m1_1.residuals
-m1_1.Cooks_distance
+julia> m1_1.fit
+────────────────────────────────────────────────────────────────────────────
+                  Coef.  Std. Error      t  Pr(>|t|)   Lower 95%   Upper 95%
+────────────────────────────────────────────────────────────────────────────
+(Intercept)  32.0137     4.63226      6.91    <1e-06  22.5249     41.5024
+HP           -0.0367861  0.00989146  -3.72    0.0009  -0.0570478  -0.0165243
+WT           -3.19781    0.846546    -3.78    0.0008  -4.93188    -1.46374
+Gear          1.01998    0.851408     1.20    0.2410  -0.72405     2.76401
+────────────────────────────────────────────────────────────────────────────
+
+julia> m1_1.sigma
+2.5741691724978972
+
+julia> m1_1.LogLike
+-73.52638935960971
+
+julia> m1_1.AIC
+157.05277871921942
+
+julia> m1_1.BIC
+164.38145823321804
+
+julia> m1_1.R_sqr
+0.8352309600685555
+
+julia> m1_1.Adjusted_R_sqr
+0.8175771343616149
+
+julia> m1_1.fittedResponse
+32-element Vector{Float64}:
+ 23.668849952338718
+ 22.85340824320634
+ 25.253556140740894
+ 20.746171762311384
+ 17.635570543830177
+ 20.14663845388644
+ 14.644831040166633
+ 23.61182872351372
+ 22.525801204993822
+ 20.568426475004856
+  ⋮
+ 13.781422171673526
+ 16.340457241090512
+ 27.47793682112109
+ 26.922715039574857
+ 28.11844900519874
+ 17.264981908248554
+ 21.818065399379595
+ 13.374047477198516
+ 23.193986311384343
+
+julia> m1_1.residuals
+32-element Vector{Float64}:
+ -2.668849952338718
+ -1.8534082432063386
+ -2.4535561407408935
+  0.6538282376886144
+  1.0644294561698224
+ -2.0466384538864375
+ -0.3448310401666319
+  0.7881712764862776
+  0.2741987950061784
+ -1.3684264750048563
+  ⋮
+ -0.4814221716735254
+  2.8595427589094875
+ -0.1779368211210901
+ -0.9227150395748573
+  2.2815509948012576
+ -1.4649819082485536
+ -2.1180653993795957
+  1.6259525228014837
+ -1.7939863113843444
+
+julia> m1_1.Cooks_distance
+32-element Vector{Float64}:
+ 0.013342034282302798
+ 0.006887282667312197
+ 0.015495847517059161
+ 0.0014309089637597765
+ 0.004471979213923591
+ 0.014588985833725164
+ 0.001540100419881934
+ 0.005826402580871439
+ 0.00030743156824582164
+ 0.00701180372448546
+ ⋮
+ 0.002076825609693457
+ 0.022039704192128577
+ 0.0001378106083285506
+ 0.006862929526074502
+ 0.04703889945177857
+ 0.038120451318087265
+ 0.035404694590360615
+ 0.1371534135504359
+ 0.006145660329519691
+
 ```
 
  **Linear Regression - Ridge Prior**
 
-```@repl examples
-m1_2 = @fitmodel((MPG ~ HP + WT+Gear),df,LinearRegression(),Prior_Ridge())
-m1_2.summaries
-m1_2.quantiles
+```jldoctest examples
+julia> m1_2 = @fitmodel((MPG ~ HP + WT+Gear),df,LinearRegression(),Prior_Ridge());
+
+julia> m1_2.summaries
+Summary Statistics
+  parameters      mean       std   naive_se      mcse         ess      rhat    ⋯
+      Symbol   Float64   Float64    Float64   Float64     Float64   Float64    ⋯
+
+           v    6.7693    3.9279     0.0393    0.0610   3574.4104    1.0000    ⋯
+           σ    2.6884    0.3984     0.0040    0.0062   3466.2021    1.0002    ⋯
+           α   28.4603    5.4967     0.0550    0.1052   2208.7354    1.0008    ⋯
+        β[1]   -0.0399    0.0108     0.0001    0.0002   3733.4487    1.0005    ⋯
+        β[2]   -2.6629    0.9680     0.0097    0.0180   2467.8793    1.0011    ⋯
+        β[3]    1.6338    0.9939     0.0099    0.0183   2342.6812    1.0006    ⋯
+                                                                1 column omitted
+
+julia> m1_2.quantiles
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5%
+      Symbol   Float64   Float64   Float64   Float64   Float64
+
+           v    2.3216    4.4133    5.9258    8.0968   16.1426
+           σ    2.0474    2.4028    2.6364    2.9225    3.5785
+           α   16.7786   25.1108   28.6936   32.1160   38.5610
+        β[1]   -0.0616   -0.0470   -0.0398   -0.0328   -0.0183
+        β[2]   -4.5039   -3.3021   -2.6899   -2.0502   -0.6440
+        β[3]   -0.2071    0.9672    1.5988    2.2439    3.7647
+
 ```
-
-
- **Linear Regression - Laplace Prior**
-
-```@repl examples
-m1_3 = @fitmodel((MPG ~ HP + WT+Gear),df,LinearRegression(),Prior_Laplace())
-m1_3.summaries
-m1_3.quantiles
-```
-
- **Linear Regression - Cauchy Prior**
-```@repl examples
-m1_4 = @fitmodel((MPG ~ HP + WT+Gear),df,LinearRegression(),Prior_Cauchy(),20000)
-m1_4.summaries
-m1_4.quantiles
-```
-
- **Linear Regression - T-Distributed Prior**
-
-```@repl examples
-m1_5 = @fitmodel((MPG ~ HP + WT+Gear),df,LinearRegression(),Prior_TDist())
-m1_5.summaries
-m1_5.quantiles
-```
-
- **Linear Regression - Uniform Prior**
-```@repl examples
-m1_6 = @fitmodel((MPG ~ HP + WT+Gear),df,LinearRegression(),Prior_TDist())
-m1_6.summaries
-m1_6.quantiles
-```
-
-## Example 2: Logistic Regression 
-```@repl examples
-turnout = dataset("Zelig", "turnout")
-
-m2_1 = @fitmodel((Vote ~ Age + Race +Income + Educate)
-                ,turnout,LogisticRegression(),Logit())
-m2_1.fit
-m2_1.modelClass
-m2_1.LogLike
-m2_1.AIC
-m2_1.BIC
-
-
-m2_2 = @fitmodel((Vote ~ Age + Race +Income + Educate)
-                ,turnout,LogisticRegression(),Probit())
-m2_2.fit
-m2_2.BIC
-
-
-m2_3 = @fitmodel((Vote ~ Age + Race +Income + Educate)
-                ,turnout,LogisticRegression(),Cloglog())
-m2_3.fit
-m2_3.BIC
-
-
-m2_4 = @fitmodel((Vote ~ Age + Race +Income + Educate)
-                ,turnout,LogisticRegression(),Cauchit())
-m2_4.fit
-m2_4.BIC
-```
-
- **Logistic Regression - with Ridge Prior**
-
-```@repl examples
-m2_5 = @fitmodel((Vote ~ Age + Race +Income + Educate),turnout
-                ,LogisticRegression(),Logit(),Prior_Ridge())
-m2_5.summaries
-m2_5.quantiles
-
-
-m2_6 = @fitmodel((Vote ~ Age + Race +Income + Educate),turnout
-                ,LogisticRegression(),Probit(),Prior_Ridge(),1.0)
-
-m2_6.summaries
-m2_6.quantiles
-
-
-m2_7 = @fitmodel((Vote ~ Age + Race +Income + Educate),turnout
-                ,LogisticRegression(),Cloglog(),Prior_Ridge(),1.0) 
-
-m2_7.summaries
-m2_7.quantiles
-
-
-m2_8 = @fitmodel((Vote ~ Age + Race +Income + Educate),turnout
-                ,LogisticRegression(),Cauchit(),Prior_Ridge(),1.0) 
-
-m2_8.summaries
-m2_8.quantiles
-```
-
- **Logistic Regression - with Laplace Prior**
-```@repl examples
-m2_9 = @fitmodel((Vote ~ Age + Race +Income + Educate),turnout
-                ,LogisticRegression(),Logit(),Prior_Laplace()) 
-
-m2_9.summaries
-m2_9.quantiles
-
-m2_10 = @fitmodel((Vote ~ Age + Race +Income + Educate),turnout
-                ,LogisticRegression(),Probit(),Prior_Laplace()) 
-
-m2_10.summaries
-m2_10.quantiles
-
-
-m2_11 = @fitmodel((Vote ~ Age + Race +Income + Educate),turnout
-                ,LogisticRegression(),Cloglog(),Prior_Laplace(),1.0) 
-
-m2_11.summaries
-m2_11.quantiles
-
-
-m2_12 = @fitmodel((Vote ~ Age + Race +Income + Educate),turnout
-                ,LogisticRegression(),Cauchit(),Prior_Laplace(),1.0) 
-
-m2_12.summaries
-m2_12.quantiles
-```
-
- **Logistic Regression - with Cauchy Prior**
-```@repl examples
-m2_13 = @fitmodel((Vote ~ Age + Race +Income + Educate),turnout
-                ,LogisticRegression(),Logit(),Prior_Cauchy(),1.0) 
-
-m2_13.summaries
-m2_13.quantiles
-
-
-m2_14 = @fitmodel((Vote ~ Age + Race +Income + Educate),turnout
-                ,LogisticRegression(),Probit(),Prior_Cauchy(),2.0,30000) 
-m2_14.summaries
-m2_14.quantiles
-                
-
-
-m2_15 = @fitmodel((Vote ~ Age + Race +Income + Educate),turnout
-                ,LogisticRegression(),Cloglog(),Prior_Cauchy(),1.0) 
-m2_15.summaries
-m2_15.quantiles
-                
-
-m2_16 = @fitmodel((Vote ~ Age + Race +Income + Educate),turnout
-                ,LogisticRegression(),Cauchit(),Prior_Cauchy(),1.0) 
-m2_16.summaries
-m2_16.quantiles
-```
-
- **Logistic Regression - with T-Dist Prior**
-```@repl examples
-m2_17 = @fitmodel((Vote ~ Age + Race +Income + Educate),turnout
-                ,LogisticRegression(),Logit(),Prior_TDist(),1.0) 
-m2_17.summaries
-m2_17.quantiles
-
-m2_18 = @fitmodel((Vote ~ Age + Race +Income + Educate),turnout
-                ,LogisticRegression(),Probit(),Prior_TDist(),1.0) 
-m2_18.summaries
-m2_18.quantiles
-
-
-m2_19 = @fitmodel((Vote ~ Age + Race +Income + Educate),turnout
-                ,LogisticRegression(),Cloglog(),Prior_TDist(),1.0) 
-m2_19.summaries
-m2_19.quantiles
-
-m2_20 = @fitmodel((Vote ~ Age + Race +Income + Educate),turnout
-                ,LogisticRegression(),Cauchit(),Prior_TDist(),1.0) 
-m2_20.summaries
-m2_20.quantiles
-```
-
- **Logistic Regression - with Uniform Prior**
-```@repl examples
-m2_21 = @fitmodel((Vote ~ Age + Race +Income + Educate),turnout
-                ,LogisticRegression(),Logit(),Prior_Uniform(),1.0) 
-m2_21.summaries
-m2_21.quantiles
-
-
-m2_22 = @fitmodel((Vote ~ Age + Race +Income + Educate),turnout
-                ,LogisticRegression(),Probit(),Prior_Uniform(),1.0) 
-m2_22.summaries
-m2_22.quantiles
-
-m2_23 = @fitmodel((Vote ~ Age + Race +Income + Educate),turnout
-                ,LogisticRegression(),Cloglog(),Prior_Uniform(),1.0) 
-m2_23.summaries
-m2_23.quantiles
-                
-m2_24 = @fitmodel((Vote ~ Age + Race +Income + Educate),turnout
-                ,LogisticRegression(),Cauchit(),Prior_Uniform(),1.0) 
-m2_24.summaries
-m2_24.quantiles
-```
-
-## Example 3: Poisson Regression
-
- **Poisson Regression - Likelihood analysis**
-```@repl examples
-
-sanction = dataset("Zelig", "sanction")
-sanction
-
-m3_1 = @fitmodel((Num ~ Target + Coop + NCost), sanction,PoissonRegression()) 
-m3_1.fit
-m3_1.LogLike
-
-m3_1.AIC
-m3_1.BIC
-```
-
- **Poisson Regression with Ridge Prior**
-```@repl examples
-
-m3_2 = @fitmodel((Num ~ Target + Coop + NCost), sanction,PoissonRegression(),Prior_Ridge()) 
-m3_2.summaries
-m3_2.quantiles
-```
-
- **Poisson Regression with Laplace Prior**
-```@repl examples
-
-m3_3 = @fitmodel((Num ~ Target + Coop + NCost), sanction,PoissonRegression(),Prior_Laplace()) 
-m3_3.summaries
-m3_3.quantiles
-```
-
- **Poisson Regression with Cauchy Prior**
-```@repl examples
-m3_4 = @fitmodel((Num ~ Target + Coop + NCost), sanction,PoissonRegression(),Prior_Cauchy()) 
-m3_4.summaries
-m3_4.quantiles
-```
-
- **Poisson Regression with TDist Prior**
-```@repl examples
-m3_5 = @fitmodel((Num ~ Target + Coop + NCost), sanction,PoissonRegression(),Prior_TDist()) 
-m3_5.summaries
-m3_5.quantiles
-```
-
- **Poisson Regression with Uniform Prior**
-```@repl examples
-m3_6 = @fitmodel((Num ~ Target + Coop + NCost), sanction,PoissonRegression(),Prior_Uniform()) 
-m3_6.summaries
-m3_6.quantiles
-```
-## Example 4: Negative Binomial Regression
-
-```@repl examples
-sanction = dataset("Zelig", "sanction")
-sanction
-```
-
-**Negative Binomial Regression - Likelihood method** 
-```@repl examples
-m4_1 = @fitmodel((Num ~ Target + Coop + NCost), sanction,NegBinomRegression()) 
-m4_1.fit
-m4_1.AIC
-m4_1.BIC
-m4_1.lambda_hat
-```
-
- **NegativeBinomial Regression with Ridge Prior**
-```@repl examples
-m4_2 = @fitmodel((Num ~ Target + Coop + NCost), sanction,NegBinomRegression(),Prior_Ridge()) 
-m4_2.summaries
-m4_2.quantiles
-```
-
- **NegativeBinomial Regression with Laplace Prior**
-```@repl examples
-m4_3 = @fitmodel((Num ~ Target + Coop + NCost), sanction,NegBinomRegression(),Prior_Laplace()) 
-m4_3.summaries
-m4_3.quantiles
-```
-
-
- **Negative Binomial Regression with Cauchy Prior**
-```@repl examples
-m4_4 = @fitmodel((Num ~ Target + Coop + NCost), sanction,NegBinomRegression(),Prior_Cauchy()) 
-m4_4.summaries
-m4_4.quantiles
-```
-
- **Negative Binomial Regression with TDist Prior**
-```@repl examples
-m4_5 = @fitmodel((Num ~ Target + Coop + NCost), sanction,NegBinomRegression(),Prior_TDist()) 
-m4_5.summaries
-m4_5.quantiles
-```
-
- **Negative Binomial Regression with Uniform Prior**
-```@repl examples
-m4_6 = @fitmodel((Num ~ Target + Coop + NCost), sanction,NegBinomRegression(),Prior_Uniform(),1.0) 
-m4_6.summaries
-m4_6.quantiles
-```
-
-
