@@ -3,7 +3,7 @@ using CRRao, Test, StableRNGs, Logging, RDatasets
 Logging.disable_logging(Logging.Warn)
 
 CRRao.setprogress!(false)
-CRRao.set_rng(StableRNG(31))
+CRRao.set_rng(StableRNG(123))
 
 @testset "CRRao.jl" begin
     @testset "Basic Tests" begin

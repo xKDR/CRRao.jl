@@ -10,6 +10,8 @@ priors = [
     Prior_Uniform(),
 ]
 
+CRRao.set_rng(StableRNG(55))
+
 for link in links
     model = @fitmodel((Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), link)
     @test sizeof(model) > 0
