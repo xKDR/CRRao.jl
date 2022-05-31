@@ -118,9 +118,25 @@ end
 
    ## All rhat values are close to 1; indicates convergence of Markov Chain.
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame,modelClass::LinearRegression,PriorMod::Prior_Ridge,h::Float64=0.01,sim_size::Int64=10000)
-   ans = linear_reg(formula,data,Prior_Ridge(),h,sim_size);
-   ans
+function fitmodel(formula::FormulaTerm, data::DataFrame,modelClass::LinearRegression,PriorMod::Prior_Ridge, h::Float64=0.01, sim_size::Int64=10000)
+   # Defining the Turing model
+   @model LinearRegression(X, y) = begin
+      p = size(X, 2);
+  
+      #priors
+      a0=0.1
+      b0=0.1
+      
+      v ~ InverseGamma(h,h)
+      σ ~ InverseGamma(a0,b0)
+      α ~ Normal(0,v*σ)
+      β ~ filldist(Normal(0,v*σ), p)
+  
+      #likelihood
+      y ~ MvNormal(α .+ X * β, σ)
+   end
+
+   return linear_reg(formula, data, LinearRegression, sim_size);
 end
 
 """
@@ -167,9 +183,24 @@ end
 
    ## All rhat values are close to 1; indicates convergence of Markov Chain.
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame,modelClass::LinearRegression,PriorMod::Prior_Laplace,h::Float64=0.01,sim_size::Int64=10000)
-   ans = linear_reg(formula,data,Prior_Laplace(),h,sim_size);
-   ans
+function fitmodel(formula::FormulaTerm, data::DataFrame,modelClass::LinearRegression,PriorMod::Prior_Laplace, h::Float64=0.01, sim_size::Int64=10000)
+   # Defining the Turing model
+   @model LinearRegression(X, y) = begin
+      p=size(X, 2);
+  
+      #priors
+      a0=0.1
+      b0=0.1
+      v ~ InverseGamma(h,h)
+      σ ~ InverseGamma(a0,b0)
+      α ~ Laplace(0,σ*v)
+      β ~ filldist(Laplace(0,σ*v), p)
+  
+      #likelihood
+      y ~ MvNormal(α .+ X * β, σ);
+   end
+
+   return linear_reg(formula, data, LinearRegression, sim_size);
 end
 
 """
@@ -207,9 +238,21 @@ end
 
    # All rhat values are close to 1; indicates convergence of Markov Chain.
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame,modelClass::LinearRegression,PriorMod::Prior_Cauchy,sim_size::Int64=10000)
-   ans = linear_reg(formula,data,Prior_Cauchy(),sim_size);
-   ans
+function fitmodel(formula::FormulaTerm, data::DataFrame,modelClass::LinearRegression,PriorMod::Prior_Cauchy, h::Float64=0.01, sim_size::Int64=10000)
+   # Defining the Turing model
+   @model LinearRegression(X, y) = begin
+      p=size(X, 2);
+  
+      #priors
+      σ ~ Truncated(TDist(1),0,Inf)
+      α ~ TDist(1)*σ
+      β ~ filldist(TDist(1)*σ, p)
+  
+      #likelihood
+      y ~ MvNormal(α .+ X * β, σ);
+   end
+
+   return linear_reg(formula, data, LinearRegression, sim_size);
 end
 
 """
@@ -268,9 +311,24 @@ end
    plot(model.chain)
 
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame,modelClass::LinearRegression,PriorMod::Prior_TDist,h::Float64=2.0,sim_size::Int64=10000)
-   ans = linear_reg(formula,data,Prior_TDist(),h,sim_size);
-   ans
+function fitmodel(formula::FormulaTerm, data::DataFrame,modelClass::LinearRegression,PriorMod::Prior_TDist, h::Float64=0.01, sim_size::Int64=10000)
+   # Defining the Turing model
+   @model LinearRegression(X, y) = begin
+      p=size(X, 2);
+  
+      #priors
+      a0=0.1
+      b0=0.1
+      ν ~ InverseGamma(h,h)
+      σ ~ InverseGamma(a0,b0)
+      α ~ TDist(ν)*σ
+      β ~ filldist(TDist(ν)*σ, p)
+  
+      #likelihood
+      y ~ MvNormal(α .+ X * β, σ);s
+   end
+
+   return linear_reg(formula, data, LinearRegression, sim_size);
 end
 
 """
@@ -296,7 +354,20 @@ end
    Julia> plot(model.chain)
 
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame,modelClass::LinearRegression,PriorMod::Prior_Uniform,h::Float64=0.01,sim_size::Int64=10000)
-   ans = linear_reg(formula,data,Prior_TDist(),h,sim_size);
-   ans
+function fitmodel(formula::FormulaTerm, data::DataFrame,modelClass::LinearRegression,PriorMod::Prior_Uniform, h::Float64=0.01, sim_size::Int64=10000)
+   # Defining the Turing model
+   @model LinearRegression(X, y) = begin
+      p=size(X, 2);
+  
+      #priors
+      v=1/h;
+      σ ~ Uniform(0,v)
+      α ~ Uniform(-v*σ,v*σ)
+      β ~ filldist(Uniform(-v,v), predictors)
+      
+      #likelihood
+      y ~ MvNormal(α .+ X * β, σ);
+   end
+
+   return linear_reg(formula, data, LinearRegression, sim_size);
 end
