@@ -1,5 +1,3 @@
-## logistic regression
-
 struct analysis_logistic_Binom_NIP_Optim
     formula::FormulaTerm
     modelClass::String

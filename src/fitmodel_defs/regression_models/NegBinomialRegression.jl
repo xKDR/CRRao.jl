@@ -1,5 +1,3 @@
-## Negative Binomial regression
-
 struct analysis_Count_NegativeBinom_NIP_Optim
     formula::FormulaTerm
     modelClass::String

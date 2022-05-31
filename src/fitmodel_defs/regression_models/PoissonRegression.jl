@@ -1,5 +1,3 @@
-## Poisson regression
-
 struct analysis_Poisson_Reg
     formula::FormulaTerm
     #modelClass::PoissonRegression

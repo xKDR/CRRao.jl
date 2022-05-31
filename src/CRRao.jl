@@ -45,11 +45,6 @@ export Logit, Probit, Cloglog, Cauchit, fitmodel, @fitmodel
 
 include("random_number_generator.jl")
 include("general_stats.jl")
-include("LinearRegression.jl")
-include("LogisticRegression.jl")
-include("PoissonRegression.jl")
-include("NegBinomialRegression.jl")
-
 include("fitmodel.jl")
 
 end
