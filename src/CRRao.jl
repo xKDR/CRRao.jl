@@ -24,10 +24,24 @@ using DataFrames, GLM, Turing, StatsModels
 using StatsBase, Distributions, LinearAlgebra
 using Optim, NLSolversBase, Random
 
-struct NegBinomRegression end
-struct PoissonRegression end
-struct LinearRegression end
-struct LogisticRegression end
+"""
+```julia
+ModelClass{modelclass}
+```
+
+Value type for models. Used in the `@fitmodel` macro for multiple dispatch over models. `modelclass` will a `Symbol`.
+"""
+struct ModelClass{modelclass} end
+
+"""
+```
+ModelClass(modelclass::Symbol) = ModelClass{modelclass}()
+```
+
+Constructor for `ModelClass`. Objects constructed this way will be passed as arguments to the `@fitmodel` macro. For examples refer to the examples for `fitmodel`.
+"""
+ModelClass(modelclass::Symbol) = ModelClass{modelclass}()
+
 struct Prior_Ridge end
 struct Prior_Laplace end
 struct Prior_Cauchy end
@@ -38,8 +52,7 @@ struct Probit end
 struct Cloglog end
 struct Cauchit end
 
-
-export LinearRegression, LogisticRegression, PoissonRegression, NegBinomRegression
+export ModelClass
 export Prior_Ridge, Prior_Laplace, Prior_Cauchy, Prior_TDist, Prior_Uniform
 export Logit, Probit, Cloglog, Cauchit, fitmodel, @fitmodel
 
@@ -49,7 +62,6 @@ include("LinearRegression.jl")
 include("LogisticRegression.jl")
 include("PoissonRegression.jl")
 include("NegBinomialRegression.jl")
-
 include("fitmodel.jl")
 
 end

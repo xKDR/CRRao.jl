@@ -7,7 +7,7 @@
 
    1.  `formula` Provide the equation. Eg. `@formula(y~x1+x2+...)`
    2.  `data` Provide training data as `DataFrame``
-   3.  `modelClass`  : LinearRegression()
+   3.  `modelClass`  : ModelClass(:LinearRegression)
 
    ```Julia
 
@@ -15,7 +15,7 @@
 
    Julia> df = dataset("datasets", "mtcars");
 
-   Julia> model = @fitmodel(MPG ~ HP + WT+Gear,df,LinearRegression());
+   Julia> model = @fitmodel(MPG ~ HP + WT+Gear,df,ModelClass(:LinearRegression));
 
    Julia> model.fit
 
@@ -75,7 +75,7 @@
    Julia> plot(model.Cooks_distance)
    ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame,modelClass::LinearRegression)
+function fitmodel(formula::FormulaTerm, data::DataFrame,modelclass::ModelClass{:LinearRegression})
    ans = linear_reg(formula,data);
    ans
 end
@@ -96,7 +96,7 @@ end
       y ~ MvNormal(α .+ X * β, σ)
 
 
-   Julia> model = @fitmodel(MPG ~ HP + WT+Gear,df,LinearRegression(),Prior_Ridge());
+   Julia> model = @fitmodel(MPG ~ HP + WT+Gear,df,ModelClass(:LinearRegression),Prior_Ridge());
 
    ┌ Info: Found initial step size
    └   ϵ = 0.003125
@@ -115,7 +115,7 @@ end
 
    ## All rhat values are close to 1; indicates convergence of Markov Chain.
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame,modelClass::LinearRegression,PriorMod::Prior_Ridge,h::Float64=0.01,sim_size::Int64=10000)
+function fitmodel(formula::FormulaTerm, data::DataFrame,modelclass::ModelClass{:LinearRegression},PriorMod::Prior_Ridge,h::Float64=0.01,sim_size::Int64=10000)
    ans = linear_reg(formula,data,Prior_Ridge(),h,sim_size);
    ans
 end
@@ -138,11 +138,11 @@ end
    # h is 0.01 as Default
    # sim_size is 10000
 
-   Julia> model = @fitmodel(MPG ~ HP + WT+Gear,df,LinearRegression(),Prior_Laplace());
+   Julia> model = @fitmodel(MPG ~ HP + WT+Gear,df,ModelClass(:LinearRegression),Prior_Laplace());
 
    Alternative:
 
-   Julia> model = @fitmodel(MPG ~ HP + WT+Gear,df,LinearRegression(),Prior_Laplace(),0.01,10000);
+   Julia> model = @fitmodel(MPG ~ HP + WT+Gear,df,ModelClass(:LinearRegression),Prior_Laplace(),0.01,10000);
 
    ┌ Warning: The current proposal will be rejected due to numerical error(s).
    │   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
@@ -164,7 +164,7 @@ end
 
    ## All rhat values are close to 1; indicates convergence of Markov Chain.
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame,modelClass::LinearRegression,PriorMod::Prior_Laplace,h::Float64=0.01,sim_size::Int64=10000)
+function fitmodel(formula::FormulaTerm, data::DataFrame,modelclass::ModelClass{:LinearRegression},PriorMod::Prior_Laplace,h::Float64=0.01,sim_size::Int64=10000)
    ans = linear_reg(formula,data,Prior_Laplace(),h,sim_size);
    ans
 end
@@ -186,7 +186,7 @@ end
    # sim_size is 10000 (default). In the following example we considered 20000.
 
 
-   Julia> model = @fitmodel(MPG ~ HP + WT+Gear,df,LinearRegression(),Prior_Cauchy(),20000);
+   Julia> model = @fitmodel(MPG ~ HP + WT+Gear,df,ModelClass(:LinearRegression),Prior_Cauchy(),20000);
 
    ┌ Info: Found initial step size
    └   ϵ = 0.00078125
@@ -204,7 +204,7 @@ end
 
    # All rhat values are close to 1; indicates convergence of Markov Chain.
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame,modelClass::LinearRegression,PriorMod::Prior_Cauchy,sim_size::Int64=10000)
+function fitmodel(formula::FormulaTerm, data::DataFrame,modelclass::ModelClass{:LinearRegression},PriorMod::Prior_Cauchy,sim_size::Int64=10000)
    ans = linear_reg(formula,data,Prior_Cauchy(),sim_size);
    ans
 end
@@ -226,7 +226,7 @@ end
 
    # sim_size is 10000 (default).
 
-   Julia> model = @fitmodel(MPG ~ HP + WT+Gear,df,LinearRegression(),Prior_TDist());
+   Julia> model = @fitmodel(MPG ~ HP + WT+Gear,df,ModelClass(:LinearRegression),Prior_TDist());
 
    ┌ Info: Found initial step size
    └   ϵ = 0.0001953125
@@ -265,7 +265,7 @@ end
    plot(model.chain)
 
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame,modelClass::LinearRegression,PriorMod::Prior_TDist,h::Float64=2.0,sim_size::Int64=10000)
+function fitmodel(formula::FormulaTerm, data::DataFrame,modelclass::ModelClass{:LinearRegression},PriorMod::Prior_TDist,h::Float64=2.0,sim_size::Int64=10000)
    ans = linear_reg(formula,data,Prior_TDist(),h,sim_size);
    ans
 end
@@ -286,14 +286,14 @@ end
    # sim_size is 10000 (default).
 
    Julia> model = @fitmodel(MPG ~ HP + WT+Gear,df
-                           ,LinearRegression()
+                           ,ModelClass(:LinearRegression)
                            ,Prior_Uniform());
 
    ## Check if trace-plots are stationary !
    Julia> plot(model.chain)
 
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame,modelClass::LinearRegression,PriorMod::Prior_Uniform,h::Float64=0.01,sim_size::Int64=10000)
+function fitmodel(formula::FormulaTerm, data::DataFrame,modelclass::ModelClass{:LinearRegression},PriorMod::Prior_Uniform,h::Float64=0.01,sim_size::Int64=10000)
    ans = linear_reg(formula,data,Prior_TDist(),h,sim_size);
    ans
 end
@@ -315,7 +315,7 @@ end
    Julia> turnout = dataset("Zelig", "turnout")
 
    Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
-                  ,turnout,LogisticRegression(),Logit());
+                  ,turnout,ModelClass(:LogisticRegression),Logit());
 
    Julia> model.fit
 
@@ -339,7 +339,7 @@ end
    2061.985776000826
    ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame,modelClass::LogisticRegression,Link::Logit)
+function fitmodel(formula::FormulaTerm, data::DataFrame,modelclass::ModelClass{:LogisticRegression},Link::Logit)
    ans = logistic_reg(formula,data,"LogitLink");
    ans
 end
@@ -363,7 +363,7 @@ end
    Julia> turnout = dataset("Zelig", "turnout")
 
    Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
-                  ,turnout,LogisticRegression(),Probit());
+                  ,turnout,ModelClass(:LogisticRegression),Probit());
    Julia> model.fit
 
    ────────────────────────────────────────────────────────────────────────────
@@ -377,7 +377,7 @@ end
    ────────────────────────────────────────────────────────────────────────────
    ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame,modelClass::LogisticRegression,Link::Probit)
+function fitmodel(formula::FormulaTerm, data::DataFrame,modelclass::ModelClass{:LogisticRegression},Link::Probit)
    ans = logistic_reg(formula,data,"ProbitLink");
    ans
 end
@@ -399,7 +399,7 @@ end
    Julia> turnout = dataset("Zelig", "turnout")
 
    Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
-                  ,turnout,LogisticRegression(),Cloglog());
+                  ,turnout,ModelClass(:LogisticRegression),Cloglog());
    Julia> model.fit
 
    ─────────────────────────────────────────────────────────────────────────────
@@ -413,7 +413,7 @@ end
    ─────────────────────────────────────────────────────────────────────────────
    ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame,modelClass::LogisticRegression,Link::Cloglog)
+function fitmodel(formula::FormulaTerm, data::DataFrame,modelclass::ModelClass{:LogisticRegression},Link::Cloglog)
    ans = logistic_reg(formula,data,"CloglogLink");
    ans
 end
@@ -435,7 +435,7 @@ end
       Julia> turnout = dataset("Zelig", "turnout")
 
       Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
-                     ,turnout,LogisticRegression(),Cauchit());
+                     ,turnout,ModelClass(:LogisticRegression),Cauchit());
       Julia> model.fit
 
       ────────────────────────────────────────────────────────────────────────────
@@ -449,7 +449,7 @@ end
       ────────────────────────────────────────────────────────────────────────────
    ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame,modelClass::LogisticRegression,Link::Cauchit)
+function fitmodel(formula::FormulaTerm, data::DataFrame,modelclass::ModelClass{:LogisticRegression},Link::Cauchit)
    ans = logistic_reg(formula,data,"CauchitLink");
    ans
 end
@@ -478,11 +478,11 @@ end
    Julia> turnout = dataset("Zelig", "turnout")
 
    Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
-                  ,turnout,LogisticRegression(),Cauchit());
+                  ,turnout,ModelClass(:LogisticRegression),Cauchit());
 
    ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame,modelClass::LogisticRegression,Link::Logit,PriorMod::Prior_Ridge, h::Real=0.1, level::Real=0.95, sim_size::Int64=10000)
+function fitmodel(formula::FormulaTerm, data::DataFrame,modelclass::ModelClass{:LogisticRegression},Link::Logit,PriorMod::Prior_Ridge, h::Real=0.1, level::Real=0.95, sim_size::Int64=10000)
    ans = logistic_reg(formula,data,Logit(),Prior_Ridge(),h,sim_size)
    ans      
 end
@@ -509,12 +509,12 @@ end
    Julia> turnout = dataset("Zelig", "turnout")
 
    Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
-                  ,turnout,LogisticRegression()
+                  ,turnout,ModelClass(:LogisticRegression)
                   ,Probit(),Prior_Ridge());
 
    ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame,modelClass::LogisticRegression,Link::Probit,PriorMod::Prior_Ridge, h::Real=0.1, level::Real=0.95, sim_size::Int64=10000)
+function fitmodel(formula::FormulaTerm, data::DataFrame,modelclass::ModelClass{:LogisticRegression},Link::Probit,PriorMod::Prior_Ridge, h::Real=0.1, level::Real=0.95, sim_size::Int64=10000)
    ans = logistic_reg(formula,data,Probit(),Prior_Ridge(),h,sim_size)
    ans      
 end
@@ -542,13 +542,13 @@ end
 
    Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
                            ,turnout
-                           ,LogisticRegression()
+                           ,ModelClass(:LogisticRegression)
                            ,Cloglog()
                            ,Prior_Ridge());
 
    ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame,modelClass::LogisticRegression,Link::Cloglog,PriorMod::Prior_Ridge, h::Real=0.1, level::Real=0.95, sim_size::Int64=10000)
+function fitmodel(formula::FormulaTerm, data::DataFrame,modelclass::ModelClass{:LogisticRegression},Link::Cloglog,PriorMod::Prior_Ridge, h::Real=0.1, level::Real=0.95, sim_size::Int64=10000)
    ans = logistic_reg(formula,data,Cloglog(),Prior_Ridge(),h,sim_size)
    ans      
 end
@@ -576,13 +576,13 @@ end
 
    Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
                            ,turnout
-                           ,LogisticRegression()
+                           ,ModelClass(:LogisticRegression)
                            ,Cauchit()
                            ,Prior_Ridge());
 
    ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame,modelClass::LogisticRegression,Link::Cauchit,PriorMod::Prior_Ridge, h::Real=0.1, level::Real=0.95, sim_size::Int64=10000)
+function fitmodel(formula::FormulaTerm, data::DataFrame,modelclass::ModelClass{:LogisticRegression},Link::Cauchit,PriorMod::Prior_Ridge, h::Real=0.1, level::Real=0.95, sim_size::Int64=10000)
    ans = logistic_reg(formula,data,Cauchit(),Prior_Ridge(),h,sim_size)
    ans      
 end
@@ -610,13 +610,13 @@ end
 
    Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
                            ,turnout
-                           ,LogisticRegression()
+                           ,ModelClass(:LogisticRegression)
                            ,Logit()
                            ,Prior_Laplace());
 
    ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Logit, PriorMod::Prior_Laplace, h::Real=0.1, level::Real=0.95, sim_size::Int64=10000)
+function fitmodel(formula::FormulaTerm, data::DataFrame, modelclass::ModelClass{:LogisticRegression}, Link::Logit, PriorMod::Prior_Laplace, h::Real=0.1, level::Real=0.95, sim_size::Int64=10000)
    ans = logistic_reg(formula,data,Logit(),Prior_Laplace(),h,sim_size)
    ans
 end
@@ -644,13 +644,13 @@ end
 
    Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
                            ,turnout
-                           ,LogisticRegression()
+                           ,ModelClass(:LogisticRegression)
                            ,Probit()
                            ,Prior_Laplace());
 
    ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Probit, PriorMod::Prior_Laplace, h::Real=0.1, level::Real=0.95, sim_size::Int64=10000)
+function fitmodel(formula::FormulaTerm, data::DataFrame, modelclass::ModelClass{:LogisticRegression}, Link::Probit, PriorMod::Prior_Laplace, h::Real=0.1, level::Real=0.95, sim_size::Int64=10000)
    ans = logistic_reg(formula,data,Probit(),Prior_Laplace(),h,sim_size)
    ans
 end
@@ -678,13 +678,13 @@ end
 
    Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
                            ,turnout
-                           ,LogisticRegression()
+                           ,ModelClass(:LogisticRegression)
                            ,Cloglog()
                            ,Prior_Laplace());
 
    ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Cloglog, PriorMod::Prior_Laplace, h::Real=0.1, level::Real=0.95, sim_size::Int64=10000)
+function fitmodel(formula::FormulaTerm, data::DataFrame, modelclass::ModelClass{:LogisticRegression}, Link::Cloglog, PriorMod::Prior_Laplace, h::Real=0.1, level::Real=0.95, sim_size::Int64=10000)
    ans = logistic_reg(formula,data,Cloglog(),Prior_Laplace(),h,sim_size)
    ans
 end
@@ -712,13 +712,13 @@ end
 
    Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
                            ,turnout
-                           ,LogisticRegression()
+                           ,ModelClass(:LogisticRegression)
                            ,Cauchit()
                            ,Prior_Laplace());
 
    ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Cauchit, PriorMod::Prior_Laplace, h::Real=0.1, level::Real=0.95, sim_size::Int64=10000)
+function fitmodel(formula::FormulaTerm, data::DataFrame, modelclass::ModelClass{:LogisticRegression}, Link::Cauchit, PriorMod::Prior_Laplace, h::Real=0.1, level::Real=0.95, sim_size::Int64=10000)
    ans = logistic_reg(formula,data,Cauchit(),Prior_Laplace(),h,sim_size)
    ans
 end
@@ -749,13 +749,13 @@ end
 
    Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
                            ,turnout
-                           ,LogisticRegression()
+                           ,ModelClass(:LogisticRegression)
                            ,Logit()
                            ,Prior_Cauchy());
 
    ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Logit, PriorMod::Prior_Cauchy, h::Real=1.0, level::Real=0.95, sim_size::Int64=10000)
+function fitmodel(formula::FormulaTerm, data::DataFrame, modelclass::ModelClass{:LogisticRegression}, Link::Logit, PriorMod::Prior_Cauchy, h::Real=1.0, level::Real=0.95, sim_size::Int64=10000)
    ans = logistic_reg(formula,data,Logit(),Prior_Cauchy(),h,sim_size)
    ans
 end
@@ -784,13 +784,13 @@ end
 
    Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
                            ,turnout
-                           ,LogisticRegression()
+                           ,ModelClass(:LogisticRegression)
                            ,Probit()
                            ,Prior_Cauchy());
 
    ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Probit, PriorMod::Prior_Cauchy, h::Real=1.0, level::Real=0.95, sim_size::Int64=10000)
+function fitmodel(formula::FormulaTerm, data::DataFrame, modelclass::ModelClass{:LogisticRegression}, Link::Probit, PriorMod::Prior_Cauchy, h::Real=1.0, level::Real=0.95, sim_size::Int64=10000)
    ans = logistic_reg(formula,data,Probit(),Prior_Cauchy(),h,sim_size)
    ans
 end
@@ -819,13 +819,13 @@ end
 
    Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
                            ,turnout
-                           ,LogisticRegression()
+                           ,ModelClass(:LogisticRegression)
                            ,Cloglog()
                            ,Prior_Cauchy());
 
    ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Cloglog, PriorMod::Prior_Cauchy, h::Real=1.0, level::Real=0.95, sim_size::Int64=10000)
+function fitmodel(formula::FormulaTerm, data::DataFrame, modelclass::ModelClass{:LogisticRegression}, Link::Cloglog, PriorMod::Prior_Cauchy, h::Real=1.0, level::Real=0.95, sim_size::Int64=10000)
    ans = logistic_reg(formula,data,Cloglog(),Prior_Cauchy(),h,sim_size)
    ans
 end
@@ -854,13 +854,13 @@ end
 
    Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
                            ,turnout
-                           ,LogisticRegression()
+                           ,ModelClass(:LogisticRegression)
                            ,Cauchit()
                            ,Prior_Cauchy());
 
    ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Cauchit, PriorMod::Prior_Cauchy, h::Real=1.0, level::Real=0.95, sim_size::Int64=10000)
+function fitmodel(formula::FormulaTerm, data::DataFrame, modelclass::ModelClass{:LogisticRegression}, Link::Cauchit, PriorMod::Prior_Cauchy, h::Real=1.0, level::Real=0.95, sim_size::Int64=10000)
    ans = logistic_reg(formula,data,Cauchit(),Prior_Cauchy(),h,sim_size)
    ans
 end
@@ -891,13 +891,13 @@ end
 
    Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
                            ,turnout
-                           ,LogisticRegression()
+                           ,ModelClass(:LogisticRegression)
                            ,Logit()
                            ,Prior_TDist());
 
    ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Logit, PriorMod::Prior_TDist, h::Real=1.0, level::Real=0.95, sim_size::Int64=10000)
+function fitmodel(formula::FormulaTerm, data::DataFrame, modelclass::ModelClass{:LogisticRegression}, Link::Logit, PriorMod::Prior_TDist, h::Real=1.0, level::Real=0.95, sim_size::Int64=10000)
    ans = logistic_reg(formula,data,Logit(),Prior_TDist(),h,sim_size)
    ans
 end
@@ -927,13 +927,13 @@ end
 
    Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
                            ,turnout
-                           ,LogisticRegression()
+                           ,ModelClass(:LogisticRegression)
                            ,Probit()
                            ,Prior_TDist());
 
    ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Probit, PriorMod::Prior_TDist, h::Real=1.0, level::Real=0.95, sim_size::Int64=10000)
+function fitmodel(formula::FormulaTerm, data::DataFrame, modelclass::ModelClass{:LogisticRegression}, Link::Probit, PriorMod::Prior_TDist, h::Real=1.0, level::Real=0.95, sim_size::Int64=10000)
    ans = logistic_reg(formula,data,Probit(),Prior_TDist(),h,sim_size)
    ans
 end
@@ -963,13 +963,13 @@ end
 
    Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
                            ,turnout
-                           ,LogisticRegression()
+                           ,ModelClass(:LogisticRegression)
                            ,Cloglog()
                            ,Prior_TDist());
 
    ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Cloglog, PriorMod::Prior_TDist, h::Real=1.0, level::Real=0.95, sim_size::Int64=10000)
+function fitmodel(formula::FormulaTerm, data::DataFrame, modelclass::ModelClass{:LogisticRegression}, Link::Cloglog, PriorMod::Prior_TDist, h::Real=1.0, level::Real=0.95, sim_size::Int64=10000)
    ans = logistic_reg(formula,data,Cloglog(),Prior_TDist(),h,sim_size)
    ans
 end
@@ -999,13 +999,13 @@ end
 
    Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
                            ,turnout
-                           ,LogisticRegression()
+                           ,ModelClass(:LogisticRegression)
                            ,Cauchit()
                            ,Prior_TDist());
 
    ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Cauchit, PriorMod::Prior_TDist, h::Real=1.0, level::Real=0.95, sim_size::Int64=10000)
+function fitmodel(formula::FormulaTerm, data::DataFrame, modelclass::ModelClass{:LogisticRegression}, Link::Cauchit, PriorMod::Prior_TDist, h::Real=1.0, level::Real=0.95, sim_size::Int64=10000)
    ans = logistic_reg(formula,data,Cauchit(),Prior_TDist(),h,sim_size)
    ans
 end
@@ -1033,13 +1033,13 @@ end
 
    Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
                            ,turnout
-                           ,LogisticRegression()
+                           ,ModelClass(:LogisticRegression)
                            ,Logit()
                            ,Prior_Uniform());
 
    ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Logit, PriorMod::Prior_Uniform, h::Real=0.01, level::Real=0.95, sim_size::Int64=10000)
+function fitmodel(formula::FormulaTerm, data::DataFrame, modelclass::ModelClass{:LogisticRegression}, Link::Logit, PriorMod::Prior_Uniform, h::Real=0.01, level::Real=0.95, sim_size::Int64=10000)
   ans = logistic_reg(formula,data,Logit(),Prior_Uniform(),h,sim_size)
   ans     
 end
@@ -1067,13 +1067,13 @@ end
 
    Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
                            ,turnout
-                           ,LogisticRegression()
+                           ,ModelClass(:LogisticRegression)
                            ,Probit()
                            ,Prior_Uniform());
 
    ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Probit, PriorMod::Prior_Uniform, h::Real=0.01, level::Real=0.95, sim_size::Int64=10000)
+function fitmodel(formula::FormulaTerm, data::DataFrame, modelclass::ModelClass{:LogisticRegression}, Link::Probit, PriorMod::Prior_Uniform, h::Real=0.01, level::Real=0.95, sim_size::Int64=10000)
    ans = logistic_reg(formula,data,Probit(),Prior_Uniform(),h,sim_size)
    ans     
 end
@@ -1101,13 +1101,13 @@ end
 
    Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
                            ,turnout
-                           ,LogisticRegression()
+                           ,ModelClass(:LogisticRegression)
                            ,Cloglog()
                            ,Prior_Uniform());
 
    ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Cloglog, PriorMod::Prior_Uniform, h::Real=0.01, level::Real=0.95, sim_size::Int64=10000)
+function fitmodel(formula::FormulaTerm, data::DataFrame, modelclass::ModelClass{:LogisticRegression}, Link::Cloglog, PriorMod::Prior_Uniform, h::Real=0.01, level::Real=0.95, sim_size::Int64=10000)
    ans = logistic_reg(formula,data,Cloglog(),Prior_Uniform(),h,sim_size)
    ans     
 end
@@ -1136,13 +1136,13 @@ end
 
    Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
                            ,turnout
-                           ,LogisticRegression()
+                           ,ModelClass(:LogisticRegression)
                            ,Cauchit()
                            ,Prior_Uniform());
 
    ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Cauchit, PriorMod::Prior_Uniform, h::Real=0.01, level::Real=0.95, sim_size::Int64=10000)
+function fitmodel(formula::FormulaTerm, data::DataFrame, modelclass::ModelClass{:LogisticRegression}, Link::Cauchit, PriorMod::Prior_Uniform, h::Real=0.01, level::Real=0.95, sim_size::Int64=10000)
    ans = logistic_reg(formula,data,Cauchit(),Prior_Uniform(),h,sim_size)
    ans     
 end
@@ -1167,11 +1167,11 @@ end
 
    Julia> model = @fitmodel(Num ~ Target + Coop + NCost
                            , sanction
-                           , PoissonRegression());
+                           , ModelClass(:PoissonRegression));
 
    ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression)
+function fitmodel(formula::FormulaTerm, data::DataFrame, modelclass::ModelClass{:PoissonRegression})
    ans = Poisson_Reg(formula,data)
    ans     
 end
@@ -1201,12 +1201,12 @@ end
 
    Julia> model = @fitmodel(Num ~ Target + Coop + NCost
                            , sanction
-                           , PoissonRegression()
+                           , ModelClass(:PoissonRegression)
                            , Prior_Ridge());
 
    ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression,PriorMod::Prior_Ridge,h::Float64=0.1,sim_size::Int64=10000)
+function fitmodel(formula::FormulaTerm, data::DataFrame, modelclass::ModelClass{:PoissonRegression},PriorMod::Prior_Ridge,h::Float64=0.1,sim_size::Int64=10000)
    ans = Poisson_Reg(formula,data,Prior_Ridge(),h,sim_size)
    ans
 end
@@ -1236,12 +1236,12 @@ end
 
    Julia> model = @fitmodel(Num ~ Target + Coop + NCost
                            , sanction
-                           , PoissonRegression()
+                           , ModelClass(:PoissonRegression)
                            , Prior_Laplace());
 
    ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression,PriorMod::Prior_Laplace,h::Float64=0.1,sim_size::Int64=10000)
+function fitmodel(formula::FormulaTerm, data::DataFrame, modelclass::ModelClass{:PoissonRegression},PriorMod::Prior_Laplace,h::Float64=0.1,sim_size::Int64=10000)
    ans = Poisson_Reg(formula,data,Prior_Laplace(),h,sim_size)
    ans
 end
@@ -1270,12 +1270,12 @@ end
 
    Julia> model = @fitmodel(Num ~ Target + Coop + NCost
                            , sanction
-                           , PoissonRegression()
+                           , ModelClass(:PoissonRegression)
                            , Prior_Cauchy());
 
    ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression,PriorMod::Prior_Cauchy,h::Float64=1.0,sim_size::Int64=10000)
+function fitmodel(formula::FormulaTerm, data::DataFrame, modelclass::ModelClass{:PoissonRegression},PriorMod::Prior_Cauchy,h::Float64=1.0,sim_size::Int64=10000)
    ans = Poisson_Reg(formula,data,Prior_Cauchy(),h,sim_size)
    ans
 end
@@ -1304,12 +1304,12 @@ end
 
    Julia> model = @fitmodel(Num ~ Target + Coop + NCost
                            , sanction
-                           , PoissonRegression()
+                           , ModelClass(:PoissonRegression)
                            , Prior_TDist());
 
    ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression,PriorMod::Prior_TDist,h::Float64=2.0,sim_size::Int64=10000)
+function fitmodel(formula::FormulaTerm, data::DataFrame, modelclass::ModelClass{:PoissonRegression},PriorMod::Prior_TDist,h::Float64=2.0,sim_size::Int64=10000)
    ans = Poisson_Reg(formula,data,Prior_TDist(),h,sim_size)
    ans
 end
@@ -1339,12 +1339,12 @@ end
 
    Julia> model = @fitmodel(Num ~ Target + Coop + NCost
                            , sanction
-                           , PoissonRegression()
+                           , ModelClass(:PoissonRegression)
                            , Prior_Uniform());
 
    ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression,PriorMod::Prior_Uniform,h::Float64=1.0,sim_size::Int64=10000)
+function fitmodel(formula::FormulaTerm, data::DataFrame, modelclass::ModelClass{:PoissonRegression},PriorMod::Prior_Uniform,h::Float64=1.0,sim_size::Int64=10000)
    ans = Poisson_Reg(formula,data,Prior_Uniform(),h,sim_size)
    ans
 end
@@ -1375,7 +1375,7 @@ end
     Julia> sanction = dataset("Zelig", "sanction");
     Julia> model = @fitmodel(Num ~ Target + Coop + NCost
                             , sanction
-                            , NegBinomRegression()
+                            , ModelClass(:NegBinomialRegression)
                             , Prior_Ridge());
 
     ┌ Info: Found initial step size
@@ -1396,7 +1396,7 @@ end
 
     ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression,PriorMod::Prior_Ridge,h::Float64=0.1,sim_size::Int64=10000)
+function fitmodel(formula::FormulaTerm, data::DataFrame, modelclass::ModelClass{:NegBinomialRegression},PriorMod::Prior_Ridge,h::Float64=0.1,sim_size::Int64=10000)
     ans = NegBinom_Reg(formula,data,Prior_Ridge(),h,sim_size)
     ans
  end
@@ -1428,13 +1428,13 @@ function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomReg
     Julia> sanction = dataset("Zelig", "sanction");
     Julia> model = @fitmodel(Num ~ Target + Coop + NCost
                             , sanction
-                            , NegBinomRegression()
+                            , ModelClass(:NegBinomialRegression)
                             , Prior_Laplace());
 
     ```
  
  """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression,PriorMod::Prior_Laplace,h::Float64=0.1,sim_size::Int64=10000)
+function fitmodel(formula::FormulaTerm, data::DataFrame, modelclass::ModelClass{:NegBinomialRegression},PriorMod::Prior_Laplace,h::Float64=0.1,sim_size::Int64=10000)
     ans = NegBinom_Reg(formula,data,Prior_Laplace(),h,sim_size)
     ans
 end
@@ -1466,13 +1466,13 @@ end
     Julia> sanction = dataset("Zelig", "sanction");
     Julia> model = @fitmodel(Num ~ Target + Coop + NCost
                             , sanction
-                            , NegBinomRegression()
+                            , ModelClass(:NegBinomialRegression)
                             , Prior_Cauchy());
 
     ```
  
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression,PriorMod::Prior_Cauchy,h::Float64=1.0,sim_size::Int64=10000)
+function fitmodel(formula::FormulaTerm, data::DataFrame, modelclass::ModelClass{:NegBinomialRegression},PriorMod::Prior_Cauchy,h::Float64=1.0,sim_size::Int64=10000)
     ans = NegBinom_Reg(formula,data,Prior_Cauchy(),h,sim_size)
     ans
 end
@@ -1504,13 +1504,13 @@ end
     Julia> sanction = dataset("Zelig", "sanction");
     Julia> model = @fitmodel(Num ~ Target + Coop + NCost
                             , sanction
-                            , NegBinomRegression()
+                            , ModelClass(:NegBinomialRegression)
                             , Prior_TDist());
 
     ```
  
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression,PriorMod::Prior_TDist,h::Float64=1.0,sim_size::Int64=10000)
+function fitmodel(formula::FormulaTerm, data::DataFrame, modelclass::ModelClass{:NegBinomialRegression},PriorMod::Prior_TDist,h::Float64=1.0,sim_size::Int64=10000)
     ans = NegBinom_Reg(formula,data,Prior_TDist(),h,sim_size)
     ans
 end
@@ -1547,13 +1547,13 @@ end
     Julia> sanction = dataset("Zelig", "sanction");
     Julia> model = @fitmodel(Num ~ Target + Coop + NCost
                             , sanction
-                            , NegBinomRegression()
+                            , ModelClass(:NegBinomialRegression)
                             , Prior_Uniform());
 
     ```
  
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression,PriorMod::Prior_Uniform,h::Float64=0.1,sim_size::Int64=10000)
+function fitmodel(formula::FormulaTerm, data::DataFrame, modelclass::ModelClass{:NegBinomialRegression},PriorMod::Prior_Uniform,h::Float64=0.1,sim_size::Int64=10000)
     ans = NegBinom_Reg(formula,data,Prior_Uniform(),h,sim_size)
     ans
 end
@@ -1576,12 +1576,12 @@ end
     Julia> sanction = dataset("Zelig", "sanction");
     Julia> model = @fitmodel(Num ~ Target + Coop + NCost
                             , sanction
-                            , NegBinomRegression());
+                            , ModelClass(:NegBinomialRegression));
 
     ```
  
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression)
+function fitmodel(formula::FormulaTerm, data::DataFrame, modelclass::ModelClass{:NegBinomialRegression})
     ans = NegBinom_Reg(formula,data,"LogLink")
     ans
 end
@@ -1597,7 +1597,7 @@ Macro for calling `fitmodel` without using `@formula` to create the formula.
 ```julia
 using CRRao, RDatasets
 sanction = dataset("Zelig", "sanction")
-model = @fitmodel(Num ~ Target + Coop + NCost, sanction, NegBinomRegression())
+model = @fitmodel(Num ~ Target + Coop + NCost, sanction, ModelClass(:NegBinomialRegression))
 ```
 """
 macro fitmodel(formula, args...)
