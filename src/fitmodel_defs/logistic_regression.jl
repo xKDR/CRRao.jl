@@ -1,159 +1,90 @@
 # Include logistic_reg definitions
 include("regression_models/LogisticRegression.jl")
 
-"""
-# Logistic Regression with Logit link : GLM with Scoring Method
-    
-    ## Link Function
-    z = X*β
-
-    prob = Logit.(z)
-
-    #likelihood
-    for i = 1:n
-        y[i] ~ Bernoulli(prob[i])
-    end
-   ```    
-   Julia> turnout = dataset("Zelig", "turnout")
-
-   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
-                  ,turnout,LogisticRegression(),Logit());
-
-   Julia> model.fit
-
-   ────────────────────────────────────────────────────────────────────────────
-                     Coef.  Std. Error      z  Pr(>|z|)   Lower 95%   Upper 95%
-   ────────────────────────────────────────────────────────────────────────────
-   (Intercept)  -3.03426    0.325927    -9.31    <1e-19  -3.67307    -2.39546
-   Age           0.0283543  0.00346034   8.19    <1e-15   0.0215722   0.0351365
-   Race: white   0.250798   0.146457     1.71    0.0868  -0.0362521   0.537847
-   Income        0.177112   0.0271516    6.52    <1e-10   0.123896    0.230328
-   Educate       0.175634   0.0203308    8.64    <1e-17   0.135786    0.215481
-   ────────────────────────────────────────────────────────────────────────────
-
-   Julia> model.LogLike
-   -1011.9906318515576
-
-   Julia> model.AIC
-   2033.9812637031152
-
-   Julia> model.BIC
-   2061.985776000826
-   ```
-"""
-function fitmodel(formula::FormulaTerm, data::DataFrame,modelClass::LogisticRegression,Link::Logit)
-   ans = logistic_reg(formula,data,"LogitLink");
-   ans
-end
-
-
-"""
-# Logistic Regression with Probit link : GLM with Scoring Method
-    
-    ## Link Function
-    z = X*β
-
-    prob = Probit.(z)
-
-    #likelihood
-    for i = 1:n
-        y[i] ~ Bernoulli(prob[i])
-    end
-   
-   ```Julia
-
-   Julia> turnout = dataset("Zelig", "turnout")
-
-   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
-                  ,turnout,LogisticRegression(),Probit());
-   Julia> model.fit
-
-   ────────────────────────────────────────────────────────────────────────────
-                     Coef.  Std. Error      z  Pr(>|z|)   Lower 95%   Upper 95%
-   ────────────────────────────────────────────────────────────────────────────
-   (Intercept)  -1.76141    0.188556    -9.34    <1e-20  -2.13097    -1.39185
-   Age           0.0164973  0.00199897   8.25    <1e-15   0.0125794   0.0204152
-   Race: white   0.162856   0.0876885    1.86    0.0633  -0.0090108   0.334722
-   Income        0.0963117  0.0149675    6.43    <1e-09   0.066976    0.125647
-   Educate       0.10417    0.0116713    8.93    <1e-18   0.0812949   0.127046
-   ────────────────────────────────────────────────────────────────────────────
-   ```
-"""
-function fitmodel(formula::FormulaTerm, data::DataFrame,modelClass::LogisticRegression,Link::Probit)
-   ans = logistic_reg(formula,data,"ProbitLink");
-   ans
+function logistic_reg(formula::FormulaTerm, data::DataFrame, Link::GLM.Link)
+   formula = apply_schema(formula, schema(formula, data))
+   model = glm(formula, data, Binomial(), Link)
+   return FrequentistRegression(:LogisticRegression, model)
 end
 
 """
-# Logistic Regression with CloglogLink link : GLM with Scoring Method
-    
-    ## Link Function
-    z = X*β
+```julia
+fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Logit)
+```
 
-    prob = CloglogLink.(z)
+Fit a Logistic Regression model on the input data using the Logit link. Uses the `glm` method from the [GLM](https://github.com/JuliaStats/GLM.jl) package under the hood.
 
-    #likelihood
-    for i = 1:n
-        y[i] ~ Bernoulli(prob[i])
-    end
-   
-   ```Julia
-   Julia> turnout = dataset("Zelig", "turnout")
+# Arguments
+- `formula`: A formula term representing dependencies between the columns in the dataset.
+- `data`: The dataset. 
+- `modelClass`: Object representing the type of regression, which is Logistic Regression in this case.
+- `Link`: A type to specify the link function to be used, which is Logit in this case.
 
-   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
-                  ,turnout,LogisticRegression(),Cloglog());
-   Julia> model.fit
+```julia-repl
+julia> using CRRao, RDatasets, StatsBase
 
-   ─────────────────────────────────────────────────────────────────────────────
-                     Coef.  Std. Error       z  Pr(>|z|)   Lower 95%   Upper 95%
-   ─────────────────────────────────────────────────────────────────────────────
-   (Intercept)  -1.94617    0.184123    -10.57    <1e-25  -2.30704    -1.58529
-   Age           0.0147857  0.00184088    8.03    <1e-15   0.0111776   0.0183937
-   Race: white   0.185139   0.087101      2.13    0.0335   0.014424    0.355854
-   Income        0.0768268  0.0126411     6.08    <1e-08   0.0520506   0.101603
-   Educate       0.0983976  0.0108857     9.04    <1e-18   0.077062    0.119733
-   ─────────────────────────────────────────────────────────────────────────────
-   ```
+julia> turnout = dataset("Zelig", "turnout");
+
+julia> container = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Logit());
+
+julia> coeftable(container.model)
+────────────────────────────────────────────────────────────────────────────
+                  Coef.  Std. Error      z  Pr(>|z|)   Lower 95%   Upper 95%
+────────────────────────────────────────────────────────────────────────────
+(Intercept)  -3.03426    0.325927    -9.31    <1e-19  -3.67307    -2.39546
+Age           0.0283543  0.00346034   8.19    <1e-15   0.0215722   0.0351365
+Race: white   0.250798   0.146457     1.71    0.0868  -0.0362521   0.537847
+Income        0.177112   0.0271516    6.52    <1e-10   0.123896    0.230328
+Educate       0.175634   0.0203308    8.64    <1e-17   0.135786    0.215481
+────────────────────────────────────────────────────────────────────────────
+
+julia> loglikelihood(container.model)
+-1011.9906318515575
+
+julia> aic(container.model)
+2033.981263703115
+
+julia> bic(container.model)
+2061.9857760008254
+```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame,modelClass::LogisticRegression,Link::Cloglog)
-   ans = logistic_reg(formula,data,"CloglogLink");
-   ans
+function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Logit)
+   return logistic_reg(formula, data, LogitLink())
 end
 
 """
-# Logistic Regression with Cauchit link : GLM with Scoring Method
-    
-    ## Link Function
-    z = X*β
+```julia
+fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Probit)
+```
 
-    prob = Cauchit.(z)
+Fit a Logistic Regression model on the input data using the Probit link. Uses the `glm` method from the [GLM](https://github.com/JuliaStats/GLM.jl) package under the hood.
+"""
+function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Probit)
+   return logistic_reg(formula, data, ProbitLink())
+end
 
-    #likelihood
-    for i = 1:n
-        y[i] ~ Bernoulli(prob[i])
-    end
-    
-    ```Julia
-      Julia> turnout = dataset("Zelig", "turnout")
+"""
+```julia
+fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Cloglog)
+```
 
-      Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
-                     ,turnout,LogisticRegression(),Cauchit());
-      Julia> model.fit
+Fit a Logistic Regression model on the input data using the Cloglog link. Uses the `glm` method from the [GLM](https://github.com/JuliaStats/GLM.jl) package under the hood.
+```
+"""
+function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Cloglog)
+   return logistic_reg(formula, data, CloglogLink())
+end
 
-      ────────────────────────────────────────────────────────────────────────────
-                        Coef.  Std. Error      z  Pr(>|z|)   Lower 95%   Upper 95%
-      ────────────────────────────────────────────────────────────────────────────
-      (Intercept)  -3.16889    0.384429    -8.24    <1e-15  -3.92235    -2.41542
-      Age           0.0304105  0.00413473   7.35    <1e-12   0.0223066   0.0385144
-      Race: white   0.181839   0.144766     1.26    0.2091  -0.101898    0.465576
-      Income        0.235267   0.038152     6.17    <1e-09   0.16049     0.310043
-      Educate       0.169276   0.0240098    7.05    <1e-11   0.122217    0.216334
-      ────────────────────────────────────────────────────────────────────────────
-   ```
+"""
+```julia
+fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Cauchit)
+```
+
+Fit a Logistic Regression model on the input data using the Cauchit link. Uses the `glm` method from the [GLM](https://github.com/JuliaStats/GLM.jl) package under the hood.
+```
 """
 function fitmodel(formula::FormulaTerm, data::DataFrame,modelClass::LogisticRegression,Link::Cauchit)
-   ans = logistic_reg(formula,data,"CauchitLink");
-   ans
+   return logistic_reg(formula, data, CauchitLink())
 end
 
 
