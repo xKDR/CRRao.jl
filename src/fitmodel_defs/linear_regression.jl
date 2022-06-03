@@ -1,86 +1,57 @@
-# Include linear_reg definitions
-include("regression_models/LinearRegression.jl")
+# Function template for Bayesian Models
+function linear_reg(formula::FormulaTerm, data::DataFrame, turingModel::Function, sim_size::Int64)
+   formula = apply_schema(formula, schema(formula, data))
+   y, X = modelcols(formula, data)
+
+   chain = sample(CRRao_rng, turingModel(X, y), NUTS(), sim_size)
+   summaries, quantiles = describe(chain)
+
+   return MCMC_chain(chain,summaries,quantiles)
+end
+
+function linear_reg_predicts(obj,newdata::DataFrame)
+   formula = obj.formula;
+   fm_frame=ModelFrame(formula,newdata);
+   X=modelmatrix(fm_frame);
+   beta = coef(obj.res)
+   y_pred = X*beta;
+   y_pred
+end
 
 """
-# Fit OLS Linear Regression with fitmodel
+```julia
+fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression)
+```
 
-   + To fit linear regression with likelihood method, provide the following
-   three information in `fitmodel`
+Fit an OLS Linear Regression model on the input data.
 
+# Arguments
 
-   1.  `formula` Provide the equation. Eg. `@formula(y~x1+x2+...)`
-   2.  `data` Provide training data as `DataFrame``
-   3.  `modelClass`  : LinearRegression()
+   - `formula`: A formula term representing dependencies between the columns in the dataset.
+   - `data`: The dataset. 
+   - `modelClass`: Object representing the type of regression, which is Linear Regression in our case.
 
-   ```Julia
+```@repl
+using CRRao, RDatasets, StatsModels, StatsPlots, StatsBase
+df = dataset("datasets", "mtcars")
+container = @fitmodel(MPG ~ HP + WT+Gear,df,LinearRegression())
 
-   Julia> using RDatasets, StatsModels, StatsPlots
-
-   Julia> df = dataset("datasets", "mtcars");
-
-   Julia> model = @fitmodel(MPG ~ HP + WT+Gear,df,LinearRegression());
-
-   Julia> model.fit
-
-   ────────────────────────────────────────────────────────────────────────────
-                     Coef.  Std. Error      t  Pr(>|t|)   Lower 95%   Upper 95%
-   ────────────────────────────────────────────────────────────────────────────
-   (Intercept)  32.0137     4.63226      6.91    <1e-06  22.5249     41.5024
-   HP           -0.0367861  0.00989146  -3.72    0.0009  -0.0570478  -0.0165243
-   WT           -3.19781    0.846546    -3.78    0.0008  -4.93188    -1.46374
-   Gear          1.01998    0.851408     1.20    0.2410  -0.72405     2.76401
-   ────────────────────────────────────────────────────────────────────────────
-
-   ## Fitted model returns following informations
-
-   Julia> model.sigma
-   2.5741691724978977
-
-   Julia> model.LogLike
-   -73.52638935960971
-
-   Julia> model.AIC
-   157.05277871921942
-
-   Julia> model.BIC
-   164.38145823321804
-
-   Julia> model.R_sqr
-   0.8352309600685555
-
-   Julia> model.Adjusted_R_sqr
-   0.8175771343616149
-
-   Julia> model.fittedResponse
-   32-element Vector{Float64}:
-   23.66884995233871
-   22.85340824320635
-   25.25355614074087
-   20.746171762311327
-   17.635570543830113
-   ...
-
-   Julia> model.residuals
-   32-element Vector{Float64}:
-   -2.668849952338711
-   -1.8534082432063492
-   -2.4535561407408686
-   0.6538282376886713
-   ...
-
-   Julia> model.Cooks_distance
-   32-element Vector{Float64}:
-   0.013342034282302845
-   0.00688728266731234
-   0.015495847517058972
-   ...
-
-   Julia> plot(model.Cooks_distance)
-   ```
+coeftable(container.model)
+loglikelihood(container.model)
+aic(container.model)
+bic(container.model)
+r2(container.model)
+adjr2(container.model)
+predict(container.model)
+residuals(container.model)
+cooksdistance(container.model)
+plot(cooksdistance(container.model))
+```
 """
 function fitmodel(formula::FormulaTerm, data::DataFrame,modelClass::LinearRegression)
-   ans = linear_reg(formula,data);
-   ans
+   formula = apply_schema(formula, schema(formula, data))
+   model = lm(formula,data)
+   return FrequentistRegression{:LinearRegression}(model)
 end
 
 """

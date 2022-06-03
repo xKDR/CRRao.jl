@@ -1,18 +1,27 @@
 """
 Type to represent frequentist models returned by `fitmodel` functions. This type is used internally by the package to represent all frequentist regression models.
 """
-struct FrequentistRegressionModel{RegressionType}
-   model::StatsBase.RegressionModel
+struct FrequentistRegression{RegressionType}
+   model
 end
 
 """
 ```julia
-FrequentistRegressionModel(::Symbol, ::StatsBase.RegressionModel)
+FrequentistRegression(::Symbol, model)
 ```
 
-Constructor for `FrequentistRegressionModel`. Used by `fitmodel` functions to return a frequentist regression model.
+Constructor for `FrequentistRegression`. `model` can be any regression model. Used by `fitmodel` functions to return a frequentist regression model containers.
 """
-FrequentistRegressionModel(RegressionType::Symbol, model::StatsBase.RegressionModel) = FrequentistRegressionModel{RegressionType}(model)
+FrequentistRegression(RegressionType::Symbol, model) = FrequentistRegression{RegressionType}(model)
+
+"""
+```
+getRegressionMethod(::FrequentistRegression)
+```
+
+Print details about the regression algorithm. This function must be implemented by each `FrequentistRegression` type.
+"""
+function getRegressionDetails(::FrequentistRegression) end
 
 # Including fitmodel definitions
 
