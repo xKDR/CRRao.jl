@@ -24,10 +24,10 @@ include("frequentist/negativebinomial_regression.jl")
 include("frequentist/poisson_regression.jl")
 
 # Bayesian Regression Models
-include("fitmodel_defs/linear_regression.jl")
-include("fitmodel_defs/logistic_regression.jl")
-include("fitmodel_defs/negativebinomial_regression.jl")
-include("fitmodel_defs/poisson_regression.jl")
+include("bayesian/linear_regression.jl")
+include("bayesian/logistic_regression.jl")
+include("bayesian/negativebinomial_regression.jl")
+include("bayesian/poisson_regression.jl")
 
 """
 ```julia
