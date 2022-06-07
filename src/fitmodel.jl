@@ -14,26 +14,16 @@ Constructor for `FrequentistRegression`. `model` can be any regression model. Us
 """
 FrequentistRegression(RegressionType::Symbol, model) = FrequentistRegression{RegressionType}(model)
 
-"""
-```
-getRegressionMethod(::FrequentistRegression)
-```
+# Print Messages
+include("print.jl")
 
-Print details about the regression algorithm. This function must be implemented by each `FrequentistRegression` type.
-"""
-function getRegressionDetails(::FrequentistRegression) end
-
-# Including fitmodel definitions for frequentist models
-
-## Frequentist Regression Models
+# Frequentist Regression Models
 include("frequentist/linear_regression.jl")
 include("frequentist/logistic_regression.jl")
 include("frequentist/negativebinomial_regression.jl")
 include("frequentist/poisson_regression.jl")
 
-# Including fitmodel definitions for bayesian models
-
-## Bayesian Regression Models
+# Bayesian Regression Models
 include("fitmodel_defs/linear_regression.jl")
 include("fitmodel_defs/logistic_regression.jl")
 include("fitmodel_defs/negativebinomial_regression.jl")
