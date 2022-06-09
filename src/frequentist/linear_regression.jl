@@ -1,3 +1,12 @@
+function linear_reg_predicts(obj,newdata::DataFrame)
+   formula = obj.formula;
+   fm_frame=ModelFrame(formula,newdata);
+   X=modelmatrix(fm_frame);
+   beta = coef(obj.res)
+   y_pred = X*beta;
+   y_pred
+end
+
 """
 ```julia
 fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression)
@@ -96,7 +105,7 @@ julia> cooksdistance(container.model)
 julia> plot(cooksdistance(container.model))
 ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame,modelClass::LinearRegression)
+function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression)
    formula = apply_schema(formula, schema(formula, data))
    model = lm(formula,data)
    return FrequentistRegression{:LinearRegression}(model)

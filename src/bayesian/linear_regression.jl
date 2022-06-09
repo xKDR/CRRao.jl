@@ -1,12 +1,3 @@
-function linear_reg_predicts(obj,newdata::DataFrame)
-   formula = obj.formula;
-   fm_frame=ModelFrame(formula,newdata);
-   X=modelmatrix(fm_frame);
-   beta = coef(obj.res)
-   y_pred = X*beta;
-   y_pred
-end
-
 function linear_reg(formula::FormulaTerm, data::DataFrame, turingModel::Function, sim_size::Int64)
    formula = apply_schema(formula, schema(formula, data))
    y, X = modelcols(formula, data)
@@ -45,7 +36,6 @@ julia> container = @fitmodel(MPG ~ HP + WT + Gear, df, LinearRegression(), Prior
 ```
 """
 function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, prior::Prior_Ridge, h::Float64 = 0.01, sim_size::Int64 = 10000)
-   # Defining the Turing model
    @model LinearRegression(X, y) = begin
       p = size(X, 2);
   
@@ -95,7 +85,6 @@ julia> container = @fitmodel(MPG ~ HP + WT + Gear, df, LinearRegression(), Prior
 ```
 """
 function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, prior::Prior_Laplace, h::Float64 = 0.01, sim_size::Int64 = 10000)
-   # Defining the Turing model
    @model LinearRegression(X, y) = begin
       p=size(X, 2);
   
@@ -143,7 +132,6 @@ julia> container = @fitmodel(MPG ~ HP + WT + Gear, df, LinearRegression(), Prior
 ```
 """
 function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, prior::Prior_Cauchy, sim_size::Int64 = 10000)
-   # Defining the Turing model
    @model LinearRegression(X, y) = begin
       p=size(X, 2);
   
@@ -191,7 +179,6 @@ julia> plot(container.chain)
 ```
 """
 function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, prior::Prior_TDist, h::Float64 = 2.0, sim_size::Int64 = 10000)
-   # Defining the Turing model
    @model LinearRegression(X, y) = begin
       p=size(X, 2);
   
@@ -242,7 +229,6 @@ julia> plot(container.chain)
 ```
 """
 function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, prior::Prior_Uniform, h::Float64 = 0.01, sim_size::Int64 = 10000)
-   # Defining the Turing model
    @model LinearRegression(X, y) = begin
       p=size(X, 2);
   
