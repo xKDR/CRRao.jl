@@ -1,174 +1,263 @@
-# Include Poisson_Reg definitions
-include("regression_models/PoissonRegression.jl")
+function poisson_reg(formula::FormulaTerm, data::DataFrame, turingModel::Function, sim_size::Int64)
+    formula = apply_schema(formula, schema(formula, data))
+    y, X = modelcols(formula, data)
+
+    chain = sample(CRRao_rng, turingModel(X, y), NUTS(), sim_size)
+    return BayesianRegression{:PoissonRegression}(chain)
+end
 
 """
-# Poisson Regression with Ridge Prior using HMC with Turing
+```julia
+fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression, prior::Prior_Ridge, h::Float64 = 0.1, sim_size::Int64 = 10000)
+```
+
+Fit a Bayesian Poisson Regression model on the input data with a Ridge prior.
+
+# Arguments
+
+- `formula`: A formula term representing dependencies between the columns in the dataset.
+- `data`: The dataset.
+- `modelClass`: Object representing the type of regression, which is Poisson Regression in our case.
+- `prior`: A type representing the prior. In this case, it is the Ridge prior.
+- `h`: A parameter used in setting the priors.
+- `sim_size`: The number of samples to be drawn during inference.
+
+# Example
+
+```julia-repl
+julia> using CRRao, RDatasets, StableRNGs
+
+julia> CRRao.set_rng(StableRNG(123))
+StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
+
+julia> sanction = dataset("Zelig", "sanction");
+
+julia> container = @fitmodel(Num ~ Target + Coop + NCost, sanction, PoissonRegression(), Prior_Ridge());
+```
+"""
+function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression, prior::Prior_Ridge, h::Float64 = 0.1, sim_size::Int64 = 10000)
+    @model PoissonRegression(X, y) = begin
+        p = size(X, 2);
+        n = size(X, 1);
+        #priors
+        λ~InverseGamma(h,h)
+        α ~ Normal(0,λ)
+        β ~ filldist(Normal(0,λ), p)
+      
+        ## link
+        z = α .+ X * β
+        mu = exp.(z)
     
-    ## priors
-    λ ~ InverseGamma(h,h)
-    α|λ ~ λ*Normal(0,λ)
-    β|λ ~ λ*Normal(0,λ)
-
-    ## Link Function
-    z = X*β
-
-    μ = exp.(z)
-
-    ## likelihood
-    for i = 1:n
-        y[i] ~ Poisson(μ[i])
+        #likelihood
+        for i = 1:n
+          y[i] ~ Poisson(mu[i])
+        end
     end
-    
-   ```Julia
 
-   Julia> sanction = dataset("Zelig", "sanction");
-
-   Julia> model = @fitmodel(Num ~ Target + Coop + NCost
-                           , sanction
-                           , PoissonRegression()
-                           , Prior_Ridge());
-
-   ```
-"""
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression,PriorMod::Prior_Ridge,h::Float64=0.1,sim_size::Int64=10000)
-   ans = Poisson_Reg(formula,data,Prior_Ridge(),h,sim_size)
-   ans
+    return poisson_reg(formula, data, PoissonRegression, sim_size)
 end
 
   
 """
-# Poisson Regression with Laplace Prior using HMC with Turing
-    
-    ## priors
-    λ ~ InverseGamma(h,h)
-    α|λ ~ λ * Laplace(0,λ)
-    β|λ ~ λ * Laplace(0,λ)
+```julia
+fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression, prior::Prior_Laplace, h::Float64 = 0.1, sim_size::Int64 = 10000)
+```
 
-    ## Link Function
-    z = X*β
+Fit a Bayesian Poisson Regression model on the input data with a Laplace prior.
 
-    μ = exp.(z)
+# Arguments
 
-    ## likelihood
-    for i = 1:n
-        y[i] ~ Poisson(μ[i])
-    end
-    
-   ```Julia
+- `formula`: A formula term representing dependencies between the columns in the dataset.
+- `data`: The dataset.
+- `modelClass`: Object representing the type of regression, which is Poisson Regression in our case.
+- `prior`: A type representing the prior. In this case, it is the Laplace prior.
+- `h`: A parameter used in setting the priors.
+- `sim_size`: The number of samples to be drawn during inference.
 
-   Julia> sanction = dataset("Zelig", "sanction");
+# Example
 
-   Julia> model = @fitmodel(Num ~ Target + Coop + NCost
-                           , sanction
-                           , PoissonRegression()
-                           , Prior_Laplace());
+```julia-repl
+julia> using CRRao, RDatasets, StableRNGs
 
-   ```
+julia> CRRao.set_rng(StableRNG(123))
+StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
+
+julia> sanction = dataset("Zelig", "sanction");
+
+julia> container = @fitmodel(Num ~ Target + Coop + NCost, sanction, PoissonRegression(), Prior_Laplace());
+```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression,PriorMod::Prior_Laplace,h::Float64=0.1,sim_size::Int64=10000)
-   ans = Poisson_Reg(formula,data,Prior_Laplace(),h,sim_size)
-   ans
+function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression, prior::Prior_Laplace, h::Float64=0.1, sim_size::Int64=10000)
+    @model PoissonRegression(X, y) = begin
+        p = size(X, 2);
+        n = size(X, 1);
+        #priors
+        λ~InverseGamma(h,h)
+        α ~ Laplace(0,λ)
+        β ~ filldist(Laplace(0,λ), p)
+        
+        ## link
+        z = α .+ X * β
+        mu = exp.(z)
+    
+        #likelihood
+        for i = 1:n
+            y[i] ~ Poisson(mu[i])
+        end
+    end
+
+    return poisson_reg(formula, data, PoissonRegression, sim_size)
 end
 
 """
-# Poisson Regression with Cauchy Prior using HMC with Turing
-    
-    ## priors
-    λ~InverseGamma(h,h)
-    α ~ TDist(1)*λ
-    β ~ filldist(TDist(1)*λ, p)  
-  
-    ## Link Function
-    z = X*β
+```julia
+fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, prior::Prior_Cauchy, h::Float64 = 1.0, sim_size::Int64 = 10000)
+```
 
-    μ = exp.(z)
+Fit a Bayesian Poisson Regression model on the input data with a Cauchy prior.
 
-    ## likelihood
-    for i = 1:n
-        y[i] ~ Poisson(μ[i])
-    end
-    
-   ```Julia
+# Arguments
 
-   Julia> sanction = dataset("Zelig", "sanction");
+- `formula`: A formula term representing dependencies between the columns in the dataset.
+- `data`: The dataset.
+- `modelClass`: Object representing the type of regression, which is Poisson Regression in our case.
+- `prior`: A type representing the prior. In this case, it is the Cauchy prior.
+- `sim_size`: The number of samples to be drawn during inference.
 
-   Julia> model = @fitmodel(Num ~ Target + Coop + NCost
-                           , sanction
-                           , PoissonRegression()
-                           , Prior_Cauchy());
+# Example
 
-   ```
+```julia-repl
+julia> using CRRao, RDatasets, StableRNGs
+
+julia> CRRao.set_rng(StableRNG(123))
+StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
+
+julia> sanction = dataset("Zelig", "sanction");
+
+julia> container = @fitmodel(Num ~ Target + Coop + NCost, sanction, PoissonRegression(), Prior_Cauchy());
+```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression,PriorMod::Prior_Cauchy,h::Float64=1.0,sim_size::Int64=10000)
-   ans = Poisson_Reg(formula,data,Prior_Cauchy(),h,sim_size)
-   ans
+function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression, prior::Prior_Cauchy, h::Float64 = 1.0, sim_size::Int64 = 10000)
+    @model PoissonRegression(X, y) = begin
+        p = size(X, 2);
+        n = size(X, 1);
+        #priors
+        λ~InverseGamma(h,h)
+        α ~ TDist(1)*λ
+        β ~ filldist(TDist(1)*λ, p)  
+    
+        ## link
+        z = α .+ X * β
+        mu = exp.(z)
+    
+        #likelihood
+        for i = 1:n
+            y[i] ~ Poisson(mu[i])
+        end
+    end
+
+    return poisson_reg(formula, data, PoissonRegression, sim_size)
 end
 
 """
-# Poisson Regression with TDist Prior using HMC with Turing
-    
-    ## priors
-    λ~InverseGamma(h,h)
-    α|ν ~ TDist(ν)*λ
-    β|ν ~ TDist(ν)*λ 
-  
-    ## Link Function
-    z = X*β
+```julia
+fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression, prior::Prior_TDist, h::Float64 = 2.0, sim_size::Int64 = 10000)
+```
 
-    μ = exp.(z)
+Fit a Bayesian Poisson Regression model on the input data with a t(ν) distributed prior.
 
-    ## likelihood
-    for i = 1:n
-        y[i] ~ Poisson(μ[i])
-    end
-    
-   ```Julia
+# Arguments
 
-   Julia> sanction = dataset("Zelig", "sanction");
+- `formula`: A formula term representing dependencies between the columns in the dataset.
+- `data`: The dataset.
+- `modelClass`: Object representing the type of regression, which is Poisson Regression in our case.
+- `prior`: A type representing the prior. In this case, it is the TDist prior.
+- `h`: A parameter used in setting the priors.
+- `sim_size`: The number of samples to be drawn during inference.
 
-   Julia> model = @fitmodel(Num ~ Target + Coop + NCost
-                           , sanction
-                           , PoissonRegression()
-                           , Prior_TDist());
+# Example
 
-   ```
+```julia-repl
+julia> using CRRao, RDatasets, StableRNGs
+
+julia> CRRao.set_rng(StableRNG(123))
+StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
+
+julia> sanction = dataset("Zelig", "sanction");
+
+julia> container = @fitmodel(Num ~ Target + Coop + NCost, sanction, PoissonRegression(), Prior_TDist());
+```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression,PriorMod::Prior_TDist,h::Float64=2.0,sim_size::Int64=10000)
-   ans = Poisson_Reg(formula,data,Prior_TDist(),h,sim_size)
-   ans
+function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression, prior::Prior_TDist, h::Float64 = 2.0, sim_size::Int64 = 10000)
+    @model PoissonRegression(X, y) = begin
+        p = size(X, 2);
+        n = size(X, 1);
+        #priors
+        λ~InverseGamma(h,h)
+        ν~InverseGamma(h,h)
+        α ~ TDist(ν)*λ
+        β ~ filldist(TDist(ν)*λ, p)  
+    
+        ## link
+        z = α .+ X * β
+        mu = exp.(z)
+    
+        #likelihood
+        for i = 1:n
+            y[i] ~ Poisson(mu[i])
+        end
+    end
+
+    return poisson_reg(formula, data, PoissonRegression, sim_size)
 end
 
 
 """
-# Poisson Regression with Uniform Prior using HMC with Turing
-    
-    ## priors
-    λ~InverseGamma(h,h)
-    α ~ Uniform(-λ,λ)
-    β ~ Uniform(-λ,λ)
-  
-    ## Link Function
-    z = X*β
+```julia
+fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression, prior::Prior_Uniform, h::Float64 = 1.0, sim_size::Int64 = 10000)
+```
 
-    μ = exp.(z)
+Fit a Bayesian Poisson Regression model on the input data with a Uniform prior.
 
-    ## likelihood
-    for i = 1:n
-        y[i] ~ Poisson(μ[i])
-    end
-    
-   ```Julia
+# Arguments
 
-   Julia> sanction = dataset("Zelig", "sanction");
+- `formula`: A formula term representing dependencies between the columns in the dataset.
+- `data`: The dataset.
+- `modelClass`: Object representing the type of regression, which is Poisson Regression in our case.
+- `prior`: A type representing the prior. In this case, it is the Uniform prior.
+- `h`: A parameter used in setting the priors.
+- `sim_size`: The number of samples to be drawn during inference.
 
-   Julia> model = @fitmodel(Num ~ Target + Coop + NCost
-                           , sanction
-                           , PoissonRegression()
-                           , Prior_Uniform());
+# Example
 
-   ```
+```julia-repl
+julia> using CRRao, RDatasets, StableRNGs
+
+julia> CRRao.set_rng(StableRNG(123))
+StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
+
+julia> sanction = dataset("Zelig", "sanction");
+
+julia> container = @fitmodel(Num ~ Target + Coop + NCost, sanction, PoissonRegression(), Prior_Uniform());
+```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression,PriorMod::Prior_Uniform,h::Float64=1.0,sim_size::Int64=10000)
-   ans = Poisson_Reg(formula,data,Prior_Uniform(),h,sim_size)
-   ans
+function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression, prior::Prior_Uniform, h::Float64=1.0, sim_size::Int64=10000)
+    @model PoissonRegression(X, y) = begin
+        p = size(X, 2);
+        n = size(X, 1);
+        #priors
+        λ~InverseGamma(h,h)
+        α ~ Uniform(-λ,λ)
+        β ~ filldist(Uniform(-λ,λ), p) 
+        ## link
+        z = α .+ X * β
+        mu = exp.(z)
+    
+        #likelihood
+        for i = 1:n
+            y[i] ~ Poisson(mu[i])
+        end
+    end
+
+    return poisson_reg(formula, data, PoissonRegression, sim_size)
 end
