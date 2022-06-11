@@ -1,693 +1,303 @@
-# Include logistic_reg definitions
-include("regression_models/LogisticRegression.jl")
+function logistic_reg(formula::FormulaTerm, data::DataFrame, turingModel::Function, sim_size::Int64)
+   formula = apply_schema(formula, schema(formula, data))
+   y, X = modelcols(formula, data)
 
-"""
-# Logistic Regression with Ridge prior using HMC method in Turing
-    
-    ## priors
-    λ ~ InverseGamma(h,h)
-    β ~ Normal(0,λ)  
-
-    ## Link Function
-    z = X*β
-
-    prob = Logit.(z)
-
-    #likelihood
-    for i = 1:n
-        y[i] ~ Bernoulli(prob[i])
-    end
-    
-   ```Julia
-
-   Julia> turnout = dataset("Zelig", "turnout")
-
-   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
-                  ,turnout,LogisticRegression(),Cauchit());
-
-   ```
-"""
-function fitmodel(formula::FormulaTerm, data::DataFrame,modelClass::LogisticRegression,Link::Logit,PriorMod::Prior_Ridge, h::Real=0.1, level::Real=0.95, sim_size::Int64=10000)
-   ans = logistic_reg(formula,data,Logit(),Prior_Ridge(),h,sim_size)
-   ans      
+   chain = sample(CRRao_rng, turingModel(X, y), NUTS(), sim_size)
+   return BayesianRegression{:LogisticRegression}(chain)
 end
 
 """
-# Logistic Regression with Ridge prior using HMC method in Turing
-    
-    ## priors
-    λ ~ InverseGamma(h,h)
-    β ~ Normal(0,λ)
+```julia
+fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_Ridge, h::Float64 = 0.1, level::Float64 = 0.95, sim_size::Int64 = 10000)
+```
 
-    ## Link Function
-    z = X*β
+Fit a Bayesian Logistic Regression model on the input data with a Ridge prior. 
 
-    prob = Probit.(z)
+# Arguments
 
-    #likelihood
-    for i = 1:n
-        y[i] ~ Bernoulli(prob[i])
-    end
-    
-   ```Julia
+- `formula`: A formula term representing dependencies between the columns in the dataset.
+- `data`: The dataset.
+- `modelClass`: Object representing the type of regression, which is Logistic Regression in our case.
+- `prior`: A type representing the prior. In this case, it is the Ridge prior.
+- `Link`: A type representing the link function to be used. Possible values are `Logit()`, `Probit()`, `Cloglog()` and `Cauchit()`.
+- `h`: A parameter used in setting the priors.
+- `sim_size`: The number of samples to be drawn during inference.
 
-   Julia> turnout = dataset("Zelig", "turnout")
+# Example
 
-   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
-                  ,turnout,LogisticRegression()
-                  ,Probit(),Prior_Ridge());
+```julia-repl
+julia> using CRRao, RDatasets, StableRNGs
 
-   ```
+julia> CRRao.set_rng(StableRNG(123))
+StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
+
+julia> turnout = dataset("Zelig", "turnout");
+
+julia> container_logit = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Logit(), Prior_Ridge());
+
+julia> container_probit = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Probit(), Prior_Ridge());
+
+julia> container_cloglog = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Cloglog(), Prior_Ridge());
+
+julia> container_cauchit = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Cauchit(), Prior_Ridge());
+```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame,modelClass::LogisticRegression,Link::Probit,PriorMod::Prior_Ridge, h::Real=0.1, level::Real=0.95, sim_size::Int64=10000)
-   ans = logistic_reg(formula,data,Probit(),Prior_Ridge(),h,sim_size)
-   ans      
+function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_Ridge, h::Float64 = 0.1, level::Float64 = 0.95, sim_size::Int64 = 10000)
+   @model LogisticRegression(X, y) = begin
+      p = size(X, 2);
+      n = size(X, 1);
+      #priors
+      λ~InverseGamma(h,h)
+      β ~ filldist(Normal(0,λ), p)  
+
+      z = X*β
+      
+      ## Link Function
+
+      prob = Link.link.(z)
+
+      #likelihood
+      for i = 1:n
+         y[i] ~ Bernoulli(prob[i])
+      end
+   end
+
+   return logistic_reg(formula, data, LogisticRegression, sim_size)  
 end
 
 """
-# Logistic Regression with Ridge prior using HMC method in Turing
-    
-    ## priors
-    λ ~ InverseGamma(h,h)
-    β ~ Normal(0,λ)  
+```julia
+fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_Laplace, h::Float64 = 0.1, level::Float64 = 0.95, sim_size::Int64 = 10000)
+```
 
-    ## Link Function
-    z = X*β
+Fit a Bayesian Logistic Regression model on the input data with a Laplace prior. 
 
-    prob = Cloglog.(z)
+# Arguments
 
-    #likelihood
-    for i = 1:n
-        y[i] ~ Bernoulli(prob[i])
-    end
-    
-   ```Julia
+- `formula`: A formula term representing dependencies between the columns in the dataset.
+- `data`: The dataset.
+- `modelClass`: Object representing the type of regression, which is Logistic Regression in our case.
+- `prior`: A type representing the prior. In this case, it is the Laplace prior.
+- `Link`: A type representing the link function to be used. Possible values are `Logit()`, `Probit()`, `Cloglog()` and `Cauchit()`.
+- `h`: A parameter used in setting the priors.
+- `sim_size`: The number of samples to be drawn during inference.
 
-   Julia> turnout = dataset("Zelig", "turnout")
+# Example
 
-   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
-                           ,turnout
-                           ,LogisticRegression()
-                           ,Cloglog()
-                           ,Prior_Ridge());
+```julia-repl
+julia> using CRRao, RDatasets, StableRNGs
 
-   ```
+julia> CRRao.set_rng(StableRNG(123))
+StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
+
+julia> turnout = dataset("Zelig", "turnout");
+
+julia> container_logit = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Logit(), Prior_Laplace());
+
+julia> container_probit = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Probit(), Prior_Laplace());
+
+julia> container_cloglog = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Cloglog(), Prior_Laplace());
+
+julia> container_cauchit = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Cauchit(), Prior_Laplace());
+```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame,modelClass::LogisticRegression,Link::Cloglog,PriorMod::Prior_Ridge, h::Real=0.1, level::Real=0.95, sim_size::Int64=10000)
-   ans = logistic_reg(formula,data,Cloglog(),Prior_Ridge(),h,sim_size)
-   ans      
+function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_Laplace, h::Float64 = 0.1, level::Float64 = 0.95, sim_size::Int64 = 10000)
+   @model LogisticRegression(X, y) = begin
+      p = size(X, 2);
+      n = size(X, 1);
+      #priors
+      λ~InverseGamma(h,h)
+      β ~ filldist(Laplace(0,λ), p)  
+
+      z = X*β
+      
+      ## Link Function
+
+      prob = Link.link.(z)
+
+      #likelihood
+      for i = 1:n
+         y[i] ~ Bernoulli(prob[i])
+      end
+   end
+
+   return logistic_reg(formula, data, LogisticRegression, sim_size)  
 end
 
 """
-# Logistic Regression with Ridge prior using HMC method in Turing
-    
-    ## priors
-    λ ~ InverseGamma(h,h)
-    β ~ Normal(0,λ)  
+```julia
+fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_Cauchy, h::Float64 = 0.1, level::Float64 = 0.95, sim_size::Int64 = 10000)
+```
 
-    ## Link Function
-    z = X*β
+Fit a Bayesian Logistic Regression model on the input data with a Cauchy prior. 
 
-    prob = Cauchit.(z)
+# Arguments
 
-    #likelihood
-    for i = 1:n
-        y[i] ~ Bernoulli(prob[i])
-    end
-    
-   ```Julia
+- `formula`: A formula term representing dependencies between the columns in the dataset.
+- `data`: The dataset.
+- `modelClass`: Object representing the type of regression, which is Logistic Regression in our case.
+- `prior`: A type representing the prior. In this case, it is the Cauchy prior.
+- `Link`: A type representing the link function to be used. Possible values are `Logit()`, `Probit()`, `Cloglog()` and `Cauchit()`.
+- `h`: A parameter used in setting the priors.
+- `sim_size`: The number of samples to be drawn during inference.
 
-   Julia> turnout = dataset("Zelig", "turnout")
+# Example
 
-   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
-                           ,turnout
-                           ,LogisticRegression()
-                           ,Cauchit()
-                           ,Prior_Ridge());
+```julia-repl
+julia> using CRRao, RDatasets, StableRNGs
 
-   ```
+julia> CRRao.set_rng(StableRNG(123))
+StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
+
+julia> turnout = dataset("Zelig", "turnout");
+
+julia> container_logit = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Logit(), Prior_Cauchy());
+
+julia> container_probit = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Probit(), Prior_Cauchy());
+
+julia> container_cloglog = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Cloglog(), Prior_Cauchy());
+
+julia> container_cauchit = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Cauchit(), Prior_Cauchy());
+```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame,modelClass::LogisticRegression,Link::Cauchit,PriorMod::Prior_Ridge, h::Real=0.1, level::Real=0.95, sim_size::Int64=10000)
-   ans = logistic_reg(formula,data,Cauchit(),Prior_Ridge(),h,sim_size)
-   ans      
+function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_Cauchy, h::Float64 = 0.1, level::Float64 = 0.95, sim_size::Int64 = 10000)
+   @model LogisticRegression(X, y) = begin
+      p = size(X, 2);
+      n = size(X, 1);
+      #priors
+      λ~ Truncated(TDist(1),0,Inf)
+      β ~ filldist(TDist(1)*λ, p)  
+
+      z = X*β
+      
+      ## Link Function
+
+      prob = Link.link.(z)
+
+      #likelihood
+      for i = 1:n
+         y[i] ~ Bernoulli(prob[i])
+      end
+   end
+
+   return logistic_reg(formula, data, LogisticRegression, sim_size)  
 end
 
 """
-# Logistic Regression with Laplace prior using HMC method in Turing
-    
-    ## priors
-    λ ~ InverseGamma(h,h)
-    β ~ Laplace(0,λ)
+```julia
+fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_TDist, h::Float64 = 1.0, level::Float64 = 0.95, sim_size::Int64 = 10000)
+```
 
-    ## Link Function
-    z = X*β
+Fit a Bayesian Logistic Regression model on the input data with a T-Dist prior. 
 
-    prob = Logit.(z)
+# Arguments
 
-    #likelihood
-    for i = 1:n
-        y[i] ~ Bernoulli(prob[i])
-    end
-    
-   ```Julia
+- `formula`: A formula term representing dependencies between the columns in the dataset.
+- `data`: The dataset.
+- `modelClass`: Object representing the type of regression, which is Logistic Regression in our case.
+- `prior`: A type representing the prior. In this case, it is the T-Dist prior.
+- `Link`: A type representing the link function to be used. Possible values are `Logit()`, `Probit()`, `Cloglog()` and `Cauchit()`.
+- `h`: A parameter used in setting the priors.
+- `sim_size`: The number of samples to be drawn during inference.
 
-   Julia> turnout = dataset("Zelig", "turnout")
+# Example
 
-   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
-                           ,turnout
-                           ,LogisticRegression()
-                           ,Logit()
-                           ,Prior_Laplace());
+```julia-repl
+julia> using CRRao, RDatasets, StableRNGs
 
-   ```
+julia> CRRao.set_rng(StableRNG(123))
+StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
+
+julia> turnout = dataset("Zelig", "turnout");
+
+julia> container_logit = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Logit(), Prior_TDist());
+
+julia> container_probit = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Probit(), Prior_TDist());
+
+julia> container_cloglog = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Cloglog(), Prior_TDist());
+
+julia> container_cauchit = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Cauchit(), Prior_TDist());
+```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Logit, PriorMod::Prior_Laplace, h::Real=0.1, level::Real=0.95, sim_size::Int64=10000)
-   ans = logistic_reg(formula,data,Logit(),Prior_Laplace(),h,sim_size)
-   ans
+function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_TDist, h::Float64 = 1.0, level::Float64 = 0.95, sim_size::Int64 = 10000)
+   @model LogisticRegression(X, y) = begin
+      p = size(X, 2);
+      n = size(X, 1);
+      #priors
+      λ ~ InverseGamma(h,h)
+      ν ~ InverseGamma(h,h)
+      β ~ filldist(TDist(ν)*λ, p)  
+
+      z = X*β
+      
+      ## Link Function
+
+      prob = Link.link.(z)
+
+      #likelihood
+      for i = 1:n
+         y[i] ~ Bernoulli(prob[i])
+      end
+   end
+
+   return logistic_reg(formula, data, LogisticRegression, sim_size)  
 end
 
 """
-# Logistic Regression with Laplace prior using HMC method in Turing
-    
-    ## priors
-    λ ~ InverseGamma(h,h)
-    β ~ Laplace(0,λ)
+```julia
+fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_Uniform, h::Float64 = 0.01, level::Float64 = 0.95, sim_size::Int64 = 10000)
+```
 
-    ## Link Function
-    z = X*β
+Fit a Bayesian Logistic Regression model on the input data with a Uniform prior. 
 
-    prob = Probit.(z)
+# Arguments
 
-    #likelihood
-    for i = 1:n
-        y[i] ~ Bernoulli(prob[i])
-    end
-    
-   ```Julia
+- `formula`: A formula term representing dependencies between the columns in the dataset.
+- `data`: The dataset.
+- `modelClass`: Object representing the type of regression, which is Logistic Regression in our case.
+- `prior`: A type representing the prior. In this case, it is the Uniform prior.
+- `Link`: A type representing the link function to be used. Possible values are `Logit()`, `Probit()`, `Cloglog()` and `Cauchit()`.
+- `h`: A parameter used in setting the priors.
+- `sim_size`: The number of samples to be drawn during inference.
 
-   Julia> turnout = dataset("Zelig", "turnout")
+# Example
 
-   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
-                           ,turnout
-                           ,LogisticRegression()
-                           ,Probit()
-                           ,Prior_Laplace());
+```julia-repl
+julia> using CRRao, RDatasets, StableRNGs
 
-   ```
+julia> CRRao.set_rng(StableRNG(123))
+StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
+
+julia> turnout = dataset("Zelig", "turnout");
+
+julia> container_logit = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Logit(), Prior_Uniform());
+
+julia> container_probit = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Probit(), Prior_Uniform());
+
+julia> container_cloglog = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Cloglog(), Prior_Uniform());
+
+julia> container_cauchit = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Cauchit(), Prior_Uniform());
+```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Probit, PriorMod::Prior_Laplace, h::Real=0.1, level::Real=0.95, sim_size::Int64=10000)
-   ans = logistic_reg(formula,data,Probit(),Prior_Laplace(),h,sim_size)
-   ans
-end
-
-"""
-# Logistic Regression with Laplace prior using HMC method in Turing
-    
-    ## priors
-    λ ~ InverseGamma(h,h)
-    β ~ Laplace(0,λ)
-
-    ## Link Function
-    z = X*β
-
-    prob = Cloglog.(z)
-
-    #likelihood
-    for i = 1:n
-        y[i] ~ Bernoulli(prob[i])
-    end
-    
-   ```Julia
-
-   Julia> turnout = dataset("Zelig", "turnout")
-
-   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
-                           ,turnout
-                           ,LogisticRegression()
-                           ,Cloglog()
-                           ,Prior_Laplace());
-
-   ```
-"""
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Cloglog, PriorMod::Prior_Laplace, h::Real=0.1, level::Real=0.95, sim_size::Int64=10000)
-   ans = logistic_reg(formula,data,Cloglog(),Prior_Laplace(),h,sim_size)
-   ans
-end
-
-"""
-# Logistic Regression with Laplace prior using HMC method in Turing
-    
-    ## priors
-    λ ~ InverseGamma(h,h)
-    β ~ Laplace(0,λ)
-
-    ## Link Function
-    z = X*β
-
-    prob = Cauchit.(z)
-
-    #likelihood
-    for i = 1:n
-        y[i] ~ Bernoulli(prob[i])
-    end
-    
-   ```Julia
-
-   Julia> turnout = dataset("Zelig", "turnout")
-
-   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
-                           ,turnout
-                           ,LogisticRegression()
-                           ,Cauchit()
-                           ,Prior_Laplace());
-
-   ```
-"""
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Cauchit, PriorMod::Prior_Laplace, h::Real=0.1, level::Real=0.95, sim_size::Int64=10000)
-   ans = logistic_reg(formula,data,Cauchit(),Prior_Laplace(),h,sim_size)
-   ans
-end
-
-
-
-"""
-# Logistic Regression with Cauchy prior using HMC method in Turing
-    
-   ## priors
-    
-    λ   ~ Truncated(TDist(1),0,Inf) # Half-Cauchy prior
-    β|λ ~ λ*TDist(1)  # Cauchy prior
-
-    ## Link Function
-    z = X*β
-
-    prob = Logit.(z)
-
-    ## likelihood
-    for i = 1:n
-        y[i] ~ Bernoulli(prob[i])
-    end
-    
-   ```Julia
-
-   Julia> turnout = dataset("Zelig", "turnout")
-
-   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
-                           ,turnout
-                           ,LogisticRegression()
-                           ,Logit()
-                           ,Prior_Cauchy());
-
-   ```
-"""
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Logit, PriorMod::Prior_Cauchy, h::Real=1.0, level::Real=0.95, sim_size::Int64=10000)
-   ans = logistic_reg(formula,data,Logit(),Prior_Cauchy(),h,sim_size)
-   ans
-end
-
-"""
-# Logistic Regression with Cauchy prior using HMC method in Turing
-    
-   ## priors
-    
-    λ   ~ Truncated(TDist(1),0,Inf) # Half-Cauchy prior
-    β|λ ~ λ*TDist(1)  # Cauchy prior
-
-    ## Link Function
-    z = X*β
-
-    prob = Probit.(z)
-
-    ## likelihood
-    for i = 1:n
-        y[i] ~ Bernoulli(prob[i])
-    end
-    
-   ```Julia
-
-   Julia> turnout = dataset("Zelig", "turnout")
-
-   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
-                           ,turnout
-                           ,LogisticRegression()
-                           ,Probit()
-                           ,Prior_Cauchy());
-
-   ```
-"""
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Probit, PriorMod::Prior_Cauchy, h::Real=1.0, level::Real=0.95, sim_size::Int64=10000)
-   ans = logistic_reg(formula,data,Probit(),Prior_Cauchy(),h,sim_size)
-   ans
-end
-
-"""
-# Logistic Regression with Cauchy prior using HMC method in Turing
-    
-   ## priors
-    
-    λ   ~ Truncated(TDist(1),0,Inf) # Half-Cauchy prior
-    β|λ ~ λ*TDist(1)  # Cauchy prior
-
-    ## Link Function
-    z = X*β
-
-    prob = Cloglog.(z)
-
-    ## likelihood
-    for i = 1:n
-        y[i] ~ Bernoulli(prob[i])
-    end
-    
-   ```Julia
-
-   Julia> turnout = dataset("Zelig", "turnout")
-
-   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
-                           ,turnout
-                           ,LogisticRegression()
-                           ,Cloglog()
-                           ,Prior_Cauchy());
-
-   ```
-"""
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Cloglog, PriorMod::Prior_Cauchy, h::Real=1.0, level::Real=0.95, sim_size::Int64=10000)
-   ans = logistic_reg(formula,data,Cloglog(),Prior_Cauchy(),h,sim_size)
-   ans
-end
-
-"""
-# Logistic Regression with Cauchy prior using HMC method in Turing
-    
-   ## priors
-    
-    λ   ~ Truncated(TDist(1),0,Inf) # Half-Cauchy prior
-    β|λ ~ λ*TDist(1)  # Cauchy prior
-
-    ## Link Function
-    z = X*β
-
-    prob = Cauchit.(z)
-
-    ## likelihood
-    for i = 1:n
-        y[i] ~ Bernoulli(prob[i])
-    end
-    
-   ```Julia
-
-   Julia> turnout = dataset("Zelig", "turnout")
-
-   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
-                           ,turnout
-                           ,LogisticRegression()
-                           ,Cauchit()
-                           ,Prior_Cauchy());
-
-   ```
-"""
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Cauchit, PriorMod::Prior_Cauchy, h::Real=1.0, level::Real=0.95, sim_size::Int64=10000)
-   ans = logistic_reg(formula,data,Cauchit(),Prior_Cauchy(),h,sim_size)
-   ans
-end
-
-
-"""
-# Logistic Regression with T-Dist prior using HMC method in Turing
-    
-   ## priors
-    
-    λ ~ InverseGamma(h,h)
-    ν ~ InverseGamma(h,h)
-    β|λ,ν ~ λ*TDist(ν)  
-
-    ## Link Function
-    z = X*β
-
-    prob = Logit.(z)
-
-    ## likelihood
-    for i = 1:n
-        y[i] ~ Bernoulli(prob[i])
-    end
-    
-   ```Julia
-
-   Julia> turnout = dataset("Zelig", "turnout")
-
-   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
-                           ,turnout
-                           ,LogisticRegression()
-                           ,Logit()
-                           ,Prior_TDist());
-
-   ```
-"""
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Logit, PriorMod::Prior_TDist, h::Real=1.0, level::Real=0.95, sim_size::Int64=10000)
-   ans = logistic_reg(formula,data,Logit(),Prior_TDist(),h,sim_size)
-   ans
-end
-
-"""
-# Logistic Regression with T-Dist prior using HMC method in Turing
-    
-   ## priors
-    
-    λ ~ InverseGamma(h,h)
-    ν ~ InverseGamma(h,h)
-    β|λ,ν ~ λ*TDist(ν)  
-
-    ## Link Function
-    z = X*β
-
-    prob = Probit.(z)
-
-    ## likelihood
-    for i = 1:n
-        y[i] ~ Bernoulli(prob[i])
-    end
-    
-   ```Julia
-
-   Julia> turnout = dataset("Zelig", "turnout")
-
-   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
-                           ,turnout
-                           ,LogisticRegression()
-                           ,Probit()
-                           ,Prior_TDist());
-
-   ```
-"""
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Probit, PriorMod::Prior_TDist, h::Real=1.0, level::Real=0.95, sim_size::Int64=10000)
-   ans = logistic_reg(formula,data,Probit(),Prior_TDist(),h,sim_size)
-   ans
-end
-
-"""
-# Logistic Regression with T-Dist prior using HMC method in Turing
-    
-   ## priors
-    
-    λ ~ InverseGamma(h,h)
-    ν ~ InverseGamma(h,h)
-    β|λ,ν ~ λ*TDist(ν)  
-
-    ## Link Function
-    z = X*β
-
-    prob = Cloglog.(z)
-
-    ## likelihood
-    for i = 1:n
-        y[i] ~ Bernoulli(prob[i])
-    end
-    
-   ```Julia
-
-   Julia> turnout = dataset("Zelig", "turnout")
-
-   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
-                           ,turnout
-                           ,LogisticRegression()
-                           ,Cloglog()
-                           ,Prior_TDist());
-
-   ```
-"""
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Cloglog, PriorMod::Prior_TDist, h::Real=1.0, level::Real=0.95, sim_size::Int64=10000)
-   ans = logistic_reg(formula,data,Cloglog(),Prior_TDist(),h,sim_size)
-   ans
-end
-
-"""
-# Logistic Regression with T-Dist prior using HMC method in Turing
-    
-   ## priors
-    
-    λ ~ InverseGamma(h,h)
-    ν ~ InverseGamma(h,h)
-    β|λ,ν ~ λ*TDist(ν)  
-
-    ## Link Function
-    z = X*β
-
-    prob = Cauchit.(z)
-
-    ## likelihood
-    for i = 1:n
-        y[i] ~ Bernoulli(prob[i])
-    end
-    
-   ```Julia
-
-   Julia> turnout = dataset("Zelig", "turnout")
-
-   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
-                           ,turnout
-                           ,LogisticRegression()
-                           ,Cauchit()
-                           ,Prior_TDist());
-
-   ```
-"""
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Cauchit, PriorMod::Prior_TDist, h::Real=1.0, level::Real=0.95, sim_size::Int64=10000)
-   ans = logistic_reg(formula,data,Cauchit(),Prior_TDist(),h,sim_size)
-   ans
-end
-
-"""
-# Logistic Regression with Uniform prior using HMC method in Turing
-    
-   ## priors
-    v ~ InverseGamma(h,h)
-    β ~ filldist(Uniform(-v,v), p) 
-   
-    ## Link Function
-    z = X*β
-
-    prob = Cauchit.(z)
-
-    ## likelihood
-    for i = 1:n
-        y[i] ~ Bernoulli(prob[i])
-    end
-    
-   ```Julia
-
-   Julia> turnout = dataset("Zelig", "turnout")
-
-   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
-                           ,turnout
-                           ,LogisticRegression()
-                           ,Logit()
-                           ,Prior_Uniform());
-
-   ```
-"""
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Logit, PriorMod::Prior_Uniform, h::Real=0.01, level::Real=0.95, sim_size::Int64=10000)
-  ans = logistic_reg(formula,data,Logit(),Prior_Uniform(),h,sim_size)
-  ans     
-end
-
-"""
-# Logistic Regression with Uniform prior using HMC method in Turing
-    
-   ## priors
-    v ~ InverseGamma(h,h)
-    β ~ filldist(Uniform(-v,v), p) 
-   
-    ## Link Function
-    z = X*β
-
-    prob = Probit.(z)
-
-    ## likelihood
-    for i = 1:n
-        y[i] ~ Bernoulli(prob[i])
-    end
-    
-   ```Julia
-
-   Julia> turnout = dataset("Zelig", "turnout")
-
-   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
-                           ,turnout
-                           ,LogisticRegression()
-                           ,Probit()
-                           ,Prior_Uniform());
-
-   ```
-"""
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Probit, PriorMod::Prior_Uniform, h::Real=0.01, level::Real=0.95, sim_size::Int64=10000)
-   ans = logistic_reg(formula,data,Probit(),Prior_Uniform(),h,sim_size)
-   ans     
-end
-
-"""
-# Logistic Regression with Uniform prior using HMC method in Turing
-    
-   ## priors
-    v ~ InverseGamma(h,h)
-    β ~ filldist(Uniform(-v,v), p) 
-   
-    ## Link Function
-    z = X*β
-
-    prob = Cloglog.(z)
-
-    ## likelihood
-    for i = 1:n
-        y[i] ~ Bernoulli(prob[i])
-    end
-    
-   ```Julia
-
-   Julia> turnout = dataset("Zelig", "turnout")
-
-   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
-                           ,turnout
-                           ,LogisticRegression()
-                           ,Cloglog()
-                           ,Prior_Uniform());
-
-   ```
-"""
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Cloglog, PriorMod::Prior_Uniform, h::Real=0.01, level::Real=0.95, sim_size::Int64=10000)
-   ans = logistic_reg(formula,data,Cloglog(),Prior_Uniform(),h,sim_size)
-   ans     
-end
-
-
-"""
-# Logistic Regression with Uniform prior using HMC method in Turing
-    
-   ## priors
-    v ~ InverseGamma(h,h)
-    β ~ filldist(Uniform(-v,v), p) 
-   
-    ## Link Function
-    z = X*β
-
-    prob = Cauchit.(z)
-
-    ## likelihood
-    for i = 1:n
-        y[i] ~ Bernoulli(prob[i])
-    end
-    
-   ```Julia
-
-   Julia> turnout = dataset("Zelig", "turnout")
-
-   Julia> model = @fitmodel(Vote ~ Age + Race +Income + Educate
-                           ,turnout
-                           ,LogisticRegression()
-                           ,Cauchit()
-                           ,Prior_Uniform());
-
-   ```
-"""
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Cauchit, PriorMod::Prior_Uniform, h::Real=0.01, level::Real=0.95, sim_size::Int64=10000)
-   ans = logistic_reg(formula,data,Cauchit(),Prior_Uniform(),h,sim_size)
-   ans     
+function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_Uniform, h::Float64 = 0.01, level::Float64 = 0.95, sim_size::Int64 = 10000)
+   @model LogisticRegression(X, y) = begin
+      p = size(X, 2);
+      n = size(X, 1);
+      #priors
+      v ~ InverseGamma(h,h)
+      β ~ filldist(Uniform(-v,v), p) 
+      
+      z = X*β
+      
+      ## Link Function
+
+      prob = Link.link.(z)
+
+      #likelihood
+      for i = 1:n
+         y[i] ~ Bernoulli(prob[i])
+      end
+   end
+
+   return logistic_reg(formula, data, LogisticRegression, sim_size)  
 end
