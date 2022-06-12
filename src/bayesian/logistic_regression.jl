@@ -1,9 +1,9 @@
 function logistic_reg(formula::FormulaTerm, data::DataFrame, turingModel::Function, sim_size::Int64)
-   formula = apply_schema(formula, schema(formula, data))
-   y, X = modelcols(formula, data)
+    formula = apply_schema(formula, schema(formula, data))
+    y, X = modelcols(formula, data)
 
-   chain = sample(CRRao_rng, turingModel(X, y), NUTS(), sim_size)
-   return BayesianRegression{:LogisticRegression}(chain)
+    chain = sample(CRRao_rng, turingModel(X, y), NUTS(), sim_size)
+    return BayesianRegression{:LogisticRegression}(chain)
 end
 
 """
@@ -42,27 +42,36 @@ julia> container_cloglog = @fitmodel(Vote ~ Age + Race + Income + Educate, turno
 julia> container_cauchit = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Cauchit(), Prior_Ridge());
 ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_Ridge, h::Float64 = 0.1, level::Float64 = 0.95, sim_size::Int64 = 10000)
-   @model LogisticRegression(X, y) = begin
-      p = size(X, 2);
-      n = size(X, 1);
-      #priors
-      λ~InverseGamma(h,h)
-      β ~ filldist(Normal(0,λ), p)  
+function fitmodel(
+    formula::FormulaTerm,
+    data::DataFrame,
+    modelClass::LogisticRegression,
+    Link::CRRaoLink,
+    prior::Prior_Ridge,
+    h::Float64 = 0.1,
+    level::Float64 = 0.95,
+    sim_size::Int64 = 10000
+)
+    @model LogisticRegression(X, y) = begin
+        p = size(X, 2)
+        n = size(X, 1)
+        #priors
+        λ ~ InverseGamma(h, h)
+        β ~ filldist(Normal(0, λ), p)
 
-      z = X*β
-      
-      ## Link Function
+        z = X * β
 
-      prob = Link.link.(z)
+        ## Link Function
 
-      #likelihood
-      for i = 1:n
-         y[i] ~ Bernoulli(prob[i])
-      end
-   end
+        prob = Link.link.(z)
 
-   return logistic_reg(formula, data, LogisticRegression, sim_size)  
+        #likelihood
+        for i = 1:n
+            y[i] ~ Bernoulli(prob[i])
+        end
+    end
+
+    return logistic_reg(formula, data, LogisticRegression, sim_size)
 end
 
 """
@@ -101,27 +110,36 @@ julia> container_cloglog = @fitmodel(Vote ~ Age + Race + Income + Educate, turno
 julia> container_cauchit = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Cauchit(), Prior_Laplace());
 ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_Laplace, h::Float64 = 0.1, level::Float64 = 0.95, sim_size::Int64 = 10000)
-   @model LogisticRegression(X, y) = begin
-      p = size(X, 2);
-      n = size(X, 1);
-      #priors
-      λ~InverseGamma(h,h)
-      β ~ filldist(Laplace(0,λ), p)  
+function fitmodel(
+    formula::FormulaTerm,
+    data::DataFrame,
+    modelClass::LogisticRegression,
+    Link::CRRaoLink,
+    prior::Prior_Laplace,
+    h::Float64 = 0.1,
+    level::Float64 = 0.95,
+    sim_size::Int64 = 10000
+)
+    @model LogisticRegression(X, y) = begin
+        p = size(X, 2)
+        n = size(X, 1)
+        #priors
+        λ ~ InverseGamma(h, h)
+        β ~ filldist(Laplace(0, λ), p)
 
-      z = X*β
-      
-      ## Link Function
+        z = X * β
 
-      prob = Link.link.(z)
+        ## Link Function
 
-      #likelihood
-      for i = 1:n
-         y[i] ~ Bernoulli(prob[i])
-      end
-   end
+        prob = Link.link.(z)
 
-   return logistic_reg(formula, data, LogisticRegression, sim_size)  
+        #likelihood
+        for i = 1:n
+            y[i] ~ Bernoulli(prob[i])
+        end
+    end
+
+    return logistic_reg(formula, data, LogisticRegression, sim_size)
 end
 
 """
@@ -160,27 +178,36 @@ julia> container_cloglog = @fitmodel(Vote ~ Age + Race + Income + Educate, turno
 julia> container_cauchit = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Cauchit(), Prior_Cauchy());
 ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_Cauchy, h::Float64 = 0.1, level::Float64 = 0.95, sim_size::Int64 = 10000)
-   @model LogisticRegression(X, y) = begin
-      p = size(X, 2);
-      n = size(X, 1);
-      #priors
-      λ~ Truncated(TDist(1),0,Inf)
-      β ~ filldist(TDist(1)*λ, p)  
+function fitmodel(
+    formula::FormulaTerm,
+    data::DataFrame,
+    modelClass::LogisticRegression,
+    Link::CRRaoLink,
+    prior::Prior_Cauchy,
+    h::Float64 = 0.1,
+    level::Float64 = 0.95,
+    sim_size::Int64 = 10000
+)
+    @model LogisticRegression(X, y) = begin
+        p = size(X, 2)
+        n = size(X, 1)
+        #priors
+        λ ~ Truncated(TDist(1), 0, Inf)
+        β ~ filldist(TDist(1) * λ, p)
 
-      z = X*β
-      
-      ## Link Function
+        z = X * β
 
-      prob = Link.link.(z)
+        ## Link Function
 
-      #likelihood
-      for i = 1:n
-         y[i] ~ Bernoulli(prob[i])
-      end
-   end
+        prob = Link.link.(z)
 
-   return logistic_reg(formula, data, LogisticRegression, sim_size)  
+        #likelihood
+        for i = 1:n
+            y[i] ~ Bernoulli(prob[i])
+        end
+    end
+
+    return logistic_reg(formula, data, LogisticRegression, sim_size)
 end
 
 """
@@ -219,28 +246,37 @@ julia> container_cloglog = @fitmodel(Vote ~ Age + Race + Income + Educate, turno
 julia> container_cauchit = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Cauchit(), Prior_TDist());
 ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_TDist, h::Float64 = 1.0, level::Float64 = 0.95, sim_size::Int64 = 10000)
-   @model LogisticRegression(X, y) = begin
-      p = size(X, 2);
-      n = size(X, 1);
-      #priors
-      λ ~ InverseGamma(h,h)
-      ν ~ InverseGamma(h,h)
-      β ~ filldist(TDist(ν)*λ, p)  
+function fitmodel(
+    formula::FormulaTerm,
+    data::DataFrame,
+    modelClass::LogisticRegression,
+    Link::CRRaoLink,
+    prior::Prior_TDist,
+    h::Float64 = 1.0,
+    level::Float64 = 0.95,
+    sim_size::Int64 = 10000
+)
+    @model LogisticRegression(X, y) = begin
+        p = size(X, 2)
+        n = size(X, 1)
+        #priors
+        λ ~ InverseGamma(h, h)
+        ν ~ InverseGamma(h, h)
+        β ~ filldist(TDist(ν) * λ, p)
 
-      z = X*β
-      
-      ## Link Function
+        z = X * β
 
-      prob = Link.link.(z)
+        ## Link Function
 
-      #likelihood
-      for i = 1:n
-         y[i] ~ Bernoulli(prob[i])
-      end
-   end
+        prob = Link.link.(z)
 
-   return logistic_reg(formula, data, LogisticRegression, sim_size)  
+        #likelihood
+        for i = 1:n
+            y[i] ~ Bernoulli(prob[i])
+        end
+    end
+
+    return logistic_reg(formula, data, LogisticRegression, sim_size)
 end
 
 """
@@ -279,25 +315,34 @@ julia> container_cloglog = @fitmodel(Vote ~ Age + Race + Income + Educate, turno
 julia> container_cauchit = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Cauchit(), Prior_Uniform());
 ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_Uniform, h::Float64 = 0.01, level::Float64 = 0.95, sim_size::Int64 = 10000)
-   @model LogisticRegression(X, y) = begin
-      p = size(X, 2);
-      n = size(X, 1);
-      #priors
-      v ~ InverseGamma(h,h)
-      β ~ filldist(Uniform(-v,v), p) 
-      
-      z = X*β
-      
-      ## Link Function
+function fitmodel(
+    formula::FormulaTerm,
+    data::DataFrame,
+    modelClass::LogisticRegression,
+    Link::CRRaoLink,
+    prior::Prior_Uniform,
+    h::Float64 = 0.01,
+    level::Float64 = 0.95,
+    sim_size::Int64 = 10000
+)
+    @model LogisticRegression(X, y) = begin
+        p = size(X, 2)
+        n = size(X, 1)
+        #priors
+        v ~ InverseGamma(h, h)
+        β ~ filldist(Uniform(-v, v), p)
 
-      prob = Link.link.(z)
+        z = X * β
 
-      #likelihood
-      for i = 1:n
-         y[i] ~ Bernoulli(prob[i])
-      end
-   end
+        ## Link Function
 
-   return logistic_reg(formula, data, LogisticRegression, sim_size)  
+        prob = Link.link.(z)
+
+        #likelihood
+        for i = 1:n
+            y[i] ~ Bernoulli(prob[i])
+        end
+    end
+
+    return logistic_reg(formula, data, LogisticRegression, sim_size)
 end

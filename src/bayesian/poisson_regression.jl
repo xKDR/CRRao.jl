@@ -35,29 +35,35 @@ julia> sanction = dataset("Zelig", "sanction");
 julia> container = @fitmodel(Num ~ Target + Coop + NCost, sanction, PoissonRegression(), Prior_Ridge());
 ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression, prior::Prior_Ridge, h::Float64 = 0.1, sim_size::Int64 = 10000)
+function fitmodel(
+    formula::FormulaTerm,
+    data::DataFrame,
+    modelClass::PoissonRegression,
+    prior::Prior_Ridge,
+    h::Float64 = 0.1,
+    sim_size::Int64 = 10000
+)
     @model PoissonRegression(X, y) = begin
-        p = size(X, 2);
-        n = size(X, 1);
+        p = size(X, 2)
+        n = size(X, 1)
         #priors
-        λ~InverseGamma(h,h)
-        α ~ Normal(0,λ)
-        β ~ filldist(Normal(0,λ), p)
-      
+        λ ~ InverseGamma(h, h)
+        α ~ Normal(0, λ)
+        β ~ filldist(Normal(0, λ), p)
+
         ## link
         z = α .+ X * β
         mu = exp.(z)
-    
+
         #likelihood
         for i = 1:n
-          y[i] ~ Poisson(mu[i])
+            y[i] ~ Poisson(mu[i])
         end
     end
 
     return poisson_reg(formula, data, PoissonRegression, sim_size)
 end
 
-  
 """
 ```julia
 fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression, prior::Prior_Laplace, h::Float64 = 0.1, sim_size::Int64 = 10000)
@@ -87,19 +93,26 @@ julia> sanction = dataset("Zelig", "sanction");
 julia> container = @fitmodel(Num ~ Target + Coop + NCost, sanction, PoissonRegression(), Prior_Laplace());
 ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression, prior::Prior_Laplace, h::Float64=0.1, sim_size::Int64=10000)
+function fitmodel(
+    formula::FormulaTerm,
+    data::DataFrame,
+    modelClass::PoissonRegression,
+    prior::Prior_Laplace,
+    h::Float64 = 0.1,
+    sim_size::Int64 = 10000
+)
     @model PoissonRegression(X, y) = begin
-        p = size(X, 2);
-        n = size(X, 1);
+        p = size(X, 2)
+        n = size(X, 1)
         #priors
-        λ~InverseGamma(h,h)
-        α ~ Laplace(0,λ)
-        β ~ filldist(Laplace(0,λ), p)
-        
+        λ ~ InverseGamma(h, h)
+        α ~ Laplace(0, λ)
+        β ~ filldist(Laplace(0, λ), p)
+
         ## link
         z = α .+ X * β
         mu = exp.(z)
-    
+
         #likelihood
         for i = 1:n
             y[i] ~ Poisson(mu[i])
@@ -137,19 +150,26 @@ julia> sanction = dataset("Zelig", "sanction");
 julia> container = @fitmodel(Num ~ Target + Coop + NCost, sanction, PoissonRegression(), Prior_Cauchy());
 ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression, prior::Prior_Cauchy, h::Float64 = 1.0, sim_size::Int64 = 10000)
+function fitmodel(
+    formula::FormulaTerm,
+    data::DataFrame,
+    modelClass::PoissonRegression,
+    prior::Prior_Cauchy,
+    h::Float64 = 1.0,
+    sim_size::Int64 = 10000
+)
     @model PoissonRegression(X, y) = begin
-        p = size(X, 2);
-        n = size(X, 1);
+        p = size(X, 2)
+        n = size(X, 1)
         #priors
-        λ~InverseGamma(h,h)
-        α ~ TDist(1)*λ
-        β ~ filldist(TDist(1)*λ, p)  
-    
+        λ ~ InverseGamma(h, h)
+        α ~ TDist(1) * λ
+        β ~ filldist(TDist(1) * λ, p)
+
         ## link
         z = α .+ X * β
         mu = exp.(z)
-    
+
         #likelihood
         for i = 1:n
             y[i] ~ Poisson(mu[i])
@@ -188,20 +208,27 @@ julia> sanction = dataset("Zelig", "sanction");
 julia> container = @fitmodel(Num ~ Target + Coop + NCost, sanction, PoissonRegression(), Prior_TDist());
 ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression, prior::Prior_TDist, h::Float64 = 2.0, sim_size::Int64 = 10000)
+function fitmodel(
+    formula::FormulaTerm,
+    data::DataFrame,
+    modelClass::PoissonRegression,
+    prior::Prior_TDist,
+    h::Float64 = 2.0,
+    sim_size::Int64 = 10000
+)
     @model PoissonRegression(X, y) = begin
-        p = size(X, 2);
-        n = size(X, 1);
+        p = size(X, 2)
+        n = size(X, 1)
         #priors
-        λ~InverseGamma(h,h)
-        ν~InverseGamma(h,h)
-        α ~ TDist(ν)*λ
-        β ~ filldist(TDist(ν)*λ, p)  
-    
+        λ ~ InverseGamma(h, h)
+        ν ~ InverseGamma(h, h)
+        α ~ TDist(ν) * λ
+        β ~ filldist(TDist(ν) * λ, p)
+
         ## link
         z = α .+ X * β
         mu = exp.(z)
-    
+
         #likelihood
         for i = 1:n
             y[i] ~ Poisson(mu[i])
@@ -210,7 +237,6 @@ function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegr
 
     return poisson_reg(formula, data, PoissonRegression, sim_size)
 end
-
 
 """
 ```julia
@@ -241,18 +267,25 @@ julia> sanction = dataset("Zelig", "sanction");
 julia> container = @fitmodel(Num ~ Target + Coop + NCost, sanction, PoissonRegression(), Prior_Uniform());
 ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression, prior::Prior_Uniform, h::Float64=1.0, sim_size::Int64=10000)
+function fitmodel(
+    formula::FormulaTerm,
+    data::DataFrame,
+    modelClass::PoissonRegression,
+    prior::Prior_Uniform,
+    h::Float64 = 1.0,
+    sim_size::Int64 = 10000
+)
     @model PoissonRegression(X, y) = begin
-        p = size(X, 2);
-        n = size(X, 1);
+        p = size(X, 2)
+        n = size(X, 1)
         #priors
-        λ~InverseGamma(h,h)
-        α ~ Uniform(-λ,λ)
-        β ~ filldist(Uniform(-λ,λ), p) 
+        λ ~ InverseGamma(h, h)
+        α ~ Uniform(-λ, λ)
+        β ~ filldist(Uniform(-λ, λ), p)
         ## link
         z = α .+ X * β
         mu = exp.(z)
-    
+
         #likelihood
         for i = 1:n
             y[i] ~ Poisson(mu[i])

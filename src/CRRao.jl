@@ -51,7 +51,7 @@ Logit <: CRRaoLink
 A type representing the Logit link function.
 """
 struct Logit <: CRRaoLink
-   link::Function
+    link::Function
 end
 
 Logit() = Logit(Logit_Link)
@@ -64,7 +64,7 @@ Probit <: CRRaoLink
 A type representing the Probit link function.
 """
 struct Probit <: CRRaoLink
-   link::Function
+    link::Function
 end
 
 Probit() = Probit(Probit_Link)
@@ -77,7 +77,7 @@ Cloglog <: CRRaoLink
 A type representing the Cloglog link function.
 """
 struct Cloglog <: CRRaoLink
-   link::Function
+    link::Function
 end
 
 Cloglog() = Cloglog(Cloglog_Link)
@@ -90,7 +90,7 @@ Cauchit <: CRRaoLink
 A type representing the Cauchit link function.
 """
 struct Cauchit <: CRRaoLink
-   link::Function
+    link::Function
 end
 
 Cauchit() = Cauchit(Cauchit_Link)
@@ -104,6 +104,3 @@ include("general_stats.jl")
 include("fitmodel.jl")
 
 end
-
-
-

@@ -6,22 +6,22 @@ function details(modelclass::String, likelihood::String, link::String, method::S
     println("Computing Method: ", method)
 end
 
-function Base.show(io::IO, container::FrequentistRegression{:LinearRegression})                                          
+function Base.show(io::IO, container::FrequentistRegression{:LinearRegression})
     details("Linear Regression", "Gauss", "Identity", "Optimization")
     print(coeftable(container.model))
 end
 
-function Base.show(io::IO, container::FrequentistRegression{:LogisticRegression})                                          
+function Base.show(io::IO, container::FrequentistRegression{:LogisticRegression})
     details("Logistic Regression", "Binomial", "Identity", "Optimization")
     print(coeftable(container.model))
 end
 
-function Base.show(io::IO, container::FrequentistRegression{:NegativeBinomialRegression})                                          
+function Base.show(io::IO, container::FrequentistRegression{:NegativeBinomialRegression})
     details("Count Regression", "Negative Binomial", "Log", "Optimization")
     print(coeftable(container.model))
 end
 
-function Base.show(io::IO, container::FrequentistRegression{:PoissonRegression})                                          
+function Base.show(io::IO, container::FrequentistRegression{:PoissonRegression})
     details("Poisson Regression", "Poison", "Log", "Optimization")
     print(coeftable(container.model))
 end
@@ -30,5 +30,3 @@ end
 function Base.show(io::IO, container::BayesianRegression)
     show(io, MIME("text/plain"), container.chain)
 end
-
-

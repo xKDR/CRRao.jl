@@ -2,7 +2,7 @@
 Type to represent frequentist regression models returned by `fitmodel` functions. This type is used internally by the package to represent all frequentist regression models.
 """
 struct FrequentistRegression{RegressionType}
-   model
+    model
 end
 
 """
@@ -18,7 +18,7 @@ FrequentistRegression(RegressionType::Symbol, model) = FrequentistRegression{Reg
 Type to represent bayesian regression models returned by `fitmodel` functions. This type is used internally by the package to represent all bayesian regression models.
 """
 struct BayesianRegression{RegressionType}
-   chain
+    chain
 end
 
 """
@@ -60,7 +60,7 @@ model = @fitmodel(Num ~ Target + Coop + NCost, sanction, NegBinomRegression())
 ```
 """
 macro fitmodel(formula, args...)
-   quote
-      fitmodel(@formula($formula), $(map(esc, args)...))
-   end
+    quote
+        fitmodel(@formula($formula), $(map(esc, args)...))
+    end
 end

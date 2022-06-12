@@ -1,10 +1,10 @@
-function Poisson_Reg_predicts(obj,newdata::DataFrame)  
-    formula = obj.formula;
-    fm_frame=ModelFrame(formula,newdata);
-    X=modelmatrix(fm_frame);
+function Poisson_Reg_predicts(obj, newdata::DataFrame)
+    formula = obj.formula
+    fm_frame = ModelFrame(formula, newdata)
+    X = modelmatrix(fm_frame)
     beta = obj.beta
-    z = X*beta;
-    μ = exp.(z) ;  
+    z = X * beta
+    μ = exp.(z)
     μ
 end
 
