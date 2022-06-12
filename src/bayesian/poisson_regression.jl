@@ -3,7 +3,7 @@ function poisson_reg(formula::FormulaTerm, data::DataFrame, turingModel::Functio
     y, X = modelcols(formula, data)
 
     chain = sample(CRRao_rng, turingModel(X, y), NUTS(), sim_size)
-    return BayesianRegression{:PoissonRegression}(chain)
+    return BayesianRegression(:PoissonRegression, chain)
 end
 
 """

@@ -3,7 +3,7 @@ function linear_reg(formula::FormulaTerm, data::DataFrame, turingModel::Function
     y, X = modelcols(formula, data)
 
     chain = sample(CRRao_rng, turingModel(X, y), NUTS(), sim_size)
-    return BayesianRegression{:LinearRegression}(chain)
+    return BayesianRegression(:LinearRegression, chain)
 end
 
 """

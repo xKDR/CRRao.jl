@@ -3,7 +3,7 @@ function logistic_reg(formula::FormulaTerm, data::DataFrame, turingModel::Functi
     y, X = modelcols(formula, data)
 
     chain = sample(CRRao_rng, turingModel(X, y), NUTS(), sim_size)
-    return BayesianRegression{:LogisticRegression}(chain)
+    return BayesianRegression(:LogisticRegression, chain)
 end
 
 """

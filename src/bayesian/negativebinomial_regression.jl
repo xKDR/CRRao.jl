@@ -8,7 +8,7 @@ function negativebinomial_reg(
     y, X = modelcols(formula, data)
 
     chain = sample(CRRao_rng, turingModel(X, y), NUTS(), sim_size)
-    return BayesianRegression{:NegativeBinomialRegression}(chain)
+    return BayesianRegression(:NegativeBinomialRegression, chain)
 end
 
 """
