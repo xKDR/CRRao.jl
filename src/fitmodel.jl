@@ -33,6 +33,9 @@ BayesianRegression(RegressionType::Symbol, chain) = BayesianRegression{Regressio
 # Print Messages
 include("print.jl")
 
+# Frequentist getter functions
+include("frequentist/getter.jl")
+
 # Frequentist Regression Models
 include("frequentist/linear_regression.jl")
 include("frequentist/logistic_regression.jl")

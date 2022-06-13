@@ -19,7 +19,7 @@ We follow framework which makes contribution to this package easy.
 """
 module CRRao
 
-using DataFrames, GLM, Turing, StatsModels
+using DataFrames, GLM, Turing, StatsModels, StatsBase
 using StatsBase, Distributions, LinearAlgebra
 using Optim, NLSolversBase, Random
 
@@ -97,6 +97,7 @@ Cauchit() = Cauchit(Cauchit_Link)
 export LinearRegression, LogisticRegression, PoissonRegression, NegBinomRegression
 export Prior_Ridge, Prior_Laplace, Prior_Cauchy, Prior_TDist, Prior_Uniform
 export Logit, Probit, Cloglog, Cauchit, fitmodel, @fitmodel
+export coeftable, r2, adjr2, loglikelihood, aic, bic, sigma, predict, residuals, cooksdistance
 
 include("random_number_generator.jl")
 include("general_stats.jl")

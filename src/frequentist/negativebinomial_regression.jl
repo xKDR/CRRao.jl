@@ -36,7 +36,7 @@ Fit a Negative Binomial Regression model on the input data (with the default lin
 # Example
 
 ```julia-repl
-julia> using CRRao, RDatasets, StatsBase
+julia> using CRRao, RDatasets
 
 julia> sanction = dataset("Zelig", "sanction");
 

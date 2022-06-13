@@ -28,7 +28,7 @@ Fit a Poisson Regression model on the input data (with the default link function
 # Example
 
 ```julia-repl
-julia> using CRRao, RDatasets, StatsBase
+julia> using CRRao, RDatasets
 
 julia> sanction = dataset("Zelig", "sanction");
 
