@@ -1,8 +1,7 @@
-CRRao.set_rng(StableRNG(123))
-
 mtcars = dataset("datasets", "mtcars")
 
 @testset "OLS" begin
+    CRRao.set_rng(StableRNG(123))
     model = @fitmodel((MPG ~ HP + WT + Gear), mtcars, LinearRegression())
 
     @test model.fit.cols ≈ [
