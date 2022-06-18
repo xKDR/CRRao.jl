@@ -1,0 +1,11 @@
+indent = 4
+margin = 100
+whitespace_typedefs = true
+whitespace_ops_in_indices = true
+remove_extra_newlines = true
+whitespace_in_kwargs = true
+annotate_untyped_fields_with_any = false
+format_docstrings = false
+trailing_comma = "nothing"
+format_markdown = true
+verbose = true
