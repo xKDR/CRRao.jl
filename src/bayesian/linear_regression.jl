@@ -15,28 +15,6 @@ fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, pr
 ```
 
 Fit a Bayesian Linear Regression model on the input data with a Ridge prior.
-
-# Arguments
-
-- `formula`: A formula term representing dependencies between the columns in the dataset.
-- `data`: The dataset.
-- `modelClass`: Object representing the type of regression, which is Linear Regression in our case.
-- `prior`: A type representing the prior. In this case, it is the Ridge prior.
-- `h`: A parameter used in setting the priors.
-- `sim_size`: The number of samples to be drawn during inference.
-
-# Example
-
-```julia-repl
-julia> using CRRao, RDatasets, StableRNGs
-
-julia> CRRao.set_rng(StableRNG(123))
-StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
-
-julia> df = dataset("datasets", "mtcars");
-
-julia> container = @fitmodel(MPG ~ HP + WT + Gear, df, LinearRegression(), Prior_Ridge());
-```
 """
 function fitmodel(
     formula::FormulaTerm,
@@ -71,28 +49,6 @@ fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, pr
 ```
 
 Fit a Bayesian Linear Regression model on the input data with a Laplace prior.
-
-# Arguments
-
-- `formula`: A formula term representing dependencies between the columns in the dataset.
-- `data`: The dataset.
-- `modelClass`: Object representing the type of regression, which is Linear Regression in our case.
-- `prior`: A type representing the prior. In this case, it is the Laplace prior.
-- `h`: A parameter used in setting the priors.
-- `sim_size`: The number of samples to be drawn during inference.
-
-# Example
-
-```julia-repl
-julia> using CRRao, RDatasets, StableRNGs
-
-julia> CRRao.set_rng(StableRNG(123))
-StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
-
-julia> df = dataset("datasets", "mtcars");
-
-julia> container = @fitmodel(MPG ~ HP + WT + Gear, df, LinearRegression(), Prior_Laplace());
-```
 """
 function fitmodel(
     formula::FormulaTerm,
@@ -126,27 +82,6 @@ fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, pr
 ```
 
 Fit a Bayesian Linear Regression model on the input data with a Cauchy prior.
-
-# Arguments
-
-- `formula`: A formula term representing dependencies between the columns in the dataset.
-- `data`: The dataset.
-- `modelClass`: Object representing the type of regression, which is Linear Regression in our case.
-- `prior`: A type representing the prior. In this case, it is the Cauchy prior.
-- `sim_size`: The number of samples to be drawn during inference.
-
-# Example
-
-```julia-repl
-julia> using CRRao, RDatasets, StableRNGs
-
-julia> CRRao.set_rng(StableRNG(123))
-StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
-
-julia> df = dataset("datasets", "mtcars");
-
-julia> container = @fitmodel(MPG ~ HP + WT + Gear, df, LinearRegression(), Prior_Cauchy(), 20000);
-```
 """
 function fitmodel(
     formula::FormulaTerm,
@@ -176,30 +111,6 @@ fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, pr
 ```
 
 Fit a Bayesian Linear Regression model on the input data with a t(ν) distributed prior.
-
-# Arguments
-
-- `formula`: A formula term representing dependencies between the columns in the dataset.
-- `data`: The dataset.
-- `modelClass`: Object representing the type of regression, which is Linear Regression in our case.
-- `prior`: A type representing the prior. In this case, it is the TDist prior.
-- `h`: A parameter used in setting the priors.
-- `sim_size`: The number of samples to be drawn during inference.
-
-# Example
-
-```julia-repl
-julia> using CRRao, RDatasets, StableRNGs, StatsPlots
-
-julia> CRRao.set_rng(StableRNG(123))
-StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
-
-julia> df = dataset("datasets", "mtcars");
-
-julia> container = @fitmodel(MPG ~ HP + WT + Gear, df, LinearRegression(), Prior_TDist());
-
-julia> plot(container.chain)
-```
 """
 function fitmodel(
     formula::FormulaTerm,
@@ -233,30 +144,6 @@ fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, pr
 ```
 
 Fit a Bayesian Linear Regression model on the input data with a Uniform prior.
-
-# Arguments
-
-- `formula`: A formula term representing dependencies between the columns in the dataset.
-- `data`: The dataset.
-- `modelClass`: Object representing the type of regression, which is Linear Regression in our case.
-- `prior`: A type representing the prior. In this case, it is the Uniform prior.
-- `h`: A parameter used in setting the priors.
-- `sim_size`: The number of samples to be drawn during inference.
-
-# Example
-
-```julia-repl
-julia> using CRRao, RDatasets, StableRNGs, StatsPlots
-
-julia> CRRao.set_rng(StableRNG(123))
-StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
-
-julia> df = dataset("datasets", "mtcars");
-
-julia> container = @fitmodel(MPG ~ HP + WT + Gear, df, LinearRegression(), Prior_Uniform());
-
-julia> plot(container.chain)
-```
 """
 function fitmodel(
     formula::FormulaTerm,
