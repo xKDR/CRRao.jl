@@ -1,22 +1,3 @@
-"""
-CRRao is a Julia package that implements the Statistical models. The implementation 
-of Statistical models become straightforward for most Julia users 
-with the help of this package. This is going to be wrapper package;
-leveraging the strength of wonderful Julia packages that already exists, 
-such as StatsBase, StatsModels, Distributions,GLM, Turing, DataFrames,
-LinearAlgebra, etc.
-
-
-CRRao is a consistent framework through which callers interact with 
-a large suite of models. For the end-user, it reduces the cost and complexity 
-of estimating/training statistical models. It offers convenient guidelines through 
-which development of additional statistical models can take place 
-in the future.
-
-We follow framework which makes contribution to this package easy.
-
-**Note**: You can read more about **Prof C.R. Rao** [here](https://en.wikipedia.org/wiki/C._R._Rao)
-"""
 module CRRao
 
 using DataFrames, GLM, Turing, StatsModels, StatsBase
