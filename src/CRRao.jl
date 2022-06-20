@@ -98,6 +98,7 @@ export LinearRegression, LogisticRegression, PoissonRegression, NegBinomRegressi
 export Prior_Ridge, Prior_Laplace, Prior_Cauchy, Prior_TDist, Prior_Uniform
 export Logit, Probit, Cloglog, Cauchit, fitmodel, @fitmodel
 export coeftable, r2, adjr2, loglikelihood, aic, bic, sigma, predict, residuals, cooksdistance
+export FrequentistRegression, BayesianRegression
 
 include("random_number_generator.jl")
 include("general_stats.jl")
