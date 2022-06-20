@@ -42,7 +42,6 @@ fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, 
 ```
 
 Fit a Logistic Regression model on the input data using the Cloglog link. Uses the `glm` method from the [GLM](https://github.com/JuliaStats/GLM.jl) package under the hood. Returns an object of type `FrequentistRegression{:LogisticRegression}`.
-```
 """
 function fitmodel(
     formula::FormulaTerm,
@@ -59,7 +58,6 @@ fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, 
 ```
 
 Fit a Logistic Regression model on the input data using the Cauchit link. Uses the `glm` method from the [GLM](https://github.com/JuliaStats/GLM.jl) package under the hood. Returns an object of type `FrequentistRegression{:LogisticRegression}`.
-```
 """
 function fitmodel(
     formula::FormulaTerm,
