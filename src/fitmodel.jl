@@ -1,5 +1,9 @@
 """
-Type to represent frequentist regression models returned by `fitmodel` functions. This type is used internally by the package to represent all frequentist regression models.
+```julia
+FrequentistRegression{RegressionType}
+```
+
+Type to represent frequentist regression models returned by `fitmodel` functions. This type is used internally by the package to represent all frequentist regression models. `RegressionType` is a `Symbol` representing the model class.
 """
 struct FrequentistRegression{RegressionType}
     model
@@ -12,12 +16,16 @@ end
 FrequentistRegression(::Symbol, model, formula, link = GLM.IdentityLink)
 ```
 
-Constructor for `FrequentistRegression`. `model` can be any regression model. Used by `fitmodel` functions to return a frequentist regression model containers.
+Constructor for `FrequentistRegression`. `model` can be any regression model. Used by `fitmodel` functions to return a frequentist regression model container.
 """
 FrequentistRegression(RegressionType::Symbol, model, formula, link = GLM.IdentityLink) = FrequentistRegression{RegressionType}(model, formula, link)
 
 """
-Type to represent bayesian regression models returned by `fitmodel` functions. This type is used internally by the package to represent all bayesian regression models.
+```julia
+BayesianRegression{RegressionType}
+```
+
+Type to represent bayesian regression models returned by `fitmodel` functions. This type is used internally by the package to represent all bayesian regression models. `RegressionType` is a `Symbol` representing the model class.
 """
 struct BayesianRegression{RegressionType}
     chain
@@ -29,7 +37,7 @@ end
 BayesianRegression(::Symbol, chain)
 ```
 
-Constructor for `BayesianRegression`. `model` can be any regression model. Used by `fitmodel` functions to return a frequentist regression model containers.
+Constructor for `BayesianRegression`. `model` can be any regression model. Used by `fitmodel` functions to return a bayesian regression model container.
 """
 BayesianRegression(RegressionType::Symbol, chain, formula) = BayesianRegression{RegressionType}(chain, formula)
 
