@@ -1,4 +1,4 @@
-using CRRao
+using CRRao, StatsModels, DataFrames
 using Documenter
 
 DocMeta.setdocmeta!(CRRao, :DocTestSetup, :(using CRRao); recursive=true)
