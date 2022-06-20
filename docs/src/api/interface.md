@@ -1,4 +1,4 @@
-# Understanding the interface
+## Understanding the interface
 
 CRRao exports the `@fitmodel` macro, which is used to train all types of models supported by the package. As of now, the macro supports the following signatures.
 
@@ -33,3 +33,9 @@ It should be noted that not all model classes support every type of signature. T
     - `Prior_Cauchy()`
     - `Prior_TDist()`
     - `Prior_Uniform()`
+
+## Type for link functions.
+
+```@docs
+CRRaoLink
+```
