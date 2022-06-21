@@ -4,10 +4,44 @@ using DataFrames, GLM, Turing, StatsModels, StatsBase
 using StatsBase, Distributions, LinearAlgebra
 using Optim, NLSolversBase, Random
 
-struct NegBinomRegression end
-struct PoissonRegression end
+"""
+```julia
+LinearRegression
+```
+
+Type representing the Linear Regression model class.
+"""
 struct LinearRegression end
+
+"""
+```julia
+LogisticRegression
+```
+
+Type representing the Logistic Regression model class.
+"""
 struct LogisticRegression end
+
+"""
+```julia
+NegBinomRegression
+```
+
+Type representing the Negative Binomial Regression model class.
+"""
+struct NegBinomRegression end
+
+"""
+```julia
+PoissonRegression
+```
+
+Type representing the Poisson Regression model class.
+"""
+struct PoissonRegression end
+
+
+
 struct Prior_Ridge end
 struct Prior_Laplace end
 struct Prior_Cauchy end

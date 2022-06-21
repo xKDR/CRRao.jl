@@ -34,6 +34,15 @@ It should be noted that not all model classes support every type of signature. T
     - `Prior_TDist()`
     - `Prior_Uniform()`
 
+## Model Classes
+
+```@docs
+LinearRegression
+LogisticRegression
+NegBinomRegression
+PoissonRegression
+```
+
 ## Type for link functions.
 
 ```@docs
