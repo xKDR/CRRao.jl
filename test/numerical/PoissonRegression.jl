@@ -3,7 +3,7 @@ sanction = dataset("Zelig", "sanction")
 CRRao.set_rng(StableRNG(123))
 model = @fitmodel((Num ~ Target + Coop + NCost), sanction, PoissonRegression())
 
-@test model.fit.cols ≈ [
+@test coeftable(model).cols ≈ [
     [-1.9139174143215623, 0.1577685467231638, 1.1512671677538393, -0.32405115738560536, 1.7197292626770255, 0.46390685724228237], 
     [0.26166711434426126, 0.06538218624221598, 0.056186148036696144, 0.23005500362389275, 0.10051778893154875, 0.169919917611425], 
     [-7.314321553619171, 2.413020362131846, 20.490231275543696, -1.4085812187566369, 17.108705642621505, 2.7301499657217962], 
@@ -11,8 +11,8 @@ model = @fitmodel((Num ~ Target + Coop + NCost), sanction, PoissonRegression())
     [-2.4267755343748396, 0.029621816457930022, 1.0411443411718788, -0.7749506789516676, 1.5227180165655907, 0.13086993846787554], 
     [-1.4010592942682851, 0.2859152769883976, 1.2613899943357998, 0.12684836418045686, 1.9167405087884604, 0.7969437760166892]
 ] 
-@test model.AIC ≈ 580.6738689669471
-@test model.BIC ≈ 594.8141219270847
+@test aic(model) ≈ 580.6738689669471
+@test bic(model) ≈ 594.8141219270847
 
 tests = [
     (
@@ -121,8 +121,9 @@ for (prior,test_summaries,test_quantiles) in tests
     model = @fitmodel((Num ~ Target + Coop + NCost), sanction, PoissonRegression(), prior)
     
     #Split summaries and quantiles into symbols and numbers for testing equality/approximate equality. 
-    (model_summaries_symbols, model_summaries_nums...) = model.summaries.nt
-    (model_quantiles_symbols, model_quantiles_nums...) = model.quantiles.nt
+    model_summaries, model_quantiles = describe(model.chain)
+    (model_summaries_symbols, model_summaries_nums...) = model_summaries.nt
+    (model_quantiles_symbols, model_quantiles_nums...) = model_quantiles.nt
     (test_summaries_symbols, test_summaries_nums...) = test_summaries
     (test_quantiles_symbols, test_quantiles_nums...) = test_quantiles
 

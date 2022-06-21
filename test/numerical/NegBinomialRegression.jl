@@ -3,7 +3,7 @@ sanction = dataset("Zelig", "sanction")
 CRRao.set_rng(StableRNG(123))
 model = @fitmodel((Num ~ Target + Coop + NCost), sanction, NegBinomRegression())
 
-@test model.fit.cols ≈ [
+@test coeftable(model).cols ≈ [
     [-1.1093939122450291, 0.011739761450927876, 1.0505950803719273, -0.204244271269866, 1.2714237997560502, 0.1767967980815313], 
     [0.45967698249863276, 0.14277865719023852, 0.1115559614400056, 0.5081560135824078, 0.2904270039669377, 0.2542906647846682], 
     [-2.413420629013829, 0.08222350372216905, 9.417650718172812, -0.40193221335703755, 4.377774044388756, 0.6952547716654944], 
@@ -11,8 +11,8 @@ model = @fitmodel((Num ~ Target + Coop + NCost), sanction, NegBinomRegression())
     [-2.0103442424643996, -0.26810126440293097, 0.8319494136887768, -1.2002117564188337, 0.7021973318429798, -0.3216037465011672], 
     [-0.2084435820256586, 0.2915807873047867, 1.2692407470550777, 0.7917232138791016, 1.8406502676691208, 0.6751973426642297]
 ]
-@test model.AIC ≈ 363.85804286542685
-@test model.BIC ≈ 377.9982958255644
+@test aic(model) ≈ 365.85804286542685
+@test bic(model) ≈ 382.355004652254
 
 tests = [
     (
@@ -107,8 +107,9 @@ for (prior,test_summaries,test_quantiles) in tests
     model = @fitmodel((Num ~ Target + Coop + NCost), sanction, NegBinomRegression(), prior)
 
     #Split summaries and quantiles into symbols and numbers for testing equality/approximate equality. 
-    (model_summaries_symbols, model_summaries_nums...) = model.summaries.nt
-    (model_quantiles_symbols, model_quantiles_nums...) = model.quantiles.nt
+    model_summaries, model_quantiles = describe(model.chain)
+    (model_summaries_symbols, model_summaries_nums...) = model_summaries.nt
+    (model_quantiles_symbols, model_quantiles_nums...) = model_quantiles.nt
     (test_summaries_symbols, test_summaries_nums...) = test_summaries
     (test_quantiles_symbols, test_quantiles_nums...) = test_quantiles
 

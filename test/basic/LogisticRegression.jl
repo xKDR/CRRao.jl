@@ -7,12 +7,23 @@ priors = [
     Prior_Laplace(),
     Prior_Cauchy(),
     Prior_TDist(),
-    Prior_Uniform(),
 ]
 
 for link in links
     CRRao.set_rng(StableRNG(123))
     model = @fitmodel((Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), link)
+    @test sizeof(model) > 0
+end
+
+uniform_links = [
+    (Logit(),125), 
+    (Probit(),123), 
+    (Cloglog(),125), 
+    (Cauchit(),123)
+]
+for (link,seed) in uniform_links
+    CRRao.set_rng(StableRNG(seed))
+    model = @fitmodel((Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), link, Prior_Uniform())
     @test sizeof(model) > 0
 end
 
