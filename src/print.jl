@@ -1,29 +1,29 @@
 # Frequentist models
-function details(modelclass::String, likelihood::String, link::String, method::String)
-    println("Model Class: ", modelclass)
-    println("Likelihood Mode: ", likelihood)
-    println("Link Function: ", link)
-    println("Computing Method: ", method)
+function details(io::IO, modelclass::String, likelihood::String, link::String, method::String)
+    println(io, "Model Class: ", modelclass)
+    println(io, "Likelihood Mode: ", likelihood)
+    println(io, "Link Function: ", link)
+    println(io, "Computing Method: ", method)
 end
 
 function Base.show(io::IO, container::FrequentistRegression{:LinearRegression})
-    details("Linear Regression", "Gauss", "Identity", "Optimization")
-    print(coeftable(container))
+    details(io, "Linear Regression", "Gauss", "Identity", "Optimization")
+    println(io, coeftable(container))
 end
 
 function Base.show(io::IO, container::FrequentistRegression{:LogisticRegression})
-    details("Logistic Regression", "Binomial", "Identity", "Optimization")
-    print(coeftable(container))
+    details(io, "Logistic Regression", "Binomial", "Identity", "Optimization")
+    println(io, coeftable(container))
 end
 
 function Base.show(io::IO, container::FrequentistRegression{:NegativeBinomialRegression})
-    details("Count Regression", "Negative Binomial", "Log", "Optimization")
-    print(coeftable(container))
+    details(io, "Count Regression", "Negative Binomial", "Log", "Optimization")
+    println(io, coeftable(container))
 end
 
 function Base.show(io::IO, container::FrequentistRegression{:PoissonRegression})
-    details("Poisson Regression", "Poison", "Log", "Optimization")
-    print(coeftable(container))
+    details(io, "Poisson Regression", "Poison", "Log", "Optimization")
+    println(io, coeftable(container))
 end
 
 # Bayesian Models
