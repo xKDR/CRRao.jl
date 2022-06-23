@@ -60,5 +60,5 @@ Cauchit
 ## Setting Random Number Generators
 
 ```@docs
-set_rng
+CRRao.set_rng
 ```
