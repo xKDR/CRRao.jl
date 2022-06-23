@@ -34,6 +34,10 @@ It should be noted that not all model classes support every type of signature. T
     - `Prior_TDist()`
     - `Prior_Uniform()`
 
+```@docs
+@fitmodel
+```
+
 ## Model Classes
 
 ```@docs

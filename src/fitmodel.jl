@@ -64,16 +64,27 @@ include("bayesian/getter.jl")
 
 """
 ```julia
-   @fitmodel(formula, args...)
+   @fitmodel(formula, data, modelClass)
+   @fitmodel(formula, data, modelClass, link)
+   @fitmodel(formula, data, modelClass, prior)
+   @fitmodel(formula, data, modelClass, link, prior)
 ```
 
-Macro for calling `fitmodel` without using `@formula` to create the formula. 
+Macro for calling `fitmodel` functions to run different models.
+
+# Arguments
+
+- `formula`: A formula of type `StatsModels.FormulaTerm`.
+- `data`: A `DataFrame` object.
+- `modelClass`: An object of a type representing a model class.
+- `link`: The link function. Must be a subtype of `CRRaoLink`.
+- `prior:` An object of a type representing a prior.
 
 # Example
 ```julia
 using CRRao, RDatasets
-sanction = dataset("Zelig", "sanction")
-model = @fitmodel(Num ~ Target + Coop + NCost, sanction, NegBinomRegression())
+turnout = dataset("Zelig", "turnout")
+model = @fitmodel((Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Logit(), Prior_Ridge())
 ```
 """
 macro fitmodel(formula, args...)
