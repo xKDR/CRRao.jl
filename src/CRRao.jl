@@ -62,7 +62,11 @@ abstract type CRRaoLink end
 Logit <: CRRaoLink
 ```
 
-A type representing the Logit link function.
+A type representing the Logit link function, which is defined by the formula
+
+```math
+z\\mapsto \\dfrac{1}{1 + \\exp(-z)}
+```
 """
 struct Logit <: CRRaoLink
     link::Function
@@ -75,7 +79,13 @@ Logit() = Logit(Logit_Link)
 Probit <: CRRaoLink
 ```
 
-A type representing the Probit link function.
+A type representing the Probit link function, which is defined by the formula
+
+```math
+z\\mapsto \\mathbb{P}[Z\\le z]
+```
+
+where ``Z\\sim \\text{Normal}(0, 1)``.
 """
 struct Probit <: CRRaoLink
     link::Function
@@ -88,7 +98,11 @@ Probit() = Probit(Probit_Link)
 Cloglog <: CRRaoLink
 ```
 
-A type representing the Cloglog link function.
+A type representing the Cloglog link function, which is defined by the formula 
+
+```math
+z\\mapsto 1 - \\exp(-\\exp(z))
+```
 """
 struct Cloglog <: CRRaoLink
     link::Function
@@ -101,7 +115,11 @@ Cloglog() = Cloglog(Cloglog_Link)
 Cauchit <: CRRaoLink
 ```
 
-A type representing the Cauchit link function.
+A type representing the Cauchit link function, which is defined by the formula
+
+```math
+z\\mapsto \\dfrac{1}{2} + \\dfrac{\\text{atan}(z)}{\\pi}
+```
 """
 struct Cauchit <: CRRaoLink
     link::Function

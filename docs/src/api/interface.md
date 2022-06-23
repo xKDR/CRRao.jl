@@ -43,8 +43,12 @@ NegBinomRegression
 PoissonRegression
 ```
 
-## Type for link functions.
+## Link functions.
 
 ```@docs
 CRRaoLink
+Logit
+Probit
+Cloglog
+Cauchit
 ```
