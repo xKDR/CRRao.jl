@@ -56,3 +56,9 @@ Probit
 Cloglog
 Cauchit
 ```
+
+## Setting Random Number Generators
+
+```@docs
+set_rng
+```

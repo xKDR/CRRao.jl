@@ -27,7 +27,7 @@ fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression)
 fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression)
 ```
 
-## Extended function from [StatsAPI.jl](https://github.com/JuliaStats/StatsAPI.jl)
+## Extended functions from [StatsAPI.jl](https://github.com/JuliaStats/StatsAPI.jl)
 
 ```@docs
 coeftable(container::FrequentistRegression)
