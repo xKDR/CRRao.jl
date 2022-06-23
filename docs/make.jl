@@ -15,6 +15,9 @@ makedocs(;
     ),
     pages=[
         "Home" => "index.md",
+        "Manual" => Any[
+            "Guide"=> "man/guide.md"
+        ],
         "API Reference" => Any[
             "General Interface" => "api/interface.md",
             "Frequentist Regression Models" => "api/frequentist_regression.md",
