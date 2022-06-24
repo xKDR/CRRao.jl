@@ -68,3 +68,29 @@ plot(cooksdistance(model))
 To understand more about these functions and in general how frequentist models work in CRRao, please visit the section of the API reference on [Frequentist Regression Models](@ref).
 
 ## Tutorial: Bayesian Logistic Regression
+
+Next, let's see an example of doing bayesian statistical inference with CRRao. In this example, we will perform bayesian logistic regression on the `turnout` dataset from R's [Zelig](https://zeligproject.org/). Further, we will use the [`Logit`](@ref) link function with a Ridge prior ([`Prior_Ridge`](@ref)).
+
+With this example, we'll also showcase how to use random number generators to get reproducible results. For this, we will use the [StableRNGs](https://github.com/JuliaRandom/StableRNGs.jl) package (although any random number generator can be used). So, first we import the required modules.
+
+```@repl bayesian_logistic_regression
+using CRRao, RDatasets, StableRNGs
+```
+
+Then, we use a `StableRNG` with random seed 123 as our random number generator.
+
+```@repl bayesian_logistic_regression
+CRRao.set_rng(StableRNG(123))
+```
+
+(Check the documentation of the [`CRRao.set_rng`](@ref) method for more details). Next, let us load our dataset.
+
+```@repl bayesian_logistic_regression
+turnout = dataset("Zelig", "turnout")
+```
+
+And finally, we do the inference using our proposed model.
+
+```@repl bayesian_logistic_regression
+model = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Logit(), Prior_Ridge())
+```
