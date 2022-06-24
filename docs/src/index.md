@@ -19,4 +19,25 @@ which development of additional statistical models can take place in the future.
 
 We follow a framework which makes contribution to this package easy.
 
-**Note**: You can read more about **Prof C.R. Rao** [here](https://en.wikipedia.org/wiki/C._R._Rao).
+!!! note
+
+    You can read more about **Prof C.R. Rao** [here](https://en.wikipedia.org/wiki/C._R._Rao).
+
+## Manual
+
+```@contents
+Pages = [
+    "man/guide.md",
+    "man/examples.md",
+]
+```
+
+## API Reference
+
+```@contents
+Pages = [
+    "api/interface.md",
+    "api/frequentist_regression.md",
+    "api/bayesian_regression.md"
+]
+```

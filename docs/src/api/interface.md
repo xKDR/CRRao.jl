@@ -1,3 +1,5 @@
+# General Interface
+
 ## Understanding the interface
 
 CRRao exports the [`@fitmodel`](@ref) macro, which is used to train all types of models supported by the package. As of now, the macro supports the following signatures.
