@@ -45,18 +45,12 @@ As we can see from the output, a table of coefficients has been printed for us. 
 ```@repl ols_linear_regression
 coeftable(model)
 sigma(model)
-aic(model)
-bic(model)
-r2(model)
-adjr2(model)
-residuals(model)
 ```
 
 We can also get the predicted response of the model, along with other measures like the vector of Cook's distances.
 
 ```@repl ols_linear_regression
 predict(model)
-residuals(model)
 cooksdistance(model)
 ```
 
@@ -65,7 +59,7 @@ And here is the plot of the vector of Cook's distances.
 plot(cooksdistance(model))
 ```
 
-To understand more about these functions and in general how frequentist models work in CRRao, please visit the section of the API reference on [Frequentist Regression Models](@ref).
+To understand more about these functions and in general how frequentist models work in CRRao along with a complete set of getter functions that can be used, please visit the section of the API reference on [Frequentist Regression Models](@ref).
 
 ## Tutorial: Bayesian Logistic Regression
 
@@ -75,6 +69,12 @@ With this example, we'll also showcase how to use random number generators to ge
 
 ```@repl bayesian_logistic_regression
 using CRRao, RDatasets, StableRNGs
+```
+
+<!--Disable warnings and progress bar. Should be hidden.-->
+```@setup bayesian_logistic_regression
+Logging.disable_logging(Logging.Warn)
+CRRao.setprogress!(false)
 ```
 
 Then, we use a `StableRNG` with random seed 123 as our random number generator.
