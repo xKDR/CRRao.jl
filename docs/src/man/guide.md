@@ -67,13 +67,16 @@ Next, let's see an example of doing bayesian statistical inference with CRRao. I
 
 With this example, we'll also showcase how to use random number generators to get reproducible results. For this, we will use the [StableRNGs](https://github.com/JuliaRandom/StableRNGs.jl) package (although any random number generator can be used). So, first we import the required modules.
 
+```@setup bayesian_logistic_regression
+using Logging
+Logging.disable_logging(Logging.Warn)
+```
+
 ```@repl bayesian_logistic_regression
 using CRRao, RDatasets, StableRNGs
 ```
 
-<!--Disable warnings and progress bar. Should be hidden.-->
 ```@setup bayesian_logistic_regression
-Logging.disable_logging(Logging.Warn)
 CRRao.setprogress!(false)
 ```
 
