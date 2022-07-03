@@ -15,11 +15,14 @@ function loglikelihood(container::FrequentistRegression)
 end
 
 function aic(container::FrequentistRegression)
-    return StatsBase.aic(container.model)
+    # container.ndims[2] is the number of parameters
+    return (2 * container.ndims[2] - 2 * loglikelihood(container))
 end
 
 function bic(container::FrequentistRegression)
-    return StatsBase.bic(container.model)
+    # container.ndims[1] is the number of data points
+    # container.ndims[2] is the number of parameters
+    return (log(container.ndims[1]) * container.ndims[2] - 2 * loglikelihood(container))
 end
 
 function sigma(container::FrequentistRegression)

@@ -3,16 +3,17 @@ Type to represent frequentist regression models returned by `fitmodel` functions
 """
 struct FrequentistRegression{RegressionType}
     model
+    ndims
 end
 
 """
 ```julia
-FrequentistRegression(::Symbol, model)
+FrequentistRegression(::Symbol, model, ndims)
 ```
 
 Constructor for `FrequentistRegression`. `model` can be any regression model. Used by `fitmodel` functions to return a frequentist regression model containers.
 """
-FrequentistRegression(RegressionType::Symbol, model) = FrequentistRegression{RegressionType}(model)
+FrequentistRegression(RegressionType::Symbol, model, ndims) = FrequentistRegression{RegressionType}(model, ndims)
 
 """
 Type to represent bayesian regression models returned by `fitmodel` functions. This type is used internally by the package to represent all bayesian regression models.
