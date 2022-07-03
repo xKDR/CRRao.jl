@@ -47,14 +47,8 @@ coeftable(model)
 sigma(model)
 ```
 
-We can also get the predicted response of the model, along with other measures like the vector of Cook's distances.
+We can also get the predicted response of the model, along with other measures like the vector of Cook's distances using the [`predict`](@ref) and [`cooksdistance`](@ref) functions exported by CRRao. Here's a plot of the vector of Cook's distances.
 
-```@repl ols_linear_regression
-predict(model)
-cooksdistance(model)
-```
-
-And here is the plot of the vector of Cook's distances.
 ```@example ols_linear_regression
 plot(cooksdistance(model))
 ```
