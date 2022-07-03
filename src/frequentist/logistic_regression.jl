@@ -26,8 +26,13 @@ end
 
 function logistic_reg(formula::FormulaTerm, data::DataFrame, Link::GLM.Link)
     formula = apply_schema(formula, schema(formula, data))
+    y, X = modelcols(formula, data)
+    fm_frame=ModelFrame(formula,data)
+    X = modelmatrix(fm_frame)
+
     model = glm(formula, data, Binomial(), Link)
-    return FrequentistRegression(:LogisticRegression, model)
+    ndims = (size(X, 1), size(X, 2))
+    return FrequentistRegression(:LogisticRegression, model, ndims)
 end
 
 """

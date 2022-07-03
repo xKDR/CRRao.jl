@@ -17,8 +17,13 @@ end
 
 function negativebinomial_reg(formula::FormulaTerm, data::DataFrame, Link::GLM.Link)
     formula = apply_schema(formula, schema(formula, data))
+    y, X = modelcols(formula, data)
+    fm_frame = ModelFrame(formula,data)
+    X = modelmatrix(fm_frame)
+
     model = glm(formula, data, NegativeBinomial(), Link)
-    return FrequentistRegression(:NegativeBinomialRegression, model)
+    ndims = (size(X, 1), size(X, 2))
+    return FrequentistRegression(:NegativeBinomialRegression, model, ndims)
 end
 
 """
