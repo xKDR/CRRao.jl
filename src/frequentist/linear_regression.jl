@@ -57,6 +57,6 @@ function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegre
     X = modelmatrix(fm_frame)
 
     model = lm(formula, data)
-    ndims = (size(X, 1), size(X, 2))
+    ndims = (size(X, 1), size(X, 2) + 1)
     return FrequentistRegression(:LinearRegression, model, ndims)
 end
