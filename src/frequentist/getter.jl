@@ -42,16 +42,11 @@ end
 
 function predict(container::FrequentistRegression{:NegativeBinomialRegression}, newdata::DataFrame)
     fm_frame = ModelFrame(container.formula, newdata)
-    z = modelmatrix(fm_frame) * container.beta
+    z = modelmatrix(fm_frame) * StatsBase.coef(container.model)
 
-    if (container.Link == "LogLink")
-        p = exp.(z)
-
-    else
-        println("This link function is not part of NegativeBinomial regression family.")
-        println("-------------------------------------------------------------")
+    if (container.link == GLM.LogLink)
+        return exp.(z)
     end
-    p
 end
 
 function residuals(container::FrequentistRegression)
