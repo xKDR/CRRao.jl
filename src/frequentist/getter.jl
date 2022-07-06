@@ -32,12 +32,12 @@ end
 
 function predict(container::FrequentistRegression{:LinearRegression}, newdata::DataFrame)
     fm_frame = ModelFrame(container.formula, newdata)
-    return modelmatrix(fm_frame) * coef(container.model)
+    return modelmatrix(fm_frame) * StatsBase.coef(container.model)
 end
 
 function predict(container::FrequentistRegression{:PoissonRegression}, newdata::DataFrame)
     fm_frame = ModelFrame(container.formula, newdata)
-    return exp.(modelmatrix(fm_frame) * coef(container.model))
+    return exp.(modelmatrix(fm_frame) * StatsBase.coef(container.model))
 end
 
 function predict(container::FrequentistRegression{:NegativeBinomialRegression}, newdata::DataFrame)
