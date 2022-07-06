@@ -26,8 +26,40 @@ function sigma(container::FrequentistRegression)
     return sqrt(StatsBase.deviance(container.model) / StatsBase.dof_residual(container.model))
 end
 
-function predict(container::FrequentistRegression)
-    return StatsBase.predict(container.model)
+function predict(container::FrequentistRegression{:LinearRegression}, newdata::DataFrame)
+    formula = container.formula
+    fm_frame = ModelFrame(formula, newdata)
+    X = modelmatrix(fm_frame)
+    beta = coef(container.res)
+    y_pred = X * beta
+    y_pred
+end
+
+function predict(container::FrequentistRegression{:PoissonRegression}, newdata::DataFrame)
+    formula = container.formula
+    fm_frame = ModelFrame(formula, newdata)
+    X = modelmatrix(fm_frame)
+    beta = container.beta
+    z = X * beta
+    μ = exp.(z)
+    μ
+end
+
+function predict(container::FrequentistRegression{:NegativeBinomialRegression}, newdata::DataFrame)
+    formula = container.formula
+    fm_frame = ModelFrame(formula, newdata)
+    X = modelmatrix(fm_frame)
+    beta = container.beta
+    z = X * beta
+
+    if (container.Link == "LogLink")
+        p = exp.(z)
+
+    else
+        println("This link function is not part of NegativeBinomial regression family.")
+        println("-------------------------------------------------------------")
+    end
+    p
 end
 
 function residuals(container::FrequentistRegression)
