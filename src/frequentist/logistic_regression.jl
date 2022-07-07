@@ -1,33 +1,7 @@
-function logistic_reg_predicts(obj, newdata::DataFrame)
-    formula = obj.formula
-    fm_frame = ModelFrame(formula, newdata)
-    X = modelmatrix(fm_frame)
-    beta = obj.beta
-    z = X * beta
-
-    if (obj.Link == "LogitLink")
-        p = exp.(z) ./ (1 .+ exp.(z))
-
-    elseif (obj.Link == "ProbitLink")
-        p = Probit_Link.(z)
-
-    elseif (obj.Link == "CauchitLink")
-        p = Cauchit_Link.(z)
-
-    elseif (obj.Link == "CloglogLink")
-        p = Cloglog_Link.(z)
-
-    else
-        println("This link function is not part of logistic regression family.")
-        println("-------------------------------------------------------------")
-    end
-    p
-end
-
 function logistic_reg(formula::FormulaTerm, data::DataFrame, Link::GLM.Link)
     formula = apply_schema(formula, schema(formula, data))
     model = glm(formula, data, Binomial(), Link)
-    return FrequentistRegression(:LogisticRegression, model)
+    return FrequentistRegression(:LogisticRegression, model, formula, typeof(Link))
 end
 
 """

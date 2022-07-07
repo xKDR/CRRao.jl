@@ -30,6 +30,40 @@ function predict(container::FrequentistRegression)
     return StatsBase.predict(container.model)
 end
 
+function predict(container::FrequentistRegression{:LinearRegression}, newdata::DataFrame)
+    fm_frame = ModelFrame(container.formula, newdata)
+    return modelmatrix(fm_frame) * StatsBase.coef(container.model)
+end
+
+function predict(container::FrequentistRegression{:LogisticRegression}, newdata::DataFrame)
+    fm_frame = ModelFrame(container.formula, newdata)
+    z = modelmatrix(fm_frame) * StatsBase.coef(container.model)
+
+    if (container.link == GLM.LogitLink)
+        return exp.(z) ./ (1 .+ exp.(z))
+    elseif (container.link == GLM.ProbitLink)
+        return Probit_Link.(z)
+    elseif (container.link == GLM.CauchitLink)
+        return Cauchit_Link.(z)
+    elseif (container.link == GLM.Cloglog)
+        return Cloglog_Link.(z)
+    end
+end
+
+function predict(container::FrequentistRegression{:NegativeBinomialRegression}, newdata::DataFrame)
+    fm_frame = ModelFrame(container.formula, newdata)
+    z = modelmatrix(fm_frame) * StatsBase.coef(container.model)
+
+    if (container.link == GLM.LogLink)
+        return exp.(z)
+    end
+end
+
+function predict(container::FrequentistRegression{:PoissonRegression}, newdata::DataFrame)
+    fm_frame = ModelFrame(container.formula, newdata)
+    return exp.(modelmatrix(fm_frame) * StatsBase.coef(container.model))
+end
+
 function residuals(container::FrequentistRegression)
     return StatsBase.residuals(container.model)
 end
