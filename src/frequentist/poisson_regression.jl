@@ -11,7 +11,7 @@ end
 function poisson_reg(formula::FormulaTerm, data::DataFrame, Link::GLM.Link)
     formula = apply_schema(formula, schema(formula, data))
     model = glm(formula, data, Poisson(), Link)
-    return FrequentistRegression(:PoissonRegression, model, formula)
+    return FrequentistRegression(:PoissonRegression, model, formula, typeof(Link))
 end
 
 """
