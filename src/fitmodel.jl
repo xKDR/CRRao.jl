@@ -9,12 +9,12 @@ end
 
 """
 ```julia
-FrequentistRegression(::Symbol, model, formula)
+FrequentistRegression(::Symbol, model, formula, link = GLM.IdentityLink)
 ```
 
 Constructor for `FrequentistRegression`. `model` can be any regression model. Used by `fitmodel` functions to return a frequentist regression model containers.
 """
-FrequentistRegression(RegressionType::Symbol, model, formula, link = IdentityLink) = FrequentistRegression{RegressionType}(model, formula, link)
+FrequentistRegression(RegressionType::Symbol, model, formula, link = GLM.IdentityLink) = FrequentistRegression{RegressionType}(model, formula, link)
 
 """
 Type to represent bayesian regression models returned by `fitmodel` functions. This type is used internally by the package to represent all bayesian regression models.
