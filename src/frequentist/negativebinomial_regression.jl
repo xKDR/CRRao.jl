@@ -1,20 +1,3 @@
-function NegBinom_Reg_predicts(obj, newdata::DataFrame)
-    formula = obj.formula
-    fm_frame = ModelFrame(formula, newdata)
-    X = modelmatrix(fm_frame)
-    beta = obj.beta
-    z = X * beta
-
-    if (obj.Link == "LogLink")
-        p = exp.(z)
-
-    else
-        println("This link function is not part of NegativeBinomial regression family.")
-        println("-------------------------------------------------------------")
-    end
-    p
-end
-
 function negativebinomial_reg(formula::FormulaTerm, data::DataFrame, Link::GLM.Link)
     formula = apply_schema(formula, schema(formula, data))
     model = glm(formula, data, NegativeBinomial(), Link)

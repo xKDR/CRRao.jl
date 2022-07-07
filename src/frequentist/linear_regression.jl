@@ -1,12 +1,3 @@
-function linear_reg_predicts(obj, newdata::DataFrame)
-    formula = obj.formula
-    fm_frame = ModelFrame(formula, newdata)
-    X = modelmatrix(fm_frame)
-    beta = coef(obj.res)
-    y_pred = X * beta
-    y_pred
-end
-
 """
 ```julia
 fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression)
