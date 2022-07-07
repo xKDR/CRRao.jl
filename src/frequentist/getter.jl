@@ -36,34 +36,18 @@ function predict(container::FrequentistRegression{:LinearRegression}, newdata::D
 end
 
 function predict(container::FrequentistRegression{:LogisticRegression}, newdata::DataFrame)
-    formula = container.formula
-    fm_frame = ModelFrame(formula, newdata)
-    X = modelmatrix(fm_frame)
-    beta = container.beta
-    z = X * beta
-
-    if (container.Link == "LogitLink")
-        p = exp.(z) ./ (1 .+ exp.(z))
-
-    elseif (container.Link == "ProbitLink")
-        p = Probit_Link.(z)
-
-    elseif (container.Link == "CauchitLink")
-        p = Cauchit_Link.(z)
-
-    elseif (container.Link == "CloglogLink")
-        p = Cloglog_Link.(z)
-
-    else
-        println("This link function is not part of logistic regression family.")
-        println("-------------------------------------------------------------")
-    end
-    p
-end
-
-function predict(container::FrequentistRegression{:PoissonRegression}, newdata::DataFrame)
     fm_frame = ModelFrame(container.formula, newdata)
-    return exp.(modelmatrix(fm_frame) * StatsBase.coef(container.model))
+    z = modelmatrix(fm_frame) * StatsBase.coef(container.model)
+
+    if (container.link == GLM.LogitLink)
+        return exp.(z) ./ (1 .+ exp.(z))
+    elseif (container.link == GLM.ProbitLink)
+        return Probit_Link.(z)
+    elseif (container.link == GLM.CauchitLink)
+        return Cauchit_Link.(z)
+    elseif (container.link == GLM.Cloglog)
+        return Cloglog_Link.(z)
+    end
 end
 
 function predict(container::FrequentistRegression{:NegativeBinomialRegression}, newdata::DataFrame)
@@ -73,6 +57,11 @@ function predict(container::FrequentistRegression{:NegativeBinomialRegression}, 
     if (container.link == GLM.LogLink)
         return exp.(z)
     end
+end
+
+function predict(container::FrequentistRegression{:PoissonRegression}, newdata::DataFrame)
+    fm_frame = ModelFrame(container.formula, newdata)
+    return exp.(modelmatrix(fm_frame) * StatsBase.coef(container.model))
 end
 
 function residuals(container::FrequentistRegression)
