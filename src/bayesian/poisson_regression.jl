@@ -2,8 +2,11 @@ function poisson_reg(formula::FormulaTerm, data::DataFrame, turingModel::Functio
     formula = apply_schema(formula, schema(formula, data))
     y, X = modelcols(formula, data)
 
+    if sim_size < 500
+        @warn "Simulation size should generally be atleast 500."
+    end
     chain = sample(CRRao_rng, turingModel(X, y), NUTS(), sim_size)
-    return BayesianRegression(:PoissonRegression, chain)
+    return BayesianRegression(:PoissonRegression, chain, formula)
 end
 
 """
