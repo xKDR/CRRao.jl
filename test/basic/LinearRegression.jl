@@ -5,7 +5,7 @@ priors = [
     Prior_Laplace(),
     Prior_Cauchy(),
     Prior_TDist(),
-    Prior_Uniform(),
+    # Prior_Uniform(),
 ]
 
 model = @fitmodel((MPG ~ HP + WT + Gear), mtcars, LinearRegression())
