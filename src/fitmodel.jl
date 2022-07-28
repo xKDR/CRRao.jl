@@ -21,6 +21,7 @@ Type to represent bayesian regression models returned by `fitmodel` functions. T
 """
 struct BayesianRegression{RegressionType}
     chain
+    formula::FormulaTerm
 end
 
 """
@@ -30,7 +31,7 @@ BayesianRegression(::Symbol, chain)
 
 Constructor for `BayesianRegression`. `model` can be any regression model. Used by `fitmodel` functions to return a frequentist regression model containers.
 """
-BayesianRegression(RegressionType::Symbol, chain) = BayesianRegression{RegressionType}(chain)
+BayesianRegression(RegressionType::Symbol, chain, formula) = BayesianRegression{RegressionType}(chain, formula)
 
 # Print Messages
 include("print.jl")
@@ -49,6 +50,9 @@ include("bayesian/linear_regression.jl")
 include("bayesian/logistic_regression.jl")
 include("bayesian/negativebinomial_regression.jl")
 include("bayesian/poisson_regression.jl")
+
+# Bayesian getter functions
+include("bayesian/getter.jl")
 
 """
 ```julia
