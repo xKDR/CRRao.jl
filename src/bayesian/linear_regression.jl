@@ -273,7 +273,7 @@ function fitmodel(
         v = 1 / h
         σ ~ Uniform(0, v)
         α ~ Uniform(-v * σ, v * σ)
-        β ~ filldist(Uniform(-v, v), predictors)
+        β ~ filldist(Uniform(-v, v), p)
 
         #likelihood
         y ~ MvNormal(α .+ X * β, σ)
