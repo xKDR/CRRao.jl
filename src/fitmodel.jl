@@ -41,6 +41,7 @@ include("frequentist/linear_regression.jl")
 include("frequentist/logistic_regression.jl")
 include("frequentist/negativebinomial_regression.jl")
 include("frequentist/poisson_regression.jl")
+include("frequentist/geometric_regression.jl")
 
 # Bayesian Regression Models
 include("bayesian/linear_regression.jl")
