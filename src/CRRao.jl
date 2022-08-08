@@ -27,6 +27,7 @@ struct NegBinomRegression end
 struct PoissonRegression end
 struct LinearRegression end
 struct LogisticRegression end
+struct GeometricRegression end
 struct Prior_Ridge end
 struct Prior_Laplace end
 struct Prior_Cauchy end
@@ -94,7 +95,7 @@ end
 
 Cauchit() = Cauchit(Cauchit_Link)
 
-export LinearRegression, LogisticRegression, PoissonRegression, NegBinomRegression
+export LinearRegression, LogisticRegression, PoissonRegression, NegBinomRegression, GeometricRegression 
 export Prior_Ridge, Prior_Laplace, Prior_Cauchy, Prior_TDist, Prior_Uniform
 export Logit, Probit, Cloglog, Cauchit, fitmodel, @fitmodel
 export coeftable, r2, adjr2, loglikelihood, aic, bic, sigma, predict, residuals, cooksdistance
