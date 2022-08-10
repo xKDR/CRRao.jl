@@ -16,8 +16,7 @@ makedocs(;
     pages=[
         "Home" => "index.md",
         "Manual" => Any[
-            "Guide"=> "man/guide.md",
-            "Examples"=> "man/examples.md",
+            "Guide"=> "man/guide.md"
         ],
         "API Reference" => Any[
             "General Interface" => "api/interface.md",
