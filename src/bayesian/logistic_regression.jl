@@ -1,4 +1,4 @@
-function logistic_reg(formula::FormulaTerm, data::DataFrame, turingModel::Function, sim_size::Int64)
+function logistic_reg(formula::FormulaTerm, data::DataFrame, Link::CRRaoLink, turingModel::Function, sim_size::Int64)
     formula = apply_schema(formula, schema(formula, data))
     y, X = modelcols(formula, data)
 
@@ -6,7 +6,7 @@ function logistic_reg(formula::FormulaTerm, data::DataFrame, turingModel::Functi
         @warn "Simulation size should generally be atleast 500."
     end
     chain = sample(CRRao_rng, turingModel(X, y), NUTS(), sim_size)
-    return BayesianRegression(:LogisticRegression, chain, formula)
+    return BayesianRegression(:LogisticRegression, chain, formula, Link)
 end
 
 """
@@ -74,7 +74,7 @@ function fitmodel(
         end
     end
 
-    return logistic_reg(formula, data, LogisticRegression, sim_size)
+    return logistic_reg(formula, data, Link, LogisticRegression, sim_size)
 end
 
 """
@@ -142,7 +142,7 @@ function fitmodel(
         end
     end
 
-    return logistic_reg(formula, data, LogisticRegression, sim_size)
+    return logistic_reg(formula, data, Link, LogisticRegression, sim_size)
 end
 
 """
@@ -210,7 +210,7 @@ function fitmodel(
         end
     end
 
-    return logistic_reg(formula, data, LogisticRegression, sim_size)
+    return logistic_reg(formula, data, Link, LogisticRegression, sim_size)
 end
 
 """
@@ -279,7 +279,7 @@ function fitmodel(
         end
     end
 
-    return logistic_reg(formula, data, LogisticRegression, sim_size)
+    return logistic_reg(formula, data, Link, LogisticRegression, sim_size)
 end
 
 """
@@ -347,5 +347,5 @@ function fitmodel(
         end
     end
 
-    return logistic_reg(formula, data, LogisticRegression, sim_size)
+    return logistic_reg(formula, data, Link, LogisticRegression, sim_size)
 end

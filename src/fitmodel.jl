@@ -22,6 +22,7 @@ Type to represent bayesian regression models returned by `fitmodel` functions. T
 struct BayesianRegression{RegressionType}
     chain
     formula::FormulaTerm
+    link
 end
 
 """
@@ -31,7 +32,7 @@ BayesianRegression(::Symbol, chain)
 
 Constructor for `BayesianRegression`. `model` can be any regression model. Used by `fitmodel` functions to return a frequentist regression model containers.
 """
-BayesianRegression(RegressionType::Symbol, chain, formula) = BayesianRegression{RegressionType}(chain, formula)
+BayesianRegression(RegressionType::Symbol, chain, formula, link = GLM.IdentityLink) = BayesianRegression{RegressionType}(chain, formula, link)
 
 # Print Messages
 include("print.jl")
