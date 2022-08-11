@@ -1,4 +1,4 @@
-using CRRao
+using CRRao, StatsModels, DataFrames
 using Documenter
 
 DocMeta.setdocmeta!(CRRao, :DocTestSetup, :(using CRRao); recursive=true)
@@ -15,7 +15,14 @@ makedocs(;
     ),
     pages=[
         "Home" => "index.md",
-        "Examples" => "examples.md"
+        "Manual" => Any[
+            "Guide"=> "man/guide.md"
+        ],
+        "API Reference" => Any[
+            "General Interface" => "api/interface.md",
+            "Frequentist Regression Models" => "api/frequentist_regression.md",
+            "Bayesian Regression Models" => "api/bayesian_regression.md"
+        ]
     ],
     strict = :doctest
 )
