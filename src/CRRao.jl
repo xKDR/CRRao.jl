@@ -42,6 +42,12 @@ Abstract type representing link functions which are used to dispatch to appropri
 """
 abstract type CRRaoLink end
 
+struct Identity <: CRRaoLink
+    link::Function
+end
+
+Identity() = Identity(Identity_Link)
+
 """
 ```julia
 Logit <: CRRaoLink

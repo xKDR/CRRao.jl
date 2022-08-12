@@ -32,7 +32,7 @@ BayesianRegression(::Symbol, chain)
 
 Constructor for `BayesianRegression`. `model` can be any regression model. Used by `fitmodel` functions to return a frequentist regression model containers.
 """
-BayesianRegression(RegressionType::Symbol, chain, formula, link = GLM.IdentityLink) = BayesianRegression{RegressionType}(chain, formula, link)
+BayesianRegression(RegressionType::Symbol, chain, formula, link = Identity()) = BayesianRegression{RegressionType}(chain, formula, link)
 
 # Print Messages
 include("print.jl")
