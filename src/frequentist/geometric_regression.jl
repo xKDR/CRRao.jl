@@ -34,3 +34,5 @@ julia> container = @fitmodel(Num ~ Target + Coop + NCost, sanction, GeometricReg
 function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::GeometricRegression)
     return geometric_reg(formula, data, LogLink())
 end
+
+#test comment
