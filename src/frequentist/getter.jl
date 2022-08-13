@@ -218,6 +218,11 @@ function predict(container::FrequentistRegression{:PoissonRegression}, newdata::
     return exp.(modelmatrix(fm_frame) * StatsBase.coef(container.model))
 end
 
+function predict(container::FrequentistRegression{:GeometricRegression}, newdata::DataFrame)
+    fm_frame = ModelFrame(container.formula, newdata)
+    return exp.(modelmatrix(fm_frame) * StatsBase.coef(container.model))
+end
+
 """
 ```julia
 residuals(container::FrequentistRegression)

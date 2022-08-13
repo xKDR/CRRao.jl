@@ -22,5 +22,9 @@ CRRao.set_rng(StableRNG(123))
         @testset "Negative Binomial Regression" begin
             include("basic/NegBinomialRegression.jl")
         end
+
+        @testset "Geometric Regression" begin
+            include("basic/GeometricRegression.jl")
+        end
     end
 end
