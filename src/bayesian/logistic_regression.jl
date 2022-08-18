@@ -66,7 +66,7 @@ function fitmodel(
 
         ## Link Function
 
-        prob = Link.link.(z)
+        prob = Link.link_function.(z)
 
         #likelihood
         for i = 1:n
@@ -134,7 +134,7 @@ function fitmodel(
 
         ## Link Function
 
-        prob = Link.link.(z)
+        prob = Link.link_function.(z)
 
         #likelihood
         for i = 1:n
@@ -202,7 +202,7 @@ function fitmodel(
 
         ## Link Function
 
-        prob = Link.link.(z)
+        prob = Link.link_function.(z)
 
         #likelihood
         for i = 1:n
@@ -271,7 +271,7 @@ function fitmodel(
 
         ## Link Function
 
-        prob = Link.link.(z)
+        prob = Link.link_function.(z)
 
         #likelihood
         for i = 1:n
@@ -339,7 +339,7 @@ function fitmodel(
 
         ## Link Function
 
-        prob = Link.link.(z)
+        prob = Link.link_function.(z)
 
         #likelihood
         for i = 1:n

@@ -43,7 +43,7 @@ Abstract type representing link functions which are used to dispatch to appropri
 abstract type CRRaoLink end
 
 struct Identity <: CRRaoLink
-    link::Function
+    link_function::Function
 end
 
 Identity() = Identity(Identity_Link)
@@ -56,7 +56,7 @@ Logit <: CRRaoLink
 A type representing the Logit link function.
 """
 struct Logit <: CRRaoLink
-    link::Function
+    link_function::Function
 end
 
 Logit() = Logit(Logit_Link)
@@ -69,7 +69,7 @@ Probit <: CRRaoLink
 A type representing the Probit link function.
 """
 struct Probit <: CRRaoLink
-    link::Function
+    link_function::Function
 end
 
 Probit() = Probit(Probit_Link)
@@ -82,7 +82,7 @@ Cloglog <: CRRaoLink
 A type representing the Cloglog link function.
 """
 struct Cloglog <: CRRaoLink
-    link::Function
+    link_function::Function
 end
 
 Cloglog() = Cloglog(Cloglog_Link)
@@ -95,7 +95,7 @@ Cauchit <: CRRaoLink
 A type representing the Cauchit link function.
 """
 struct Cauchit <: CRRaoLink
-    link::Function
+    link_function::Function
 end
 
 Cauchit() = Cauchit(Cauchit_Link)

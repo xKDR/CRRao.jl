@@ -19,7 +19,7 @@ function predict(container::BayesianRegression{:LogisticRegression}, newdata::Da
         W = reduce(hcat, W)
     end
     z = X * W'
-    return vec(mean(container.link.link.(z), dims=2))
+    return vec(mean(container.link.link_function.(z), dims=2))
 end
 
 function predict(container::BayesianRegression{:NegativeBinomialRegression}, newdata::DataFrame, prediction_chain_start::Int64 = 200)
