@@ -36,7 +36,6 @@ julia> turnout = dataset("Zelig", "turnout")
  2000 │ white     59     10.0   0.5523      0
                              1993 rows omitted
 julia> container_logit = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Logit(), Prior_Ridge())
-Sampling 100%|████████████████████████████████████████████████████████████████████████████████████| Time: 0:02:31
 Chains MCMC chain (10000×17×1 Array{Float64, 3}):
 
 Iterations        = 1001:1:11000
@@ -67,7 +66,6 @@ Quantiles
         β[3]    0.1108    0.1416    0.1588    0.1755    0.2094
         β[4]    0.0107    0.0260    0.0338    0.0417    0.0563
 julia> container_probit = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Probit(), Prior_Ridge())
-Sampling 100%|████████████████████████████████████████████████████████████████████████████████████| Time: 0:02:57
 Chains MCMC chain (10000×17×1 Array{Float64, 3}):
 
 Iterations        = 1001:1:11000
@@ -98,7 +96,6 @@ Quantiles
         β[3]    0.0634    0.0808    0.0901    0.0992    0.1179
         β[4]    0.0086    0.0174    0.0221    0.0265    0.0354
 julia> container_cloglog = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Cloglog(), Prior_Ridge())
-Sampling 100%|████████████████████████████████████████████████████████████████████████████████████| Time: 0:01:34
 Chains MCMC chain (10000×17×1 Array{Float64, 3}):
 
 Iterations        = 1001:1:11000
@@ -131,7 +128,6 @@ Quantiles
 julia> container_cauchit = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Cauchit(), Prior_Ridge())
 ┌ Info: Found initial step size
 └   ϵ = 0.003125
-Sampling 100%|████████████████████████████████████████████████████████████████████████████████████| Time: 0:02:33
 Chains MCMC chain (10000×17×1 Array{Float64, 3}):
 
 Iterations        = 1001:1:11000
@@ -222,21 +218,8 @@ julia> turnout = dataset("Zelig", "turnout")
  2000 │ white     59     10.0   0.5523      0
                              1993 rows omitted
 julia> container_logit = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Logit(), Prior_Laplace())
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
 ┌ Info: Found initial step size
 └   ϵ = 0.003125
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-Sampling 100%|████████████████████████████████████████████████████████████████████████████████████| Time: 0:02:21
 Chains MCMC chain (10000×17×1 Array{Float64, 3}):
 
 Iterations        = 1001:1:11000
@@ -267,54 +250,8 @@ Quantiles
         β[3]    0.1145    0.1454    0.1624    0.1796    0.2133
         β[4]    0.0090    0.0240    0.0323    0.0400    0.0549
 julia> container_probit = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Probit(), Prior_Laplace())
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
 ┌ Info: Found initial step size
 └   ϵ = 0.00078125
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-Sampling 100%|████████████████████████████████████████████████████████████████████████████████████| Time: 0:02:51
 Chains MCMC chain (10000×17×1 Array{Float64, 3}):
 
 Iterations        = 1001:1:11000
@@ -345,183 +282,8 @@ Quantiles
         β[3]    0.0641    0.0820    0.0913    0.1011    0.1195
         β[4]    0.0074    0.0165    0.0213    0.0260    0.0349
 julia> container_cloglog = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Cloglog(), Prior_Laplace())
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
 ┌ Info: Found initial step size
 └   ϵ = 0.0015625
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-Sampling 100%|████████████████████████████████████████████████████████████████████████████████████| Time: 0:03:13
 Chains MCMC chain (10000×17×1 Array{Float64, 3}):
 
 Iterations        = 1001:1:11000
@@ -554,7 +316,6 @@ Quantiles
 julia> container_cauchit = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Cauchit(), Prior_Laplace())
 ┌ Info: Found initial step size
 └   ϵ = 0.0330078125
-Sampling 100%|████████████████████████████████████████████████████████████████████████████████████| Time: 0:02:30
 Chains MCMC chain (10000×17×1 Array{Float64, 3}):
 
 Iterations        = 1001:1:11000
@@ -645,27 +406,8 @@ julia> turnout = dataset("Zelig", "turnout")
  2000 │ white     59     10.0   0.5523      0
                              1993 rows omitted
 julia> container_logit = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Logit(), Prior_Cauchy())
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
 ┌ Info: Found initial step size
 └   ϵ = 0.003125
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-Sampling 100%|████████████████████████████████████████████████████████████████████████████████████| Time: 0:02:30
 Chains MCMC chain (10000×17×1 Array{Float64, 3}):
 
 Iterations        = 1001:1:11000
@@ -696,195 +438,8 @@ Quantiles
         β[3]    0.1153    0.1481    0.1652    0.1822    0.2164
         β[4]    0.0080    0.0227    0.0304    0.0384    0.0537
 julia> container_probit = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Probit(), Prior_Cauchy())
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
 ┌ Info: Found initial step size
 └   ϵ = 0.00078125
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-Sampling 100%|████████████████████████████████████████████████████████████████████████████████████| Time: 0:03:08
 Chains MCMC chain (10000×17×1 Array{Float64, 3}):
 
 Iterations        = 1001:1:11000
@@ -915,7 +470,6 @@ Quantiles
         β[3]    0.0649    0.0830    0.0927    0.1021    0.1207
         β[4]    0.0068    0.0155    0.0202    0.0249    0.0343
 julia> container_cloglog = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Cloglog(), Prior_Cauchy())
-Sampling 100%|████████████████████████████████████████████████████████████████████████████████████| Time: 0:02:00
 Chains MCMC chain (10000×17×1 Array{Float64, 3}):
 
 Iterations        = 1001:1:11000
@@ -948,7 +502,6 @@ Quantiles
 julia> container_cauchit = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Cauchit(), Prior_Cauchy())
 ┌ Info: Found initial step size
 └   ϵ = 0.05
-Sampling 100%|████████████████████████████████████████████████████████████████████████████████████| Time: 0:02:49
 Chains MCMC chain (10000×17×1 Array{Float64, 3}):
 
 Iterations        = 1001:1:11000
@@ -1039,39 +592,8 @@ julia> turnout = dataset("Zelig", "turnout")
  2000 │ white     59     10.0   0.5523      0
                              1993 rows omitted
 julia> container_logit = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Logit(), Prior_TDist())
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
 ┌ Info: Found initial step size
 └   ϵ = 0.003125
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-Sampling 100%|████████████████████████████████████████████████████████████████████████████████████| Time: 0:03:10
 Chains MCMC chain (10000×18×1 Array{Float64, 3}):
 
 Iterations        = 1001:1:11000
@@ -1104,69 +626,8 @@ Quantiles
         β[3]    0.1177    0.1491    0.1665    0.1841    0.2177
         β[4]    0.0094    0.0251    0.0334    0.0414    0.0575
 julia> container_probit = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Probit(), Prior_TDist())
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
 ┌ Info: Found initial step size
 └   ϵ = 0.00078125
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-Sampling 100%|████████████████████████████████████████████████████████████████████████████████████| Time: 0:04:21
 Chains MCMC chain (10000×18×1 Array{Float64, 3}):
 
 Iterations        = 1001:1:11000
@@ -1199,129 +660,8 @@ Quantiles
         β[3]    0.0671    0.0843    0.0935    0.1027    0.1210
         β[4]    0.0077    0.0169    0.0217    0.0267    0.0361
 julia> container_cloglog = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Cloglog(), Prior_TDist())
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
 ┌ Info: Found initial step size
 └   ϵ = 0.0015625
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-Sampling 100%|████████████████████████████████████████████████████████████████████████████████████| Time: 0:04:01
 Chains MCMC chain (10000×18×1 Array{Float64, 3}):
 
 Iterations        = 1001:1:11000
@@ -1356,7 +696,6 @@ Quantiles
 julia> container_cauchit = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Cauchit(), Prior_TDist())
 ┌ Info: Found initial step size
 └   ϵ = 0.009375000000000001
-Sampling 100%|████████████████████████████████████████████████████████████████████████████████████| Time: 0:03:43
 Chains MCMC chain (10000×18×1 Array{Float64, 3}):
 
 Iterations        = 1001:1:11000
@@ -1450,7 +789,6 @@ julia> turnout = dataset("Zelig", "turnout")
  2000 │ white     59     10.0   0.5523      0
                              1993 rows omitted
 julia> container_logit = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Logit(), Prior_Uniform())
-Sampling 100%|████████████████████████████████████████████████████████████████████████████████████| Time: 0:03:07
 Chains MCMC chain (10000×17×1 Array{Float64, 3}):
 
 Iterations        = 1001:1:11000
@@ -1483,7 +821,6 @@ Quantiles
         β[4]    0.0180               0.0327                                 0.0399                                       ⋯
                                                                                                          2 columns omitted
 julia> container_probit = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Probit(), Prior_Uniform())
-Sampling 100%|████████████████████████████████████████████████████████████████████████████████████| Time: 0:04:31
 Chains MCMC chain (10000×17×1 Array{Float64, 3}):
 
 Iterations        = 1001:1:11000
@@ -1516,7 +853,6 @@ Quantiles
         β[4]    0.0078              0.0169                                0.0220                                         ⋯
                                                                                                          2 columns omitted
 julia> container_cloglog = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Cloglog(), Prior_Uniform())
-Sampling 100%|████████████████████████████████████████████████████████████████████████████████████| Time: 0:03:41
 Chains MCMC chain (10000×17×1 Array{Float64, 3}):
 
 Iterations        = 1001:1:11000
@@ -1549,7 +885,6 @@ Quantiles
         β[4]   -0.0042               0.0036                               0.0079                                         ⋯
                                                                                                          2 columns omitted
 julia> container_cauchit = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Cauchit(), Prior_Uniform())
-Sampling 100%|████████████████████████████████████████████████████████████████████████████████████| Time: 0:04:10
 Chains MCMC chain (10000×17×1 Array{Float64, 3}):
 
 Iterations        = 1001:1:11000

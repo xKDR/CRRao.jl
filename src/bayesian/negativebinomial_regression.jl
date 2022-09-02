@@ -43,7 +43,6 @@ julia> sanction = dataset("Zelig", "sanction")
 julia> container = @fitmodel(Num ~ Target + Coop + NCost, sanction, NegBinomRegression(), Prior_Ridge())
 ┌ Info: Found initial step size
 └   ϵ = 0.025
-Sampling 100%|████████████████████████████████████████████████████████████████████████████████████| Time: 0:00:25
 Chains MCMC chain (10000×19×1 Array{Float64, 3}):
 
 Iterations        = 1001:1:11000
@@ -138,10 +137,6 @@ julia> sanction = dataset("Zelig", "sanction")
 julia> container = @fitmodel(Num ~ Target + Coop + NCost, sanction, NegBinomRegression(), Prior_Laplace())
 ┌ Info: Found initial step size
 └   ϵ = 0.05
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
-Sampling 100%|████████████████████████████████████████████████████████████████████████████████████| Time: 0:00:25
 Chains MCMC chain (10000×19×1 Array{Float64, 3}):
 
 Iterations        = 1001:1:11000
@@ -236,7 +231,6 @@ julia> sanction = dataset("Zelig", "sanction")
 julia> container = @fitmodel(Num ~ Target + Coop + NCost, sanction, NegBinomRegression(), Prior_Cauchy())
 ┌ Info: Found initial step size
 └   ϵ = 0.2
-Sampling 100%|████████████████████████████████████████████████████████████████████████████████████| Time: 0:00:26
 Chains MCMC chain (10000×19×1 Array{Float64, 3}):
 
 Iterations        = 1001:1:11000
@@ -328,12 +322,8 @@ julia> sanction = dataset("Zelig", "sanction")
   78 │     1      3       1       1       1      2     10  little effect
                                                           71 rows omitted
 julia> container = @fitmodel(Num ~ Target + Coop + NCost, sanction, NegBinomRegression(), Prior_TDist())
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
 ┌ Info: Found initial step size
 └   ϵ = 0.05
-Sampling 100%|████████████████████████████████████████████████████████████████████████████████████| Time: 0:00:30
 Chains MCMC chain (10000×20×1 Array{Float64, 3}):
 
 Iterations        = 1001:1:11000
@@ -428,7 +418,6 @@ julia> sanction = dataset("Zelig", "sanction")
   78 │     1      3       1       1       1      2     10  little effect
                                                           71 rows omitted
 julia> container = @fitmodel(Num ~ Target + Coop + NCost, sanction, NegBinomRegression(), Prior_Uniform())
-Sampling 100%|████████████████████████████████████████████████████████████████████████████████████| Time: 0:04:53
 Chains MCMC chain (10000×19×1 Array{Float64, 3}):
 
 Iterations        = 1001:1:11000

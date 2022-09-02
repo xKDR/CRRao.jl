@@ -38,7 +38,6 @@ julia> sanction = dataset("Zelig", "sanction")
 julia> container = @fitmodel(Num ~ Target + Coop + NCost, sanction, PoissonRegression(), Prior_Ridge())
 ┌ Info: Found initial step size
 └   ϵ = 0.025
-Sampling 100%|████████████████████████████████████████████████████████████████████████████████████| Time: 0:00:26
 Chains MCMC chain (10000×19×1 Array{Float64, 3}):
 
 Iterations        = 1001:1:11000
@@ -132,7 +131,6 @@ julia> sanction = dataset("Zelig", "sanction")
 julia> container = @fitmodel(Num ~ Target + Coop + NCost, sanction, PoissonRegression(), Prior_Laplace())
 ┌ Info: Found initial step size
 └   ϵ = 0.025
-Sampling 100%|████████████████████████████████████████████████████████████████████████████████████| Time: 0:00:24
 Chains MCMC chain (10000×19×1 Array{Float64, 3}):
 
 Iterations        = 1001:1:11000
@@ -226,7 +224,6 @@ julia> sanction = dataset("Zelig", "sanction")
 julia> container = @fitmodel(Num ~ Target + Coop + NCost, sanction, PoissonRegression(), Prior_Cauchy())
 ┌ Info: Found initial step size
 └   ϵ = 0.025
-Sampling 100%|████████████████████████████████████████████████████████████████████████████████████| Time: 0:00:25
 Chains MCMC chain (10000×19×1 Array{Float64, 3}):
 
 Iterations        = 1001:1:11000
@@ -318,12 +315,8 @@ julia> sanction = dataset("Zelig", "sanction")
   78 │     1      3       1       1       1      2     10  little effect
                                                           71 rows omitted
 julia> container = @fitmodel(Num ~ Target + Coop + NCost, sanction, PoissonRegression(), Prior_TDist())
-┌ Warning: The current proposal will be rejected due to numerical error(s).
-│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, true, false, true)
-└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/51xgc/src/hamiltonian.jl:47
 ┌ Info: Found initial step size
 └   ϵ = 0.0125
-Sampling 100%|████████████████████████████████████████████████████████████████████████████████████| Time: 0:00:26
 Chains MCMC chain (10000×20×1 Array{Float64, 3}):
 
 Iterations        = 1001:1:11000
@@ -418,7 +411,6 @@ julia> sanction = dataset("Zelig", "sanction")
   78 │     1      3       1       1       1      2     10  little effect
                                                           71 rows omitted
 julia> container = @fitmodel(Num ~ Target + Coop + NCost, sanction, PoissonRegression(), Prior_Uniform())
-Sampling 100%|████████████████████████████████████████████████████████████████████████████████████| Time: 0:03:45
 Chains MCMC chain (10000×19×1 Array{Float64, 3}):
 
 Iterations        = 1001:1:11000
