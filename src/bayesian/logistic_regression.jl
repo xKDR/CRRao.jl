@@ -11,7 +11,7 @@ end
 
 """
 ```julia
-fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_Ridge, h::Float64 = 0.1, level::Float64 = 0.95, sim_size::Int64 = 10000)
+fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_Ridge, h::Float64 = 0.1, level::Float64 = 0.95, sim_size::Int64 = 1000)
 ```
 
 Fit a Bayesian Logistic Regression model on the input data with a Ridge prior with the provided `Link` function.
@@ -35,7 +35,7 @@ julia> turnout = dataset("Zelig", "turnout")
  1999 │ white     22     10.0   2.4811      0
  2000 │ white     59     10.0   0.5523      0
                              1993 rows omitted
-julia> container_logit = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Logit(), Prior_Ridge())
+julia> container_logit = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Logit(), Prior_Ridge(),)
 Chains MCMC chain (10000×17×1 Array{Float64, 3}):
 
 Iterations        = 1001:1:11000
@@ -167,16 +167,17 @@ function fitmodel(
     prior::Prior_Ridge,
     h::Float64 = 0.1,
     level::Float64 = 0.95,
-    sim_size::Int64 = 10000
+    sim_size::Int64 = 1000
 )
     @model LogisticRegression(X, y) = begin
         p = size(X, 2)
         n = size(X, 1)
         #priors
         λ ~ InverseGamma(h, h)
+        α ~ Normal(0, λ)
         β ~ filldist(Normal(0, λ), p)
 
-        z = X * β
+        z = α .+ X * β
 
         ## Link Function
 
@@ -193,7 +194,7 @@ end
 
 """
 ```julia
-fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_Laplace, h::Float64 = 0.1, level::Float64 = 0.95, sim_size::Int64 = 10000)
+fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_Laplace, h::Float64 = 0.1, level::Float64 = 0.95, sim_size::Int64 = 1000)
 ```
 
 Fit a Bayesian Logistic Regression model on the input data with a Laplace prior with the provided `Link` function.
@@ -355,16 +356,17 @@ function fitmodel(
     prior::Prior_Laplace,
     h::Float64 = 0.1,
     level::Float64 = 0.95,
-    sim_size::Int64 = 10000
+    sim_size::Int64 = 1000
 )
     @model LogisticRegression(X, y) = begin
         p = size(X, 2)
         n = size(X, 1)
         #priors
         λ ~ InverseGamma(h, h)
+        α ~ Normal(0, λ)
         β ~ filldist(Laplace(0, λ), p)
 
-        z = X * β
+        z = α .+ X * β
 
         ## Link Function
 
@@ -381,7 +383,7 @@ end
 
 """
 ```julia
-fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_Cauchy, h::Float64 = 0.1, level::Float64 = 0.95, sim_size::Int64 = 10000)
+fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_Cauchy, h::Float64 = 0.1, level::Float64 = 0.95, sim_size::Int64 = 1000)
 ```
 
 Fit a Bayesian Logistic Regression model on the input data with a Cauchy prior with the provided `Link` function.
@@ -541,16 +543,17 @@ function fitmodel(
     prior::Prior_Cauchy,
     h::Float64 = 0.1,
     level::Float64 = 0.95,
-    sim_size::Int64 = 10000
+    sim_size::Int64 = 1000
 )
     @model LogisticRegression(X, y) = begin
         p = size(X, 2)
         n = size(X, 1)
         #priors
         λ ~ Truncated(TDist(1), 0, Inf)
+        α ~ TDist(1) * λ
         β ~ filldist(TDist(1) * λ, p)
 
-        z = X * β
+        z = α .+ X * β
 
         ## Link Function
 
@@ -567,7 +570,7 @@ end
 
 """
 ```julia
-fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_TDist, h::Float64 = 1.0, level::Float64 = 0.95, sim_size::Int64 = 10000)
+fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_TDist, h::Float64 = 1.0, level::Float64 = 0.95, sim_size::Int64 = 1000)
 ```
 
 Fit a Bayesian Logistic Regression model on the input data with a T-Dist prior with the provided `Link` function.
@@ -737,7 +740,7 @@ function fitmodel(
     prior::Prior_TDist,
     h::Float64 = 1.0,
     level::Float64 = 0.95,
-    sim_size::Int64 = 10000
+    sim_size::Int64 = 1000
 )
     @model LogisticRegression(X, y) = begin
         p = size(X, 2)
@@ -745,9 +748,10 @@ function fitmodel(
         #priors
         λ ~ InverseGamma(h, h)
         ν ~ InverseGamma(h, h)
+        α ~ TDist(ν) * λ
         β ~ filldist(TDist(ν) * λ, p)
 
-        z = X * β
+        z = α .+ X * β
 
         ## Link Function
 
@@ -764,7 +768,7 @@ end
 
 """
 ```julia
-fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_Uniform, h::Float64 = 0.01, level::Float64 = 0.95, sim_size::Int64 = 10000)
+fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_Uniform, h::Float64 = 0.01, level::Float64 = 0.95, sim_size::Int64 = 1000)
 ```
 
 Fit a Bayesian Logistic Regression model on the input data with a Uniform prior with the provided `Link` function.
@@ -926,16 +930,17 @@ function fitmodel(
     prior::Prior_Uniform,
     h::Float64 = 0.01,
     level::Float64 = 0.95,
-    sim_size::Int64 = 10000
+    sim_size::Int64 = 1000
 )
     @model LogisticRegression(X, y) = begin
         p = size(X, 2)
         n = size(X, 1)
         #priors
         v ~ InverseGamma(h, h)
+        α ~ TDist(1)
         β ~ filldist(Uniform(-v, v), p)
 
-        z = X * β
+        z = α .+ X * β
 
         ## Link Function
 
