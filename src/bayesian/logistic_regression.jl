@@ -11,7 +11,7 @@ end
 
 """
 ```julia
-fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_Ridge, h::Float64 = 0.1, level::Float64 = 0.95, sim_size::Int64 = 10000)
+fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_Ridge, h::Float64 = 0.1, level::Float64 = 0.95, sim_size::Int64 = 1000)
 ```
 
 Fit a Bayesian Logistic Regression model on the input data with a Ridge prior with the provided `Link` function.
@@ -36,35 +36,41 @@ julia> turnout = dataset("Zelig", "turnout")
  2000 │ white     59     10.0   0.5523      0
                              1993 rows omitted
 julia> container_logit = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Logit(), Prior_Ridge())
-Chains MCMC chain (10000×17×1 Array{Float64, 3}):
+┌ Warning: The current proposal will be rejected due to numerical error(s).
+│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
+└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/kB7Xa/src/hamiltonian.jl:47
+Chains MCMC chain (1000×18×1 Array{Float64, 3}):
 
-Iterations        = 1001:1:11000
+Iterations        = 501:1:1500
 Number of chains  = 1
-Samples per chain = 10000
-Wall duration     = 153.07 seconds
-Compute duration  = 153.07 seconds
-parameters        = λ, β[1], β[2], β[3], β[4]
+Samples per chain = 1000
+Wall duration     = 6.98 seconds
+Compute duration  = 6.98 seconds
+parameters        = λ, α, β[1], β[2], β[3], β[4]
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, hamiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, tree_depth, numerical_error, step_size, nom_step_size
 
 Summary Statistics
-  parameters      mean       std   naive_se      mcse         ess      rhat   ess_per_sec 
-      Symbol   Float64   Float64    Float64   Float64     Float64   Float64       Float64 
+  parameters      mean       std   naive_se      mcse        ess      rhat   ess_per_sec 
+      Symbol   Float64   Float64    Float64   Float64    Float64   Float64       Float64 
 
-           λ    0.1338    0.0730     0.0007    0.0010   4607.5094    1.0006       30.0999
-        β[1]    0.0051    0.0022     0.0000    0.0000   9318.7672    1.0000       60.8775
-        β[2]   -0.0303    0.0956     0.0010    0.0013   5817.9985    1.0002       38.0078
-        β[3]    0.1590    0.0252     0.0003    0.0003   6219.4220    0.9999       40.6302
-        β[4]    0.0338    0.0116     0.0001    0.0002   5886.4337    1.0002       38.4548
+           λ    2.3722    0.0007     0.0000    0.0001     5.1273    1.1072        0.7346
+           α    0.7872    0.0003     0.0000    0.0001     2.9594    1.5660        0.4240
+        β[1]    0.4843    0.0000     0.0000    0.0000   111.6465    1.0067       15.9952
+        β[2]    0.6183    0.0004     0.0000    0.0001     2.3393    2.2610        0.3351
+        β[3]   -1.4043    0.0003     0.0000    0.0001     3.1790    1.3848        0.4554
+        β[4]   -3.0656    0.0007     0.0000    0.0001     2.4692    1.9479        0.3538
 
 Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5% 
       Symbol   Float64   Float64   Float64   Float64   Float64 
 
-           λ    0.0551    0.0878    0.1151    0.1571    0.3184
-        β[1]    0.0008    0.0036    0.0051    0.0065    0.0095
-        β[2]   -0.2316   -0.0896   -0.0259    0.0310    0.1509
-        β[3]    0.1108    0.1416    0.1588    0.1755    0.2094
-        β[4]    0.0107    0.0260    0.0338    0.0417    0.0563
+           λ    2.3706    2.3721    2.3724    2.3726    2.3731
+           α    0.7865    0.7872    0.7873    0.7874    0.7876
+        β[1]    0.4842    0.4843    0.4843    0.4843    0.4843
+        β[2]    0.6178    0.6180    0.6181    0.6186    0.6192
+        β[3]   -1.4046   -1.4045   -1.4044   -1.4041   -1.4036
+        β[4]   -3.0669   -3.0659   -3.0655   -3.0653   -3.0645
+
 julia> container_probit = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Probit(), Prior_Ridge())
 Chains MCMC chain (10000×17×1 Array{Float64, 3}):
 
@@ -167,16 +173,17 @@ function fitmodel(
     prior::Prior_Ridge,
     h::Float64 = 0.1,
     level::Float64 = 0.95,
-    sim_size::Int64 = 10000
+    sim_size::Int64 = 1000
 )
     @model LogisticRegression(X, y) = begin
         p = size(X, 2)
         n = size(X, 1)
         #priors
         λ ~ InverseGamma(h, h)
+        α ~ Normal(0, λ)
         β ~ filldist(Normal(0, λ), p)
 
-        z = X * β
+        z = α .+ X * β
 
         ## Link Function
 
@@ -193,7 +200,7 @@ end
 
 """
 ```julia
-fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_Laplace, h::Float64 = 0.1, level::Float64 = 0.95, sim_size::Int64 = 10000)
+fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_Laplace, h::Float64 = 0.1, level::Float64 = 0.95, sim_size::Int64 = 1000)
 ```
 
 Fit a Bayesian Logistic Regression model on the input data with a Laplace prior with the provided `Link` function.
@@ -355,16 +362,17 @@ function fitmodel(
     prior::Prior_Laplace,
     h::Float64 = 0.1,
     level::Float64 = 0.95,
-    sim_size::Int64 = 10000
+    sim_size::Int64 = 1000
 )
     @model LogisticRegression(X, y) = begin
         p = size(X, 2)
         n = size(X, 1)
         #priors
         λ ~ InverseGamma(h, h)
+        α ~ Normal(0, λ)
         β ~ filldist(Laplace(0, λ), p)
 
-        z = X * β
+        z = α .+ X * β
 
         ## Link Function
 
@@ -381,7 +389,7 @@ end
 
 """
 ```julia
-fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_Cauchy, h::Float64 = 0.1, level::Float64 = 0.95, sim_size::Int64 = 10000)
+fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_Cauchy, h::Float64 = 0.1, level::Float64 = 0.95, sim_size::Int64 = 1000)
 ```
 
 Fit a Bayesian Logistic Regression model on the input data with a Cauchy prior with the provided `Link` function.
@@ -541,16 +549,17 @@ function fitmodel(
     prior::Prior_Cauchy,
     h::Float64 = 0.1,
     level::Float64 = 0.95,
-    sim_size::Int64 = 10000
+    sim_size::Int64 = 1000
 )
     @model LogisticRegression(X, y) = begin
         p = size(X, 2)
         n = size(X, 1)
         #priors
         λ ~ Truncated(TDist(1), 0, Inf)
+        α ~ TDist(1) * λ
         β ~ filldist(TDist(1) * λ, p)
 
-        z = X * β
+        z = α .+ X * β
 
         ## Link Function
 
@@ -567,7 +576,7 @@ end
 
 """
 ```julia
-fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_TDist, h::Float64 = 1.0, level::Float64 = 0.95, sim_size::Int64 = 10000)
+fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_TDist, h::Float64 = 1.0, level::Float64 = 0.95, sim_size::Int64 = 1000)
 ```
 
 Fit a Bayesian Logistic Regression model on the input data with a T-Dist prior with the provided `Link` function.
@@ -735,9 +744,9 @@ function fitmodel(
     modelClass::LogisticRegression,
     Link::CRRaoLink,
     prior::Prior_TDist,
-    h::Float64 = 1.0,
+    h::Float64 = 3.0,
     level::Float64 = 0.95,
-    sim_size::Int64 = 10000
+    sim_size::Int64 = 1000
 )
     @model LogisticRegression(X, y) = begin
         p = size(X, 2)
@@ -745,9 +754,10 @@ function fitmodel(
         #priors
         λ ~ InverseGamma(h, h)
         ν ~ InverseGamma(h, h)
+        α ~ TDist(ν) * λ
         β ~ filldist(TDist(ν) * λ, p)
 
-        z = X * β
+        z = α .+ X * β
 
         ## Link Function
 
@@ -764,7 +774,7 @@ end
 
 """
 ```julia
-fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_Uniform, h::Float64 = 0.01, level::Float64 = 0.95, sim_size::Int64 = 10000)
+fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_Uniform, h::Float64 = 0.01, level::Float64 = 0.95, sim_size::Int64 = 1000)
 ```
 
 Fit a Bayesian Logistic Regression model on the input data with a Uniform prior with the provided `Link` function.
@@ -926,16 +936,17 @@ function fitmodel(
     prior::Prior_Uniform,
     h::Float64 = 0.01,
     level::Float64 = 0.95,
-    sim_size::Int64 = 10000
+    sim_size::Int64 = 1000
 )
     @model LogisticRegression(X, y) = begin
         p = size(X, 2)
         n = size(X, 1)
         #priors
         v ~ InverseGamma(h, h)
+        α ~ TDist(1)
         β ~ filldist(Uniform(-v, v), p)
 
-        z = X * β
+        z = α .+ X * β
 
         ## Link Function
 
