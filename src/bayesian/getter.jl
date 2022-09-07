@@ -18,7 +18,7 @@ function predict(container::BayesianRegression{:LogisticRegression}, newdata::Da
     if isa(W, Tuple)
         W = reduce(hcat, W)
     end
-    z = X * W'
+    z = params.α' .+ X * W'
     return vec(mean(container.link.link_function.(z), dims=2))
 end
 
