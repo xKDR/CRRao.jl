@@ -1,37 +1,53 @@
-"""
-CRRao is a Julia package that implements the Statistical models. The implementation 
-of Statistical models become straightforward for most Julia users 
-with the help of this package. This is going to be wrapper package;
-leveraging the strength of wonderful Julia packages that already exists, 
-such as StatsBase, StatsModels, Distributions,GLM, Turing, DataFrames,
-LinearAlgebra, etc.
-
-
-CRRao is a consistent framework through which callers interact with 
-a large suite of models. For the end-user, it reduces the cost and complexity 
-of estimating/training statistical models. It offers convenient guidelines through 
-which development of additional statistical models can take place 
-in the future.
-
-We follow framework which makes contribution to this package easy.
-
-**Note**: You can read more about **Prof C.R. Rao** [here](https://en.wikipedia.org/wiki/C._R._Rao)
-"""
 module CRRao
 
 using DataFrames, GLM, Turing, StatsModels, StatsBase
 using StatsBase, Distributions, LinearAlgebra
 using Optim, NLSolversBase, Random
 
-struct NegBinomRegression end
-struct PoissonRegression end
+"""
+```julia
+LinearRegression
+```
+
+Type representing the Linear Regression model class.
+"""
 struct LinearRegression end
+
+"""
+```julia
+LogisticRegression
+```
+
+Type representing the Logistic Regression model class.
+"""
 struct LogisticRegression end
+
+"""
+```julia
+NegBinomRegression
+```
+
+Type representing the Negative Binomial Regression model class.
+"""
+struct NegBinomRegression end
+
+"""
+```julia
+PoissonRegression
+```
+
+Type representing the Poisson Regression model class.
+"""
+struct PoissonRegression end
+
+
+
 struct Prior_Ridge end
 struct Prior_Laplace end
 struct Prior_Cauchy end
 struct Prior_TDist end
 struct Prior_Uniform end
+struct Prior_HorseShoe end
 
 """
 ```julia
@@ -53,7 +69,11 @@ Identity() = Identity(Identity_Link)
 Logit <: CRRaoLink
 ```
 
-A type representing the Logit link function.
+A type representing the Logit link function, which is defined by the formula
+
+```math
+z\\mapsto \\dfrac{1}{1 + \\exp(-z)}
+```
 """
 struct Logit <: CRRaoLink
     link_function::Function
@@ -66,7 +86,13 @@ Logit() = Logit(Logit_Link)
 Probit <: CRRaoLink
 ```
 
-A type representing the Probit link function.
+A type representing the Probit link function, which is defined by the formula
+
+```math
+z\\mapsto \\mathbb{P}[Z\\le z]
+```
+
+where ``Z\\sim \\text{Normal}(0, 1)``.
 """
 struct Probit <: CRRaoLink
     link_function::Function
@@ -79,7 +105,11 @@ Probit() = Probit(Probit_Link)
 Cloglog <: CRRaoLink
 ```
 
-A type representing the Cloglog link function.
+A type representing the Cloglog link function, which is defined by the formula 
+
+```math
+z\\mapsto 1 - \\exp(-\\exp(z))
+```
 """
 struct Cloglog <: CRRaoLink
     link_function::Function
@@ -92,7 +122,11 @@ Cloglog() = Cloglog(Cloglog_Link)
 Cauchit <: CRRaoLink
 ```
 
-A type representing the Cauchit link function.
+A type representing the Cauchit link function, which is defined by the formula
+
+```math
+z\\mapsto \\dfrac{1}{2} + \\dfrac{\\text{atan}(z)}{\\pi}
+```
 """
 struct Cauchit <: CRRaoLink
     link_function::Function
@@ -101,9 +135,10 @@ end
 Cauchit() = Cauchit(Cauchit_Link)
 
 export LinearRegression, LogisticRegression, PoissonRegression, NegBinomRegression
-export Prior_Ridge, Prior_Laplace, Prior_Cauchy, Prior_TDist, Prior_Uniform
-export Logit, Probit, Cloglog, Cauchit, fitmodel, @fitmodel
+export Prior_Ridge, Prior_Laplace, Prior_Cauchy, Prior_TDist, Prior_Uniform, Prior_HorseShoe
+export CRRaoLink, Logit, Probit, Cloglog, Cauchit, fitmodel, @fitmodel
 export coeftable, r2, adjr2, loglikelihood, aic, bic, sigma, predict, residuals, cooksdistance
+export FrequentistRegression, BayesianRegression
 
 include("random_number_generator.jl")
 include("general_stats.jl")
