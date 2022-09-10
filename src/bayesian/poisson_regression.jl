@@ -509,10 +509,9 @@ function fitmodel(
         
         τ ~ halfcauchy    ## Global Shrinkage
         λ ~ filldist(halfcauchy, p) ## Local Shrinkage
-        σ ~ halfcauchy
-        α ~ Normal(0, τ * σ)
+        α ~ Normal(0, τ )
         β0 = repeat([0], p)  ## prior mean
-        β ~ MvNormal(β0, λ * τ *σ)
+        β ~ MvNormal(β0, λ * τ )
 
         ## link
         z = α .+ X * β
