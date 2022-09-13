@@ -6,14 +6,14 @@ end
 
 """
 ```julia
-fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression)
 ```
 
 Fit a Negative Binomial Regression model on the input data (with the default link function being the Log link). Uses the `glm` method from the [GLM](https://github.com/JuliaStats/GLM.jl) package under the hood. Returns an object of type `FrequentistRegression{:NegativeBinomialRegression}`.
 
 # Example
 ```julia-repl
-julia> using CRRao, RDatasets
+julia> using CRRao, RDatasets, StatsModels
 julia> sanction = dataset("Zelig", "sanction")
 78×8 DataFrame
  Row │ Mil    Coop   Target  Import  Export  Cost   Num    NCost         
@@ -33,7 +33,7 @@ julia> sanction = dataset("Zelig", "sanction")
   77 │     0      1       2       0       0      1      1  net gain
   78 │     1      3       1       1       1      2     10  little effect
                                                           66 rows omitted
-julia> container = @fitmodel(Num ~ Target + Coop + NCost, sanction, NegBinomRegression())
+julia> container = fit(@formula(Num ~ Target + Coop + NCost), sanction, NegBinomRegression())
 Model Class: Count Regression
 Likelihood Mode: Negative Binomial
 Link Function: Log
@@ -50,6 +50,6 @@ NCost: net gain      0.176797     0.254291   0.70    0.4869  -0.321604   0.67519
 ─────────────────────────────────────────────────────────────────────────────────
 ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression)
+function fit(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression)
     return negativebinomial_reg(formula, data, LogLink())
 end

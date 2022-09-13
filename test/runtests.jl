@@ -1,4 +1,4 @@
-using CRRao, Test, StableRNGs, Logging, RDatasets
+using CRRao, Test, StableRNGs, Logging, RDatasets, StatsModels
 
 Logging.disable_logging(Logging.Warn)
 

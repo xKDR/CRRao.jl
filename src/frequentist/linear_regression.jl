@@ -1,13 +1,13 @@
 """
 ```julia
-fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression)
 ```
 
 Fit an OLS Linear Regression model on the input data. Uses the `lm` method from the [GLM](https://github.com/JuliaStats/GLM.jl) package under the hood. Returns an object of type `FrequentistRegression{:LinearRegression}`.
 
 # Example
 ```julia-repl
-julia> using CRRao, RDatasets, StatsPlots
+julia> using CRRao, RDatasets, StatsPlots, StatsModels
 julia> df = dataset("datasets", "mtcars")
 32×12 DataFrame
  Row │ Model              MPG      Cyl    Disp     HP     DRat     WT       QSec     VS     AM     Gear   Carb  
@@ -27,7 +27,7 @@ julia> df = dataset("datasets", "mtcars")
   31 │ Maserati Bora         15.0      8    301.0    335     3.54    3.57     14.6       0      1      5      8
   32 │ Volvo 142E            21.4      4    121.0    109     4.11    2.78     18.6       1      1      4      2
                                                                                                  20 rows omitted
-julia> container = @fitmodel(MPG ~ HP + WT + Gear, df, LinearRegression())
+julia> container = fit(@formula(MPG ~ HP + WT + Gear), df, LinearRegression())
 Model Class: Linear Regression
 Likelihood Mode: Gauss
 Link Function: Identity
@@ -94,7 +94,7 @@ julia> residuals(container)
 julia> plot(cooksdistance(container))
 ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression)
+function fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression)
     formula = apply_schema(formula, schema(formula, data))
     model = lm(formula, data)
     return FrequentistRegression(:LinearRegression, model, formula)

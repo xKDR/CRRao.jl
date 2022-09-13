@@ -11,7 +11,7 @@ priors = [
 
 for link in links
     CRRao.set_rng(StableRNG(123))
-    model = @fitmodel((Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), link)
+    model = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), link)
     @test sizeof(model) > 0
 end
 
@@ -24,14 +24,14 @@ uniform_prior_tests = [
 
 for (link,seed) in uniform_prior_tests
     CRRao.set_rng(StableRNG(seed))
-    model = @fitmodel((Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), link, Prior_Uniform())
+    model = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), link, Prior_Uniform())
     @test sizeof(model) > 0
 end
 
 for prior in priors
     for link in links
         CRRao.set_rng(StableRNG(123))
-        model = @fitmodel((Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), link, prior)
+        model = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), link, prior)
         @test sizeof(model) > 0
     end
 end

@@ -17,7 +17,7 @@ To see how this API works, we will go over an example in which we'll train a lin
 We first import the required packages.
 
 ```@repl ols_linear_regression
-using CRRao, RDatasets, StatsPlots, Plots
+using CRRao, RDatasets, StatsPlots, Plots, StatsModels
 ```
 
 Then we import the dataset.
@@ -37,7 +37,7 @@ More information about such terms can be found in the corresponding [docs](https
 Next, we train a linear regression model.
 
 ```@repl ols_linear_regression
-model = @fitmodel(MPG ~ HP + WT + Gear, mtcars, LinearRegression())
+model = fit(@formula(MPG ~ HP + WT + Gear), mtcars, LinearRegression())
 ```
 
 As we can see from the output, a table of coefficients has been printed for us. We can now infer other details of the model from the various getter functions that apply to frequentist models. So one can do the following.
@@ -67,7 +67,7 @@ Logging.disable_logging(Logging.Warn)
 ```
 
 ```@repl bayesian_logistic_regression
-using CRRao, RDatasets, StableRNGs
+using CRRao, RDatasets, StableRNGs, StatsModels
 ```
 
 ```@setup bayesian_logistic_regression
@@ -89,5 +89,5 @@ turnout = dataset("Zelig", "turnout")
 And finally, we do the inference using our proposed model.
 
 ```@repl bayesian_logistic_regression
-model = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Logit(), Prior_Ridge())
+model = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Logit(), Prior_Ridge())
 ```
