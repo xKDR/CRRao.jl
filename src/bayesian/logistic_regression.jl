@@ -960,3 +960,62 @@ function fitmodel(
 
     return logistic_reg(formula, data, LogisticRegression, sim_size)
 end
+
+"""
+```julia
+fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_HorseShoe, h::Float64 = 0.01, level::Float64 = 0.95, sim_size::Int64 = 1000)
+```
+
+Fit a Bayesian Logistic Regression model on the input data with a HorseShoe prior with the provided `Link` function.
+
+# Example
+```julia-repl
+julia> using CRRao, RDatasets, StableRNGs
+julia> CRRao.set_rng(StableRNG(123))
+julia> turnout = dataset("Zelig", "turnout");
+julia> container_logit = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Logit(), Prior_HorseShoe())
+julia> container_probit = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Probit(), Prior_HorseShoe())
+julia> container_cloglog = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Cloglog(), Prior_HorseShoe())
+julia> container_cauchit = @fitmodel(Vote ~ Age + Race + Income + Educate, turnout, LogisticRegression(), Cauchit(), Prior_HorseShoe())
+"""
+function fitmodel(
+  formula::FormulaTerm,
+  data::DataFrame,
+  modelClass::LogisticRegression,
+  Link::CRRaoLink,
+  prior::Prior_HorseShoe,
+  level::Float64 = 0.95,
+  sim_size::Int64 = 1000
+)
+  @model LogisticRegression(X, y) = begin
+      p = size(X, 2)
+      n = size(X, 1)
+      #priors
+      #v ~ InverseGamma(h, h)
+      #α ~ TDist(1)
+      #β ~ filldist(Uniform(-v, v), p)
+
+      halfcauchy = Truncated(TDist(1), 0, Inf)
+    
+      τ ~ halfcauchy    ## Global Shrinkage
+      λ ~ filldist(halfcauchy, p) ## Local Shrinkage
+      σ ~ halfcauchy
+      α ~ Normal(0, τ * σ)
+      β0 = repeat([0], p)  ## prior mean
+      β ~ MvNormal(β0, λ * τ *σ)
+
+
+      z = α .+ X * β
+
+      ## Link Function
+
+      prob = Link.link.(z)
+
+      #likelihood
+      for i = 1:n
+          y[i] ~ Bernoulli(prob[i])
+      end
+  end
+
+  return logistic_reg(formula, data, LogisticRegression, sim_size)
+end

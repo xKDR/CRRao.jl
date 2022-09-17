@@ -482,3 +482,54 @@ function fitmodel(
 
     return negativebinomial_reg(formula, data, NegativeBinomialRegression, sim_size)
 end
+
+"""
+```julia
+fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression, prior::Prior_HorseShoe, sim_size::Int64 = 1000)
+```
+
+Fit a Bayesian Negative Binomial Regression model on the input data with a HorseShoe prior. 
+
+# Example
+```julia-repl
+julia> using CRRao, RDatasets, StableRNGs, StatsPlots
+julia> CRRao.set_rng(StableRNG(123))
+julia> sanction = dataset("Zelig", "sanction");
+julia> container = @fitmodel(Num ~ Target + Coop + NCost, sanction, NegBinomRegression(), Prior_HorseShoe())
+```
+"""
+function fitmodel(
+    formula::FormulaTerm,
+    data::DataFrame,
+    modelClass::NegBinomRegression,
+    PriorMod::Prior_HorseShoe,
+    sim_size::Int64 = 1000
+)
+    @model NegativeBinomialRegression(X, y) = begin
+        p = size(X, 2)
+        n = size(X, 1)
+
+        #priors
+        
+        halfcauchy = Truncated(TDist(1), 0, Inf)
+        
+        τ ~ halfcauchy    ## Global Shrinkage
+        λ ~ filldist(halfcauchy, p) ## Local Shrinkage
+        σ ~ halfcauchy
+        α ~ Normal(0, τ * σ)
+        β0 = repeat([0], p)  ## prior mean
+        β ~ MvNormal(β0, λ * τ *σ)
+
+
+        ## link
+        z = α .+ X * β
+        mu = exp.(z)
+
+        #likelihood
+        for i = 1:n
+            y[i] ~ NegativeBinomial2(mu[i], σ)
+        end
+    end
+
+    return negativebinomial_reg(formula, data, NegativeBinomialRegression, sim_size)
+end

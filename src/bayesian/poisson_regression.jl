@@ -473,3 +473,55 @@ function fitmodel(
 
     return poisson_reg(formula, data, PoissonRegression, sim_size)
 end
+
+
+"""
+```julia
+fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression, prior::Prior_HorseShoe, sim_size::Int64 = 1000)
+```
+
+Fit a Bayesian Poisson Regression model on the input data with a Horse Shoe prior.
+
+# Example
+```julia-repl
+julia> using CRRao, RDatasets, StableRNGs
+julia> CRRao.set_rng(StableRNG(123))
+julia> sanction = dataset("Zelig", "sanction");
+julia> container = @fitmodel(Num ~ Target + Coop + NCost, sanction, PoissonRegression(), Prior_HorseShoe())
+julia> using StatsPlots
+julia> plot(container.chain)
+```
+"""
+
+function fitmodel(
+    formula::FormulaTerm,
+    data::DataFrame,
+    modelClass::PoissonRegression,
+    prior::Prior_HorseShoe,
+    sim_size::Int64 = 1000
+)
+    @model PoissonRegression(X, y) = begin
+        p = size(X, 2)
+        n = size(X, 1)
+        #priors
+        
+        halfcauchy = Truncated(TDist(1), 0, Inf)
+        
+        τ ~ halfcauchy    ## Global Shrinkage
+        λ ~ filldist(halfcauchy, p) ## Local Shrinkage
+        α ~ Normal(0, τ )
+        β0 = repeat([0], p)  ## prior mean
+        β ~ MvNormal(β0, λ * τ )
+
+        ## link
+        z = α .+ X * β
+        mu = exp.(z)
+
+        #likelihood
+        for i = 1:n
+            y[i] ~ Poisson(mu[i])
+        end
+    end
+
+    return poisson_reg(formula, data, PoissonRegression, sim_size)
+end
