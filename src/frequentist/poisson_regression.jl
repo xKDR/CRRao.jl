@@ -6,14 +6,14 @@ end
 
 """
 ```julia
-fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression)
 ```
 
 Fit a Poisson Regression model on the input data (with the default link function being the Log link). Uses the `glm` method from the [GLM](https://github.com/JuliaStats/GLM.jl) package under the hood. Returns an object of type `FrequentistRegression{:PoissonRegression}`.
 
 # Example
 ```julia-repl
-julia> using CRRao, RDatasets
+julia> using CRRao, RDatasets, StatsModels
 julia> sanction = dataset("Zelig", "sanction")
 78×8 DataFrame
  Row │ Mil    Coop   Target  Import  Export  Cost   Num    NCost         
@@ -33,7 +33,7 @@ julia> sanction = dataset("Zelig", "sanction")
   77 │     0      1       2       0       0      1      1  net gain
   78 │     1      3       1       1       1      2     10  little effect
                                                           66 rows omitted
-julia> container = @fitmodel(Num ~ Target + Coop + NCost, sanction, PoissonRegression())
+julia> container = fit(@formula(Num ~ Target + Coop + NCost), sanction, PoissonRegression())
 Model Class: Poisson Regression
 Likelihood Mode: Poison
 Link Function: Log
@@ -50,6 +50,6 @@ NCost: net gain      0.463907   0.16992     2.73    0.0063   0.13087     0.79694
 ─────────────────────────────────────────────────────────────────────────────────
 ```
 """
-function fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression)
+function fit(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression)
     return poisson_reg(formula, data, LogLink())
 end

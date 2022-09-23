@@ -22,9 +22,9 @@ MPG = β0 + β1 HP + β2 WT + β3 Gear + ϵ
 
 ```Julia
 
-   using CRRao, RDatasets
+   using CRRao, RDatasets, StatsModels
    df = dataset("datasets", "mtcars")
-   model = @fitmodel((MPG ~ HP + WT+Gear), df, LinearRegression())
+   model = fit(@formula(MPG ~ HP + WT+Gear), df, LinearRegression())
    model.fit
 
    ────────────────────────────────────────────────────────────────────────────
@@ -38,7 +38,7 @@ MPG = β0 + β1 HP + β2 WT + β3 Gear + ϵ
 
    ```
 
-This calls the generic function fitmodel(), where you supply a formula, a dataset, and pick the model.
+This calls the generic function fit(), where you supply a formula, a dataset, and pick the model.
 
 # Present capabilities
 
@@ -86,9 +86,9 @@ Unit: microseconds
 ```
 **Julia**
 ```julia
-using RDatasets, CRRao, BenchmarkTools
+using RDatasets, CRRao, BenchmarkTools, StatsModels
 df = dataset("datasets", "mtcars")
-@benchmark @fitmodel((MPG ~ HP + WT), df, LinearRegression())
+@benchmark fit(@formula(MPG ~ HP + WT), df, LinearRegression())
 ```
 
 ```julia
@@ -105,10 +105,10 @@ Language   |   Package/Function |    Mean time taken
 `Python`   |  `statsmodes`/`ols`|  2106.6 μs
 `Python`   |  `sklearn`/`fit`   |   559.9 μs
 `R`        |  `stats`/`lm`      |   380.13 μs
-`Julia`    |  `CRRao`/`fitmodel`|    160.22 μs
+`Julia`    |  `CRRao`/`fit`     |    160.22 μs
 -----------|--------------------|------------------
 
-where we emphasise that the performance of fitmodel() here is a tiny overhead on top of the implementation of the linear regression in GLM.jl.
+where we emphasise that the performance of fit() here is a tiny overhead on top of the implementation of the linear regression in GLM.jl.
 
 # Support
 

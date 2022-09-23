@@ -2,13 +2,13 @@
 
 ## Understanding the interface
 
-CRRao exports the [`@fitmodel`](@ref) macro, which is used to train all types of models supported by the package. As of now, the macro supports the following signatures.
+CRRao exports the [`fit`](@ref) function, which is used to train all types of models supported by the package. As of now, the function supports the following signatures.
 
 ```julia
-@fitmodel(formula, data, modelClass)
-@fitmodel(formula, data, modelClass, link)
-@fitmodel(formula, data, modelClass, prior)
-@fitmodel(formula, data, modelClass, link, prior)
+fit(formula, data, modelClass)
+fit(formula, data, modelClass, link)
+fit(formula, data, modelClass, prior)
+fit(formula, data, modelClass, link, prior)
 ```
 
 It should be noted that not all model classes support every type of signature. The parameters passed above mean the following.
@@ -29,7 +29,7 @@ It should be noted that not all model classes support every type of signature. T
     - [`Cloglog`](@ref)
     - [`Cauchit`](@ref)
 
-5. CRRao also supports Bayesian models, and the priors to be can be specified while calling `@fitmodel`. Currently CRRao supports five different kinds of priors, and the type of the `prior` parameter must be one of the following.
+5. CRRao also supports Bayesian models, and the priors to be can be specified while calling `fit`. Currently CRRao supports five different kinds of priors, and the type of the `prior` parameter must be one of the following.
     - [`Prior_Ridge`](@ref)
     - [`Prior_Laplace`](@ref)
     - [`Prior_Cauchy`](@ref)
@@ -37,7 +37,7 @@ It should be noted that not all model classes support every type of signature. T
     - [`Prior_Uniform`](@ref)
 
 ```@docs
-@fitmodel
+fit
 ```
 
 ## Model Classes

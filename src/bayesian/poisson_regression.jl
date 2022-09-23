@@ -11,14 +11,14 @@ end
 
 """
 ```julia
-fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression, prior::Prior_Ridge, h::Float64 = 0.1, sim_size::Int64 = 1000)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression, prior::Prior_Ridge, h::Float64 = 0.1, sim_size::Int64 = 1000)
 ```
 
 Fit a Bayesian Poisson Regression model on the input data with a Ridge prior.
 
 # Example
 ```julia-repl
-julia> using CRRao, RDatasets, StableRNGs
+julia> using CRRao, RDatasets, StableRNGs, StatsModels
 julia> CRRao.set_rng(StableRNG(123))
 StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
 julia> sanction = dataset("Zelig", "sanction")
@@ -35,7 +35,7 @@ julia> sanction = dataset("Zelig", "sanction")
   77 │     0      1       2       0       0      1      1  net gain
   78 │     1      3       1       1       1      2     10  little effect
                                                           71 rows omitted
-julia> container = @fitmodel(Num ~ Target + Coop + NCost, sanction, PoissonRegression(), Prior_Ridge())
+julia> container = fit(@formula(Num ~ Target + Coop + NCost), sanction, PoissonRegression(), Prior_Ridge())
 ┌ Info: Found initial step size
 └   ϵ = 0.025
 Chains MCMC chain (10000×19×1 Array{Float64, 3}):
@@ -73,7 +73,7 @@ Quantiles
         β[5]    0.0755    0.2930    0.4068    0.5190    0.7331
 ```
 """
-function fitmodel(
+function fit(
     formula::FormulaTerm,
     data::DataFrame,
     modelClass::PoissonRegression,
@@ -104,14 +104,14 @@ end
 
 """
 ```julia
-fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression, prior::Prior_Laplace, h::Float64 = 0.1, sim_size::Int64 = 1000)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression, prior::Prior_Laplace, h::Float64 = 0.1, sim_size::Int64 = 1000)
 ```
 
 Fit a Bayesian Poisson Regression model on the input data with a Laplace prior.
 
 # Example
 ```julia-repl
-julia> using CRRao, RDatasets, StableRNGs
+julia> using CRRao, RDatasets, StableRNGs, StatsModels
 julia> CRRao.set_rng(StableRNG(123))
 StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
 julia> sanction = dataset("Zelig", "sanction")
@@ -128,7 +128,7 @@ julia> sanction = dataset("Zelig", "sanction")
   77 │     0      1       2       0       0      1      1  net gain
   78 │     1      3       1       1       1      2     10  little effect
                                                           71 rows omitted
-julia> container = @fitmodel(Num ~ Target + Coop + NCost, sanction, PoissonRegression(), Prior_Laplace())
+julia> container = fit(@formula(Num ~ Target + Coop + NCost), sanction, PoissonRegression(), Prior_Laplace())
 ┌ Info: Found initial step size
 └   ϵ = 0.025
 Chains MCMC chain (10000×19×1 Array{Float64, 3}):
@@ -166,7 +166,7 @@ Quantiles
         β[5]    0.0581    0.2740    0.3946    0.5113    0.7309
 ```
 """
-function fitmodel(
+function fit(
     formula::FormulaTerm,
     data::DataFrame,
     modelClass::PoissonRegression,
@@ -197,14 +197,14 @@ end
 
 """
 ```julia
-fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, prior::Prior_Cauchy, h::Float64 = 1.0, sim_size::Int64 = 1000)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, prior::Prior_Cauchy, h::Float64 = 1.0, sim_size::Int64 = 1000)
 ```
 
 Fit a Bayesian Poisson Regression model on the input data with a Cauchy prior.
 
 # Example
 ```julia-repl
-julia> using CRRao, RDatasets, StableRNGs
+julia> using CRRao, RDatasets, StableRNGs, StatsModels
 julia> CRRao.set_rng(StableRNG(123))
 StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
 julia> sanction = dataset("Zelig", "sanction")
@@ -221,7 +221,7 @@ julia> sanction = dataset("Zelig", "sanction")
   77 │     0      1       2       0       0      1      1  net gain
   78 │     1      3       1       1       1      2     10  little effect
                                                           71 rows omitted
-julia> container = @fitmodel(Num ~ Target + Coop + NCost, sanction, PoissonRegression(), Prior_Cauchy())
+julia> container = fit(@formula(Num ~ Target + Coop + NCost), sanction, PoissonRegression(), Prior_Cauchy())
 ┌ Info: Found initial step size
 └   ϵ = 0.025
 Chains MCMC chain (10000×19×1 Array{Float64, 3}):
@@ -259,7 +259,7 @@ Quantiles
         β[5]    0.0677    0.2823    0.3952    0.5066    0.7253
 ```
 """
-function fitmodel(
+function fit(
     formula::FormulaTerm,
     data::DataFrame,
     modelClass::PoissonRegression,
@@ -290,14 +290,14 @@ end
 
 """
 ```julia
-fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression, prior::Prior_TDist, h::Float64 = 2.0, sim_size::Int64 = 1000)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression, prior::Prior_TDist, h::Float64 = 2.0, sim_size::Int64 = 1000)
 ```
 
 Fit a Bayesian Poisson Regression model on the input data with a t(ν) distributed prior.
 
 # Example
 ```julia-repl
-julia> using CRRao, RDatasets, StableRNGs
+julia> using CRRao, RDatasets, StableRNGs, StatsModels
 julia> CRRao.set_rng(StableRNG(123))
 StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
 julia> sanction = dataset("Zelig", "sanction")
@@ -314,7 +314,7 @@ julia> sanction = dataset("Zelig", "sanction")
   77 │     0      1       2       0       0      1      1  net gain
   78 │     1      3       1       1       1      2     10  little effect
                                                           71 rows omitted
-julia> container = @fitmodel(Num ~ Target + Coop + NCost, sanction, PoissonRegression(), Prior_TDist())
+julia> container = fit(@formula(Num ~ Target + Coop + NCost), sanction, PoissonRegression(), Prior_TDist())
 ┌ Info: Found initial step size
 └   ϵ = 0.0125
 Chains MCMC chain (10000×20×1 Array{Float64, 3}):
@@ -354,7 +354,7 @@ Quantiles
         β[5]    0.0680    0.2864    0.4016    0.5174    0.7395
 ```
 """
-function fitmodel(
+function fit(
     formula::FormulaTerm,
     data::DataFrame,
     modelClass::PoissonRegression,
@@ -386,14 +386,14 @@ end
 
 """
 ```julia
-fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression, prior::Prior_Uniform, h::Float64 = 1.0, sim_size::Int64 = 1000)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression, prior::Prior_Uniform, h::Float64 = 1.0, sim_size::Int64 = 1000)
 ```
 
 Fit a Bayesian Poisson Regression model on the input data with a Uniform prior.
 
 # Example
 ```julia-repl
-julia> using CRRao, RDatasets, StableRNGs
+julia> using CRRao, RDatasets, StableRNGs, StatsModels
 julia> CRRao.set_rng(StableRNG(123))
 StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
 julia> sanction = dataset("Zelig", "sanction")
@@ -410,7 +410,7 @@ julia> sanction = dataset("Zelig", "sanction")
   77 │     0      1       2       0       0      1      1  net gain
   78 │     1      3       1       1       1      2     10  little effect
                                                           71 rows omitted
-julia> container = @fitmodel(Num ~ Target + Coop + NCost, sanction, PoissonRegression(), Prior_Uniform())
+julia> container = fit(@formula(Num ~ Target + Coop + NCost), sanction, PoissonRegression(), Prior_Uniform())
 Chains MCMC chain (10000×19×1 Array{Float64, 3}):
 
 Iterations        = 1001:1:11000
@@ -446,7 +446,7 @@ Quantiles
         β[5]   -0.2792   -0.2792   -0.2792   -0.2792   -0.2792
 ```
 """
-function fitmodel(
+function fit(
     formula::FormulaTerm,
     data::DataFrame,
     modelClass::PoissonRegression,

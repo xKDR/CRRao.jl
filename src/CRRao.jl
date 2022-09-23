@@ -130,7 +130,7 @@ Cauchit() = Cauchit(Cauchit_Link)
 
 export LinearRegression, LogisticRegression, PoissonRegression, NegBinomRegression
 export Prior_Ridge, Prior_Laplace, Prior_Cauchy, Prior_TDist, Prior_Uniform, Prior_HorseShoe
-export CRRaoLink, Logit, Probit, Cloglog, Cauchit, fitmodel, @fitmodel
+export CRRaoLink, Logit, Probit, Cloglog, Cauchit, fit
 export coeftable, r2, adjr2, loglikelihood, aic, bic, sigma, predict, residuals, cooksdistance
 export FrequentistRegression, BayesianRegression
 

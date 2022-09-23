@@ -16,14 +16,14 @@ end
 
 """
 ```julia
-fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression, prior::Prior_Ridge, h::Float64 = 0.1, sim_size::Int64 = 1000)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression, prior::Prior_Ridge, h::Float64 = 0.1, sim_size::Int64 = 1000)
 ```
 
 Fit a Bayesian Negative Binomial Regression model on the input data with a Ridge prior.
 
 # Example
 ```julia-repl
-julia> using CRRao, RDatasets, StableRNGs
+julia> using CRRao, RDatasets, StableRNGs, StatsModels
 julia> CRRao.set_rng(StableRNG(123))
 StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
 julia> sanction = dataset("Zelig", "sanction")
@@ -40,7 +40,7 @@ julia> sanction = dataset("Zelig", "sanction")
   77 │     0      1       2       0       0      1      1  net gain
   78 │     1      3       1       1       1      2     10  little effect
                                                           71 rows omitted
-julia> container = @fitmodel(Num ~ Target + Coop + NCost, sanction, NegBinomRegression(), Prior_Ridge())
+julia> container = fit(@formula(Num ~ Target + Coop + NCost), sanction, NegBinomRegression(), Prior_Ridge())
 ┌ Info: Found initial step size
 └   ϵ = 0.025
 Chains MCMC chain (10000×19×1 Array{Float64, 3}):
@@ -78,7 +78,7 @@ Quantiles
         β[5]   -0.4064   -0.0370    0.1501    0.3388    0.6903
 ```
 """
-function fitmodel(
+function fit(
     formula::FormulaTerm,
     data::DataFrame,
     modelClass::NegBinomRegression,
@@ -110,14 +110,14 @@ end
 
 """
 ```julia
-fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression, prior::Prior_Laplace, h::Float64 = 0.01, sim_size::Int64 = 1000)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression, prior::Prior_Laplace, h::Float64 = 0.01, sim_size::Int64 = 1000)
 ```
 
 Fit a Bayesian Negative Binomial Regression model on the input data with a Laplace prior.
 
 # Example
 ```julia-repl
-julia> using CRRao, RDatasets, StableRNGs
+julia> using CRRao, RDatasets, StableRNGs, StatsModels
 julia> CRRao.set_rng(StableRNG(123))
 StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
 julia> sanction = dataset("Zelig", "sanction")
@@ -134,7 +134,7 @@ julia> sanction = dataset("Zelig", "sanction")
   77 │     0      1       2       0       0      1      1  net gain
   78 │     1      3       1       1       1      2     10  little effect
                                                           71 rows omitted
-julia> container = @fitmodel(Num ~ Target + Coop + NCost, sanction, NegBinomRegression(), Prior_Laplace())
+julia> container = fit(@formula(Num ~ Target + Coop + NCost), sanction, NegBinomRegression(), Prior_Laplace())
 ┌ Info: Found initial step size
 └   ϵ = 0.05
 Chains MCMC chain (10000×19×1 Array{Float64, 3}):
@@ -172,7 +172,7 @@ Quantiles
         β[5]   -0.4026   -0.0558    0.1158    0.2980    0.6499
 ``` 
 """
-function fitmodel(
+function fit(
     formula::FormulaTerm,
     data::DataFrame,
     modelClass::NegBinomRegression,
@@ -204,14 +204,14 @@ end
 
 """
 ```julia
-fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression, prior::Prior_Cauchy, h::Float64 = 1.0, sim_size::Int64 = 1000)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression, prior::Prior_Cauchy, h::Float64 = 1.0, sim_size::Int64 = 1000)
 ```
 
 Fit a Bayesian Negative Binomial Regression model on the input data with a Cauchy prior.
 
 # Example
 ```julia-repl
-julia> using CRRao, RDatasets, StableRNGs
+julia> using CRRao, RDatasets, StableRNGs, StatsModels
 julia> CRRao.set_rng(StableRNG(123))
 StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
 julia> sanction = dataset("Zelig", "sanction")
@@ -228,7 +228,7 @@ julia> sanction = dataset("Zelig", "sanction")
   77 │     0      1       2       0       0      1      1  net gain
   78 │     1      3       1       1       1      2     10  little effect
                                                           71 rows omitted
-julia> container = @fitmodel(Num ~ Target + Coop + NCost, sanction, NegBinomRegression(), Prior_Cauchy())
+julia> container = fit(@formula(Num ~ Target + Coop + NCost), sanction, NegBinomRegression(), Prior_Cauchy())
 ┌ Info: Found initial step size
 └   ϵ = 0.2
 Chains MCMC chain (10000×19×1 Array{Float64, 3}):
@@ -266,7 +266,7 @@ Quantiles
         β[5]   -0.4131   -0.0613    0.1305    0.3166    0.6901
 ```
 """
-function fitmodel(
+function fit(
     formula::FormulaTerm,
     data::DataFrame,
     modelClass::NegBinomRegression,
@@ -297,14 +297,14 @@ end
 
 """
 ```julia
-fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression, prior::Prior_TDist, h::Float64 = 1.0, sim_size::Int64 = 1000)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression, prior::Prior_TDist, h::Float64 = 1.0, sim_size::Int64 = 1000)
 ```
 
 Fit a Bayesian Negative Binomial Regression model on the input data with a t(ν) distributed prior.
 
 # Example
 ```julia-repl
-julia> using CRRao, RDatasets, StableRNGs
+julia> using CRRao, RDatasets, StableRNGs, StatsModels
 julia> CRRao.set_rng(StableRNG(123))
 StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
 julia> sanction = dataset("Zelig", "sanction")
@@ -321,7 +321,7 @@ julia> sanction = dataset("Zelig", "sanction")
   77 │     0      1       2       0       0      1      1  net gain
   78 │     1      3       1       1       1      2     10  little effect
                                                           71 rows omitted
-julia> container = @fitmodel(Num ~ Target + Coop + NCost, sanction, NegBinomRegression(), Prior_TDist())
+julia> container = fit(@formula(Num ~ Target + Coop + NCost), sanction, NegBinomRegression(), Prior_TDist())
 ┌ Info: Found initial step size
 └   ϵ = 0.05
 Chains MCMC chain (10000×20×1 Array{Float64, 3}):
@@ -361,7 +361,7 @@ Quantiles
         β[5]   -0.4045   -0.0511    0.1377    0.3314     0.6957
 ```
 """
-function fitmodel(
+function fit(
     formula::FormulaTerm,
     data::DataFrame,
     modelClass::NegBinomRegression,
@@ -393,14 +393,14 @@ end
 
 """
 ```julia
-fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression, prior::Prior_Uniform, h::Float64 = 0.1, sim_size::Int64 = 1000)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression, prior::Prior_Uniform, h::Float64 = 0.1, sim_size::Int64 = 1000)
 ```
 
 Fit a Bayesian Negative Binomial Regression model on the input data with a Uniform prior. Ibrahim and Laud (JASA, 1990) showed that the uniform flat priors for GLMs can lead to improper posterior distributions thus making them undesirable. In such cases, the Markov Chain struggles to converge. Even if it converges, results are unreliable.
 
 # Example
 ```julia-repl
-julia> using CRRao, RDatasets, StableRNGs
+julia> using CRRao, RDatasets, StableRNGs, StatsModels
 julia> CRRao.set_rng(StableRNG(123))
 StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
 julia> sanction = dataset("Zelig", "sanction")
@@ -417,7 +417,7 @@ julia> sanction = dataset("Zelig", "sanction")
   77 │     0      1       2       0       0      1      1  net gain
   78 │     1      3       1       1       1      2     10  little effect
                                                           71 rows omitted
-julia> container = @fitmodel(Num ~ Target + Coop + NCost, sanction, NegBinomRegression(), Prior_Uniform())
+julia> container = fit(@formula(Num ~ Target + Coop + NCost), sanction, NegBinomRegression(), Prior_Uniform())
 Chains MCMC chain (10000×19×1 Array{Float64, 3}):
 
 Iterations        = 1001:1:11000
@@ -453,7 +453,7 @@ Quantiles
         β[5]   -0.2792   -0.2792   -0.2792   -0.2792    0.2792
 ``` 
 """
-function fitmodel(
+function fit(
     formula::FormulaTerm,
     data::DataFrame,
     modelClass::NegBinomRegression,

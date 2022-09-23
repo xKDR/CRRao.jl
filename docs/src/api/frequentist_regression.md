@@ -6,25 +6,25 @@ FrequentistRegression
 
 ## Linear Regression 
 ```@docs
-fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression)
 ```
 
 ## Logistic Regression
 ```@docs
-fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Logit)
-fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Probit)
-fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Cloglog)
-fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Cauchit)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Logit)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Probit)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Cloglog)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Cauchit)
 ```
 
 ## Negative Binomial Regression
 ```@docs
-fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression)
 ```
 
 ## Poisson Regression
 ```@docs
-fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression)
 ```
 
 ## Extended functions from [StatsAPI.jl](https://github.com/JuliaStats/StatsAPI.jl)

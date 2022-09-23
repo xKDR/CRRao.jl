@@ -8,13 +8,13 @@ Table of coefficients and other statistics of the model. Extends the `coeftable`
 # Example
 
 ```julia
-using CRRao, RDatasets
+using CRRao, RDatasets, StatsModels
 
 # Get the dataset
 mtcars = dataset("datasets", "mtcars")
 
 # Train the model
-container = @fitmodel(MPG ~ HP + WT + Gear, mtcars, LinearRegression())
+container = fit(@formula(MPG ~ HP + WT + Gear), mtcars, LinearRegression())
 
 # Get table of coefficients
 coeftable(container)
@@ -34,13 +34,13 @@ Coeffient of determination. Extends the `r2` method from [StatsAPI.jl](https://g
 # Example
 
 ```julia
-using CRRao, RDatasets
+using CRRao, RDatasets, StatsModels
 
 # Get the dataset
 mtcars = dataset("datasets", "mtcars")
 
 # Train the model
-container = @fitmodel(MPG ~ HP + WT + Gear, mtcars, LinearRegression())
+container = fit(@formula(MPG ~ HP + WT + Gear), mtcars, LinearRegression())
 
 # Get r2
 r2(container)
@@ -60,13 +60,13 @@ Adjusted coeffient of determination. Extends the `adjr2` method from [StatsAPI.j
 # Example
 
 ```julia
-using CRRao, RDatasets
+using CRRao, RDatasets, StatsModels
 
 # Get the dataset
 mtcars = dataset("datasets", "mtcars")
 
 # Train the model
-container = @fitmodel(MPG ~ HP + WT + Gear, mtcars, LinearRegression())
+container = fit(@formula(MPG ~ HP + WT + Gear), mtcars, LinearRegression())
 
 # Get adjr2
 adjr2(container)
@@ -86,13 +86,13 @@ Log-likelihood of the model. Extends the `loglikelihood` method from [StatsAPI.j
 # Example
 
 ```julia
-using CRRao, RDatasets
+using CRRao, RDatasets, StatsModels
 
 # Get the dataset
 mtcars = dataset("datasets", "mtcars")
 
 # Train the model
-container = @fitmodel(MPG ~ HP + WT + Gear, mtcars, LinearRegression())
+container = fit(@formula(MPG ~ HP + WT + Gear), mtcars, LinearRegression())
 
 # Get loglikelihood
 adjr2(container)
@@ -112,13 +112,13 @@ Akaike's Information Criterion. Extends the `aic` method from [StatsAPI.jl](http
 # Example
 
 ```julia
-using CRRao, RDatasets
+using CRRao, RDatasets, StatsModels
 
 # Get the dataset
 mtcars = dataset("datasets", "mtcars")
 
 # Train the model
-container = @fitmodel(MPG ~ HP + WT + Gear, mtcars, LinearRegression())
+container = fit(@formula(MPG ~ HP + WT + Gear), mtcars, LinearRegression())
 
 # Get aic
 aic(container)
@@ -138,13 +138,13 @@ Bayesian Information Criterion. Extends the `bic` method from [StatsAPI.jl](http
 # Example
 
 ```julia
-using CRRao, RDatasets
+using CRRao, RDatasets, StatsModels
 
 # Get the dataset
 mtcars = dataset("datasets", "mtcars")
 
 # Train the model
-container = @fitmodel(MPG ~ HP + WT + Gear, mtcars, LinearRegression())
+container = fit(@formula(MPG ~ HP + WT + Gear), mtcars, LinearRegression())
 
 # Get bic
 bic(container)
@@ -168,13 +168,13 @@ Predicted response of the model. Extends the `predict` method from [StatsAPI.jl]
 # Example
 
 ```julia
-using CRRao, RDatasets
+using CRRao, RDatasets, StatsModels
 
 # Get the dataset
 mtcars = dataset("datasets", "mtcars")
 
 # Train the model
-container = @fitmodel(MPG ~ HP + WT + Gear, mtcars, LinearRegression())
+container = fit(@formula(MPG ~ HP + WT + Gear), mtcars, LinearRegression())
 
 # Get predicted response
 predict(container)
@@ -228,13 +228,13 @@ Residuals of the model. Extends the `residuals` method from [StatsAPI.jl](https:
 # Example
 
 ```julia
-using CRRao, RDatasets
+using CRRao, RDatasets, StatsModels
 
 # Get the dataset
 mtcars = dataset("datasets", "mtcars")
 
 # Train the model
-container = @fitmodel(MPG ~ HP + WT + Gear, mtcars, LinearRegression())
+container = fit(@formula(MPG ~ HP + WT + Gear), mtcars, LinearRegression())
 
 # Get residuals
 residuals(container)
@@ -254,13 +254,13 @@ Compute Cook's distance for each observation in a linear model. Extends the `coo
 # Example
 
 ```julia
-using CRRao, RDatasets
+using CRRao, RDatasets, StatsModels
 
 # Get the dataset
 mtcars = dataset("datasets", "mtcars")
 
 # Train the model
-container = @fitmodel(MPG ~ HP + WT + Gear, mtcars, LinearRegression())
+container = fit(@formula(MPG ~ HP + WT + Gear), mtcars, LinearRegression())
 
 # Get vector of Cook's distances
 cooksdistance(container)

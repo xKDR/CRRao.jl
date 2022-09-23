@@ -8,10 +8,10 @@ priors = [
     Prior_Uniform(),
 ]
 
-model = @fitmodel((Num ~ Target + Coop + NCost), sanction, PoissonRegression())
+model = fit(@formula(Num ~ Target + Coop + NCost), sanction, PoissonRegression())
 @test sizeof(model) > 0
 
 for prior in priors
-    model = @fitmodel((Num ~ Target + Coop + NCost), sanction, PoissonRegression(), prior)
+    model = fit(@formula(Num ~ Target + Coop + NCost), sanction, PoissonRegression(), prior)
     @test sizeof(model) > 0
 end
