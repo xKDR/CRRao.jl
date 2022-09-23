@@ -485,20 +485,20 @@ end
 
 """
 ```julia
-fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression, prior::Prior_HorseShoe, sim_size::Int64 = 1000)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression, prior::Prior_HorseShoe, sim_size::Int64 = 1000)
 ```
 
 Fit a Bayesian Negative Binomial Regression model on the input data with a HorseShoe prior. 
 
 # Example
 ```julia-repl
-julia> using CRRao, RDatasets, StableRNGs, StatsPlots
+julia> using CRRao, RDatasets, StableRNGs, StatsPlots, StatsModels
 julia> CRRao.set_rng(StableRNG(123))
 julia> sanction = dataset("Zelig", "sanction");
-julia> container = @fitmodel(Num ~ Target + Coop + NCost, sanction, NegBinomRegression(), Prior_HorseShoe())
+julia> container = fit(@formula(Num ~ Target + Coop + NCost), sanction, NegBinomRegression(), Prior_HorseShoe())
 ```
 """
-function fitmodel(
+function fit(
     formula::FormulaTerm,
     data::DataFrame,
     modelClass::NegBinomRegression,

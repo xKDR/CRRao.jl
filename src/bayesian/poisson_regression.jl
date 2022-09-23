@@ -477,23 +477,23 @@ end
 
 """
 ```julia
-fitmodel(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression, prior::Prior_HorseShoe, sim_size::Int64 = 1000)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression, prior::Prior_HorseShoe, sim_size::Int64 = 1000)
 ```
 
 Fit a Bayesian Poisson Regression model on the input data with a Horse Shoe prior.
 
 # Example
 ```julia-repl
-julia> using CRRao, RDatasets, StableRNGs
+julia> using CRRao, RDatasets, StableRNGs, StatsModels
 julia> CRRao.set_rng(StableRNG(123))
 julia> sanction = dataset("Zelig", "sanction");
-julia> container = @fitmodel(Num ~ Target + Coop + NCost, sanction, PoissonRegression(), Prior_HorseShoe())
+julia> container = fit(@formula(Num ~ Target + Coop + NCost), sanction, PoissonRegression(), Prior_HorseShoe())
 julia> using StatsPlots
 julia> plot(container.chain)
 ```
 """
 
-function fitmodel(
+function fit(
     formula::FormulaTerm,
     data::DataFrame,
     modelClass::PoissonRegression,
