@@ -3,6 +3,21 @@
 fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression)
 ```
 
+```math
+y =\alpha +  X \beta+ \varepsilon,
+```
+where 
+```math
+y : \text{the vector of continuous response, of length } n,
+```
+```math
+X : \text{the matrix of input samples, of size } n \times p,
+```
+```math
+\varepsilon : \text{the vector of residuals, of size } n, 
+```
+
+
 Fit an OLS Linear Regression model on the input data. Uses the `lm` method from the [GLM](https://github.com/JuliaStats/GLM.jl) package under the hood. Returns an object of type `FrequentistRegression{:LinearRegression}`.
 
 # Example
