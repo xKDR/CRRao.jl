@@ -10,6 +10,15 @@ LinearRegression
 ```
 
 Type representing the Linear Regression model class.
+```math
+y =\\alpha +  X \\beta+ \\varepsilon,
+```
+where 
+```math
+\\varepsilon \\sim N(0,\\sigma^2),
+```
+`y` is the response vector of size `n`, `X` is the matrix of predictor variable of size `n \\times p`,
+`n` is the sample size, and `p` is the number of predictors, `\\alpha` is the intercept of the model, and `\\beta` is the regression coefficients of the model.
 """
 struct LinearRegression end
 
