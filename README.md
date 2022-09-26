@@ -55,6 +55,7 @@ In all cases, we have traditional frequentist models and Bayesian versions with 
 3. Cauchy
 4. T-Distributed
 5. Uniform flat
+6. Horse shoe 
 
 All these models are built out of foundations in the Julia package ecosystem, such as GLM.jl and Turing.jl. Here in CRRao.jl, we are not building additional models; we are only building the scaffolding for the consistent API to a diverse array of models.
 
