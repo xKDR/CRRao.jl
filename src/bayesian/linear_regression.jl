@@ -366,23 +366,9 @@ Fit a Bayesian Linear Regression model on the input data with a Uniform prior.
 # Example
 ```julia-repl
 julia> using CRRao, RDatasets, StableRNGs, StatsPlots, StatsModels
-julia> CRRao.set_rng(StableRNG(123))
-StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
-julia> df = dataset("datasets", "mtcars")
-32×12 DataFrame
- Row │ Model              MPG      Cyl    Disp     HP     DRat     WT       QSec     VS     AM     Gear   Carb  
-     │ String31           Float64  Int64  Float64  Int64  Float64  Float64  Float64  Int64  Int64  Int64  Int64 
-─────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────
-   1 │ Mazda RX4             21.0      6    160.0    110     3.9     2.62     16.46      0      1      4      4
-   2 │ Mazda RX4 Wag         21.0      6    160.0    110     3.9     2.875    17.02      0      1      4      4
-   3 │ Datsun 710            22.8      4    108.0     93     3.85    2.32     18.61      1      1      4      1
-   4 │ Hornet 4 Drive        21.4      6    258.0    110     3.08    3.215    19.44      1      0      3      1
-  ⋮  │         ⋮             ⋮       ⋮       ⋮       ⋮       ⋮        ⋮        ⋮       ⋮      ⋮      ⋮      ⋮
-  30 │ Ferrari Dino          19.7      6    145.0    175     3.62    2.77     15.5       0      1      5      6
-  31 │ Maserati Bora         15.0      8    301.0    335     3.54    3.57     14.6       0      1      5      8
-  32 │ Volvo 142E            21.4      4    121.0    109     4.11    2.78     18.6       1      1      4      2
-                                                                                                 25 rows omitted
-julia> container = fit(@formula(MPG ~ HP + WT + Gear), df, LinearRegression(), Prior_Uniform())
+julia> CRRao.set_rng(StableRNG(123));
+julia> df = dataset("datasets", "mtcars");
+julia> container = fit(@formula(MPG ~ HP + WT + Gear), df, LinearRegression(), Prior_Uniform(),0.01,10000)
 ┌ Info: Found initial step size
 └   ϵ = 0.00078125
 Chains MCMC chain (10000×17×1 Array{Float64, 3}):
@@ -444,34 +430,56 @@ end
 
 """
 ```julia
-fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, prior::Prior_HorseShoe, h::Float64 = 0.01, sim_size::Int64 = 10000)
+fit(formula::FormulaTerm,data::DataFrame,modelClass::LinearRegression,prior::Prior_HorseShoe,sim_size::Int64 = 1000)
 ```
 
 Fit a Bayesian Linear Regression model on the input data with a HorseShoe prior.
 # Example
 ```julia-repl
 julia> using CRRao, RDatasets, StableRNGs, StatsPlots, StatsModels
-julia> CRRao.set_rng(StableRNG(123))
-StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
-julia> df = dataset("datasets", "mtcars")
-32×12 DataFrame
- Row │ Model              MPG      Cyl    Disp     HP     DRat     WT       QSec     VS     AM     Gear   Carb  
-     │ String31           Float64  Int64  Float64  Int64  Float64  Float64  Float64  Int64  Int64  Int64  Int64 
-─────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────
-   1 │ Mazda RX4             21.0      6    160.0    110     3.9     2.62     16.46      0      1      4      4
-   2 │ Mazda RX4 Wag         21.0      6    160.0    110     3.9     2.875    17.02      0      1      4      4
-   3 │ Datsun 710            22.8      4    108.0     93     3.85    2.32     18.61      1      1      4      1
-   4 │ Hornet 4 Drive        21.4      6    258.0    110     3.08    3.215    19.44      1      0      3      1
-  ⋮  │         ⋮             ⋮       ⋮       ⋮       ⋮       ⋮        ⋮        ⋮       ⋮      ⋮      ⋮      ⋮
-  30 │ Ferrari Dino          19.7      6    145.0    175     3.62    2.77     15.5       0      1      5      6
-  31 │ Maserati Bora         15.0      8    301.0    335     3.54    3.57     14.6       0      1      5      8
-  32 │ Volvo 142E            21.4      4    121.0    109     4.11    2.78     18.6       1      1      4      2
-                                                                                                 25 rows omitted
+julia> CRRao.set_rng(StableRNG(123));
+julia> df = dataset("datasets", "mtcars");                                                                                                 25 rows omitted
 julia> container = fit(@formula(MPG ~ HP + WT + Gear), df, LinearRegression(), Prior_HorseShoe())
+Chains MCMC chain (1000×21×1 Array{Float64, 3}):
+
+Iterations        = 501:1:1500
+Number of chains  = 1
+Samples per chain = 1000
+Wall duration     = 8.36 seconds
+Compute duration  = 8.36 seconds
+parameters        = τ, λ[1], λ[2], λ[3], σ, α, β[1], β[2], β[3]
+internals         = lp, n_steps, is_accept, acceptance_rate, log_density, hamiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, tree_depth, numerical_error, step_size, nom_step_size
+
+Summary Statistics
+  parameters      mean       std   naive_se      mcse        ess      rhat   ess_per_sec 
+      Symbol   Float64   Float64    Float64   Float64    Float64   Float64       Float64 
+
+           τ    6.9501    3.5908     0.1136    0.1893   315.9554    1.0005       37.7937
+        λ[1]    0.2466    0.5920     0.0187    0.0210   658.8988    1.0010       78.8156
+        λ[2]    0.6329    0.8646     0.0273    0.0285   692.1768    0.9992       82.7963
+        λ[3]    0.6035    1.2252     0.0387    0.0527   490.4417    1.0017       58.6653
+           σ    2.7096    0.3897     0.0123    0.0155   467.8857    1.0084       55.9672
+           α   29.3528    5.3345     0.1687    0.3294   253.2201    1.0010       30.2895
+        β[1]   -0.0389    0.0108     0.0003    0.0005   377.8089    0.9994       45.1924
+        β[2]   -2.7502    0.9513     0.0301    0.0585   251.1050    1.0014       30.0365
+        β[3]    1.4304    0.9676     0.0306    0.0564   253.3073    1.0001       30.2999
+
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5% 
+      Symbol   Float64   Float64   Float64   Float64   Float64 
+
+           τ    2.8713    4.4991    6.0756    8.2895   16.6520
+        λ[1]    0.0012    0.0094    0.0427    0.2089    1.7233
+        λ[2]    0.0731    0.1972    0.4045    0.7690    2.4549
+        λ[3]    0.0148    0.1111    0.2750    0.6325    3.0972
+           σ    2.0768    2.4456    2.6632    2.9294    3.6832
+           α   18.7766   25.6249   29.3846   33.1996   39.1392
+        β[1]   -0.0580   -0.0461   -0.0394   -0.0322   -0.0154
+        β[2]   -4.6896   -3.3985   -2.7725   -2.1005   -0.9716
+        β[3]   -0.2594    0.7460    1.4037    2.0909    3.3493
 julia> plot(container.chain)
 ```
 """
-
 function fit(
     formula::FormulaTerm,
     data::DataFrame,

@@ -35,12 +35,10 @@ It should be noted that not all model classes support every type of signature. T
     - [`Prior_Cauchy`](@ref)
     - [`Prior_TDist`](@ref)
     - [`Prior_Uniform`](@ref)
+    - [`Prior_HorseShoe`](@ref)
 
-```@docs
-fit
-```
 
-## Model Classes
+## Model Classes and Data Models
 
 ```@docs
 LinearRegression
@@ -57,6 +55,16 @@ Logit
 Probit
 Cloglog
 Cauchit
+```
+## Prior Distributions
+
+```@docs
+Prior_Ridge
+Prior_Laplace
+Prior_Cauchy
+Prior_TDist
+Prior_Uniform
+Prior_HorseShoe
 ```
 
 ## Setting Random Number Generators

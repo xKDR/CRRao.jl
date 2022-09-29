@@ -477,7 +477,7 @@ end
 
 """
 ```julia
-fit(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression, prior::Prior_HorseShoe, sim_size::Int64 = 1000)
+fit(formula::FormulaTerm,data::DataFrame,modelClass::PoissonRegression,prior::Prior_HorseShoe,sim_size::Int64 = 1000)
 ```
 
 Fit a Bayesian Poisson Regression model on the input data with a Horse Shoe prior.
@@ -492,7 +492,6 @@ julia> using StatsPlots
 julia> plot(container.chain)
 ```
 """
-
 function fit(
     formula::FormulaTerm,
     data::DataFrame,

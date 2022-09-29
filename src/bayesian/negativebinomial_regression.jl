@@ -485,7 +485,7 @@ end
 
 """
 ```julia
-fit(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression, prior::Prior_HorseShoe, sim_size::Int64 = 1000)
+fit(formula::FormulaTerm,data::DataFrame,modelClass::NegBinomRegression,PriorMod::Prior_HorseShoe,sim_size::Int64 = 1000)
 ```
 
 Fit a Bayesian Negative Binomial Regression model on the input data with a HorseShoe prior. 
