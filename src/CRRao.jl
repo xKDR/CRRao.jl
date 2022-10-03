@@ -58,6 +58,12 @@ Abstract type representing link functions which are used to dispatch to appropri
 """
 abstract type CRRaoLink end
 
+struct Identity <: CRRaoLink
+    link_function::Function
+end
+
+Identity() = Identity(Identity_Link)
+
 """
 ```julia
 Logit <: CRRaoLink
@@ -70,7 +76,7 @@ z\\mapsto \\dfrac{1}{1 + \\exp(-z)}
 ```
 """
 struct Logit <: CRRaoLink
-    link::Function
+    link_function::Function
 end
 
 Logit() = Logit(Logit_Link)
@@ -89,7 +95,7 @@ z\\mapsto \\mathbb{P}[Z\\le z]
 where ``Z\\sim \\text{Normal}(0, 1)``.
 """
 struct Probit <: CRRaoLink
-    link::Function
+    link_function::Function
 end
 
 Probit() = Probit(Probit_Link)
@@ -106,7 +112,7 @@ z\\mapsto 1 - \\exp(-\\exp(z))
 ```
 """
 struct Cloglog <: CRRaoLink
-    link::Function
+    link_function::Function
 end
 
 Cloglog() = Cloglog(Cloglog_Link)
@@ -123,7 +129,7 @@ z\\mapsto \\dfrac{1}{2} + \\dfrac{\\text{atan}(z)}{\\pi}
 ```
 """
 struct Cauchit <: CRRaoLink
-    link::Function
+    link_function::Function
 end
 
 Cauchit() = Cauchit(Cauchit_Link)
