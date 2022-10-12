@@ -457,7 +457,7 @@ function fit(
     formula::FormulaTerm,
     data::DataFrame,
     modelClass::NegBinomRegression,
-    PriorMod::Prior_Uniform,
+    prior::Prior_Uniform,
     h::Float64 = 0.1,
     sim_size::Int64 = 1000
 )
@@ -485,7 +485,7 @@ end
 
 """
 ```julia
-fit(formula::FormulaTerm,data::DataFrame,modelClass::NegBinomRegression,PriorMod::Prior_HorseShoe,sim_size::Int64 = 1000)
+fit(formula::FormulaTerm,data::DataFrame,modelClass::NegBinomRegression,prior::Prior_HorseShoe,sim_size::Int64 = 1000)
 ```
 
 Fit a Bayesian Negative Binomial Regression model on the input data with a HorseShoe prior. 
@@ -502,7 +502,7 @@ function fit(
     formula::FormulaTerm,
     data::DataFrame,
     modelClass::NegBinomRegression,
-    PriorMod::Prior_HorseShoe,
+    prior::Prior_HorseShoe,
     sim_size::Int64 = 1000
 )
     @model NegativeBinomialRegression(X, y) = begin

@@ -154,6 +154,28 @@ function bic(container::FrequentistRegression)
     return StatsBase.bic(container.model)
 end
 
+"""
+```julia
+sigma(container::FrequentistRegression)
+```
+
+The `sigma` computes the residual standard error from [StatsAPI.jl](https://github.com/JuliaStats/StatsAPI.jl).
+
+# Example
+
+```julia
+using CRRao, RDatasets, StatsModels
+
+# Get the dataset
+mtcars = dataset("datasets", "mtcars")
+
+# Train the model
+container = fit(@formula(MPG ~ HP + WT + Gear), mtcars, LinearRegression())
+
+# Get sigma
+sigma(container)
+```
+"""
 function sigma(container::FrequentistRegression)
     return sqrt(StatsBase.deviance(container.model) / StatsBase.dof_residual(container.model))
 end
