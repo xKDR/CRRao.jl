@@ -4,6 +4,10 @@ struct MCMC_chain
     quantiles
 end
 
+function Identity_Link(z::Real)
+    z
+end
+
 function Logit_Link(z::Real)
     1 / (1 + exp(-z))
 end

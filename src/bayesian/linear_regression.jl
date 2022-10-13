@@ -507,3 +507,106 @@ function fit(
 
     return linear_reg(formula, data, LinearRegression, sim_size)
 end
+
+"""
+```julia
+fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, prior::Prior_Gauss,alpha_prior_mean::Float64 = 0.0, beta_prior_mean::Float64, sim_size::Int64 = 1000, h::Float64 = 0.1)
+```
+
+Fit a Bayesian Linear Regression model on the input data with a Gaussian prior with user specific prior mean for α and β. User doesnot have
+    idea about the prior sd of α and β. User ignore the specification for sd of α and β.
+
+# Example
+```julia-repl
+julia> using CRRao, RDatasets, StableRNGs, StatsModels
+julia> CRRao.set_rng(StableRNG(123));
+julia> df = dataset("datasets", "mtcars");                                                                                                
+julia> container = fit(@formula(MPG ~ HP + WT + Gear), df, LinearRegression(), Prior_Gauss(),0.0,[0.0,-3.0,1.0],1000)
+```
+"""
+function fit(
+    formula::FormulaTerm
+    , data::DataFrame
+    , modelClass::LinearRegression
+    , prior::Prior_Gauss
+    , alpha_prior_mean::Float64
+    , beta_prior_mean::Vector{Float64}
+    , sim_size::Int64 = 1000
+    , h::Float64 = 0.1
+)
+    @model LinearRegression(X, y) = begin
+        p = size(X, 2)
+        α0 = alpha_prior_mean
+        β0 = beta_prior_mean
+
+        #priors
+        a0 = 0.1
+        b0 = 0.1
+
+        Ip = 1*Matrix(I,p,p)
+
+        S = cov(X)+Ip
+
+        v ~ InverseGamma(h, h)
+        σ ~ InverseGamma(a0, b0)
+        α ~ Normal(α0, v * σ)
+        β ~ MvNormal(β0, S)
+
+        #likelihood
+        y ~ MvNormal(α .+ X * β, σ)
+    end
+
+    return linear_reg(formula, data, LinearRegression, sim_size)
+end
+
+
+"""
+```julia
+fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, prior::Prior_Gauss, alpha_prior_mean::Float64, alpha_prior_sd::Float64, beta_prior_mean::Vector{Float64}, beta_prior_sd::Vector{Float64}, sim_size::Int64 = 1000)
+```
+
+Fit a Bayesian Linear Regression model on the input data with a Gaussian prior with user specific prior mean and sd for α and β. 
+
+# Example
+```julia-repl
+julia> using CRRao, RDatasets, StableRNGs, StatsModels
+julia> CRRao.set_rng(StableRNG(123));
+julia> df = dataset("datasets", "mtcars");                                                                                                
+julia> container = fit(@formula(MPG ~ HP + WT + Gear), df, LinearRegression(), Prior_Gauss(),30.0,10.0,[0.0,-3.0,1.0],[0.1,1.0,1.0],1000)
+```
+"""
+function fit(
+    formula::FormulaTerm
+    , data::DataFrame
+    , modelClass::LinearRegression
+    , prior::Prior_Gauss
+    , alpha_prior_mean::Float64
+    , alpha_prior_sd::Float64
+    , beta_prior_mean::Vector{Float64}
+    , beta_prior_sd::Vector{Float64}
+    , sim_size::Int64 = 1000
+)
+    @model LinearRegression(X, y) = begin
+        p = size(X, 2)
+        α0 = alpha_prior_mean
+        σ_α0 = alpha_prior_sd
+        β0 = beta_prior_mean
+        σ_β0 = beta_prior_sd
+
+        S = Matrix(Diagonal(σ_β0))
+        S = S*S
+
+        #priors
+        a0 = 0.1
+        b0 = 0.1
+
+        σ ~ InverseGamma(a0, b0)
+        α ~ Normal(α0, σ_α0)
+        β ~ MvNormal(β0, S)
+
+        #likelihood
+        y ~ MvNormal(α .+ X * β, σ)
+    end
+
+    return linear_reg(formula, data, LinearRegression, sim_size)
+end
