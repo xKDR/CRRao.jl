@@ -30,6 +30,7 @@ It should be noted that not all model classes support every type of signature. T
     - [`Cauchit`](@ref)
 
 5. CRRao also supports Bayesian models, and the priors to be can be specified while calling `fit`. Currently CRRao supports five different kinds of priors, and the type of the `prior` parameter must be one of the following.
+    - [`Prior_Gauss`](@ref)
     - [`Prior_Ridge`](@ref)
     - [`Prior_Laplace`](@ref)
     - [`Prior_Cauchy`](@ref)
@@ -59,6 +60,7 @@ Cauchit
 ## Prior Distributions
 
 ```@docs
+Prior_Gauss
 Prior_Ridge
 Prior_Laplace
 Prior_Cauchy

@@ -5,7 +5,8 @@
 To install the package, type `]` in the Julia REPL to enter the `Pkg` mode and run
 
 ```
-pkg> add https://github.com/xKDR/CRRao.jl
+julia> using Pkg
+julia> Pkg.add("https://github.com/xKDR/CRRao.jl")
 ```
 
 ## Tutorial: Frequentist Linear Regression
