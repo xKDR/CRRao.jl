@@ -46,7 +46,6 @@ struct Prior_Ridge end
 struct Prior_Laplace end
 struct Prior_Cauchy end
 struct Prior_TDist end
-struct Prior_Uniform end
 struct Prior_HorseShoe end
 
 """
@@ -135,7 +134,7 @@ end
 Cauchit() = Cauchit(Cauchit_Link)
 
 export LinearRegression, LogisticRegression, PoissonRegression, NegBinomRegression
-export Prior_Ridge, Prior_Laplace, Prior_Cauchy, Prior_TDist, Prior_Uniform, Prior_HorseShoe, Prior_Gauss
+export Prior_Ridge, Prior_Laplace, Prior_Cauchy, Prior_TDist, Prior_HorseShoe, Prior_Gauss
 export CRRaoLink, Logit, Probit, Cloglog, Cauchit, fit
 export coeftable, r2, adjr2, loglikelihood, aic, bic, sigma, predict, residuals, cooksdistance
 export FrequentistRegression, BayesianRegression

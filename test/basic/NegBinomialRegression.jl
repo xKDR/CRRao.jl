@@ -5,7 +5,6 @@ priors = [
     Prior_Laplace(),
     Prior_Cauchy(),
     Prior_TDist(),
-    Prior_Uniform(),
 ]
 
 CRRao.set_rng(StableRNG(123))

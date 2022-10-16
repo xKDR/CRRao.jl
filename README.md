@@ -48,13 +48,12 @@ We have implemented four regression models:
 3. Poisson 
 4. Negative binomial
 
-In all cases, we have traditional frequentist models and Bayesian versions with five kinds of priors :
+In all cases, we have traditional frequentist models and Bayesian versions with four kinds of priors :
 
 1. Ridge
 2. Laplace
 3. Cauchy
 4. T-Distributed
-5. Uniform flat
 
 All these models are built out of foundations in the Julia package ecosystem, such as GLM.jl and Turing.jl. Here in CRRao.jl, we are not building additional models; we are only building the scaffolding for the consistent API to a diverse array of models.
 
