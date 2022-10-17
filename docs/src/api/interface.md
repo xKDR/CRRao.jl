@@ -29,13 +29,12 @@ It should be noted that not all model classes support every type of signature. T
     - [`Cloglog`](@ref)
     - [`Cauchit`](@ref)
 
-5. CRRao also supports Bayesian models, and the priors to be can be specified while calling `fit`. Currently CRRao supports five different kinds of priors, and the type of the `prior` parameter must be one of the following.
+5. CRRao also supports Bayesian models, and the priors to be can be specified while calling `fit`. Currently CRRao supports six different kinds of priors, and the type of the `prior` parameter must be one of the following.
     - [`Prior_Gauss`](@ref)
     - [`Prior_Ridge`](@ref)
     - [`Prior_Laplace`](@ref)
     - [`Prior_Cauchy`](@ref)
     - [`Prior_TDist`](@ref)
-    - [`Prior_Uniform`](@ref)
     - [`Prior_HorseShoe`](@ref)
 
 
@@ -65,7 +64,6 @@ Prior_Ridge
 Prior_Laplace
 Prior_Cauchy
 Prior_TDist
-Prior_Uniform
 Prior_HorseShoe
 ```
 

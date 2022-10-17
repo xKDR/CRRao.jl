@@ -28,10 +28,6 @@ fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, prior::
 ```@docs
 fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, prior::Prior_TDist, h::Float64 = 2.0, sim_size::Int64 = 1000)
 ```
-### Linear Regression with Uniform Prior
-```@docs
-fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, prior::Prior_Uniform, h::Float64 = 0.01, sim_size::Int64 = 1000)
-```
 ### Linear Regression with Horse Shoe Prior
 ```@docs
 fit(formula::FormulaTerm,data::DataFrame,modelClass::LinearRegression,prior::Prior_HorseShoe,sim_size::Int64 = 1000)
@@ -54,10 +50,6 @@ fit(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link:
 ### Logistic Regression with T-Distributed Prior
 ```@docs
 fit(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_TDist, h::Float64 = 1.0, level::Float64 = 0.95, sim_size::Int64 = 1000)
-```
-### Logistic Regression with Uniform Prior
-```@docs
-fit(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_Uniform, h::Float64 = 0.01, level::Float64 = 0.95, sim_size::Int64 = 1000)
 ```
 
 ### Logistic Regression with Horse Shoe Prior
@@ -85,10 +77,6 @@ fit(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression, prior
 ```@docs
 fit(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression, prior::Prior_TDist, h::Float64 = 1.0, sim_size::Int64 = 1000)
 ```
-### Negative Binomial Regression with Uniform Prior
-```@docs
-fit(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression, prior::Prior_Uniform, h::Float64 = 0.1, sim_size::Int64 = 1000)
-```
 
 ### Negative Binomial Regression with HorseShoe Prior
 ```@docs
@@ -112,11 +100,6 @@ fit(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression, prior:
 ### Poisson Regression with T-Distributed Prior
 ```@docs
 fit(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression, prior::Prior_TDist, h::Float64 = 2.0, sim_size::Int64 = 1000)
-```
-
-### Poisson Regression with Uniform Prior
-```@docs
-fit(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression, prior::Prior_Uniform, h::Float64 = 1.0, sim_size::Int64 = 1000)
 ```
 
 ### Poisson Regression with Horse Shoe Prior

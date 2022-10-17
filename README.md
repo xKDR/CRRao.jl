@@ -9,7 +9,7 @@
 
 ## To install: 
 ```Julia
- add "https://github.com/xKDR/CRRao.jl.git"
+using Pkg; Pkg.add(url = "https://github.com/xKDR/CRRao.jl.git")
 ```
 
 # CRRao: A single API for diverse statistical models
@@ -48,14 +48,15 @@ We have implemented four regression models:
 3. Poisson 
 4. Negative binomial
 
-In all cases, we have traditional frequentist models and Bayesian versions with five kinds of priors :
+In all cases, we have traditional frequentist models and Bayesian versions with six kinds of priors :
 
-1. Ridge
-2. Laplace
-3. Cauchy
-4. T-Distributed
-5. Uniform flat
+1. Gauss
+2. Ridge
+3. Laplace
+4. Cauchy
+5. T-Distributed
 6. Horse shoe 
+
 
 All these models are built out of foundations in the Julia package ecosystem, such as GLM.jl and Turing.jl. Here in CRRao.jl, we are not building additional models; we are only building the scaffolding for the consistent API to a diverse array of models.
 

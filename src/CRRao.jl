@@ -258,39 +258,6 @@ y_i \\sim D(\\mu_i,\\sigma),
 """
 struct Prior_TDist end
 
-"""
-```julia
-Prior_Uniform
-```
-Type representing the Uniform Prior.
-
-*Prior model*
-
-```math
-v = 1/h,
-```
-```math
-\\sigma \\sim Uniform(0,v),
-```
-```math
-\\alpha | \\sigma,v \\sim Uniform(-v \\sigma,v \\sigma),
-```
-```math
-\\beta | \\sigma,v \\sim Uniform(-v ,v),
-```
-*Likelihood or data model*
-```math
-\\mu_i= \\alpha + \\mathbf{x}_i^T\\beta
-```
-```math
-y_i \\sim D(\\mu_i,\\sigma),
-```
-**Note**: ``D()`` is appropriate distribution of ``y_i`` based on the `modelClass`, where 
-
-+ ``\\mathbf{E}(y_i)=g(\\mu_i)``, and 
-+ ``Var(y_i)=\\sigma^2``.
-"""
-struct Prior_Uniform end
 
 """
 ```julia
@@ -416,7 +383,7 @@ end
 Cauchit() = Cauchit(Cauchit_Link)
 
 export LinearRegression, LogisticRegression, PoissonRegression, NegBinomRegression
-export Prior_Ridge, Prior_Laplace, Prior_Cauchy, Prior_TDist, Prior_Uniform, Prior_HorseShoe, Prior_Gauss
+export Prior_Ridge, Prior_Laplace, Prior_Cauchy, Prior_TDist, Prior_HorseShoe, Prior_Gauss
 export CRRaoLink, Logit, Probit, Cloglog, Cauchit, fit
 export coeftable, r2, adjr2, loglikelihood, aic, bic, sigma, predict, residuals, cooksdistance
 export FrequentistRegression, BayesianRegression

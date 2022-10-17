@@ -15,19 +15,6 @@ for link in links
     @test sizeof(model) > 0
 end
 
-uniform_prior_tests = [
-    (Logit(),125), 
-    (Probit(),123), 
-    (Cloglog(),125), 
-    (Cauchit(),123)
-]
-
-for (link,seed) in uniform_prior_tests
-    CRRao.set_rng(StableRNG(seed))
-    model = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), link, Prior_Uniform())
-    @test sizeof(model) > 0
-end
-
 for prior in priors
     for link in links
         CRRao.set_rng(StableRNG(123))
