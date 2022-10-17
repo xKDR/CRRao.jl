@@ -772,14 +772,17 @@ function fit(
     return logistic_reg(formula, data, Link, LogisticRegression, sim_size)
 end
 
+
+
 """
 ```julia
-fit(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_HorseShoe, h::Float64 = 0.01, level::Float64 = 0.95, sim_size::Int64 = 1000)
+fit(formula::FormulaTerm,data::DataFrame,modelClass::LogisticRegression,Link::CRRaoLink,prior::Prior_HorseShoe,level::Float64 = 0.95,sim_size::Int64 = 1000)
 ```
 
 Fit a Bayesian Logistic Regression model on the input data with a HorseShoe prior with the provided `Link` function.
 
 # Example
+
 ```julia-repl
 julia> using CRRao, RDatasets, StableRNGs, StatsModels
 julia> CRRao.set_rng(StableRNG(123))
@@ -788,6 +791,7 @@ julia> container_logit = fit(@formula(Vote ~ Age + Race + Income + Educate), tur
 julia> container_probit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Probit(), Prior_HorseShoe())
 julia> container_cloglog = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Cloglog(), Prior_HorseShoe())
 julia> container_cauchit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Cauchit(), Prior_HorseShoe())
+```
 """
 function fit(
   formula::FormulaTerm,

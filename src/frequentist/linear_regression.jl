@@ -2,7 +2,6 @@
 ```julia
 fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression)
 ```
-
 Fit an OLS Linear Regression model on the input data. Uses the `lm` method from the [GLM](https://github.com/JuliaStats/GLM.jl) package under the hood. Returns an object of type `FrequentistRegression{:LinearRegression}`.
 
 # Example

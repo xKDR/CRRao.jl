@@ -9,7 +9,7 @@
 
 ## To install: 
 ```Julia
- add "https://github.com/xKDR/CRRao.jl.git"
+using Pkg; Pkg.add(url = "https://github.com/xKDR/CRRao.jl.git")
 ```
 
 # CRRao: A single API for diverse statistical models
@@ -48,24 +48,46 @@ We have implemented four regression models:
 3. Poisson 
 4. Negative binomial
 
-In all cases, we have traditional frequentist models and Bayesian versions with four kinds of priors :
+In all cases, we have traditional frequentist models and Bayesian versions with six kinds of priors :
 
-1. Ridge
-2. Laplace
-3. Cauchy
-4. T-Distributed
+1. Gauss
+2. Ridge
+3. Laplace
+4. Cauchy
+5. T-Distributed
+6. Horse shoe 
+
 
 All these models are built out of foundations in the Julia package ecosystem, such as GLM.jl and Turing.jl. Here in CRRao.jl, we are not building additional models; we are only building the scaffolding for the consistent API to a diverse array of models.
 
+The traditional frequentist models estimates MLE using the GLM.jl and the Bayesian models uses the Hamiltonian Monte Carlo (HMC) methods using Turing.jl.
+
+# Future capabilities
+1. [Gaussian Process Regression](https://github.com/xKDR/CRRao.jl/issues/44)
+2. [Gaussian Process Classification](https://github.com/xKDR/CRRao.jl/issues/42)
+3. [Gaussian Process Time Series](https://github.com/xKDR/CRRao.jl/issues/43)
+4. [Linear Discriminant Analysis](https://github.com/xKDR/CRRao.jl/issues/25)
+5. [Hierarchical Bayesian Models](https://github.com/xKDR/CRRao.jl/issues/49)
+
+
+
 # Help us build this
 
-Please use CRRao and tell us what is not good about it.
++ Please use CRRao and tell us what is not good about it.
 
-We have exploited Julia capabilities to make it convenient to build additional functionality within CRRao, and for multiple developers to build new models.
++ We have exploited Julia capabilities to make it convenient to build additional functionality within CRRao, and for multiple developers to build new models.
 
-We want to build out CRRao into a simple and consistent approach to the statistical modelling workflow. Please help us plan and build this.
++ We want to build out CRRao into a simple and consistent approach to the statistical modelling workflow. Please help us plan and build this.
 
-As a developer, you can begin contributing by adding the features requested in the [milestones](https://github.com/xKDR/CRRao.jl/milestones) section of the repository. 
++ As a developer, you can begin contributing by adding the features requested in the [milestones](https://github.com/xKDR/CRRao.jl/milestones) section of the repository. 
+
++ When you are developing keep in mind that your application is capable of handling the following mandatory features:
+   1. Formula,
+   2. DataFrame (optional - you may choose other data types),
+   3. modelClass,
+   4. It follows StatsAPI.jl requirement (like it has atleast `fit`, others capabilities like `predict`,`aic`,`bic` would be great things to have).
+   5. Provide test cases
+   6. Check for performance gain against `R` and `Python`.
 
 # Performance gains
 
