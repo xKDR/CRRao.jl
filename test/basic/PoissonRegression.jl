@@ -5,7 +5,6 @@ priors = [
     Prior_Laplace(),
     Prior_Cauchy(),
     Prior_TDist(),
-    Prior_Uniform(),
 ]
 
 model = fit(@formula(Num ~ Target + Coop + NCost), sanction, PoissonRegression())
