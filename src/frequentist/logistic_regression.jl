@@ -1,5 +1,4 @@
 function logistic_reg(formula::FormulaTerm, data::DataFrame, Link::GLM.Link)
-    formula = apply_schema(formula, schema(formula, data))
     model = glm(formula, data, Binomial(), Link)
     return FrequentistRegression(:LogisticRegression, model, formula, typeof(Link))
 end
