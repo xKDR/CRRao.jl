@@ -94,7 +94,6 @@ julia> plot(cooksdistance(container))
 ```
 """
 function fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression)
-    formula = apply_schema(formula, schema(formula, data))
     model = lm(formula, data)
     return FrequentistRegression(:LinearRegression, model, formula)
 end

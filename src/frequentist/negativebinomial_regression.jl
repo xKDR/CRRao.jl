@@ -1,5 +1,4 @@
 function negativebinomial_reg(formula::FormulaTerm, data::DataFrame, Link::GLM.Link)
-    formula = apply_schema(formula, schema(formula, data))
     model = glm(formula, data, NegativeBinomial(), Link)
     return FrequentistRegression(:NegativeBinomialRegression, model, formula, typeof(Link))
 end
