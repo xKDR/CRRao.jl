@@ -6,7 +6,8 @@ function predict(container::BayesianRegression{:LinearRegression}, newdata::Data
     if isa(W, Tuple)
         W = reduce(hcat, W)
     end
-    predictions = params.α' .+ X * W'
+    #predictions = params.α' .+ X * W'
+    predictions = X * W'
     return vec(mean(predictions, dims=2))
 end
 
@@ -18,7 +19,8 @@ function predict(container::BayesianRegression{:LogisticRegression}, newdata::Da
     if isa(W, Tuple)
         W = reduce(hcat, W)
     end
-    z = params.α' .+ X * W'
+    #z = params.α' .+ X * W'
+    z =  X * W'
     return vec(mean(container.link.link_function.(z), dims=2))
 end
 
@@ -30,7 +32,8 @@ function predict(container::BayesianRegression{:NegativeBinomialRegression}, new
     if isa(W, Tuple)
         W = reduce(hcat, W)
     end
-    z = params.α' .+ X * W'
+    #z = params.α' .+ X * W'
+    z =  X * W'
     return vec(mean(exp.(z), dims=2))
 end
 
@@ -42,6 +45,7 @@ function predict(container::BayesianRegression{:PoissonRegression}, newdata::Dat
     if isa(W, Tuple)
         W = reduce(hcat, W)
     end
-    z = params.α' .+ X * W'
+    #z = params.α' .+ X * W'
+    z =  X * W'
     return vec(mean(exp.(z), dims=2))
 end
