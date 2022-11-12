@@ -69,6 +69,7 @@ Quantiles
         β[4]    0.1281    0.1597    0.1783    0.1989    0.2336
         β[5]    0.1276    0.1548    0.1675    0.1804    0.2104
 
+julia> predict(container_logit,turnout)
 julia> CRRao.set_rng(StableRNG(123))
 
 julia> container_probit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Probit(), Prior_Ridge())
@@ -103,6 +104,8 @@ Quantiles
         β[3]   -0.0286    0.0907    0.1496    0.2102    0.3104
         β[4]    0.0665    0.0863    0.0969    0.1070    0.1269
         β[5]    0.0771    0.0919    0.1004    0.1084    0.1238
+
+julia> predict(container_probit,turnout)
 
 julia> CRRao.set_rng(StableRNG(123))
 julia> container_cloglog = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Cloglog(), Prior_Ridge())
