@@ -1,4 +1,4 @@
-using CRRao, Test, StableRNGs, Logging, RDatasets, StatsModels
+using CRRao, Test, StableRNGs, Logging, RDatasets, StatsModels, GLM
 
 Logging.disable_logging(Logging.Warn)
 
@@ -21,6 +21,12 @@ CRRao.set_rng(StableRNG(123))
 
         @testset "Negative Binomial Regression" begin
             include("basic/NegBinomialRegression.jl")
+        end
+    end
+
+    @testset "Numerical Tests" begin
+        @testset "Frequentist" begin
+            include("numerical/frequentist/tests.jl")
         end
     end
 end
