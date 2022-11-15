@@ -1,9 +1,14 @@
 sanction = dataset("Zelig", "sanction")
 
-crrao_model = fit(@formula(Num ~ Target + Coop + NCost), sanction, NegBinomRegression())
-glm_model = glm(@formula(Num ~ Target + Coop + NCost), sanction, NegativeBinomial(), LogLink())
-@test isapprox(coeftable(crrao_model).cols, coeftable(glm_model).cols)
+formulae = [
+    @formula(Num ~ Target + Coop + NCost),
+    @formula(Num ~ 0 + Target + Coop + NCost),
+    @formula(Num ~ Target + Target^2 + Coop + Coop * Target),
+    @formula(Num ~ log(Target) + log(Coop))
+]
 
-crrao_model = fit(@formula(Num ~ 0 + Target + Coop + NCost), sanction, NegBinomRegression())
-glm_model = glm(@formula(Num ~ 0 + Target + Coop + NCost), sanction, NegativeBinomial(), LogLink())
-@test isapprox(coeftable(crrao_model).cols, coeftable(glm_model).cols)
+for f in formulae
+    crrao_model = fit(f, sanction, NegBinomRegression())
+    glm_model = glm(f, sanction, NegativeBinomial(), LogLink())
+    compare_models(crrao_model, glm_model, sanction)
+end

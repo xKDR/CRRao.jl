@@ -1,9 +1,14 @@
 mtcars = dataset("datasets", "mtcars")
 
-crrao_model = fit(@formula(MPG ~ HP + WT + Gear), mtcars, LinearRegression())
-glm_model = lm(@formula(MPG ~ HP + WT + Gear), mtcars)
-@test isapprox(coeftable(crrao_model).cols, coeftable(glm_model).cols)
+formulae = [
+    @formula(MPG ~ HP + WT + Gear),
+    @formula(MPG ~ 0 + HP + WT + Gear),
+    @formula(MPG ~ HP + HP^2 + WT + WT * HP),
+    @formula(log(MPG) ~ log(HP) + log(WT))
+]
 
-crrao_model = fit(@formula(MPG ~ 0 + HP + WT + Gear), mtcars, LinearRegression())
-glm_model = lm(@formula(MPG ~ 0 + HP + WT + Gear), mtcars)
-@test isapprox(coeftable(crrao_model).cols, coeftable(glm_model).cols)
+for f in formulae
+    crrao_model = fit(f, mtcars, LinearRegression())
+    glm_model = lm(f, mtcars)
+    compare_models(crrao_model, glm_model, mtcars)
+end
