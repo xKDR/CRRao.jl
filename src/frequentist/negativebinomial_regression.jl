@@ -1,5 +1,5 @@
 function negativebinomial_reg(formula::FormulaTerm, data::DataFrame, Link::GLM.Link)
-    model = glm(formula, data, NegativeBinomial(), Link)
+    model = negbin(formula, data, Link)
     return FrequentistRegression(:NegativeBinomialRegression, model, formula, typeof(Link))
 end
 
@@ -37,16 +37,16 @@ Model Class: Count Regression
 Likelihood Mode: Negative Binomial
 Link Function: Log
 Computing Method: Optimization
-─────────────────────────────────────────────────────────────────────────────────
-                         Coef.  Std. Error      z  Pr(>|z|)  Lower 95%  Upper 95%
-─────────────────────────────────────────────────────────────────────────────────
-(Intercept)         -1.10939      0.459677  -2.41    0.0158  -2.01034   -0.208444
-Target               0.0117398    0.142779   0.08    0.9345  -0.268101   0.291581
-Coop                 1.0506       0.111556   9.42    <1e-20   0.831949   1.26924
-NCost: major loss   -0.204244     0.508156  -0.40    0.6877  -1.20021    0.791723
-NCost: modest loss   1.27142      0.290427   4.38    <1e-04   0.702197   1.84065
-NCost: net gain      0.176797     0.254291   0.70    0.4869  -0.321604   0.675197
-─────────────────────────────────────────────────────────────────────────────────
+──────────────────────────────────────────────────────────────────────────────────
+                          Coef.  Std. Error      z  Pr(>|z|)  Lower 95%  Upper 95%
+──────────────────────────────────────────────────────────────────────────────────
+(Intercept)         -1.14517       0.480887  -2.38    0.0172  -2.0877    -0.202652
+Target               0.00862527    0.145257   0.06    0.9527  -0.276074   0.293324
+Coop                 1.06397       0.115995   9.17    <1e-19   0.836621   1.29131
+NCost: major loss   -0.23511       0.511443  -0.46    0.6457  -1.23752    0.7673
+NCost: modest loss   1.30767       0.276012   4.74    <1e-05   0.766698   1.84865
+NCost: net gain      0.183453      0.275387   0.67    0.5053  -0.356296   0.723202
+──────────────────────────────────────────────────────────────────────────────────
 ```
 """
 function fit(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression)
