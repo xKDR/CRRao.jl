@@ -23,4 +23,22 @@ CRRao.set_rng(StableRNG(123))
             include("basic/NegBinomialRegression.jl")
         end
     end
+
+    @testset "Numerical Tests" begin
+        @testset "Linear Regression" begin
+            include("numerical/bayesian/LinearRegression.jl")
+        end
+
+        @testset "Logistic Regression" begin
+            include("numerical/bayesian/LogisticRegression.jl")
+        end
+
+        @testset "Poisson Regression" begin
+            include("numerical/bayesian/PoissonRegression.jl")
+        end
+
+        @testset "Negative Binomial Regression" begin
+            include("numerical/bayesian/NegBinomialRegression.jl")
+        end
+    end
 end
