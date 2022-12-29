@@ -1,4 +1,4 @@
-using CRRao, Test, StableRNGs, Logging, RDatasets, StatsModels, GLM
+using CRRao, Test, StableRNGs, Logging, RDatasets, StatsModels, GLM, Statistics
 
 Logging.disable_logging(Logging.Warn)
 
@@ -27,6 +27,23 @@ CRRao.set_rng(StableRNG(123))
     @testset "Numerical Tests" begin
         @testset "Frequentist" begin
             include("numerical/frequentist/tests.jl")
+        end
+        @testset "Bayesian" begin
+            @testset "Linear Regression" begin
+                include("numerical/bayesian/LinearRegression.jl")
+            end
+
+            @testset "Logistic Regression" begin
+                include("numerical/bayesian/LogisticRegression.jl")
+            end
+
+            @testset "Poisson Regression" begin
+                include("numerical/bayesian/PoissonRegression.jl")
+            end
+
+            @testset "Negative Binomial Regression" begin
+                include("numerical/bayesian/NegBinomialRegression.jl")
+            end
         end
     end
 end
