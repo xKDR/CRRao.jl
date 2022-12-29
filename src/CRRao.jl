@@ -3,6 +3,7 @@ module CRRao
 using DataFrames, GLM, Turing, StatsModels, StatsBase
 using StatsBase, Distributions, LinearAlgebra
 using Optim, NLSolversBase, Random
+import StatsBase: coef, coeftable, r2, adjr2, loglikelihood, aic, bic, predict, residuals, cooksdistance, fit
 
 """
 ```julia

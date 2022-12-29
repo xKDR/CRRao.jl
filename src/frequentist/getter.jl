@@ -247,7 +247,7 @@ function predict(container::FrequentistRegression{:LogisticRegression}, newdata:
         return Probit_Link.(z)
     elseif (container.link == GLM.CauchitLink)
         return Cauchit_Link.(z)
-    elseif (container.link == GLM.Cloglog)
+    elseif (container.link == GLM.CloglogLink)
         return Cloglog_Link.(z)
     end
 end
