@@ -25,9 +25,14 @@ CRRao.set_rng(StableRNG(123))
     end
 
     @testset "Numerical Tests" begin
+        @testset "Random Number Generator" begin
+            include("numerical/RandomNumberGenerator.jl")
+        end
+
         @testset "Frequentist" begin
             include("numerical/frequentist/tests.jl")
         end
+
         @testset "Bayesian" begin
             @testset "Linear Regression" begin
                 include("numerical/bayesian/LinearRegression.jl")
