@@ -1,5 +1,5 @@
-function logistic_reg(formula::FormulaTerm, data::DataFrame, Link::GLM.Link)
-    model = glm(formula, data, Binomial(), Link)
+function logistic_reg(formula::FormulaTerm, data::DataFrame, Link::GLM.Link; kwargs...)
+    model = glm(formula, data, Binomial(), Link; kwargs...)
     return FrequentistRegression(:LogisticRegression, model, formula, typeof(Link))
 end
 
@@ -68,9 +68,10 @@ function fit(
     formula::FormulaTerm,
     data::DataFrame,
     modelClass::LogisticRegression,
-    Link::Logit
+    Link::Logit;
+    kwargs...
 )
-    return logistic_reg(formula, data, LogitLink())
+    return logistic_reg(formula, data, LogitLink(); kwargs...)
 end
 
 """
@@ -84,9 +85,10 @@ function fit(
     formula::FormulaTerm,
     data::DataFrame,
     modelClass::LogisticRegression,
-    Link::Probit
+    Link::Probit;
+    kwargs...
 )
-    return logistic_reg(formula, data, ProbitLink())
+    return logistic_reg(formula, data, ProbitLink(); kwargs...)
 end
 
 """
@@ -100,9 +102,10 @@ function fit(
     formula::FormulaTerm,
     data::DataFrame,
     modelClass::LogisticRegression,
-    Link::Cloglog
+    Link::Cloglog;
+    kwargs...
 )
-    return logistic_reg(formula, data, CloglogLink())
+    return logistic_reg(formula, data, CloglogLink(); kwargs...)
 end
 
 """
@@ -116,7 +119,8 @@ function fit(
     formula::FormulaTerm,
     data::DataFrame,
     modelClass::LogisticRegression,
-    Link::Cauchit
+    Link::Cauchit;
+    kwargs...
 )
-    return logistic_reg(formula, data, CauchitLink())
+    return logistic_reg(formula, data, CauchitLink(); kwargs...)
 end

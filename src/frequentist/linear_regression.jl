@@ -93,7 +93,7 @@ julia> residuals(container)
 julia> plot(cooksdistance(container))
 ```
 """
-function fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression)
-    model = lm(formula, data)
+function fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression; kwargs...)
+    model = lm(formula, data; kwargs...)
     return FrequentistRegression(:LinearRegression, model, formula)
 end

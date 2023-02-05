@@ -1,5 +1,5 @@
-function negativebinomial_reg(formula::FormulaTerm, data::DataFrame, Link::GLM.Link)
-    model = negbin(formula, data, Link)
+function negativebinomial_reg(formula::FormulaTerm, data::DataFrame, Link::GLM.Link; kwargs...)
+    model = negbin(formula, data, Link; kwargs...)
     return FrequentistRegression(:NegativeBinomialRegression, model, formula, typeof(Link))
 end
 
@@ -49,6 +49,6 @@ NCost: net gain      0.183453      0.275387   0.67    0.5053  -0.356296   0.7232
 ──────────────────────────────────────────────────────────────────────────────────
 ```
 """
-function fit(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression)
-    return negativebinomial_reg(formula, data, LogLink())
+function fit(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression; kwargs...)
+    return negativebinomial_reg(formula, data, LogLink(); kwargs...)
 end

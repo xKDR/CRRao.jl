@@ -1,5 +1,5 @@
-function poisson_reg(formula::FormulaTerm, data::DataFrame, Link::GLM.Link)
-    model = glm(formula, data, Poisson(), Link)
+function poisson_reg(formula::FormulaTerm, data::DataFrame, Link::GLM.Link; kwargs...)
+    model = glm(formula, data, Poisson(), Link; kwargs...)
     return FrequentistRegression(:PoissonRegression, model, formula, typeof(Link))
 end
 
@@ -49,6 +49,6 @@ NCost: net gain      0.463907   0.16992     2.73    0.0063   0.13087     0.79694
 ─────────────────────────────────────────────────────────────────────────────────
 ```
 """
-function fit(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression)
-    return poisson_reg(formula, data, LogLink())
+function fit(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression; kwargs...)
+    return poisson_reg(formula, data, LogLink(); kwargs...)
 end
