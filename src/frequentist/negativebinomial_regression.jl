@@ -5,10 +5,10 @@ end
 
 """
 ```julia
-fit(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression; kwargs...)
 ```
 
-Fit a Negative Binomial Regression model on the input data (with the default link function being the Log link). Uses the `glm` method from the [GLM](https://github.com/JuliaStats/GLM.jl) package under the hood. Returns an object of type `FrequentistRegression{:NegativeBinomialRegression}`.
+Fit a Negative Binomial Regression model on the input data (with the default link function being the Log link). Uses the [negbin](https://juliastats.org/GLM.jl/stable/api/#GLM.negbin) method from the [GLM](https://github.com/JuliaStats/GLM.jl) package under the hood. Returns an object of type `FrequentistRegression{:NegativeBinomialRegression}`. Supports the same keyword arguments as negbin.
 
 # Example
 ```julia-repl

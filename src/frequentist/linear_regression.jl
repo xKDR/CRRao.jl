@@ -1,8 +1,8 @@
 """
 ```julia
-fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression; kwargs...)
 ```
-Fit an OLS Linear Regression model on the input data. Uses the `lm` method from the [GLM](https://github.com/JuliaStats/GLM.jl) package under the hood. Returns an object of type `FrequentistRegression{:LinearRegression}`.
+Fit an OLS Linear Regression model on the input data. Uses the [lm](https://juliastats.org/GLM.jl/stable/api/#GLM.lm) method from the [GLM](https://github.com/JuliaStats/GLM.jl) package under the hood. Returns an object of type `FrequentistRegression{:LinearRegression}`. Supports the same keyword arguments as lm.
 
 # Example
 ```julia-repl

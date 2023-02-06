@@ -5,10 +5,10 @@ end
 
 """
 ```julia
-fit(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression; kwargs...)
 ```
 
-Fit a Poisson Regression model on the input data (with the default link function being the Log link). Uses the `glm` method from the [GLM](https://github.com/JuliaStats/GLM.jl) package under the hood. Returns an object of type `FrequentistRegression{:PoissonRegression}`.
+Fit a Poisson Regression model on the input data (with the default link function being the Log link). Uses the [glm](https://juliastats.org/GLM.jl/stable/api/#GLM.glm) method from the [GLM](https://github.com/JuliaStats/GLM.jl) package under the hood. Returns an object of type `FrequentistRegression{:PoissonRegression}`. Supports the same keyword arguments as glm.
 
 # Example
 ```julia-repl
