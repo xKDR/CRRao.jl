@@ -8,7 +8,7 @@ tests = [
 ]
 
 for (test_formula, test_aic, test_bic) in tests
-    crrao_model = fit(test_formula, sanction, PoissonRegression())
+    crrao_model = fit(test_formula, sanction, PoissonRegression(), wts=ones(size(sanction)[1]))
     glm_model = glm(test_formula, sanction, Poisson(), LogLink())
     compare_models(crrao_model, glm_model, sanction)
     @test isapprox(aic(crrao_model), test_aic)

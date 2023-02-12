@@ -8,7 +8,7 @@ tests = [
 ]
 
 for (test_formula, test_aic, test_bic) in tests
-    crrao_model = fit(test_formula, mtcars, LinearRegression())
+    crrao_model = fit(test_formula, mtcars, LinearRegression(), wts=ones(size(mtcars)[1]))
     glm_model = lm(test_formula, mtcars)
     compare_models(crrao_model, glm_model, mtcars)
     @test isapprox(aic(crrao_model), test_aic)

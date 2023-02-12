@@ -28,7 +28,7 @@ tests = [
 
 for (crrao_link, glm_link, formulae_and_values) in tests
     for (test_formula, test_aic, test_bic) in formulae_and_values
-        crrao_model = fit(test_formula, turnout, LogisticRegression(), crrao_link)
+        crrao_model = fit(test_formula, turnout, LogisticRegression(), crrao_link, wts=ones(size(turnout)[1]))
         glm_model = glm(test_formula, turnout, Binomial(), glm_link)
         compare_models(crrao_model, glm_model, turnout)
         @test isapprox(aic(crrao_model), test_aic)
