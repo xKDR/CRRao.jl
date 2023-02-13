@@ -8,7 +8,7 @@ tests = [
 ]
 
 for (test_formula, test_aic, test_bic) in tests
-    crrao_model = fit(test_formula, sanction, NegBinomRegression())
+    crrao_model = fit(test_formula, sanction, NegBinomRegression(), atol=1.0e-6)
     glm_model = negbin(test_formula, sanction, LogLink())
     compare_models(crrao_model, glm_model, sanction)
     @test isapprox(aic(crrao_model), test_aic)

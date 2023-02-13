@@ -1,14 +1,14 @@
-function negativebinomial_reg(formula::FormulaTerm, data::DataFrame, Link::GLM.Link)
-    model = negbin(formula, data, Link)
+function negativebinomial_reg(formula::FormulaTerm, data::DataFrame, Link::GLM.Link; kwargs...)
+    model = negbin(formula, data, Link; kwargs...)
     return FrequentistRegression(:NegativeBinomialRegression, model, formula, typeof(Link))
 end
 
 """
 ```julia
-fit(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression; kwargs...)
 ```
 
-Fit a Negative Binomial Regression model on the input data (with the default link function being the Log link). Uses the `glm` method from the [GLM](https://github.com/JuliaStats/GLM.jl) package under the hood. Returns an object of type `FrequentistRegression{:NegativeBinomialRegression}`.
+Fit a Negative Binomial Regression model on the input data (with the default link function being the Log link). Uses the [negbin](https://juliastats.org/GLM.jl/stable/api/#GLM.negbin) method from the [GLM](https://github.com/JuliaStats/GLM.jl) package under the hood. Returns an object of type `FrequentistRegression{:NegativeBinomialRegression}`. Supports the same keyword arguments as negbin.
 
 # Example
 ```julia-repl
@@ -49,6 +49,6 @@ NCost: net gain      0.183453      0.275387   0.67    0.5053  -0.356296   0.7232
 ──────────────────────────────────────────────────────────────────────────────────
 ```
 """
-function fit(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression)
-    return negativebinomial_reg(formula, data, LogLink())
+function fit(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression; kwargs...)
+    return negativebinomial_reg(formula, data, LogLink(); kwargs...)
 end

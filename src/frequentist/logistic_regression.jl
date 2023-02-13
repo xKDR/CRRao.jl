@@ -1,14 +1,14 @@
-function logistic_reg(formula::FormulaTerm, data::DataFrame, Link::GLM.Link)
-    model = glm(formula, data, Binomial(), Link)
+function logistic_reg(formula::FormulaTerm, data::DataFrame, Link::GLM.Link; kwargs...)
+    model = glm(formula, data, Binomial(), Link; kwargs...)
     return FrequentistRegression(:LogisticRegression, model, formula, typeof(Link))
 end
 
 """
 ```julia
-fit(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Logit)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Logit; kwargs...)
 ```
 
-Fit a Logistic Regression model on the input data using the Logit link. Uses the `glm` method from the [GLM](https://github.com/JuliaStats/GLM.jl) package under the hood. Returns an object of type `FrequentistRegression{:LogisticRegression}`.
+Fit a Logistic Regression model on the input data using the Logit link. Uses the [glm](https://juliastats.org/GLM.jl/stable/api/#GLM.glm) method from the [GLM](https://github.com/JuliaStats/GLM.jl) package under the hood. Returns an object of type `FrequentistRegression{:LogisticRegression}`. Supports the same keyword arguments as glm.
 
 # Example
 ```julia-repl
@@ -68,55 +68,59 @@ function fit(
     formula::FormulaTerm,
     data::DataFrame,
     modelClass::LogisticRegression,
-    Link::Logit
+    Link::Logit;
+    kwargs...
 )
-    return logistic_reg(formula, data, LogitLink())
+    return logistic_reg(formula, data, LogitLink(); kwargs...)
 end
 
 """
 ```julia
-fit(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Probit)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Probit; kwargs...)
 ```
 
-Fit a Logistic Regression model on the input data using the Probit link. Uses the `glm` method from the [GLM](https://github.com/JuliaStats/GLM.jl) package under the hood. Returns an object of type `FrequentistRegression{:LogisticRegression}`.
+Fit a Logistic Regression model on the input data using the Probit link. Uses the [glm](https://juliastats.org/GLM.jl/stable/api/#GLM.glm) method from the [GLM](https://github.com/JuliaStats/GLM.jl) package under the hood. Returns an object of type `FrequentistRegression{:LogisticRegression}`. Supports the same keyword arguments as glm.
 """
 function fit(
     formula::FormulaTerm,
     data::DataFrame,
     modelClass::LogisticRegression,
-    Link::Probit
+    Link::Probit;
+    kwargs...
 )
-    return logistic_reg(formula, data, ProbitLink())
+    return logistic_reg(formula, data, ProbitLink(); kwargs...)
 end
 
 """
 ```julia
-fit(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Cloglog)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Cloglog; kwargs...)
 ```
 
-Fit a Logistic Regression model on the input data using the Cloglog link. Uses the `glm` method from the [GLM](https://github.com/JuliaStats/GLM.jl) package under the hood. Returns an object of type `FrequentistRegression{:LogisticRegression}`.
+Fit a Logistic Regression model on the input data using the Cloglog link. Uses the [glm](https://juliastats.org/GLM.jl/stable/api/#GLM.glm) method from the [GLM](https://github.com/JuliaStats/GLM.jl) package under the hood. Returns an object of type `FrequentistRegression{:LogisticRegression}`. Supports the same keyword arguments as glm.
 """
 function fit(
     formula::FormulaTerm,
     data::DataFrame,
     modelClass::LogisticRegression,
-    Link::Cloglog
+    Link::Cloglog;
+    kwargs...
 )
-    return logistic_reg(formula, data, CloglogLink())
+    return logistic_reg(formula, data, CloglogLink(); kwargs...)
 end
 
 """
 ```julia
-fit(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Cauchit)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::Cauchit; kwargs...)
 ```
 
-Fit a Logistic Regression model on the input data using the Cauchit link. Uses the `glm` method from the [GLM](https://github.com/JuliaStats/GLM.jl) package under the hood. Returns an object of type `FrequentistRegression{:LogisticRegression}`.
+Fit a Logistic Regression model on the input data using the Cauchit link. Uses the [glm](https://juliastats.org/GLM.jl/stable/api/#GLM.glm) method from the [GLM](https://github.com/JuliaStats/GLM.jl) package under the hood. Returns an object of type `FrequentistRegression{:LogisticRegression}`. Supports the same keyword arguments as glm.
 """
 function fit(
     formula::FormulaTerm,
     data::DataFrame,
     modelClass::LogisticRegression,
-    Link::Cauchit
+    Link::Cauchit;
+    kwargs...
 )
-    return logistic_reg(formula, data, CauchitLink())
+    return logistic_reg(formula, data, CauchitLink(); kwargs...)
 end
