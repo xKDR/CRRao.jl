@@ -317,3 +317,33 @@ cooksdistance(container)
 function cooksdistance(container::FrequentistRegression)
     return StatsBase.cooksdistance(container.model)
 end
+
+"""
+```julia
+BPTest(container::FrequentistRegression, data::DataFrame)
+```
+
+Perform the Brush-Pegan test.
+
+# Example
+
+```julia
+using CRRao, RDatasets, StatsModels
+
+# Get the dataset
+mtcars = dataset("datasets", "mtcars")
+
+# Train the model
+container = fit(@formula(MPG ~ HP + WT + Gear), mtcars, LinearRegression())
+
+# Get the BPTest
+BPTest(container, mtcars)
+```
+"""
+function BPTest(container::FrequentistRegression, data::DataFrame)
+    fm_frame = ModelFrame(container.formula, data)
+    X = modelmatrix(fm_frame)
+    e = residuals(container)
+    BP_Test = WhiteTest(X, e)
+    return BP_Test
+end
