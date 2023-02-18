@@ -323,7 +323,7 @@ end
 BPTest(container::FrequentistRegression, data::DataFrame)
 ```
 
-Perform the Brush-Pegan test.
+Perform the Brush-Pegan test. This test only works with linear regression.
 
 # Example
 
