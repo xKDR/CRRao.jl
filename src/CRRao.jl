@@ -2,8 +2,9 @@ module CRRao
 
 using DataFrames, GLM, Turing, StatsModels, StatsBase
 using StatsBase, Distributions, LinearAlgebra
-using Optim, NLSolversBase, Random
+using Optim, NLSolversBase, Random, HypothesisTests
 import StatsBase: coef, coeftable, r2, adjr2, loglikelihood, aic, bic, predict, residuals, cooksdistance, fit
+import HypothesisTests: pvalue
 
 """
 ```julia
@@ -386,7 +387,7 @@ Cauchit() = Cauchit(Cauchit_Link)
 export LinearRegression, LogisticRegression, PoissonRegression, NegBinomRegression
 export Prior_Ridge, Prior_Laplace, Prior_Cauchy, Prior_TDist, Prior_HorseShoe, Prior_Gauss
 export CRRaoLink, Logit, Probit, Cloglog, Cauchit, fit
-export coef, coeftable, r2, adjr2, loglikelihood, aic, bic, sigma, predict, residuals, cooksdistance
+export coef, coeftable, r2, adjr2, loglikelihood, aic, bic, sigma, predict, residuals, cooksdistance, BPTest, pvalue
 export FrequentistRegression, BayesianRegression
 
 include("random_number_generator.jl")
