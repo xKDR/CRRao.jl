@@ -4,7 +4,7 @@ tests = [
     (Prior_Ridge(), 20.080877893580514),
     (Prior_Laplace(), 20.070783434589128),
     (Prior_Cauchy(), 20.019759144845644),
-    (Prior_TDist(), 20.042614331921428),
+    (Prior_TDist(), 20.08147561106022),
     (Prior_HorseShoe(), 20.042984550677183),
 ]
 

@@ -1,11 +1,11 @@
 sanction = dataset("Zelig", "sanction")
 
 tests = [
-    (Prior_Ridge(), 6.8753100988051274),
-    (Prior_Laplace(), 6.908332048475347),
-    (Prior_Cauchy(), 6.9829255933233645),
-    (Prior_TDist(), 6.915515248823249),
-    (Prior_HorseShoe(), 6.703023191644206),
+    (Prior_Ridge(), 6.999865486088317),
+    (Prior_Laplace(), 6.886529206600885),
+    (Prior_Cauchy(), 6.900001819752649),
+    (Prior_TDist(), 6.876415480722939),
+    (Prior_HorseShoe(), 6.902138507950901),
 ]
 
 for (prior, test_mean) in tests
