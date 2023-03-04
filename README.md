@@ -8,6 +8,11 @@
 [![Milestones](https://img.shields.io/badge/-milestones-brightgreen)](https://github.com/xKDR/CRRao.jl/milestones)
 
 ## To install: 
+### For version 0.1.0 (stable)
+```Julia
+using Pkg; Pkg.add("CRRao")
+```
+### For version 0.1.1 (under development)
 ```Julia
 using Pkg; Pkg.add(url = "https://github.com/xKDR/CRRao.jl.git")
 ```
@@ -25,7 +30,7 @@ MPG = β0 + β1 HP + β2 WT + β3 Gear + ϵ
    using CRRao, RDatasets, StatsModels
    df = dataset("datasets", "mtcars")
    model = fit(@formula(MPG ~ HP + WT+Gear), df, LinearRegression())
-   model.fit
+   coeftable(model)
 
    ────────────────────────────────────────────────────────────────────────────
                      Coef.  Std. Error      t  Pr(>|t|)   Lower 95%   Upper 95%
