@@ -96,6 +96,14 @@ struct PoissonRegression end
 
 """
 ```julia
+Boot_Residual
+```
+Type representing Residual Bootstrap.
+"""
+struct Boot_Residual end
+
+"""
+```julia
 Prior_Gauss
 ```
 Type representing the Gaussian Prior. Users have specific 
@@ -384,7 +392,7 @@ end
 
 Cauchit() = Cauchit(Cauchit_Link)
 
-export LinearRegression, LogisticRegression, PoissonRegression, NegBinomRegression
+export LinearRegression, LogisticRegression, PoissonRegression, NegBinomRegression, Boot_Residual
 export Prior_Ridge, Prior_Laplace, Prior_Cauchy, Prior_TDist, Prior_HorseShoe, Prior_Gauss
 export CRRaoLink, Logit, Probit, Cloglog, Cauchit, fit
 export coef, coeftable, r2, adjr2, loglikelihood, aic, bic, sigma, predict, residuals, cooksdistance, BPTest, pvalue
