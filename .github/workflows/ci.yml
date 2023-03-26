@@ -10,16 +10,20 @@ on:
     # can add tags if needed
 
 jobs: 
-    test: 
-        name: Test
-        runs-on: ubuntu-latest
+    test:
+        name: Julia ${{ matrix.version }} - ${{ matrix.os }} - ${{ matrix.arch }} - ${{ github.event_name }}
+        runs-on: ${{ matrix.os }}
+        strategy:
+            matrix:
+                version: ['1']
+                os: [ubuntu-latest, windows-latest, macos-latest]
+                arch: [x64]
         steps:
             - uses: actions/checkout@v2
             - uses: julia-actions/setup-julia@latest
               with:
-                version: '1.7.2'
-                arch: x64
-            - name: Install test dependencies
-              run: julia --project=test/ -e 'using Pkg; Pkg.instantiate()'
-            - name: Run tests
-              run: julia --project=. -e 'using Pkg; Pkg.test()'
+                version: ${{ matrix.version }}
+                arch: ${{ matrix.arch }}
+            - uses: julia-actions/cache@v1
+            - uses: julia-actions/julia-buildpkg@v1
+            - uses: julia-actions/julia-runtest@v1
