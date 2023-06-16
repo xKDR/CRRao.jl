@@ -2,7 +2,7 @@ turnout = dataset("Zelig", "turnout")[1:100,:] # Take a subset of rows to reduce
 
 tests = [
     (
-        Prior_Ridge(),
+        Ridge(),
         (
             (Logit(), 0.7690822208626806),
             (Probit(), 0.7685999218881091),
@@ -11,7 +11,7 @@ tests = [
         )
     ),
     (
-        Prior_Laplace(),
+        Laplace(),
         (
             (Logit(), 0.7718593681922629),
             (Probit(), 0.7695587585010469),
@@ -20,7 +20,7 @@ tests = [
         )
     ),
     (
-        Prior_Cauchy(),
+        Cauchy(),
         (
             (Logit(), 0.7678814727043146),
             (Probit(), 0.764699194194744),
@@ -29,7 +29,7 @@ tests = [
         )
     ),
     (
-        Prior_TDist(),
+        TDist(),
         (
             (Logit(), 0.588835403024102),
             (Probit(), 0.7642595382152266),
@@ -38,7 +38,7 @@ tests = [
         )
     ),
     (
-        Prior_HorseShoe(),
+        HorseShoe(),
         (
             (Logit(), 0.38683395333332327),
             (Probit(), 0.38253233489484173),

@@ -11,7 +11,7 @@ end
 
 """
 ```julia
-fit(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_Ridge, h::Float64 = 0.1, level::Float64 = 0.95, sim_size::Int64 = 1000)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Ridge, h::Float64 = 0.1, level::Float64 = 0.95, sim_size::Int64 = 1000)
 ```
 
 Fit a Bayesian Logistic Regression model on the input data with a Ridge prior with the provided `Link` function.
@@ -36,7 +36,7 @@ julia> turnout = dataset("Zelig", "turnout")
 julia> CRRao.set_rng(StableRNG(123))
 StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
 
-julia> container_logit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Logit(), Prior_Ridge())
+julia> container_logit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Logit(), Ridge())
 Chains MCMC chain (1000×18×1 Array{Float64, 3}):
 
 Iterations        = 501:1:1500
@@ -72,7 +72,7 @@ Quantiles
 julia> predict(container_logit,turnout)
 julia> CRRao.set_rng(StableRNG(123))
 
-julia> container_probit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Probit(), Prior_Ridge())
+julia> container_probit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Probit(), Ridge())
 Chains MCMC chain (1000×18×1 Array{Float64, 3}):
 
 Iterations        = 501:1:1500
@@ -108,7 +108,7 @@ Quantiles
 julia> predict(container_probit,turnout)
 
 julia> CRRao.set_rng(StableRNG(123))
-julia> container_cloglog = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Cloglog(), Prior_Ridge())
+julia> container_cloglog = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Cloglog(), Ridge())
 Chains MCMC chain (1000×18×1 Array{Float64, 3}):
 
 Iterations        = 501:1:1500
@@ -142,7 +142,7 @@ Quantiles
         β[5]    0.0728    0.0879    0.0948    0.1019    0.1164
         
 julia> CRRao.set_rng(StableRNG(123))
-julia> container_cauchit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Cauchit(), Prior_Ridge())
+julia> container_cauchit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Cauchit(), Ridge())
 ┌ Info: Found initial step size
 └   ϵ = 0.025
 Chains MCMC chain (1000×18×1 Array{Float64, 3}):
@@ -184,7 +184,7 @@ function fit(
     data::DataFrame,
     modelClass::LogisticRegression,
     Link::CRRaoLink,
-    prior::Prior_Ridge,
+    prior::Ridge,
     h::Float64 = 0.1,
     level::Float64 = 0.95,
     sim_size::Int64 = 1000
@@ -215,7 +215,7 @@ end
 
 """
 ```julia
-fit(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_Laplace, h::Float64 = 0.1, level::Float64 = 0.95, sim_size::Int64 = 1000)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Laplace, h::Float64 = 0.1, level::Float64 = 0.95, sim_size::Int64 = 1000)
 ```
 
 Fit a Bayesian Logistic Regression model on the input data with a Laplace prior with the provided `Link` function.
@@ -239,7 +239,7 @@ julia> turnout = dataset("Zelig", "turnout")
  1999 │ white     22     10.0   2.4811      0
  2000 │ white     59     10.0   0.5523      0
 
-julia> container_logit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Logit(), Prior_Laplace())
+julia> container_logit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Logit(), Laplace())
 ┌ Info: Found initial step size
 └   ϵ = 0.0015625
 Chains MCMC chain (1000×18×1 Array{Float64, 3}):
@@ -275,7 +275,7 @@ Quantiles
         β[5]    0.1282    0.1562    0.1693    0.1828    0.2087
                              
 
-julia> container_probit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Probit(), Prior_Laplace())
+julia> container_probit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Probit(), Laplace())
 Chains MCMC chain (1000×18×1 Array{Float64, 3}):
 
 Iterations        = 501:1:1500
@@ -309,7 +309,7 @@ Quantiles
         β[5]    0.0772    0.0925    0.1004    0.1091    0.1219
 
 julia> CRRao.set_rng(StableRNG(123))        
-julia> container_cloglog = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Cloglog(), Prior_Laplace())
+julia> container_cloglog = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Cloglog(), Laplace())
 Chains MCMC chain (1000×18×1 Array{Float64, 3}):
 
 Iterations        = 501:1:1500
@@ -342,7 +342,7 @@ Quantiles
         β[4]    0.0549    0.0696    0.0772    0.0849    0.0999
         β[5]    0.0738    0.0882    0.0959    0.1031    0.1151
 
-julia> container_cauchit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Cauchit(), Prior_Laplace())
+julia> container_cauchit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Cauchit(), Laplace())
 ┌ Info: Found initial step size
 └   ϵ = 0.00078125
 Chains MCMC chain (1000×18×1 Array{Float64, 3}):
@@ -383,7 +383,7 @@ function fit(
     data::DataFrame,
     modelClass::LogisticRegression,
     Link::CRRaoLink,
-    prior::Prior_Laplace,
+    prior::Laplace,
     h::Float64 = 0.1,
     level::Float64 = 0.95,
     sim_size::Int64 = 1000
@@ -394,7 +394,7 @@ function fit(
         #priors
         λ ~ InverseGamma(h, h)
         #α ~ Normal(0, λ)
-        β ~ filldist(Laplace(0, λ), p)
+        β ~ filldist(Distributions.Laplace(0, λ), p)
 
         #z = α .+ X * β
         z = X * β
@@ -414,7 +414,7 @@ end
 
 """
 ```julia
-fit(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_Cauchy, h::Float64 = 0.1, level::Float64 = 0.95, sim_size::Int64 = 1000)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Cauchy, h::Float64 = 0.1, level::Float64 = 0.95, sim_size::Int64 = 1000)
 ```
 
 Fit a Bayesian Logistic Regression model on the input data with a Cauchy prior with the provided `Link` function.
@@ -438,7 +438,7 @@ julia> turnout = dataset("Zelig", "turnout")
  1999 │ white     22     10.0   2.4811      0
  2000 │ white     59     10.0   0.5523      0
                              1993 rows omitted
-julia> container_logit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Logit(), Prior_Cauchy())
+julia> container_logit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Logit(), Cauchy())
 ┌ Info: Found initial step size
 └   ϵ = 0.0015625
 Chains MCMC chain (1000×18×1 Array{Float64, 3}):
@@ -473,7 +473,7 @@ Quantiles
         β[4]    0.1237    0.1595    0.1787    0.1962    0.2341
         β[5]    0.1358    0.1608    0.1735    0.1866    0.2164
 
-julia> container_probit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Probit(), Prior_Cauchy())
+julia> container_probit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Probit(), Cauchy())
 Chains MCMC chain (1000×18×1 Array{Float64, 3}):
 
 Iterations        = 501:1:1500
@@ -505,7 +505,7 @@ Quantiles
         β[3]   -0.0366    0.0566    0.1128    0.1706    0.2800
         β[4]    0.0657    0.0852    0.0958    0.1058    0.1245
         β[5]    0.0798    0.0949    0.1028    0.1111    0.1251
-julia> container_cloglog = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Cloglog(), Prior_Cauchy())
+julia> container_cloglog = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Cloglog(), Cauchy())
 Chains MCMC chain (1000×18×1 Array{Float64, 3}):
 
 Iterations        = 501:1:1500
@@ -538,7 +538,7 @@ Quantiles
         β[4]    0.0538    0.0689    0.0768    0.0842    0.1003
         β[5]    0.0750    0.0883    0.0960    0.1042    0.1206
 
-julia> container_cauchit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Cauchit(), Prior_Cauchy())
+julia> container_cauchit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Cauchit(), Cauchy())
 Chains MCMC chain (1000×18×1 Array{Float64, 3}):
 
 Iterations        = 501:1:1500
@@ -577,7 +577,7 @@ function fit(
     data::DataFrame,
     modelClass::LogisticRegression,
     Link::CRRaoLink,
-    prior::Prior_Cauchy,
+    prior::Cauchy,
     h::Float64 = 0.1,
     level::Float64 = 0.95,
     sim_size::Int64 = 1000
@@ -586,9 +586,9 @@ function fit(
         p = size(X, 2)
         n = size(X, 1)
         #priors
-        λ ~ Truncated(TDist(1), 0, Inf)
-        #α ~ TDist(1) * λ
-        β ~ filldist(TDist(1) * λ, p)
+        λ ~ Truncated(Distributions.TDist(1), 0, Inf)
+        #α ~ Distributions.TDist(1) * λ
+        β ~ filldist(Distributions.TDist(1) * λ, p)
 
         #z = α .+ X * β
         z = X * β
@@ -608,7 +608,7 @@ end
 
 """
 ```julia
-fit(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_TDist, h::Float64 = 1.0, level::Float64 = 0.95, sim_size::Int64 = 1000)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::TDist, h::Float64 = 1.0, level::Float64 = 0.95, sim_size::Int64 = 1000)
 ```
 
 Fit a Bayesian Logistic Regression model on the input data with a T-Dist prior with the provided `Link` function.
@@ -634,7 +634,7 @@ julia> turnout = dataset("Zelig", "turnout")
                              1993 rows omitted
 julia> CRRao.set_rng(StableRNG(7740));
 StableRNGs.LehmerRNG(state=0x00000000000000000000000000003c79)
-julia> container_logit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Logit(), Prior_TDist())
+julia> container_logit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Logit(), TDist())
 ┌ Info: Found initial step size
 └   ϵ = 0.003125
 ┌ Warning: The current proposal will be rejected due to numerical error(s).
@@ -675,7 +675,7 @@ Quantiles
         β[5]    0.1349    0.1604    0.1723    0.1861    0.2119
 
 julia> CRRao.set_rng(StableRNG(7740))
-julia> container_probit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Probit(), Prior_TDist())
+julia> container_probit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Probit(), TDist())
 ┌ Info: Found initial step size
 └   ϵ = 0.00078125
 Chains MCMC chain (1000×19×1 Array{Float64, 3}):
@@ -713,7 +713,7 @@ Quantiles
         β[5]    0.0787    0.0937    0.1015    0.1095    0.1241
 
 julia> CRRao.set_rng(StableRNG(7740))
-julia> container_cloglog = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Cloglog(), Prior_TDist())
+julia> container_cloglog = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Cloglog(), TDist())
 ┌ Info: Found initial step size
 └   ϵ = 0.0015625
 Chains MCMC chain (10000×19×1 Array{Float64, 3}):
@@ -753,7 +753,7 @@ Quantiles
 julia> CRRao.set_rng(StableRNG(7740))
 StableRNGs.LehmerRNG(state=0x00000000000000000000000000003c79)
         
-julia> container_cauchit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Cauchit(), Prior_TDist())
+julia> container_cauchit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Cauchit(), TDist())
 ┌ Info: Found initial step size
 └   ϵ = 0.8
 Chains MCMC chain (1000×19×1 Array{Float64, 3}):
@@ -796,7 +796,7 @@ function fit(
     data::DataFrame,
     modelClass::LogisticRegression,
     Link::CRRaoLink,
-    prior::Prior_TDist,
+    prior::TDist,
     h::Float64 = 3.0,
     level::Float64 = 0.95,
     sim_size::Int64 = 1000
@@ -807,8 +807,8 @@ function fit(
         #priors
         λ ~ InverseGamma(h, h)
         ν ~ InverseGamma(h, h)
-        #α ~ TDist(ν) * λ
-        β ~ filldist(TDist(ν) * λ, p)
+        #α ~ Distributions.TDist(ν) * λ
+        β ~ filldist(Distributions.TDist(ν) * λ, p)
 
         #z = α .+ X * β
         z =  X * β
@@ -830,7 +830,7 @@ end
 
 """
 ```julia
-fit(formula::FormulaTerm,data::DataFrame,modelClass::LogisticRegression,Link::CRRaoLink,prior::Prior_HorseShoe,level::Float64 = 0.95,sim_size::Int64 = 1000)
+fit(formula::FormulaTerm,data::DataFrame,modelClass::LogisticRegression,Link::CRRaoLink,prior::HorseShoe,level::Float64 = 0.95,sim_size::Int64 = 1000)
 ```
 
 Fit a Bayesian Logistic Regression model on the input data with a HorseShoe prior with the provided `Link` function.
@@ -841,7 +841,7 @@ Fit a Bayesian Logistic Regression model on the input data with a HorseShoe prio
 julia> using CRRao, RDatasets, StableRNGs, StatsModels
 julia> turnout = dataset("Zelig", "turnout");
 julia> CRRao.set_rng(StableRNG(7740))
-julia> container_logit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Logit(), Prior_HorseShoe())
+julia> container_logit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Logit(), HorseShoe())
 Chains MCMC chain (1000×24×1 Array{Float64, 3}):
 
 Iterations        = 501:1:1500
@@ -887,7 +887,7 @@ Quantiles
         β[5]    0.1345    0.1600    0.1736    0.1888    0.2162
 
 julia> CRRao.set_rng(StableRNG(7750))
-julia> container_probit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Probit(), Prior_HorseShoe())
+julia> container_probit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Probit(), HorseShoe())
 Chains MCMC chain (1000×24×1 Array{Float64, 3}):
 
 Iterations        = 501:1:1500
@@ -933,7 +933,7 @@ Quantiles
         β[5]    0.0782    0.0946    0.1021    0.1099    0.1258
 
 julia> CRRao.set_rng(StableRNG(7750))
-julia> container_cloglog = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Cloglog(), Prior_HorseShoe())
+julia> container_cloglog = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Cloglog(), HorseShoe())
 Chains MCMC chain (1000×24×1 Array{Float64, 3}):
 
 Iterations        = 501:1:1500
@@ -979,7 +979,7 @@ Quantiles
         β[5]    0.0765    0.0894    0.0966    0.1039    0.1198
 
 julia> CRRao.set_rng(StableRNG(7750))
-julia> container_cauchit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Cauchit(), Prior_HorseShoe())
+julia> container_cauchit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Cauchit(), HorseShoe())
 ┌ Info: Found initial step size
 └   ϵ = 0.8
 Chains MCMC chain (1000×24×1 Array{Float64, 3}):
@@ -1033,7 +1033,7 @@ function fit(
   data::DataFrame,
   modelClass::LogisticRegression,
   Link::CRRaoLink,
-  prior::Prior_HorseShoe,
+  prior::HorseShoe,
   level::Float64 = 0.95,
   sim_size::Int64 = 1000
 )
@@ -1042,10 +1042,10 @@ function fit(
       n = size(X, 1)
       #priors
       #v ~ InverseGamma(h, h)
-      #α ~ TDist(1)
+      #α ~ Distributions.TDist(1)
       #β ~ filldist(Uniform(-v, v), p)
 
-      halfcauchy = Truncated(TDist(1), 0, Inf)
+      halfcauchy = Truncated(Distributions.TDist(1), 0, Inf)
     
       τ ~ halfcauchy    ## Global Shrinkage
       λ ~ filldist(halfcauchy, p) ## Local Shrinkage

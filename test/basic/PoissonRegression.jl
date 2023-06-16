@@ -1,10 +1,10 @@
 sanction = dataset("Zelig", "sanction")
 
 priors = [
-    Prior_Ridge(),
-    Prior_Laplace(),
-    Prior_Cauchy(),
-    Prior_TDist(),
+    Ridge(),
+    Laplace(),
+    Cauchy(),
+    TDist(),
 ]
 
 model = fit(@formula(Num ~ Target + Coop + NCost), sanction, PoissonRegression())

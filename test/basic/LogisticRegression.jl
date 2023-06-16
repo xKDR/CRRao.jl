@@ -3,10 +3,10 @@ turnout = dataset("Zelig", "turnout")[1:100,:] # Take a subset of rows to reduce
 links = [Logit(), Probit(), Cloglog(), Cauchit()]
 
 priors = [
-    Prior_Ridge(),
-    Prior_Laplace(),
-    Prior_Cauchy(),
-    Prior_TDist(),
+    Ridge(),
+    Laplace(),
+    Cauchy(),
+    TDist(),
 ]
 
 for link in links

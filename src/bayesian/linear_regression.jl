@@ -11,7 +11,7 @@ end
 
 """
 ```julia
-fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, prior::Prior_Ridge, h::Float64 = 0.01, sim_size::Int64 = 1000)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, prior::Ridge, h::Float64 = 0.01, sim_size::Int64 = 1000)
 ```
 
 Fit a Bayesian Linear Regression model on the input data with a Ridge prior.
@@ -36,7 +36,7 @@ julia> df = dataset("datasets", "mtcars")
 julia> CRRao.set_rng(StableRNG(123))
 StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
   
-julia> container = fit(@formula(MPG ~ HP + WT + Gear), df, LinearRegression(), Prior_Ridge())
+julia> container = fit(@formula(MPG ~ HP + WT + Gear), df, LinearRegression(), Ridge())
 ┌ Info: Found initial step size
 └   ϵ = 0.00078125
 Chains MCMC chain (1000×18×1 Array{Float64, 3}):
@@ -76,7 +76,7 @@ function fit(
     formula::FormulaTerm,
     data::DataFrame,
     modelClass::LinearRegression,
-    prior::Prior_Ridge,
+    prior::Ridge,
     h::Float64 = 0.01,
     sim_size::Int64 = 1000
 )
@@ -102,7 +102,7 @@ end
 
 """
 ```julia
-fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, prior::Prior_Laplace, h::Float64 = 0.01, sim_size::Int64 = 1000)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, prior::Laplace, h::Float64 = 0.01, sim_size::Int64 = 1000)
 ```
 
 Fit a Bayesian Linear Regression model on the input data with a Laplace prior.
@@ -125,7 +125,7 @@ julia> df = dataset("datasets", "mtcars")
   32 │ Volvo 142E            21.4      4    121.0    109     4.11    2.78     18.6       1      1      4      2
 julia> CRRao.set_rng(StableRNG(123))
 StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
-julia> container = fit(@formula(MPG ~ HP + WT + Gear), df, LinearRegression(), Prior_Laplace())
+julia> container = fit(@formula(MPG ~ HP + WT + Gear), df, LinearRegression(), Laplace())
 ┌ Info: Found initial step size
 └   ϵ = 0.00078125
 Chains MCMC chain (1000×18×1 Array{Float64, 3}):
@@ -165,7 +165,7 @@ function fit(
     formula::FormulaTerm,
     data::DataFrame,
     modelClass::LinearRegression,
-    prior::Prior_Laplace,
+    prior::Laplace,
     h::Float64 = 0.01,
     sim_size::Int64 = 1000
 )
@@ -177,8 +177,8 @@ function fit(
         b0 = 0.1
         v ~ InverseGamma(h, h)
         σ ~ InverseGamma(a0, b0)
-        #α ~ Laplace(0, σ * v)
-        β ~ filldist(Laplace(0, σ * v), p)
+        #α ~ Distributions.Laplace(0, σ * v)
+        β ~ filldist(Distributions.Laplace(0, σ * v), p)
 
         #likelihood
         #y ~ MvNormal(α .+ X * β, σ)
@@ -190,7 +190,7 @@ end
 
 """
 ```julia
-fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, prior::Prior_Cauchy, sim_size::Int64 = 1000)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, prior::Cauchy, sim_size::Int64 = 1000)
 ```
 
 Fit a Bayesian Linear Regression model on the input data with a Cauchy prior.
@@ -214,7 +214,7 @@ julia> df = dataset("datasets", "mtcars")
 julia> CRRao.set_rng(StableRNG(123))
 StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
   
-julia> container = fit(@formula(MPG ~ HP + WT + Gear), df, LinearRegression(), Prior_Cauchy(), 1000)
+julia> container = fit(@formula(MPG ~ HP + WT + Gear), df, LinearRegression(), Cauchy(), 1000)
 ┌ Info: Found initial step size
 └   ϵ = 0.000390625
 Chains MCMC chain (1000×17×1 Array{Float64, 3}):
@@ -252,16 +252,16 @@ function fit(
     formula::FormulaTerm,
     data::DataFrame,
     modelClass::LinearRegression,
-    prior::Prior_Cauchy,
+    prior::Cauchy,
     sim_size::Int64 = 1000
 )
     @model LinearRegression(X, y) = begin
         p = size(X, 2)
 
         #priors
-        σ ~ Truncated(TDist(1), 0, Inf)
-        #α ~ TDist(1) * σ
-        β ~ filldist(TDist(1) * σ, p)
+        σ ~ Truncated(Distributions.TDist(1), 0, Inf)
+        #α ~ Distributions.TDist(1) * σ
+        β ~ filldist(Distributions.TDist(1) * σ, p)
 
         #likelihood
         #y ~ MvNormal(α .+ X * β, σ)
@@ -273,7 +273,7 @@ end
 
 """
 ```julia
-fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, prior::Prior_TDist, h::Float64 = 2.0, sim_size::Int64 = 1000)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, prior::TDist, h::Float64 = 2.0, sim_size::Int64 = 1000)
 ```
 
 Fit a Bayesian Linear Regression model on the input data with a t(ν) distributed prior.
@@ -297,7 +297,7 @@ julia> df = dataset("datasets", "mtcars")
 julia> CRRao.set_rng(StableRNG(123))
 StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
 
-julia> container = fit(@formula(MPG ~ HP + WT + Gear), df, LinearRegression(), Prior_TDist())
+julia> container = fit(@formula(MPG ~ HP + WT + Gear), df, LinearRegression(), TDist())
 ┌ Info: Found initial step size
 └   ϵ = 2.44140625e-5
 Chains MCMC chain (1000×18×1 Array{Float64, 3}):
@@ -339,7 +339,7 @@ function fit(
     formula::FormulaTerm,
     data::DataFrame,
     modelClass::LinearRegression,
-    prior::Prior_TDist,
+    prior::TDist,
     h::Float64 = 2.0,
     sim_size::Int64 = 1000
 )
@@ -351,8 +351,8 @@ function fit(
         b0 = 0.1
         ν ~ InverseGamma(h, h)
         σ ~ InverseGamma(a0, b0)
-        #α ~ TDist(ν) * σ
-        β ~ filldist(TDist(ν) * σ, p)
+        #α ~ Distributions.TDist(ν) * σ
+        β ~ filldist(Distributions.TDist(ν) * σ, p)
 
         #likelihood
         #y ~ MvNormal(α .+ X * β, σ)
@@ -365,7 +365,7 @@ end
 
 """
 ```julia
-fit(formula::FormulaTerm,data::DataFrame,modelClass::LinearRegression,prior::Prior_HorseShoe,sim_size::Int64 = 1000)
+fit(formula::FormulaTerm,data::DataFrame,modelClass::LinearRegression,prior::HorseShoe,sim_size::Int64 = 1000)
 ```
 
 Fit a Bayesian Linear Regression model on the input data with a HorseShoe prior.
@@ -374,7 +374,7 @@ Fit a Bayesian Linear Regression model on the input data with a HorseShoe prior.
 julia> using CRRao, RDatasets, StableRNGs, StatsPlots, StatsModels
 julia> df = dataset("datasets", "mtcars");                                                                                                 
 julia> CRRao.set_rng(StableRNG(123));
-julia> container = fit(@formula(MPG ~ HP + WT + Gear), df, LinearRegression(), Prior_HorseShoe())
+julia> container = fit(@formula(MPG ~ HP + WT + Gear), df, LinearRegression(), HorseShoe())
 ┌ Info: Found initial step size
 └   ϵ = 0.00078125
 Chains MCMC chain (1000×22×1 Array{Float64, 3}):
@@ -424,7 +424,7 @@ function fit(
     formula::FormulaTerm,
     data::DataFrame,
     modelClass::LinearRegression,
-    prior::Prior_HorseShoe,
+    prior::HorseShoe,
     sim_size::Int64 = 1000
 )
     @model LinearRegression(X, y) = begin
@@ -432,7 +432,7 @@ function fit(
 
         #priors
     
-        halfcauchy = Truncated(TDist(1), 0, Inf)
+        halfcauchy = Truncated(Distributions.TDist(1), 0, Inf)
     
         τ ~ halfcauchy    ## Global Shrinkage
         λ ~ filldist(halfcauchy, p) ## Local Shrinkage
@@ -451,7 +451,7 @@ end
 
 """
 ```julia
-fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, prior::Prior_Gauss,alpha_prior_mean::Float64 = 0.0, beta_prior_mean::Float64, sim_size::Int64 = 1000, h::Float64 = 0.1)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, prior::Gauss,alpha_prior_mean::Float64 = 0.0, beta_prior_mean::Float64, sim_size::Int64 = 1000, h::Float64 = 0.1)
 ```
 
 Fit a Bayesian Linear Regression model on the input data with a Gaussian prior with user specific prior mean for α and β. User doesnot have
@@ -462,7 +462,7 @@ Fit a Bayesian Linear Regression model on the input data with a Gaussian prior w
 julia> using CRRao, RDatasets, StableRNGs, StatsModels
 julia> df = dataset("datasets", "mtcars");
 julia> CRRao.set_rng(StableRNG(123));
-julia> container = fit(@formula(MPG ~ HP + WT + Gear), df, LinearRegression(), Prior_Gauss(),30.0,[0.0,-3.0,1.0],1000)
+julia> container = fit(@formula(MPG ~ HP + WT + Gear), df, LinearRegression(), Gauss(),30.0,[0.0,-3.0,1.0],1000)
 ┌ Info: Found initial step size
 └   ϵ = 0.000390625
 Chains MCMC chain (1000×17×1 Array{Float64, 3}):
@@ -500,7 +500,7 @@ function fit(
     formula::FormulaTerm
     , data::DataFrame
     , modelClass::LinearRegression
-    , prior::Prior_Gauss
+    , prior::Gauss
     , alpha_prior_mean::Float64
     , beta_prior_mean::Vector{Float64}
     , sim_size::Int64 = 1000
@@ -535,7 +535,7 @@ end
 
 """
 ```julia
-fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, prior::Prior_Gauss, alpha_prior_mean::Float64, alpha_prior_sd::Float64, beta_prior_mean::Vector{Float64}, beta_prior_sd::Vector{Float64}, sim_size::Int64 = 1000)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, prior::Gauss, alpha_prior_mean::Float64, alpha_prior_sd::Float64, beta_prior_mean::Vector{Float64}, beta_prior_sd::Vector{Float64}, sim_size::Int64 = 1000)
 ```
 
 Fit a Bayesian Linear Regression model on the input data with a Gaussian prior with user specific prior mean and sd for α and β. 
@@ -545,7 +545,7 @@ Fit a Bayesian Linear Regression model on the input data with a Gaussian prior w
 julia> using CRRao, RDatasets, StableRNGs, StatsModels
 julia> df = dataset("datasets", "mtcars");  
 julia> CRRao.set_rng(StableRNG(123));                                                                                             
-julia> container = fit(@formula(MPG ~ HP + WT + Gear), df, LinearRegression(), Prior_Gauss(),30.0,10.0,[0.0,-3.0,1.0],[0.1,1.0,1.0],1000)
+julia> container = fit(@formula(MPG ~ HP + WT + Gear), df, LinearRegression(), Gauss(),30.0,10.0,[0.0,-3.0,1.0],[0.1,1.0,1.0],1000)
 ┌ Info: Found initial step size
 └   ϵ = 0.000390625
 Chains MCMC chain (1000×17×1 Array{Float64, 3}):
@@ -583,7 +583,7 @@ function fit(
     formula::FormulaTerm
     , data::DataFrame
     , modelClass::LinearRegression
-    , prior::Prior_Gauss
+    , prior::Gauss
     , alpha_prior_mean::Float64
     , alpha_prior_sd::Float64
     , beta_prior_mean::Vector{Float64}
