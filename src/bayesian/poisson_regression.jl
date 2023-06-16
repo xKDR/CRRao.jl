@@ -11,7 +11,7 @@ end
 
 """
 ```julia
-fit(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression, prior::Prior_Ridge, h::Float64 = 0.1, sim_size::Int64 = 1000)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression, prior::Ridge, h::Float64 = 0.1, sim_size::Int64 = 1000)
 ```
 
 Fit a Bayesian Poisson Regression model on the input data with a Ridge prior.
@@ -36,7 +36,7 @@ julia> sanction = dataset("Zelig", "sanction")
 julia> CRRao.set_rng(StableRNG(123))
 StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
   
-julia> container = fit(@formula(Num ~ Target + Coop + NCost), sanction, PoissonRegression(), Prior_Ridge())
+julia> container = fit(@formula(Num ~ Target + Coop + NCost), sanction, PoissonRegression(), Ridge())
 ┌ Info: Found initial step size
 └   ϵ = 0.025
 Chains MCMC chain (1000×19×1 Array{Float64, 3}):
@@ -98,7 +98,7 @@ function fit(
     formula::FormulaTerm,
     data::DataFrame,
     modelClass::PoissonRegression,
-    prior::Prior_Ridge,
+    prior::Ridge,
     h::Float64 = 0.1,
     sim_size::Int64 = 1000
 )
@@ -126,7 +126,7 @@ end
 
 """
 ```julia
-fit(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression, prior::Prior_Laplace, h::Float64 = 0.1, sim_size::Int64 = 1000)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression, prior::Laplace, h::Float64 = 0.1, sim_size::Int64 = 1000)
 ```
 
 Fit a Bayesian Poisson Regression model on the input data with a Laplace prior.
@@ -150,7 +150,7 @@ julia> sanction = dataset("Zelig", "sanction")
 71 rows omitted
 julia> CRRao.set_rng(StableRNG(123))
 StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
-julia> container = fit(@formula(Num ~ Target + Coop + NCost), sanction, PoissonRegression(), Prior_Laplace())
+julia> container = fit(@formula(Num ~ Target + Coop + NCost), sanction, PoissonRegression(), Laplace())
 ┌ Info: Found initial step size
 └   ϵ = 0.025
 Chains MCMC chain (1000×19×1 Array{Float64, 3}):
@@ -210,7 +210,7 @@ function fit(
     formula::FormulaTerm,
     data::DataFrame,
     modelClass::PoissonRegression,
-    prior::Prior_Laplace,
+    prior::Laplace,
     h::Float64 = 0.1,
     sim_size::Int64 = 1000
 )
@@ -219,8 +219,8 @@ function fit(
         n = size(X, 1)
         #priors
         λ ~ InverseGamma(h, h)
-        #α ~ Laplace(0, λ)
-        β ~ filldist(Laplace(0, λ), p)
+        #α ~ Distributions.Laplace(0, λ)
+        β ~ filldist(Distributions.Laplace(0, λ), p)
 
         ## link
         #z = α .+ X * β
@@ -238,7 +238,7 @@ end
 
 """
 ```julia
-fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, prior::Prior_Cauchy, h::Float64 = 1.0, sim_size::Int64 = 1000)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, prior::Cauchy, h::Float64 = 1.0, sim_size::Int64 = 1000)
 ```
 
 Fit a Bayesian Poisson Regression model on the input data with a Cauchy prior.
@@ -262,7 +262,7 @@ julia> sanction = dataset("Zelig", "sanction")
 71 rows omitted
 julia> CRRao.set_rng(StableRNG(123))
 StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
-julia> container = fit(@formula(Num ~ Target + Coop + NCost), sanction, PoissonRegression(), Prior_Cauchy())
+julia> container = fit(@formula(Num ~ Target + Coop + NCost), sanction, PoissonRegression(), Cauchy())
 ┌ Info: Found initial step size
 └   ϵ = 0.025
 Chains MCMC chain (1000×19×1 Array{Float64, 3}):
@@ -304,7 +304,7 @@ function fit(
     formula::FormulaTerm,
     data::DataFrame,
     modelClass::PoissonRegression,
-    prior::Prior_Cauchy,
+    prior::Cauchy,
     h::Float64 = 1.0,
     sim_size::Int64 = 1000
 )
@@ -313,8 +313,8 @@ function fit(
         n = size(X, 1)
         #priors
         λ ~ InverseGamma(h, h)
-        #α ~ TDist(1) * λ
-        β ~ filldist(TDist(1) * λ, p)
+        #α ~ Distributions.TDist(1) * λ
+        β ~ filldist(Distributions.TDist(1) * λ, p)
 
         ## link
         #z = α .+ X * β
@@ -332,7 +332,7 @@ end
 
 """
 ```julia
-fit(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression, prior::Prior_TDist, h::Float64 = 2.0, sim_size::Int64 = 1000)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression, prior::TDist, h::Float64 = 2.0, sim_size::Int64 = 1000)
 ```
 
 Fit a Bayesian Poisson Regression model on the input data with a t(ν) distributed prior.
@@ -358,7 +358,7 @@ julia> sanction = dataset("Zelig", "sanction")
 71 rows omitted
 julia> CRRao.set_rng(StableRNG(123))
 StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
-julia> container = fit(@formula(Num ~ Target + Coop + NCost), sanction, PoissonRegression(), Prior_TDist())
+julia> container = fit(@formula(Num ~ Target + Coop + NCost), sanction, PoissonRegression(), TDist())
 ┌ Info: Found initial step size
 └   ϵ = 0.025
 Chains MCMC chain (1000×20×1 Array{Float64, 3}):
@@ -402,7 +402,7 @@ function fit(
     formula::FormulaTerm,
     data::DataFrame,
     modelClass::PoissonRegression,
-    prior::Prior_TDist,
+    prior::TDist,
     h::Float64 = 2.0,
     sim_size::Int64 = 1000
 )
@@ -412,8 +412,8 @@ function fit(
         #priors
         λ ~ InverseGamma(h, h)
         ν ~ InverseGamma(h, h)
-        #α ~ TDist(ν) * λ
-        β ~ filldist(TDist(ν) * λ, p)
+        #α ~ Distributions.TDist(ν) * λ
+        β ~ filldist(Distributions.TDist(ν) * λ, p)
 
         ## link
         #z = α .+ X * β
@@ -433,7 +433,7 @@ end
 
 """
 ```julia
-fit(formula::FormulaTerm,data::DataFrame,modelClass::PoissonRegression,prior::Prior_HorseShoe,sim_size::Int64 = 1000)
+fit(formula::FormulaTerm,data::DataFrame,modelClass::PoissonRegression,prior::HorseShoe,sim_size::Int64 = 1000)
 ```
 
 Fit a Bayesian Poisson Regression model on the input data with a Horse Shoe prior.
@@ -443,7 +443,7 @@ Fit a Bayesian Poisson Regression model on the input data with a Horse Shoe prio
 julia> using CRRao, RDatasets, StableRNGs, StatsModels
 julia> sanction = dataset("Zelig", "sanction");
 julia> CRRao.set_rng(StableRNG(123))
-julia> container = fit(@formula(Num ~ Target + Coop + NCost), sanction, PoissonRegression(), Prior_HorseShoe())
+julia> container = fit(@formula(Num ~ Target + Coop + NCost), sanction, PoissonRegression(), HorseShoe())
 ┌ Info: Found initial step size
 └   ϵ = 0.025
 Chains MCMC chain (1000×25×1 Array{Float64, 3}):
@@ -499,7 +499,7 @@ function fit(
     formula::FormulaTerm,
     data::DataFrame,
     modelClass::PoissonRegression,
-    prior::Prior_HorseShoe,
+    prior::HorseShoe,
     sim_size::Int64 = 1000
 )
     @model PoissonRegression(X, y) = begin
@@ -507,7 +507,7 @@ function fit(
         n = size(X, 1)
         #priors
         
-        halfcauchy = Truncated(TDist(1), 0, Inf)
+        halfcauchy = Truncated(Distributions.TDist(1), 0, Inf)
         
         τ ~ halfcauchy    ## Global Shrinkage
         λ ~ filldist(halfcauchy, p) ## Local Shrinkage
