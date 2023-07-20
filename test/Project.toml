@@ -1,5 +1,7 @@
 [deps]
+Distances = "b4f34e82-e78d-54a5-968a-f98e89d6e8f7"
 GLM = "38e38edf-8417-5370-95a0-9cbb8c7f171a"
+GaussianProcesses = "891a1506-143c-57d2-908e-e1f8e92e6de9"
 Logging = "56ddb016-857b-54e1-b83d-db4d58db5568"
 RDatasets = "ce6b1742-4840-55fa-b093-852dadbb1d8b"
 StableRNGs = "860ef19b-820b-49d6-a774-d7a799459cd3"
