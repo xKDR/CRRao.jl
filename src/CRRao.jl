@@ -4,7 +4,7 @@ module CRRao
 using DataFrames, GLM, Turing, StatsModels, StatsBase
 using StatsBase, Distributions, LinearAlgebra
 using Optim, NLSolversBase, Random, HypothesisTests
-using GaussianProcesses, Distances,StatsModels
+using GaussianProcesses, Distances, StatsModels
 
 import StatsBase: coef, coeftable, r2, adjr2, loglikelihood, aic, bic, predict, residuals, cooksdistance, fit
 import HypothesisTests: pvalue
