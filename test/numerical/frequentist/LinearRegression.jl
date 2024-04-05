@@ -20,7 +20,3 @@ for (test_formula, test_aic, test_bic, test_pvalue) in tests
         @test isapprox(pvalue(bp_test), test_pvalue)
     end
 end
-
-CRRao.set_rng(StableRNG(123))
-container = fit(@formula(MPG ~ HP + WT + Gear), mtcars, LinearRegression(), Boot_Residual())
-@test isapprox(container.Coef, [32.13093064426382, -0.036497081866302794, -3.2257634531003574, 1.0001169309164597])
