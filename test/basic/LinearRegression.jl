@@ -1,10 +1,10 @@
 mtcars = dataset("datasets", "mtcars")
 
 priors = [
-    Prior_Ridge(),
-    Prior_Laplace(),
-    Prior_Cauchy(),
-    Prior_TDist(),
+    Ridge(),
+    Laplace(),
+    Cauchy(),
+    TDist(),
 ]
 
 model = fit(@formula(MPG ~ HP + WT + Gear), mtcars, LinearRegression())

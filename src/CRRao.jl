@@ -102,9 +102,11 @@ Type representing Residual Bootstrap.
 """
 struct Boot_Residual end
 
+abstract type Prior end
+
 """
 ```julia
-Prior_Gauss
+Gauss
 ```
 Type representing the Gaussian Prior. Users have specific 
 prior mean and standard deviation, for ``\\alpha`` and ``\\beta`` 
@@ -133,11 +135,11 @@ y_i \\sim N(\\mu_i,\\sigma),
 + ``\\mathbf{E}(y_i)=g(\\mu_i)``, and 
 + ``Var(y_i)=\\sigma^2``.
 """
-struct Prior_Gauss end
+struct Gauss <: Prior end
 
 """
 ```julia
-Prior_Ridge
+Ridge
 ```
 Type representing the Ridge Prior.
 
@@ -167,11 +169,11 @@ y_i \\sim D(\\mu_i,\\sigma),
 + ``\\mathbf{E}(y_i)=g(\\mu_i)``, and 
 + ``Var(y_i)=\\sigma^2``.
 """
-struct Prior_Ridge end
+struct Ridge <: Prior end
 
 """
 ```julia
-Prior_Laplace
+Laplace
 ```
 Type representing the Laplace Prior.
 
@@ -200,11 +202,11 @@ y_i \\sim D(\\mu_i,\\sigma),
 + ``\\mathbf{E}(y_i)=g(\\mu_i)``, and 
 + ``Var(y_i)=\\sigma^2``.
 """
-struct Prior_Laplace end
+struct Laplace <: Prior end
 
 """
 ```julia
-Prior_Cauchy
+Cauchy
 ```
 Type representing the Cauchy Prior.
 
@@ -231,11 +233,11 @@ y_i \\sim D(\\mu_i,\\sigma),
 + ``\\mathbf{E}(y_i)=g(\\mu_i)``, and 
 + ``Var(y_i)=\\sigma^2``.
 """
-struct Prior_Cauchy end
+struct Cauchy <: Prior end
 
 """
 ```julia
-Prior_TDist
+TDist
 ```
 Type representing the T-Distributed Prior.
 
@@ -266,12 +268,12 @@ y_i \\sim D(\\mu_i,\\sigma),
 + ``Var(y_i)=\\sigma^2``. 
 + The ``t(v)`` is ``t`` distribution with ``v`` degrees of freedom.
 """
-struct Prior_TDist end
+struct TDist <: Prior end
 
 
 """
 ```julia
-Prior_HorseShoe
+HorseShoe
 ```
 Type representing the HorseShoe Prior.
 
@@ -305,7 +307,7 @@ y_i \\sim D(\\mu_i,\\sigma), i=1,2,\\cdots,n
 + ``Var(y_i)=\\sigma^2``, and 
 + ``\\beta``=(``\\beta_1,\\beta_2,\\cdots,\\beta_p``)
 """
-struct Prior_HorseShoe end
+struct HorseShoe <: Prior end
 
 """
 ```julia
@@ -393,7 +395,7 @@ end
 Cauchit() = Cauchit(Cauchit_Link)
 
 export LinearRegression, LogisticRegression, PoissonRegression, NegBinomRegression, Boot_Residual
-export Prior_Ridge, Prior_Laplace, Prior_Cauchy, Prior_TDist, Prior_HorseShoe, Prior_Gauss
+export Ridge, Laplace, Cauchy, TDist, HorseShoe, Gauss
 export CRRaoLink, Logit, Probit, Cloglog, Cauchit, fit
 export coef, coeftable, r2, adjr2, loglikelihood, aic, bic, sigma, predict, residuals, cooksdistance, BPTest, pvalue
 export FrequentistRegression, BayesianRegression

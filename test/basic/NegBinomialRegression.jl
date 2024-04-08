@@ -1,10 +1,10 @@
 sanction = dataset("Zelig", "sanction")
 
 priors = [
-    Prior_Ridge(),
-    Prior_Laplace(),
-    Prior_Cauchy(),
-    Prior_TDist(),
+    Ridge(),
+    Laplace(),
+    Cauchy(),
+    TDist(),
 ]
 
 CRRao.set_rng(StableRNG(123))
