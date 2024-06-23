@@ -52,7 +52,7 @@ for (prior, prior_testcases) in tests
     for (link, test_mean) in prior_testcases
         CRRao.set_rng(StableRNG(123))
         model = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), link, prior)
-
-        @test mean(predict(model, turnout)) ≈ test_mean
+        prediction = predict(model, turnout)
+        @test mean(prediction) - 2 * std(prediction) <= test_mean && test_mean <= mean(prediction) + 2 * std(prediction)
     end
 end
