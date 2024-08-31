@@ -62,3 +62,6 @@ include("bayesian/poisson_regression.jl")
 
 # Bayesian getter functions
 include("bayesian/getter.jl")
+
+# K-means Clustering function
+include("clustering/kmeans_clustering.jl")
