@@ -7,6 +7,7 @@ FrequentistRegression
 ## Linear Regression 
 ```@docs
 fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, bootstrap::Boot_Residual, sim_size::Int64 = 1000)
 ```
 
 ## Logistic Regression
