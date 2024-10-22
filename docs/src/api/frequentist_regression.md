@@ -30,6 +30,7 @@ fit(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression)
 ## Extended functions from [StatsAPI.jl](https://github.com/JuliaStats/StatsAPI.jl)
 
 ```@docs
+coef(container::FrequentistRegression)
 coeftable(container::FrequentistRegression)
 r2(container::FrequentistRegression)
 adjr2(container::FrequentistRegression)
