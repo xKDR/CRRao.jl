@@ -1,0 +1,1746 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Bayesian Regression Models · CRRao.jl</title><meta name="title" content="Bayesian Regression Models · CRRao.jl"/><meta property="og:title" content="Bayesian Regression Models · CRRao.jl"/><meta property="twitter:title" content="Bayesian Regression Models · CRRao.jl"/><meta name="description" content="Documentation for CRRao.jl."/><meta property="og:description" content="Documentation for CRRao.jl."/><meta property="twitter:description" content="Documentation for CRRao.jl."/><meta property="og:url" content="https://xKDR.github.io/CRRao.jl/api/bayesian_regression/"/><meta property="twitter:url" content="https://xKDR.github.io/CRRao.jl/api/bayesian_regression/"/><link rel="canonical" href="https://xKDR.github.io/CRRao.jl/api/bayesian_regression/"/><script data-outdated-warner src="../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../search_index.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../../">CRRao.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../">Home</a></li><li><span class="tocitem">Manual</span><ul><li><a class="tocitem" href="../../man/guide/">Guide</a></li></ul></li><li><span class="tocitem">API Reference</span><ul><li><a class="tocitem" href="../interface/">General Interface</a></li><li><a class="tocitem" href="../frequentist_regression/">Frequentist Regression Models</a></li><li class="is-active"><a class="tocitem" href>Bayesian Regression Models</a><ul class="internal"><li><a class="tocitem" href="#Linear-Regression"><span>Linear Regression</span></a></li><li><a class="tocitem" href="#Logistic-Regression"><span>Logistic Regression</span></a></li><li><a class="tocitem" href="#Negative-Binomial-Regression"><span>Negative Binomial Regression</span></a></li><li><a class="tocitem" href="#Poisson-Regression"><span>Poisson Regression</span></a></li></ul></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">API Reference</a></li><li class="is-active"><a href>Bayesian Regression Models</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Bayesian Regression Models</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/xKDR/CRRao.jl/blob/main/docs/src/api/bayesian_regression.md#" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Bayesian-Regression-Models"><a class="docs-heading-anchor" href="#Bayesian-Regression-Models">Bayesian Regression Models</a><a id="Bayesian-Regression-Models-1"></a><a class="docs-heading-anchor-permalink" href="#Bayesian-Regression-Models" title="Permalink"></a></h1><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="CRRao.BayesianRegression" href="#CRRao.BayesianRegression"><code>CRRao.BayesianRegression</code></a> — <span class="docstring-category">Type</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><pre><code class="language-julia hljs">BayesianRegression{RegressionType}</code></pre><p>Type to represent bayesian regression models returned by <code>fit</code> functions. This type is used internally by the package to represent all bayesian regression models. <code>RegressionType</code> is a <code>Symbol</code> representing the model class.</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/xKDR/CRRao.jl/blob/e6fec62ed0ff644729d44301e3f207033d45ed50/src/fitmodel.jl#L23-L29">source</a></section></article><h2 id="Linear-Regression"><a class="docs-heading-anchor" href="#Linear-Regression">Linear Regression</a><a id="Linear-Regression-1"></a><a class="docs-heading-anchor-permalink" href="#Linear-Regression" title="Permalink"></a></h2><h3 id="Linear-Regression-with-User-Specific-Gaussian-Prior"><a class="docs-heading-anchor" href="#Linear-Regression-with-User-Specific-Gaussian-Prior">Linear Regression with User Specific Gaussian Prior</a><a id="Linear-Regression-with-User-Specific-Gaussian-Prior-1"></a><a class="docs-heading-anchor-permalink" href="#Linear-Regression-with-User-Specific-Gaussian-Prior" title="Permalink"></a></h3><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="StatsAPI.fit" href="#StatsAPI.fit"><code>StatsAPI.fit</code></a> — <span class="docstring-category">Function</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><pre><code class="language-julia hljs">fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, prior::Prior_Gauss,alpha_prior_mean::Float64 = 0.0, beta_prior_mean::Float64, sim_size::Int64 = 1000, h::Float64 = 0.1)</code></pre><p>Fit a Bayesian Linear Regression model on the input data with a Gaussian prior with user specific prior mean for α and β. User doesnot have     idea about the prior sd of α and β. User ignore the specification for sd of α and β.</p><p><strong>Example</strong></p><pre><code class="language-julia-repl hljs">julia&gt; using CRRao, RDatasets, StableRNGs, StatsModels
+julia&gt; df = dataset(&quot;datasets&quot;, &quot;mtcars&quot;);
+julia&gt; CRRao.set_rng(StableRNG(123));
+julia&gt; container = fit(@formula(MPG ~ HP + WT + Gear), df, LinearRegression(), Prior_Gauss(),30.0,[0.0,-3.0,1.0],1000)
+┌ Info: Found initial step size
+└   ϵ = 0.000390625
+Chains MCMC chain (1000×17×1 Array{Float64, 3}):
+
+Iterations        = 501:1:1500
+Number of chains  = 1
+Samples per chain = 1000
+Wall duration     = 0.44 seconds
+Compute duration  = 0.44 seconds
+parameters        = σ, β[1], β[2], β[3], β[4]
+internals         = lp, n_steps, is_accept, acceptance_rate, log_density, hamiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, tree_depth, numerical_error, step_size, nom_step_size
+
+Summary Statistics
+  parameters      mean       std   naive_se      mcse        ess      rhat   ess_per_sec 
+      Symbol   Float64   Float64    Float64   Float64    Float64   Float64       Float64 
+
+           σ    2.4817    0.3419     0.0108    0.0164   442.9220    1.0038     1011.2375
+        β[1]   30.6898    2.2222     0.0703    0.1024   277.8914    1.0096      634.4553
+        β[2]   -0.0383    0.0089     0.0003    0.0004   558.2894    1.0000     1274.6332
+        β[3]   -2.9652    0.5603     0.0177    0.0242   417.3633    1.0013      952.8843
+        β[4]    1.2305    0.4641     0.0147    0.0214   312.8441    1.0115      714.2558
+
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5% 
+      Symbol   Float64   Float64   Float64   Float64   Float64 
+
+           σ    1.8921    2.2422    2.4544    2.6939    3.2290
+        β[1]   26.4166   29.1803   30.7420   32.1294   34.8860
+        β[2]   -0.0552   -0.0442   -0.0380   -0.0323   -0.0214
+        β[3]   -4.0735   -3.3125   -2.9765   -2.6029   -1.8782
+        β[4]    0.3809    0.8875    1.2182    1.5413    2.1436</code></pre></div><a class="docs-sourcelink" target="_blank" href="https://github.com/xKDR/CRRao.jl/blob/e6fec62ed0ff644729d44301e3f207033d45ed50/src/bayesian/linear_regression.jl#L452-L498">source</a></section></article><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="StatsAPI.fit" href="#StatsAPI.fit"><code>StatsAPI.fit</code></a> — <span class="docstring-category">Function</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><pre><code class="language-julia hljs">fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, prior::Prior_Gauss, alpha_prior_mean::Float64, alpha_prior_sd::Float64, beta_prior_mean::Vector{Float64}, beta_prior_sd::Vector{Float64}, sim_size::Int64 = 1000)</code></pre><p>Fit a Bayesian Linear Regression model on the input data with a Gaussian prior with user specific prior mean and sd for α and β. </p><p><strong>Example</strong></p><pre><code class="language-julia-repl hljs">julia&gt; using CRRao, RDatasets, StableRNGs, StatsModels
+julia&gt; df = dataset(&quot;datasets&quot;, &quot;mtcars&quot;);  
+julia&gt; CRRao.set_rng(StableRNG(123));                                                                                             
+julia&gt; container = fit(@formula(MPG ~ HP + WT + Gear), df, LinearRegression(), Prior_Gauss(),30.0,10.0,[0.0,-3.0,1.0],[0.1,1.0,1.0],1000)
+┌ Info: Found initial step size
+└   ϵ = 0.000390625
+Chains MCMC chain (1000×17×1 Array{Float64, 3}):
+
+Iterations        = 501:1:1500
+Number of chains  = 1
+Samples per chain = 1000
+Wall duration     = 0.4 seconds
+Compute duration  = 0.4 seconds
+parameters        = σ, β[1], β[2], β[3], β[4]
+internals         = lp, n_steps, is_accept, acceptance_rate, log_density, hamiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, tree_depth, numerical_error, step_size, nom_step_size
+
+Summary Statistics
+  parameters      mean       std   naive_se      mcse        ess      rhat   ess_per_sec 
+      Symbol   Float64   Float64    Float64   Float64    Float64   Float64       Float64 
+
+           σ    2.5902    0.3556     0.0112    0.0173   479.5282    1.0029     1207.8796
+        β[1]   31.5741    3.0940     0.0978    0.1654   438.4853    1.0016     1104.4971
+        β[2]   -0.0371    0.0088     0.0003    0.0003   728.7433    1.0017     1835.6254
+        β[3]   -3.1311    0.5910     0.0187    0.0253   537.6704    1.0019     1354.3334
+        β[4]    1.0910    0.5777     0.0183    0.0303   461.2719    1.0021     1161.8939
+
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5% 
+      Symbol   Float64   Float64   Float64   Float64   Float64 
+
+           σ    1.9892    2.3336    2.5579    2.8106    3.3548
+        β[1]   24.9976   29.6654   31.4881   33.5860   37.6309
+        β[2]   -0.0546   -0.0430   -0.0373   -0.0311   -0.0200
+        β[3]   -4.2471   -3.5287   -3.1438   -2.7626   -1.9238
+        β[4]   -0.0285    0.7312    1.0926    1.4948    2.1519</code></pre></div><a class="docs-sourcelink" target="_blank" href="https://github.com/xKDR/CRRao.jl/blob/e6fec62ed0ff644729d44301e3f207033d45ed50/src/bayesian/linear_regression.jl#L536-L581">source</a></section></article><h3 id="Linear-Regression-with-Ridge-Prior"><a class="docs-heading-anchor" href="#Linear-Regression-with-Ridge-Prior">Linear Regression with Ridge Prior</a><a id="Linear-Regression-with-Ridge-Prior-1"></a><a class="docs-heading-anchor-permalink" href="#Linear-Regression-with-Ridge-Prior" title="Permalink"></a></h3><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="StatsAPI.fit" href="#StatsAPI.fit"><code>StatsAPI.fit</code></a> — <span class="docstring-category">Function</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><pre><code class="language-julia hljs">fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, prior::Prior_Ridge, h::Float64 = 0.01, sim_size::Int64 = 1000)</code></pre><p>Fit a Bayesian Linear Regression model on the input data with a Ridge prior.</p><p><strong>Example</strong></p><pre><code class="language-julia-repl hljs">julia&gt; using CRRao, RDatasets, StableRNGs, StatsModels
+julia&gt; df = dataset(&quot;datasets&quot;, &quot;mtcars&quot;)
+32×12 DataFrame
+ Row │ Model              MPG      Cyl    Disp     HP     DRat     WT       QSec     VS     AM     Gear   Carb  
+     │ String31           Float64  Int64  Float64  Int64  Float64  Float64  Float64  Int64  Int64  Int64  Int64 
+─────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────
+   1 │ Mazda RX4             21.0      6    160.0    110     3.9     2.62     16.46      0      1      4      4
+   2 │ Mazda RX4 Wag         21.0      6    160.0    110     3.9     2.875    17.02      0      1      4      4
+   3 │ Datsun 710            22.8      4    108.0     93     3.85    2.32     18.61      1      1      4      1
+   4 │ Hornet 4 Drive        21.4      6    258.0    110     3.08    3.215    19.44      1      0      3      1
+  ⋮  │         ⋮             ⋮       ⋮       ⋮       ⋮       ⋮        ⋮        ⋮       ⋮      ⋮      ⋮      ⋮
+  30 │ Ferrari Dino          19.7      6    145.0    175     3.62    2.77     15.5       0      1      5      6
+  31 │ Maserati Bora         15.0      8    301.0    335     3.54    3.57     14.6       0      1      5      8
+  32 │ Volvo 142E            21.4      4    121.0    109     4.11    2.78     18.6       1      1      4      2
+
+julia&gt; CRRao.set_rng(StableRNG(123))
+StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
+  
+julia&gt; container = fit(@formula(MPG ~ HP + WT + Gear), df, LinearRegression(), Prior_Ridge())
+┌ Info: Found initial step size
+└   ϵ = 0.00078125
+Chains MCMC chain (1000×18×1 Array{Float64, 3}):
+
+Iterations        = 501:1:1500
+Number of chains  = 1
+Samples per chain = 1000
+Wall duration     = 3.8 seconds
+Compute duration  = 3.8 seconds
+parameters        = v, σ, β[1], β[2], β[3], β[4]
+internals         = lp, n_steps, is_accept, acceptance_rate, log_density, hamiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, tree_depth, numerical_error, step_size, nom_step_size
+
+Summary Statistics
+  parameters      mean       std   naive_se      mcse        ess      rhat   ess_per_sec 
+      Symbol   Float64   Float64    Float64   Float64    Float64   Float64       Float64 
+
+           v    6.7326    4.0697     0.1287    0.2091   385.1846    1.0072      101.3377
+           σ    2.6887    0.3769     0.0119    0.0173   454.6314    0.9992      119.6084
+        β[1]   28.5712    5.4865     0.1735    0.2940   275.1500    0.9999       72.3888
+        β[2]   -0.0395    0.0101     0.0003    0.0005   449.6762    0.9994      118.3047
+        β[3]   -2.7071    0.9612     0.0304    0.0495   304.8328    1.0005       80.1981
+        β[4]    1.6235    0.9894     0.0313    0.0525   293.2379    0.9998       77.1476
+
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5% 
+      Symbol   Float64   Float64   Float64   Float64   Float64 
+
+           v    2.4199    4.3092    5.8397    8.0100   15.9390
+           σ    2.0880    2.4184    2.6358    2.9308    3.5183
+        β[1]   17.0694   25.0878   28.6635   32.2368   39.1438
+        β[2]   -0.0594   -0.0462   -0.0398   -0.0327   -0.0198
+        β[3]   -4.5435   -3.3350   -2.6938   -2.1350   -0.7247
+        β[4]   -0.2647    0.9636    1.5983    2.2412    3.6841</code></pre></div><a class="docs-sourcelink" target="_blank" href="https://github.com/xKDR/CRRao.jl/blob/e6fec62ed0ff644729d44301e3f207033d45ed50/src/bayesian/linear_regression.jl#L12-L74">source</a></section></article><h3 id="Linear-Regression-with-Laplace-Prior"><a class="docs-heading-anchor" href="#Linear-Regression-with-Laplace-Prior">Linear Regression with Laplace Prior</a><a id="Linear-Regression-with-Laplace-Prior-1"></a><a class="docs-heading-anchor-permalink" href="#Linear-Regression-with-Laplace-Prior" title="Permalink"></a></h3><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="StatsAPI.fit" href="#StatsAPI.fit"><code>StatsAPI.fit</code></a> — <span class="docstring-category">Function</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><pre><code class="language-julia hljs">fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, prior::Prior_Laplace, h::Float64 = 0.01, sim_size::Int64 = 1000)</code></pre><p>Fit a Bayesian Linear Regression model on the input data with a Laplace prior.</p><p><strong>Example</strong></p><pre><code class="language-julia-repl hljs">julia&gt; using CRRao, RDatasets, StableRNGs, StatsModels
+julia&gt; df = dataset(&quot;datasets&quot;, &quot;mtcars&quot;)
+32×12 DataFrame
+ Row │ Model              MPG      Cyl    Disp     HP     DRat     WT       QSec     VS     AM     Gear   Carb  
+     │ String31           Float64  Int64  Float64  Int64  Float64  Float64  Float64  Int64  Int64  Int64  Int64 
+─────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────
+   1 │ Mazda RX4             21.0      6    160.0    110     3.9     2.62     16.46      0      1      4      4
+   2 │ Mazda RX4 Wag         21.0      6    160.0    110     3.9     2.875    17.02      0      1      4      4
+   3 │ Datsun 710            22.8      4    108.0     93     3.85    2.32     18.61      1      1      4      1
+   4 │ Hornet 4 Drive        21.4      6    258.0    110     3.08    3.215    19.44      1      0      3      1
+  ⋮  │         ⋮             ⋮       ⋮       ⋮       ⋮       ⋮        ⋮        ⋮       ⋮      ⋮      ⋮      ⋮
+  30 │ Ferrari Dino          19.7      6    145.0    175     3.62    2.77     15.5       0      1      5      6
+  31 │ Maserati Bora         15.0      8    301.0    335     3.54    3.57     14.6       0      1      5      8
+  32 │ Volvo 142E            21.4      4    121.0    109     4.11    2.78     18.6       1      1      4      2
+julia&gt; CRRao.set_rng(StableRNG(123))
+StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
+julia&gt; container = fit(@formula(MPG ~ HP + WT + Gear), df, LinearRegression(), Prior_Laplace())
+┌ Info: Found initial step size
+└   ϵ = 0.00078125
+Chains MCMC chain (1000×18×1 Array{Float64, 3}):
+
+Iterations        = 501:1:1500
+Number of chains  = 1
+Samples per chain = 1000
+Wall duration     = 2.81 seconds
+Compute duration  = 2.81 seconds
+parameters        = v, σ, β[1], β[2], β[3], β[4]
+internals         = lp, n_steps, is_accept, acceptance_rate, log_density, hamiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, tree_depth, numerical_error, step_size, nom_step_size
+
+Summary Statistics
+  parameters      mean       std   naive_se      mcse        ess      rhat   ess_per_sec 
+      Symbol   Float64   Float64    Float64   Float64    Float64   Float64       Float64 
+
+           v    4.0802    2.9685     0.0939    0.1488   388.0064    1.0061      138.0806
+           σ    2.6879    0.3859     0.0122    0.0187   334.4383    1.0153      119.0172
+        β[1]   28.6972    5.2832     0.1671    0.3359   182.9859    1.0255       65.1195
+        β[2]   -0.0400    0.0107     0.0003    0.0005   391.2879    1.0077      139.2484
+        β[3]   -2.6644    0.9818     0.0310    0.0543   249.1040    1.0171       88.6491
+        β[4]    1.5659    0.9686     0.0306    0.0613   186.8354    1.0267       66.4895
+
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5% 
+      Symbol   Float64   Float64   Float64   Float64   Float64 
+
+           v    1.3030    2.3492    3.2065    4.8058   12.2525
+           σ    2.0493    2.4028    2.6405    2.9231    3.5532
+        β[1]   17.7583   25.3061   28.8668   32.2456   38.1808
+        β[2]   -0.0615   -0.0469   -0.0398   -0.0329   -0.0187
+        β[3]   -4.4721   -3.3004   -2.7042   -2.0441   -0.7107
+        β[4]   -0.1806    0.8682    1.5224    2.1637    3.6193</code></pre></div><a class="docs-sourcelink" target="_blank" href="https://github.com/xKDR/CRRao.jl/blob/e6fec62ed0ff644729d44301e3f207033d45ed50/src/bayesian/linear_regression.jl#L103-L163">source</a></section></article><h3 id="Linear-Regression-with-Cauchy-Prior"><a class="docs-heading-anchor" href="#Linear-Regression-with-Cauchy-Prior">Linear Regression with Cauchy Prior</a><a id="Linear-Regression-with-Cauchy-Prior-1"></a><a class="docs-heading-anchor-permalink" href="#Linear-Regression-with-Cauchy-Prior" title="Permalink"></a></h3><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="StatsAPI.fit" href="#StatsAPI.fit"><code>StatsAPI.fit</code></a> — <span class="docstring-category">Function</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><pre><code class="language-julia hljs">fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, prior::Prior_Cauchy, sim_size::Int64 = 1000)</code></pre><p>Fit a Bayesian Linear Regression model on the input data with a Cauchy prior.</p><p><strong>Example</strong></p><pre><code class="language-julia-repl hljs">julia&gt; using CRRao, RDatasets, StableRNGs, StatsModels
+julia&gt; df = dataset(&quot;datasets&quot;, &quot;mtcars&quot;)
+32×12 DataFrame
+ Row │ Model              MPG      Cyl    Disp     HP     DRat     WT       QSec     VS     AM     Gear   Carb  
+     │ String31           Float64  Int64  Float64  Int64  Float64  Float64  Float64  Int64  Int64  Int64  Int64 
+─────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────
+   1 │ Mazda RX4             21.0      6    160.0    110     3.9     2.62     16.46      0      1      4      4
+   2 │ Mazda RX4 Wag         21.0      6    160.0    110     3.9     2.875    17.02      0      1      4      4
+   3 │ Datsun 710            22.8      4    108.0     93     3.85    2.32     18.61      1      1      4      1
+   4 │ Hornet 4 Drive        21.4      6    258.0    110     3.08    3.215    19.44      1      0      3      1
+  ⋮  │         ⋮             ⋮       ⋮       ⋮       ⋮       ⋮        ⋮        ⋮       ⋮      ⋮      ⋮      ⋮
+  30 │ Ferrari Dino          19.7      6    145.0    175     3.62    2.77     15.5       0      1      5      6
+  31 │ Maserati Bora         15.0      8    301.0    335     3.54    3.57     14.6       0      1      5      8
+  32 │ Volvo 142E            21.4      4    121.0    109     4.11    2.78     18.6       1      1      4      2
+julia&gt; CRRao.set_rng(StableRNG(123))
+StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
+  
+julia&gt; container = fit(@formula(MPG ~ HP + WT + Gear), df, LinearRegression(), Prior_Cauchy(), 1000)
+┌ Info: Found initial step size
+└   ϵ = 0.000390625
+Chains MCMC chain (1000×17×1 Array{Float64, 3}):
+
+Iterations        = 501:1:1500
+Number of chains  = 1
+Samples per chain = 1000
+Wall duration     = 0.75 seconds
+Compute duration  = 0.75 seconds
+parameters        = σ, β[1], β[2], β[3], β[4]
+internals         = lp, n_steps, is_accept, acceptance_rate, log_density, hamiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, tree_depth, numerical_error, step_size, nom_step_size
+
+Summary Statistics
+  parameters      mean       std   naive_se      mcse        ess      rhat   ess_per_sec 
+      Symbol   Float64   Float64    Float64   Float64    Float64   Float64       Float64 
+
+           σ    2.5922    0.3538     0.0112    0.0173   425.5703    0.9993      570.4696
+        β[1]   30.0880    4.7389     0.1499    0.2468   229.5288    1.0065      307.6794
+        β[2]   -0.0395    0.0100     0.0003    0.0005   329.9440    1.0007      442.2842
+        β[3]   -2.8197    0.8453     0.0267    0.0475   218.5494    1.0049      292.9617
+        β[4]    1.3148    0.8630     0.0273    0.0428   245.2960    1.0057      328.8150
+
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5% 
+      Symbol   Float64   Float64   Float64   Float64   Float64 
+
+           σ    2.0287    2.3224    2.5539    2.8095    3.3997
+        β[1]   20.5220   26.8878   30.1467   33.4241   38.9193
+        β[2]   -0.0600   -0.0454   -0.0400   -0.0334   -0.0192
+        β[3]   -4.4784   -3.3625   -2.8345   -2.2815   -1.1017
+        β[4]   -0.2688    0.6897    1.3047    1.8932    3.0914</code></pre></div><a class="docs-sourcelink" target="_blank" href="https://github.com/xKDR/CRRao.jl/blob/e6fec62ed0ff644729d44301e3f207033d45ed50/src/bayesian/linear_regression.jl#L191-L250">source</a></section></article><h3 id="Linear-Regression-with-T-distributed-Prior"><a class="docs-heading-anchor" href="#Linear-Regression-with-T-distributed-Prior">Linear Regression with T-distributed Prior</a><a id="Linear-Regression-with-T-distributed-Prior-1"></a><a class="docs-heading-anchor-permalink" href="#Linear-Regression-with-T-distributed-Prior" title="Permalink"></a></h3><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="StatsAPI.fit" href="#StatsAPI.fit"><code>StatsAPI.fit</code></a> — <span class="docstring-category">Function</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><pre><code class="language-julia hljs">fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, prior::Prior_TDist, h::Float64 = 2.0, sim_size::Int64 = 1000)</code></pre><p>Fit a Bayesian Linear Regression model on the input data with a t(ν) distributed prior.</p><p><strong>Example</strong></p><pre><code class="language-julia-repl hljs">julia&gt; using CRRao, RDatasets, StableRNGs, StatsPlots, StatsModels
+julia&gt; df = dataset(&quot;datasets&quot;, &quot;mtcars&quot;)
+32×12 DataFrame
+ Row │ Model              MPG      Cyl    Disp     HP     DRat     WT       QSec     VS     AM     Gear   Carb  
+     │ String31           Float64  Int64  Float64  Int64  Float64  Float64  Float64  Int64  Int64  Int64  Int64 
+─────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────
+   1 │ Mazda RX4             21.0      6    160.0    110     3.9     2.62     16.46      0      1      4      4
+   2 │ Mazda RX4 Wag         21.0      6    160.0    110     3.9     2.875    17.02      0      1      4      4
+   3 │ Datsun 710            22.8      4    108.0     93     3.85    2.32     18.61      1      1      4      1
+   4 │ Hornet 4 Drive        21.4      6    258.0    110     3.08    3.215    19.44      1      0      3      1
+  ⋮  │         ⋮             ⋮       ⋮       ⋮       ⋮       ⋮        ⋮        ⋮       ⋮      ⋮      ⋮      ⋮
+  30 │ Ferrari Dino          19.7      6    145.0    175     3.62    2.77     15.5       0      1      5      6
+  31 │ Maserati Bora         15.0      8    301.0    335     3.54    3.57     14.6       0      1      5      8
+  32 │ Volvo 142E            21.4      4    121.0    109     4.11    2.78     18.6       1      1      4      2
+julia&gt; CRRao.set_rng(StableRNG(123))
+StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
+
+julia&gt; container = fit(@formula(MPG ~ HP + WT + Gear), df, LinearRegression(), Prior_TDist())
+┌ Info: Found initial step size
+└   ϵ = 2.44140625e-5
+Chains MCMC chain (1000×18×1 Array{Float64, 3}):
+
+Iterations        = 501:1:1500
+Number of chains  = 1
+Samples per chain = 1000
+Wall duration     = 3.08 seconds
+Compute duration  = 3.08 seconds
+parameters        = ν, σ, β[1], β[2], β[3], β[4]
+internals         = lp, n_steps, is_accept, acceptance_rate, log_density, hamiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, tree_depth, numerical_error, step_size, nom_step_size
+
+Summary Statistics
+  parameters      mean       std   naive_se      mcse        ess      rhat   ess_per_sec 
+      Symbol   Float64   Float64    Float64   Float64    Float64   Float64       Float64 
+
+           ν    1.0756    0.5583     0.0177    0.0260   513.4511    0.9990      166.7049
+           σ    2.6164    0.3540     0.0112    0.0178   417.8954    0.9990      135.6803
+        β[1]   29.9375    4.8157     0.1523    0.2756   247.5134    1.0049       80.3615
+        β[2]   -0.0396    0.0096     0.0003    0.0004   416.4579    0.9996      135.2136
+        β[3]   -2.7843    0.8477     0.0268    0.0424   271.7779    1.0003       88.2396
+        β[4]    1.3307    0.8752     0.0277    0.0477   275.8558    1.0047       89.5636
+
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5% 
+      Symbol   Float64   Float64   Float64   Float64   Float64 
+
+           ν    0.3741    0.6856    0.9406    1.3410    2.4627
+           σ    2.0262    2.3547    2.5815    2.8333    3.4249
+        β[1]   19.2904   27.0648   30.1711   33.0837   38.8812
+        β[2]   -0.0587   -0.0458   -0.0393   -0.0328   -0.0202
+        β[3]   -4.3684   -3.3394   -2.8206   -2.2711   -1.0594
+        β[4]   -0.2602    0.7464    1.3014    1.8909    3.1216
+        
+julia&gt; plot(container.chain)</code></pre></div><a class="docs-sourcelink" target="_blank" href="https://github.com/xKDR/CRRao.jl/blob/e6fec62ed0ff644729d44301e3f207033d45ed50/src/bayesian/linear_regression.jl#L274-L337">source</a></section></article><h3 id="Linear-Regression-with-Horse-Shoe-Prior"><a class="docs-heading-anchor" href="#Linear-Regression-with-Horse-Shoe-Prior">Linear Regression with Horse Shoe Prior</a><a id="Linear-Regression-with-Horse-Shoe-Prior-1"></a><a class="docs-heading-anchor-permalink" href="#Linear-Regression-with-Horse-Shoe-Prior" title="Permalink"></a></h3><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="StatsAPI.fit" href="#StatsAPI.fit"><code>StatsAPI.fit</code></a> — <span class="docstring-category">Function</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><pre><code class="language-julia hljs">fit(formula::FormulaTerm,data::DataFrame,modelClass::LinearRegression,prior::Prior_HorseShoe,sim_size::Int64 = 1000)</code></pre><p>Fit a Bayesian Linear Regression model on the input data with a HorseShoe prior.</p><p><strong>Example</strong></p><pre><code class="language-julia-repl hljs">julia&gt; using CRRao, RDatasets, StableRNGs, StatsPlots, StatsModels
+julia&gt; df = dataset(&quot;datasets&quot;, &quot;mtcars&quot;);                                                                                                 
+julia&gt; CRRao.set_rng(StableRNG(123));
+julia&gt; container = fit(@formula(MPG ~ HP + WT + Gear), df, LinearRegression(), Prior_HorseShoe())
+┌ Info: Found initial step size
+└   ϵ = 0.00078125
+Chains MCMC chain (1000×22×1 Array{Float64, 3}):
+
+Iterations        = 501:1:1500
+Number of chains  = 1
+Samples per chain = 1000
+Wall duration     = 1.25 seconds
+Compute duration  = 1.25 seconds
+parameters        = τ, λ[1], λ[2], λ[3], λ[4], σ, β[1], β[2], β[3], β[4]
+internals         = lp, n_steps, is_accept, acceptance_rate, log_density, hamiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, tree_depth, numerical_error, step_size, nom_step_size
+
+Summary Statistics
+  parameters      mean        std   naive_se      mcse        ess      rhat   ess_per_sec 
+      Symbol   Float64    Float64    Float64   Float64    Float64   Float64       Float64 
+
+           τ    1.5261     1.6534     0.0523    0.0828   436.8230    0.9997      350.8618
+        λ[1]   24.2059   136.8466     4.3275    6.3344   451.4820    0.9999      362.6362
+        λ[2]    0.3444     0.5997     0.0190    0.0200   781.1539    0.9993      627.4329
+        λ[3]    2.1643     4.5499     0.1439    0.2182   389.8004    1.0002      313.0927
+        λ[4]    1.1324     2.6245     0.0830    0.1221   493.6815    1.0004      396.5314
+           σ    2.6141     0.3517     0.0111    0.0165   460.6283    0.9993      369.9826
+        β[1]   31.8252     4.8143     0.1522    0.3050   179.8377    1.0103      144.4479
+        β[2]   -0.0372     0.0110     0.0003    0.0006   294.1383    1.0042      236.2557
+        β[3]   -3.0585     0.9423     0.0298    0.0595   178.2695    1.0099      143.1883
+        β[4]    0.9625     0.8550     0.0270    0.0523   198.7195    1.0077      159.6141
+
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5% 
+      Symbol   Float64   Float64   Float64   Float64   Float64 
+
+           τ    0.2477    0.6709    1.0774    1.8008    5.6212
+        λ[1]    1.6288    5.3511    9.8538   20.7166   83.5487
+        λ[2]    0.0059    0.0418    0.1257    0.3737    2.2231
+        λ[3]    0.2183    0.7248    1.2997    2.4004    8.0168
+        λ[4]    0.0437    0.2932    0.6094    1.1282    4.8634
+           σ    2.0417    2.3731    2.5859    2.8043    3.3936
+        β[1]   20.9216   29.1543   32.3072   35.1725   39.4603
+        β[2]   -0.0597   -0.0442   -0.0369   -0.0300   -0.0171
+        β[3]   -4.7741   -3.6626   -3.1250   -2.5222   -1.0155
+        β[4]   -0.3640    0.3357    0.8594    1.4728    2.8541
+
+julia&gt; plot(container.chain)</code></pre></div><a class="docs-sourcelink" target="_blank" href="https://github.com/xKDR/CRRao.jl/blob/e6fec62ed0ff644729d44301e3f207033d45ed50/src/bayesian/linear_regression.jl#L366-L422">source</a></section></article><h2 id="Logistic-Regression"><a class="docs-heading-anchor" href="#Logistic-Regression">Logistic Regression</a><a id="Logistic-Regression-1"></a><a class="docs-heading-anchor-permalink" href="#Logistic-Regression" title="Permalink"></a></h2><h3 id="Logistic-Regression-with-Ridge-Prior"><a class="docs-heading-anchor" href="#Logistic-Regression-with-Ridge-Prior">Logistic Regression with Ridge Prior</a><a id="Logistic-Regression-with-Ridge-Prior-1"></a><a class="docs-heading-anchor-permalink" href="#Logistic-Regression-with-Ridge-Prior" title="Permalink"></a></h3><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="StatsAPI.fit" href="#StatsAPI.fit"><code>StatsAPI.fit</code></a> — <span class="docstring-category">Function</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><pre><code class="language-julia hljs">fit(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_Ridge, h::Float64 = 0.1, level::Float64 = 0.95, sim_size::Int64 = 1000)</code></pre><p>Fit a Bayesian Logistic Regression model on the input data with a Ridge prior with the provided <code>Link</code> function.</p><p><strong>Example</strong></p><pre><code class="language-julia-repl hljs">julia&gt; using CRRao, RDatasets, StableRNGs, StatsModels
+julia&gt; turnout = dataset(&quot;Zelig&quot;, &quot;turnout&quot;)
+2000×5 DataFrame
+  Row │ Race   Age    Educate  Income   Vote  
+      │ Cat…   Int32  Float64  Float64  Int32 
+──────┼───────────────────────────────────────
+    1 │ white     60     14.0   3.3458      1
+    2 │ white     51     10.0   1.8561      0
+    3 │ white     24     12.0   0.6304      0
+    4 │ white     38      8.0   3.4183      1
+  ⋮   │   ⋮      ⋮       ⋮        ⋮       ⋮
+ 1998 │ white     51     16.0   7.8949      1
+ 1999 │ white     22     10.0   2.4811      0
+ 2000 │ white     59     10.0   0.5523      0
+
+julia&gt; CRRao.set_rng(StableRNG(123))
+StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
+
+julia&gt; container_logit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Logit(), Prior_Ridge())
+Chains MCMC chain (1000×18×1 Array{Float64, 3}):
+
+Iterations        = 501:1:1500
+Number of chains  = 1
+Samples per chain = 1000
+Wall duration     = 46.7 seconds
+Compute duration  = 46.7 seconds
+parameters        = λ, β[1], β[2], β[3], β[4], β[5]
+internals         = lp, n_steps, is_accept, acceptance_rate, log_density, hamiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, tree_depth, numerical_error, step_size, nom_step_size
+
+Summary Statistics
+  parameters      mean       std   naive_se      mcse        ess      rhat   ess_per_sec 
+      Symbol   Float64   Float64    Float64   Float64    Float64   Float64       Float64 
+
+           λ    1.4907    0.5918     0.0187    0.0236   593.6860    0.9990       12.7136
+        β[1]   -2.8684    0.3406     0.0108    0.0151   502.0358    1.0001       10.7509
+        β[2]    0.0271    0.0036     0.0001    0.0001   617.1201    1.0001       13.2154
+        β[3]    0.2266    0.1434     0.0045    0.0047   830.1625    0.9996       17.7776
+        β[4]    0.1793    0.0273     0.0009    0.0010   830.0115    1.0018       17.7744
+        β[5]    0.1677    0.0203     0.0006    0.0009   530.2735    1.0002       11.3556
+
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5% 
+      Symbol   Float64   Float64   Float64   Float64   Float64 
+
+           λ    0.7846    1.0730    1.3581    1.7063    3.0609
+        β[1]   -3.5602   -3.1138   -2.8687   -2.6160   -2.2454
+        β[2]    0.0202    0.0247    0.0270    0.0294    0.0347
+        β[3]   -0.0541    0.1323    0.2315    0.3264    0.4980
+        β[4]    0.1281    0.1597    0.1783    0.1989    0.2336
+        β[5]    0.1276    0.1548    0.1675    0.1804    0.2104
+
+julia&gt; predict(container_logit,turnout)
+julia&gt; CRRao.set_rng(StableRNG(123))
+
+julia&gt; container_probit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Probit(), Prior_Ridge())
+Chains MCMC chain (1000×18×1 Array{Float64, 3}):
+
+Iterations        = 501:1:1500
+Number of chains  = 1
+Samples per chain = 1000
+Wall duration     = 35.35 seconds
+Compute duration  = 35.35 seconds
+parameters        = λ, β[1], β[2], β[3], β[4], β[5]
+internals         = lp, n_steps, is_accept, acceptance_rate, log_density, hamiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, tree_depth, numerical_error, step_size, nom_step_size
+
+Summary Statistics
+  parameters      mean       std   naive_se      mcse        ess      rhat   ess_per_sec 
+      Symbol   Float64   Float64    Float64   Float64    Float64   Float64       Float64 
+
+           λ    0.9120    0.3882     0.0123    0.0137   592.9548    1.0005       16.7719
+        β[1]   -1.6775    0.1843     0.0058    0.0094   452.5107    0.9996       12.7994
+        β[2]    0.0159    0.0020     0.0001    0.0001   699.2797    0.9996       19.7794
+        β[3]    0.1473    0.0868     0.0027    0.0032   609.4328    0.9990       17.2380
+        β[4]    0.0966    0.0153     0.0005    0.0006   556.8599    0.9991       15.7510
+        β[5]    0.1004    0.0119     0.0004    0.0006   408.9705    0.9993       11.5679
+
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5% 
+      Symbol   Float64   Float64   Float64   Float64   Float64 
+
+           λ    0.4408    0.6582    0.8190    1.0636    1.8731
+        β[1]   -2.0316   -1.8051   -1.6756   -1.5634   -1.2959
+        β[2]    0.0121    0.0145    0.0159    0.0172    0.0201
+        β[3]   -0.0286    0.0907    0.1496    0.2102    0.3104
+        β[4]    0.0665    0.0863    0.0969    0.1070    0.1269
+        β[5]    0.0771    0.0919    0.1004    0.1084    0.1238
+
+julia&gt; predict(container_probit,turnout)
+
+julia&gt; CRRao.set_rng(StableRNG(123))
+julia&gt; container_cloglog = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Cloglog(), Prior_Ridge())
+Chains MCMC chain (1000×18×1 Array{Float64, 3}):
+
+Iterations        = 501:1:1500
+Number of chains  = 1
+Samples per chain = 1000
+Wall duration     = 44.56 seconds
+Compute duration  = 44.56 seconds
+parameters        = λ, β[1], β[2], β[3], β[4], β[5]
+internals         = lp, n_steps, is_accept, acceptance_rate, log_density, hamiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, tree_depth, numerical_error, step_size, nom_step_size
+
+Summary Statistics
+  parameters      mean       std   naive_se      mcse        ess      rhat   ess_per_sec 
+      Symbol   Float64   Float64    Float64   Float64    Float64   Float64       Float64 
+
+           λ    1.0207    0.4636     0.0147    0.0250   250.5938    1.0007        5.6241
+        β[1]   -1.8739    0.1944     0.0061    0.0082   486.4861    0.9992       10.9183
+        β[2]    0.0143    0.0018     0.0001    0.0001   693.4025    0.9990       15.5621
+        β[3]    0.1715    0.0822     0.0026    0.0029   668.5177    0.9993       15.0037
+        β[4]    0.0775    0.0114     0.0004    0.0003   767.3234    0.9991       17.2212
+        β[5]    0.0950    0.0110     0.0003    0.0004   523.2168    0.9999       11.7426
+
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5% 
+      Symbol   Float64   Float64   Float64   Float64   Float64 
+
+           λ    0.5094    0.7421    0.9210    1.1688    2.1113
+        β[1]   -2.2663   -1.9963   -1.8787   -1.7465   -1.5043
+        β[2]    0.0106    0.0131    0.0143    0.0155    0.0180
+        β[3]    0.0140    0.1159    0.1730    0.2232    0.3280
+        β[4]    0.0562    0.0700    0.0777    0.0849    0.1009
+        β[5]    0.0728    0.0879    0.0948    0.1019    0.1164
+        
+julia&gt; CRRao.set_rng(StableRNG(123))
+julia&gt; container_cauchit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Cauchit(), Prior_Ridge())
+┌ Info: Found initial step size
+└   ϵ = 0.025
+Chains MCMC chain (1000×18×1 Array{Float64, 3}):
+
+Iterations        = 501:1:1500
+Number of chains  = 1
+Samples per chain = 1000
+Wall duration     = 32.18 seconds
+Compute duration  = 32.18 seconds
+parameters        = λ, β[1], β[2], β[3], β[4], β[5]
+internals         = lp, n_steps, is_accept, acceptance_rate, log_density, hamiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, tree_depth, numerical_error, step_size, nom_step_size
+
+Summary Statistics
+  parameters      mean       std   naive_se      mcse        ess      rhat   ess_per_sec 
+      Symbol   Float64   Float64    Float64   Float64    Float64   Float64       Float64 
+
+           λ    1.6145    0.8633     0.0273    0.0605   263.9458    1.0083        8.2032
+        β[1]   -2.9672    0.4041     0.0128    0.0194   425.5258    0.9996       13.2249
+        β[2]    0.0287    0.0043     0.0001    0.0002   514.5857    1.0017       15.9928
+        β[3]    0.1590    0.1530     0.0048    0.0072   635.2277    0.9990       19.7423
+        β[4]    0.2406    0.0399     0.0013    0.0014   654.7789    0.9992       20.3499
+        β[5]    0.1590    0.0248     0.0008    0.0011   470.3448    0.9992       14.6179
+
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5% 
+      Symbol   Float64   Float64   Float64   Float64   Float64 
+
+           λ    0.7688    1.1244    1.3980    1.8607    3.5488
+        β[1]   -3.7871   -3.2405   -2.9510   -2.6879   -2.2261
+        β[2]    0.0201    0.0256    0.0285    0.0315    0.0374
+        β[3]   -0.1352    0.0549    0.1552    0.2700    0.4495
+        β[4]    0.1679    0.2128    0.2384    0.2667    0.3222
+        β[5]    0.1142    0.1420    0.1580    0.1754    0.2121
+</code></pre></div><a class="docs-sourcelink" target="_blank" href="https://github.com/xKDR/CRRao.jl/blob/e6fec62ed0ff644729d44301e3f207033d45ed50/src/bayesian/logistic_regression.jl#L12-L181">source</a></section></article><h3 id="Logistic-Regression-with-Laplace-Prior"><a class="docs-heading-anchor" href="#Logistic-Regression-with-Laplace-Prior">Logistic Regression with Laplace Prior</a><a id="Logistic-Regression-with-Laplace-Prior-1"></a><a class="docs-heading-anchor-permalink" href="#Logistic-Regression-with-Laplace-Prior" title="Permalink"></a></h3><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="StatsAPI.fit" href="#StatsAPI.fit"><code>StatsAPI.fit</code></a> — <span class="docstring-category">Function</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><pre><code class="language-julia hljs">fit(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_Laplace, h::Float64 = 0.1, level::Float64 = 0.95, sim_size::Int64 = 1000)</code></pre><p>Fit a Bayesian Logistic Regression model on the input data with a Laplace prior with the provided <code>Link</code> function.</p><p><strong>Example</strong></p><pre><code class="language-julia-repl hljs">julia&gt; using CRRao, RDatasets, StableRNGs, StatsModels
+julia&gt; CRRao.set_rng(StableRNG(123))
+StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
+julia&gt; turnout = dataset(&quot;Zelig&quot;, &quot;turnout&quot;)
+2000×5 DataFrame
+  Row │ Race   Age    Educate  Income   Vote  
+      │ Cat…   Int32  Float64  Float64  Int32 
+──────┼───────────────────────────────────────
+    1 │ white     60     14.0   3.3458      1
+    2 │ white     51     10.0   1.8561      0
+    3 │ white     24     12.0   0.6304      0
+    4 │ white     38      8.0   3.4183      1
+  ⋮   │   ⋮      ⋮       ⋮        ⋮       ⋮
+ 1998 │ white     51     16.0   7.8949      1
+ 1999 │ white     22     10.0   2.4811      0
+ 2000 │ white     59     10.0   0.5523      0
+
+julia&gt; container_logit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Logit(), Prior_Laplace())
+┌ Info: Found initial step size
+└   ϵ = 0.0015625
+Chains MCMC chain (1000×18×1 Array{Float64, 3}):
+
+Iterations        = 501:1:1500
+Number of chains  = 1
+Samples per chain = 1000
+Wall duration     = 47.58 seconds
+Compute duration  = 47.58 seconds
+parameters        = λ, β[1], β[2], β[3], β[4], β[5]
+internals         = lp, n_steps, is_accept, acceptance_rate, log_density, hamiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, tree_depth, numerical_error, step_size, nom_step_size
+
+Summary Statistics
+  parameters      mean       std   naive_se      mcse        ess      rhat   ess_per_sec 
+      Symbol   Float64   Float64    Float64   Float64    Float64   Float64       Float64 
+
+          λ    0.8459    0.4712     0.0149    0.0148   821.7483    0.9990       17.2709
+        β[1]   -2.8796    0.3230     0.0102    0.0168   358.1394    1.0043        7.5271
+        β[2]    0.0273    0.0032     0.0001    0.0001   629.0124    0.9999       13.2201
+        β[3]    0.2138    0.1418     0.0045    0.0049   697.8744    0.9995       14.6674
+        β[4]    0.1774    0.0264     0.0008    0.0009   779.0814    0.9998       16.3741
+        β[5]    0.1692    0.0201     0.0006    0.0010   363.7691    1.0071        7.6454
+
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5% 
+      Symbol   Float64   Float64   Float64   Float64   Float64 
+
+          λ    0.3275    0.5375    0.7244    1.0189    2.1072
+        β[1]   -3.5527   -3.0956   -2.8824   -2.6539   -2.2616
+        β[2]    0.0212    0.0250    0.0273    0.0294    0.0336
+        β[3]   -0.0401    0.1143    0.2130    0.3094    0.4914
+        β[4]    0.1283    0.1597    0.1768    0.1953    0.2282
+        β[5]    0.1282    0.1562    0.1693    0.1828    0.2087
+                             
+
+julia&gt; container_probit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Probit(), Prior_Laplace())
+Chains MCMC chain (1000×18×1 Array{Float64, 3}):
+
+Iterations        = 501:1:1500
+Number of chains  = 1
+Samples per chain = 1000
+Wall duration     = 44.42 seconds
+Compute duration  = 44.42 seconds
+parameters        = λ, β[1], β[2], β[3], β[4], β[5]
+internals         = lp, n_steps, is_accept, acceptance_rate, log_density, hamiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, tree_depth, numerical_error, step_size, nom_step_size
+
+Summary Statistics
+  parameters      mean       std   naive_se      mcse        ess      rhat   ess_per_sec 
+      Symbol   Float64   Float64    Float64   Float64    Float64   Float64       Float64 
+
+           λ    0.5137    0.2746     0.0087    0.0090   654.5174    0.9991       14.7357
+        β[1]   -1.6793    0.2013     0.0064    0.0086   640.0050    0.9991       14.4090
+        β[2]    0.0160    0.0020     0.0001    0.0001   848.1151    0.9990       19.0944
+        β[3]    0.1451    0.0878     0.0028    0.0037   804.2314    1.0003       18.1064
+        β[4]    0.0963    0.0143     0.0005    0.0005   750.7575    1.0029       16.9025
+        β[5]    0.1005    0.0118     0.0004    0.0004   696.8244    0.9991       15.6882
+
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5% 
+      Symbol   Float64   Float64   Float64   Float64   Float64 
+
+           λ    0.1955    0.3289    0.4496    0.6183    1.1915
+        β[1]   -2.0608   -1.8105   -1.6898   -1.5374   -1.2636
+        β[2]    0.0123    0.0147    0.0160    0.0174    0.0199
+        β[3]   -0.0209    0.0832    0.1466    0.2063    0.3211
+        β[4]    0.0686    0.0869    0.0964    0.1054    0.1258
+        β[5]    0.0772    0.0925    0.1004    0.1091    0.1219
+
+julia&gt; CRRao.set_rng(StableRNG(123))        
+julia&gt; container_cloglog = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Cloglog(), Prior_Laplace())
+Chains MCMC chain (1000×18×1 Array{Float64, 3}):
+
+Iterations        = 501:1:1500
+Number of chains  = 1
+Samples per chain = 1000
+Wall duration     = 45.03 seconds
+Compute duration  = 45.03 seconds
+parameters        = λ, β[1], β[2], β[3], β[4], β[5]
+internals         = lp, n_steps, is_accept, acceptance_rate, log_density, hamiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, tree_depth, numerical_error, step_size, nom_step_size
+
+Summary Statistics
+  parameters      mean       std   naive_se      mcse        ess      rhat   ess_per_sec 
+      Symbol   Float64   Float64    Float64   Float64    Float64   Float64       Float64 
+
+           λ    0.5670    0.3381     0.0107    0.0133   643.3993    0.9995       14.2882
+        β[1]   -1.8734    0.1839     0.0058    0.0072   622.0146    0.9990       13.8133
+        β[2]    0.0143    0.0017     0.0001    0.0001   869.5863    0.9992       19.3113
+        β[3]    0.1671    0.0802     0.0025    0.0028   580.9503    0.9997       12.9014
+        β[4]    0.0772    0.0114     0.0004    0.0004   854.8669    0.9993       18.9844
+        β[5]    0.0955    0.0109     0.0003    0.0004   758.8162    0.9993       16.8513
+
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5% 
+      Symbol   Float64   Float64   Float64   Float64   Float64 
+
+           λ    0.2079    0.3661    0.4862    0.6688    1.3563
+        β[1]   -2.2418   -1.9906   -1.8718   -1.7539   -1.5159
+        β[2]    0.0109    0.0131    0.0143    0.0154    0.0176
+        β[3]    0.0194    0.1086    0.1660    0.2231    0.3207
+        β[4]    0.0549    0.0696    0.0772    0.0849    0.0999
+        β[5]    0.0738    0.0882    0.0959    0.1031    0.1151
+
+julia&gt; container_cauchit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Cauchit(), Prior_Laplace())
+┌ Info: Found initial step size
+└   ϵ = 0.00078125
+Chains MCMC chain (1000×18×1 Array{Float64, 3}):
+
+Iterations        = 501:1:1500
+Number of chains  = 1
+Samples per chain = 1000
+Wall duration     = 42.23 seconds
+Compute duration  = 42.23 seconds
+parameters        = λ, β[1], β[2], β[3], β[4], β[5]
+internals         = lp, n_steps, is_accept, acceptance_rate, log_density, hamiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, tree_depth, numerical_error, step_size, nom_step_size
+
+Summary Statistics
+  parameters      mean       std   naive_se      mcse        ess      rhat   ess_per_sec 
+      Symbol   Float64   Float64    Float64   Float64    Float64   Float64       Float64 
+
+            λ    0.8480    0.4143     0.0131    0.0144   675.5220    0.9998       15.9970
+        β[1]   -3.0014    0.3675     0.0116    0.0179   512.9194    0.9995       12.1464
+        β[2]    0.0291    0.0042     0.0001    0.0002   668.6412    0.9994       15.8341
+        β[3]    0.1403    0.1468     0.0046    0.0059   732.6106    0.9993       17.3489
+        β[4]    0.2394    0.0383     0.0012    0.0019   517.9500    1.0015       12.2656
+        β[5]    0.1622    0.0233     0.0007    0.0011   552.8157    0.9999       13.0912
+
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5% 
+      Symbol   Float64   Float64   Float64   Float64   Float64 
+
+            λ    0.3261    0.5543    0.7534    1.0416    1.8282
+        β[1]   -3.7419   -3.2460   -2.9995   -2.7679   -2.2990
+        β[2]    0.0210    0.0260    0.0293    0.0319    0.0380
+        β[3]   -0.1352    0.0447    0.1375    0.2297    0.4357
+        β[4]    0.1680    0.2130    0.2378    0.2663    0.3196
+        β[5]    0.1178    0.1461    0.1615    0.1769    0.2070     </code></pre></div><a class="docs-sourcelink" target="_blank" href="https://github.com/xKDR/CRRao.jl/blob/e6fec62ed0ff644729d44301e3f207033d45ed50/src/bayesian/logistic_regression.jl#L216-L380">source</a></section></article><h3 id="Logistic-Regression-with-Cauchy-Prior"><a class="docs-heading-anchor" href="#Logistic-Regression-with-Cauchy-Prior">Logistic Regression with Cauchy Prior</a><a id="Logistic-Regression-with-Cauchy-Prior-1"></a><a class="docs-heading-anchor-permalink" href="#Logistic-Regression-with-Cauchy-Prior" title="Permalink"></a></h3><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="StatsAPI.fit" href="#StatsAPI.fit"><code>StatsAPI.fit</code></a> — <span class="docstring-category">Function</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><pre><code class="language-julia hljs">fit(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_Cauchy, h::Float64 = 0.1, level::Float64 = 0.95, sim_size::Int64 = 1000)</code></pre><p>Fit a Bayesian Logistic Regression model on the input data with a Cauchy prior with the provided <code>Link</code> function.</p><p><strong>Example</strong></p><pre><code class="language-julia-repl hljs">julia&gt; using CRRao, RDatasets, StableRNGs, StatsModels
+julia&gt; CRRao.set_rng(StableRNG(123))
+StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
+julia&gt; turnout = dataset(&quot;Zelig&quot;, &quot;turnout&quot;)
+2000×5 DataFrame
+  Row │ Race   Age    Educate  Income   Vote  
+      │ Cat…   Int32  Float64  Float64  Int32 
+──────┼───────────────────────────────────────
+    1 │ white     60     14.0   3.3458      1
+    2 │ white     51     10.0   1.8561      0
+    3 │ white     24     12.0   0.6304      0
+    4 │ white     38      8.0   3.4183      1
+  ⋮   │   ⋮      ⋮       ⋮        ⋮       ⋮
+ 1998 │ white     51     16.0   7.8949      1
+ 1999 │ white     22     10.0   2.4811      0
+ 2000 │ white     59     10.0   0.5523      0
+                             1993 rows omitted
+julia&gt; container_logit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Logit(), Prior_Cauchy())
+┌ Info: Found initial step size
+└   ϵ = 0.0015625
+Chains MCMC chain (1000×18×1 Array{Float64, 3}):
+
+Iterations        = 501:1:1500
+Number of chains  = 1
+Samples per chain = 1000
+Wall duration     = 32.88 seconds
+Compute duration  = 32.88 seconds
+parameters        = λ, β[1], β[2], β[3], β[4], β[5]
+internals         = lp, n_steps, is_accept, acceptance_rate, log_density, hamiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, tree_depth, numerical_error, step_size, nom_step_size
+
+Summary Statistics
+  parameters      mean       std   naive_se      mcse        ess      rhat   ess_per_sec 
+      Symbol   Float64   Float64    Float64   Float64    Float64   Float64       Float64 
+
+           λ    0.3048    0.2245     0.0071    0.0092   732.5949    0.9994       22.2829
+        β[1]   -2.9536    0.3307     0.0105    0.0151   501.8962    1.0078       15.2659
+        β[2]    0.0282    0.0035     0.0001    0.0001   814.6017    1.0013       24.7773
+        β[3]    0.1818    0.1379     0.0044    0.0049   641.2468    1.0105       19.5044
+        β[4]    0.1781    0.0279     0.0009    0.0009   873.2256    0.9992       26.5604
+        β[5]    0.1738    0.0201     0.0006    0.0008   612.2187    1.0022       18.6215
+
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5% 
+      Symbol   Float64   Float64   Float64   Float64   Float64 
+
+           λ    0.0701    0.1564    0.2435    0.3783    0.9120
+        β[1]   -3.5915   -3.1683   -2.9647   -2.7330   -2.2954
+        β[2]    0.0214    0.0258    0.0282    0.0307    0.0350
+        β[3]   -0.0673    0.0823    0.1762    0.2728    0.4755
+        β[4]    0.1237    0.1595    0.1787    0.1962    0.2341
+        β[5]    0.1358    0.1608    0.1735    0.1866    0.2164
+
+julia&gt; container_probit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Probit(), Prior_Cauchy())
+Chains MCMC chain (1000×18×1 Array{Float64, 3}):
+
+Iterations        = 501:1:1500
+Number of chains  = 1
+Samples per chain = 1000
+Wall duration     = 92.1 seconds
+Compute duration  = 92.1 seconds
+parameters        = λ, β[1], β[2], β[3], β[4], β[5]
+internals         = lp, n_steps, is_accept, acceptance_rate, log_density, hamiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, tree_depth, numerical_error, step_size, nom_step_size
+
+Summary Statistics
+  parameters      mean       std   naive_se      mcse         ess      rhat   ess_per_sec 
+      Symbol   Float64   Float64    Float64   Float64     Float64   Float64       Float64 
+
+           λ    0.1889    0.1676     0.0053    0.0102    213.5688    1.0055        2.3189
+        β[1]   -1.6968    0.1900     0.0060    0.0059    668.5132    0.9997        7.2586
+        β[2]    0.0164    0.0020     0.0001    0.0001    844.5946    0.9994        9.1704
+        β[3]    0.1155    0.0820     0.0026    0.0050    351.2848    1.0087        3.8142
+        β[4]    0.0955    0.0151     0.0005    0.0004   1072.1826    0.9992       11.6415
+        β[5]    0.1029    0.0117     0.0004    0.0004    781.5659    0.9991        8.4861
+
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5% 
+      Symbol   Float64   Float64   Float64   Float64   Float64 
+
+           λ    0.0368    0.0847    0.1335    0.2284    0.6325
+        β[1]   -2.0732   -1.8312   -1.6971   -1.5656   -1.3258
+        β[2]    0.0124    0.0150    0.0163    0.0177    0.0203
+        β[3]   -0.0366    0.0566    0.1128    0.1706    0.2800
+        β[4]    0.0657    0.0852    0.0958    0.1058    0.1245
+        β[5]    0.0798    0.0949    0.1028    0.1111    0.1251
+julia&gt; container_cloglog = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Cloglog(), Prior_Cauchy())
+Chains MCMC chain (1000×18×1 Array{Float64, 3}):
+
+Iterations        = 501:1:1500
+Number of chains  = 1
+Samples per chain = 1000
+Wall duration     = 41.19 seconds
+Compute duration  = 41.19 seconds
+parameters        = λ, β[1], β[2], β[3], β[4], β[5]
+internals         = lp, n_steps, is_accept, acceptance_rate, log_density, hamiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, tree_depth, numerical_error, step_size, nom_step_size
+
+Summary Statistics
+  parameters      mean       std   naive_se      mcse        ess      rhat   ess_per_sec 
+      Symbol   Float64   Float64    Float64   Float64    Float64   Float64       Float64 
+
+           λ    0.1839    0.2072     0.0066    0.0085   681.7783    0.9991       16.5520
+        β[1]   -1.8712    0.1883     0.0060    0.0068   568.8922    0.9993       13.8114
+        β[2]    0.0146    0.0019     0.0001    0.0001   866.0645    0.9990       21.0261
+        β[3]    0.1383    0.0857     0.0027    0.0037   500.3015    1.0037       12.1462
+        β[4]    0.0765    0.0117     0.0004    0.0004   955.1365    0.9991       23.1886
+        β[5]    0.0965    0.0114     0.0004    0.0004   612.5153    1.0007       14.8705
+
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5% 
+      Symbol   Float64   Float64   Float64   Float64   Float64 
+
+           λ    0.0346    0.0889    0.1368    0.2232    0.5814
+        β[1]   -2.2534   -2.0036   -1.8581   -1.7428   -1.5302
+        β[2]    0.0112    0.0133    0.0145    0.0159    0.0184
+        β[3]   -0.0102    0.0751    0.1357    0.1937    0.3198
+        β[4]    0.0538    0.0689    0.0768    0.0842    0.1003
+        β[5]    0.0750    0.0883    0.0960    0.1042    0.1206
+
+julia&gt; container_cauchit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Cauchit(), Prior_Cauchy())
+Chains MCMC chain (1000×18×1 Array{Float64, 3}):
+
+Iterations        = 501:1:1500
+Number of chains  = 1
+Samples per chain = 1000
+Wall duration     = 26.07 seconds
+Compute duration  = 26.07 seconds
+parameters        = λ, β[1], β[2], β[3], β[4], β[5]
+internals         = lp, n_steps, is_accept, acceptance_rate, log_density, hamiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, tree_depth, numerical_error, step_size, nom_step_size
+
+Summary Statistics
+  parameters      mean       std   naive_se      mcse        ess      rhat   ess_per_sec 
+      Symbol   Float64   Float64    Float64   Float64    Float64   Float64       Float64 
+
+           λ    0.3142    0.2296     0.0073    0.0065   775.1497    1.0000       29.7334
+        β[1]   -3.0635    0.3940     0.0125    0.0142   616.9777    1.0020       23.6662
+        β[2]    0.0299    0.0045     0.0001    0.0001   758.2408    1.0016       29.0848
+        β[3]    0.1211    0.1321     0.0042    0.0050   551.1313    0.9992       21.1404
+        β[4]    0.2345    0.0408     0.0013    0.0014   670.1954    1.0003       25.7075
+        β[5]    0.1671    0.0249     0.0008    0.0009   631.3726    1.0014       24.2184
+
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5% 
+      Symbol   Float64   Float64   Float64   Float64   Float64 
+
+           λ    0.0654    0.1638    0.2555    0.3933    0.9454
+        β[1]   -3.8138   -3.3366   -3.0547   -2.7857   -2.3285
+        β[2]    0.0211    0.0270    0.0301    0.0329    0.0384
+        β[3]   -0.1105    0.0282    0.1117    0.2168    0.3907
+        β[4]    0.1603    0.2064    0.2324    0.2627    0.3157
+        β[5]    0.1166    0.1501    0.1669    0.1839    0.2152</code></pre></div><a class="docs-sourcelink" target="_blank" href="https://github.com/xKDR/CRRao.jl/blob/e6fec62ed0ff644729d44301e3f207033d45ed50/src/bayesian/logistic_regression.jl#L415-L574">source</a></section></article><h3 id="Logistic-Regression-with-T-Distributed-Prior"><a class="docs-heading-anchor" href="#Logistic-Regression-with-T-Distributed-Prior">Logistic Regression with T-Distributed Prior</a><a id="Logistic-Regression-with-T-Distributed-Prior-1"></a><a class="docs-heading-anchor-permalink" href="#Logistic-Regression-with-T-Distributed-Prior" title="Permalink"></a></h3><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="StatsAPI.fit" href="#StatsAPI.fit"><code>StatsAPI.fit</code></a> — <span class="docstring-category">Function</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><pre><code class="language-julia hljs">fit(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_TDist, h::Float64 = 1.0, level::Float64 = 0.95, sim_size::Int64 = 1000)</code></pre><p>Fit a Bayesian Logistic Regression model on the input data with a T-Dist prior with the provided <code>Link</code> function.</p><p><strong>Example</strong></p><pre><code class="language-julia-repl hljs">julia&gt; using CRRao, RDatasets, StableRNGs, StatsModels
+julia&gt; CRRao.set_rng(StableRNG(123))
+StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
+julia&gt; turnout = dataset(&quot;Zelig&quot;, &quot;turnout&quot;)
+2000×5 DataFrame
+  Row │ Race   Age    Educate  Income   Vote  
+      │ Cat…   Int32  Float64  Float64  Int32 
+──────┼───────────────────────────────────────
+    1 │ white     60     14.0   3.3458      1
+    2 │ white     51     10.0   1.8561      0
+    3 │ white     24     12.0   0.6304      0
+    4 │ white     38      8.0   3.4183      1
+  ⋮   │   ⋮      ⋮       ⋮        ⋮       ⋮
+ 1998 │ white     51     16.0   7.8949      1
+ 1999 │ white     22     10.0   2.4811      0
+ 2000 │ white     59     10.0   0.5523      0
+                             1993 rows omitted
+julia&gt; CRRao.set_rng(StableRNG(7740));
+StableRNGs.LehmerRNG(state=0x00000000000000000000000000003c79)
+julia&gt; container_logit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Logit(), Prior_TDist())
+┌ Info: Found initial step size
+└   ϵ = 0.003125
+┌ Warning: The current proposal will be rejected due to numerical error(s).
+│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
+└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/iWHPQ/src/hamiltonian.jl:47
+Chains MCMC chain (1000×19×1 Array{Float64, 3}):
+
+Iterations        = 501:1:1500
+Number of chains  = 1
+Samples per chain = 1000
+Wall duration     = 39.94 seconds
+Compute duration  = 39.94 seconds
+parameters        = λ, ν, β[1], β[2], β[3], β[4], β[5]
+internals         = lp, n_steps, is_accept, acceptance_rate, log_density, hamiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, tree_depth, numerical_error, step_size, nom_step_size
+
+Summary Statistics
+  parameters      mean       std   naive_se      mcse        ess      rhat   ess_per_sec 
+      Symbol   Float64   Float64    Float64   Float64    Float64   Float64       Float64 
+
+           λ    0.7011    0.3630     0.0115    0.0144   545.8105    0.9991       13.6671
+           ν    1.4459    0.9166     0.0290    0.0334   691.7171    1.0066       17.3206
+        β[1]   -2.9624    0.3175     0.0100    0.0120   727.4172    0.9999       18.2146
+        β[2]    0.0279    0.0034     0.0001    0.0001   939.5146    0.9993       23.5255
+        β[3]    0.2331    0.1479     0.0047    0.0046   742.9274    0.9992       18.6029
+        β[4]    0.1750    0.0259     0.0008    0.0009   695.4691    0.9994       17.4146
+        β[5]    0.1729    0.0197     0.0006    0.0008   697.3021    0.9994       17.4605
+
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5% 
+      Symbol   Float64   Float64   Float64   Float64   Float64 
+
+           λ    0.2980    0.4622    0.6229    0.8441    1.6138
+           ν    0.4603    0.8479    1.2170    1.7611    3.9754
+        β[1]   -3.5783   -3.1642   -2.9738   -2.7651   -2.3367
+        β[2]    0.0210    0.0257    0.0279    0.0302    0.0347
+        β[3]   -0.0383    0.1349    0.2251    0.3318    0.5290
+        β[4]    0.1262    0.1577    0.1741    0.1920    0.2272
+        β[5]    0.1349    0.1604    0.1723    0.1861    0.2119
+
+julia&gt; CRRao.set_rng(StableRNG(7740))
+julia&gt; container_probit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Probit(), Prior_TDist())
+┌ Info: Found initial step size
+└   ϵ = 0.00078125
+Chains MCMC chain (1000×19×1 Array{Float64, 3}):
+
+Iterations        = 501:1:1500
+Number of chains  = 1
+Samples per chain = 1000
+Wall duration     = 47.56 seconds
+Compute duration  = 47.56 seconds
+parameters        = λ, ν, β[1], β[2], β[3], β[4], β[5]
+internals         = lp, n_steps, is_accept, acceptance_rate, log_density, hamiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, tree_depth, numerical_error, step_size, nom_step_size
+
+Summary Statistics
+  parameters      mean       std   naive_se      mcse        ess      rhat   ess_per_sec 
+      Symbol   Float64   Float64    Float64   Float64    Float64   Float64       Float64 
+
+           λ    0.6284    0.2643     0.0084    0.0085   759.3697    0.9997       15.9656
+           ν    1.7113    1.3044     0.0412    0.0491   715.9368    0.9996       15.0524
+        β[1]   -1.7098    0.1909     0.0060    0.0064   609.6431    0.9994       12.8176
+        β[2]    0.0162    0.0020     0.0001    0.0001   943.5295    0.9992       19.8375
+        β[3]    0.1525    0.0878     0.0028    0.0026   945.7419    0.9990       19.8840
+        β[4]    0.0966    0.0145     0.0005    0.0005   942.0548    0.9990       19.8065
+        β[5]    0.1017    0.0116     0.0004    0.0004   580.8348    0.9993       12.2119
+
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5% 
+      Symbol   Float64   Float64   Float64   Float64   Float64 
+
+           λ    0.2854    0.4398    0.5684    0.7640    1.2603
+           ν    0.4877    0.9461    1.3453    2.0327    5.1304
+        β[1]   -2.0824   -1.8335   -1.7198   -1.5816   -1.3325
+        β[2]    0.0120    0.0148    0.0162    0.0176    0.0198
+        β[3]   -0.0282    0.0960    0.1541    0.2147    0.3217
+        β[4]    0.0687    0.0869    0.0970    0.1063    0.1240
+        β[5]    0.0787    0.0937    0.1015    0.1095    0.1241
+
+julia&gt; CRRao.set_rng(StableRNG(7740))
+julia&gt; container_cloglog = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Cloglog(), Prior_TDist())
+┌ Info: Found initial step size
+└   ϵ = 0.0015625
+Chains MCMC chain (10000×19×1 Array{Float64, 3}):
+
+Iterations        = 1001:1:11000
+Number of chains  = 1
+Samples per chain = 10000
+Wall duration     = 666.27 seconds
+Compute duration  = 666.27 seconds
+parameters        = λ, ν, β[1], β[2], β[3], β[4], β[5]
+internals         = lp, n_steps, is_accept, acceptance_rate, log_density, hamiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, tree_depth, numerical_error, step_size, nom_step_size
+
+Summary Statistics
+  parameters      mean       std   naive_se      mcse          ess      rhat   ess_per_sec 
+      Symbol   Float64   Float64    Float64   Float64      Float64   Float64       Float64 
+
+           λ    0.6312    0.2782     0.0028    0.0040    4453.1117    0.9999        6.6837
+           ν    1.6104    1.3172     0.0132    0.0241    2233.9301    1.0000        3.3529
+        β[1]   -1.9118    0.1841     0.0018    0.0019    8957.3062    0.9999       13.4440
+        β[2]    0.0146    0.0018     0.0000    0.0000    9811.4797    0.9999       14.7260
+        β[3]    0.1736    0.0851     0.0009    0.0013    3552.7097    0.9999        5.3323
+        β[4]    0.0769    0.0119     0.0001    0.0001   11861.3612    1.0002       17.8027
+        β[5]    0.0971    0.0109     0.0001    0.0001   11028.1160    1.0002       16.5521
+
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5% 
+      Symbol   Float64   Float64   Float64   Float64   Float64 
+
+           λ    0.2858    0.4424    0.5693    0.7569    1.3451
+           ν    0.5054    0.8957    1.2752    1.8894    4.6403
+        β[1]   -2.2751   -2.0344   -1.9134   -1.7884   -1.5464
+        β[2]    0.0110    0.0134    0.0146    0.0158    0.0182
+        β[3]    0.0072    0.1164    0.1742    0.2325    0.3366
+        β[4]    0.0534    0.0689    0.0768    0.0849    0.1003
+        β[5]    0.0760    0.0897    0.0970    0.1044    0.1187
+
+julia&gt; CRRao.set_rng(StableRNG(7740))
+StableRNGs.LehmerRNG(state=0x00000000000000000000000000003c79)
+        
+julia&gt; container_cauchit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Cauchit(), Prior_TDist())
+┌ Info: Found initial step size
+└   ϵ = 0.8
+Chains MCMC chain (1000×19×1 Array{Float64, 3}):
+
+Iterations        = 501:1:1500
+Number of chains  = 1
+Samples per chain = 1000
+Wall duration     = 68.68 seconds
+Compute duration  = 68.68 seconds
+parameters        = λ, ν, β[1], β[2], β[3], β[4], β[5]
+internals         = lp, n_steps, is_accept, acceptance_rate, log_density, hamiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, tree_depth, numerical_error, step_size, nom_step_size
+
+Summary Statistics
+  parameters      mean       std   naive_se      mcse        ess      rhat   ess_per_sec 
+      Symbol   Float64   Float64    Float64   Float64    Float64   Float64       Float64 
+
+           λ    0.6907    0.3474     0.0110    0.0126   712.4682    0.9990       10.3736
+           ν    1.5930    1.7268     0.0546    0.1194   179.2215    0.9991        2.6095
+        β[1]   -3.1058    0.3806     0.0120    0.0152   645.0360    0.9992        9.3918
+        β[2]    0.0301    0.0043     0.0001    0.0002   824.3969    0.9991       12.0033
+        β[3]    0.1578    0.1461     0.0046    0.0045   903.3324    1.0037       13.1526
+        β[4]    0.2375    0.0421     0.0013    0.0019   471.7863    1.0106        6.8692
+        β[5]    0.1668    0.0235     0.0007    0.0010   645.8576    0.9990        9.4037
+
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5% 
+      Symbol   Float64   Float64   Float64   Float64   Float64 
+
+           λ    0.2894    0.4587    0.6085    0.8172    1.5353
+           ν    0.4751    0.8676    1.2220    1.7524    5.1716
+        β[1]   -3.8599   -3.3612   -3.1010   -2.8637   -2.3669
+        β[2]    0.0218    0.0271    0.0300    0.0330    0.0388
+        β[3]   -0.1336    0.0643    0.1646    0.2552    0.4311
+        β[4]    0.1592    0.2092    0.2368    0.2650    0.3271
+        β[5]    0.1218    0.1508    0.1661    0.1819    0.2157</code></pre></div><a class="docs-sourcelink" target="_blank" href="https://github.com/xKDR/CRRao.jl/blob/e6fec62ed0ff644729d44301e3f207033d45ed50/src/bayesian/logistic_regression.jl#L609-L793">source</a></section></article><h3 id="Logistic-Regression-with-Horse-Shoe-Prior"><a class="docs-heading-anchor" href="#Logistic-Regression-with-Horse-Shoe-Prior">Logistic Regression with Horse Shoe Prior</a><a id="Logistic-Regression-with-Horse-Shoe-Prior-1"></a><a class="docs-heading-anchor-permalink" href="#Logistic-Regression-with-Horse-Shoe-Prior" title="Permalink"></a></h3><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="StatsAPI.fit" href="#StatsAPI.fit"><code>StatsAPI.fit</code></a> — <span class="docstring-category">Function</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><pre><code class="language-julia hljs">fit(formula::FormulaTerm,data::DataFrame,modelClass::LogisticRegression,Link::CRRaoLink,prior::Prior_HorseShoe,level::Float64 = 0.95,sim_size::Int64 = 1000)</code></pre><p>Fit a Bayesian Logistic Regression model on the input data with a HorseShoe prior with the provided <code>Link</code> function.</p><p><strong>Example</strong></p><pre><code class="language-julia-repl hljs">julia&gt; using CRRao, RDatasets, StableRNGs, StatsModels
+julia&gt; turnout = dataset(&quot;Zelig&quot;, &quot;turnout&quot;);
+julia&gt; CRRao.set_rng(StableRNG(7740))
+julia&gt; container_logit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Logit(), Prior_HorseShoe())
+Chains MCMC chain (1000×24×1 Array{Float64, 3}):
+
+Iterations        = 501:1:1500
+Number of chains  = 1
+Samples per chain = 1000
+Wall duration     = 78.98 seconds
+Compute duration  = 78.98 seconds
+parameters        = τ, λ[1], λ[2], λ[3], λ[4], λ[5], σ, β[1], β[2], β[3], β[4], β[5]
+internals         = lp, n_steps, is_accept, acceptance_rate, log_density, hamiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, tree_depth, numerical_error, step_size, nom_step_size
+
+Summary Statistics
+  parameters      mean       std   naive_se      mcse         ess      rhat   ess_per_sec 
+      Symbol   Float64   Float64    Float64   Float64     Float64   Float64       Float64 
+
+           τ    0.9411    1.0672     0.0337    0.0303    817.3843    0.9990       10.3489
+        λ[1]   12.1657   20.9749     0.6633    0.6373    839.0119    0.9992       10.6227
+        λ[2]    0.6175    1.2944     0.0409    0.0530    564.7242    0.9997        7.1499
+        λ[3]    1.0698    1.6054     0.0508    0.0564    755.8639    1.0007        9.5700
+        λ[4]    1.2037    1.5510     0.0490    0.0626    601.4558    0.9993        7.6150
+        λ[5]    1.4052    3.8216     0.1208    0.2157    309.1836    1.0036        3.9146
+           σ    1.0562    1.7528     0.0554    0.0775    458.5741    1.0000        5.8060
+        β[1]   -2.9262    0.3572     0.0113    0.0234    199.5082    1.0052        2.5260
+        β[2]    0.0280    0.0037     0.0001    0.0002    335.2483    1.0029        4.2446
+        β[3]    0.1541    0.1360     0.0043    0.0072    308.0926    1.0027        3.9007
+        β[4]    0.1783    0.0259     0.0008    0.0009   1061.7391    0.9994       13.4426
+        β[5]    0.1747    0.0217     0.0007    0.0016    150.7165    1.0082        1.9082
+
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5% 
+      Symbol   Float64   Float64   Float64   Float64   Float64 
+
+           τ    0.0894    0.3362    0.6462    1.1511    3.5586
+        λ[1]    1.1212    3.7091    7.0026   13.2362   59.5366
+        λ[2]    0.0271    0.1222    0.2984    0.6426    3.0533
+        λ[3]    0.0216    0.2845    0.6136    1.2534    5.1424
+        λ[4]    0.1336    0.4165    0.7458    1.3820    5.6334
+        λ[5]    0.1210    0.4467    0.8046    1.3866    5.8171
+           σ    0.0902    0.3277    0.5955    1.1698    4.3552
+        β[1]   -3.5907   -3.1452   -2.9250   -2.6843   -2.1970
+        β[2]    0.0209    0.0256    0.0279    0.0305    0.0352
+        β[3]   -0.0579    0.0413    0.1396    0.2505    0.4221
+        β[4]    0.1287    0.1613    0.1793    0.1962    0.2313
+        β[5]    0.1345    0.1600    0.1736    0.1888    0.2162
+
+julia&gt; CRRao.set_rng(StableRNG(7750))
+julia&gt; container_probit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Probit(), Prior_HorseShoe())
+Chains MCMC chain (1000×24×1 Array{Float64, 3}):
+
+Iterations        = 501:1:1500
+Number of chains  = 1
+Samples per chain = 1000
+Wall duration     = 90.76 seconds
+Compute duration  = 90.76 seconds
+parameters        = τ, λ[1], λ[2], λ[3], λ[4], λ[5], σ, β[1], β[2], β[3], β[4], β[5]
+internals         = lp, n_steps, is_accept, acceptance_rate, log_density, hamiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, tree_depth, numerical_error, step_size, nom_step_size
+
+Summary Statistics
+  parameters      mean       std   naive_se      mcse         ess      rhat   ess_per_sec 
+      Symbol   Float64   Float64    Float64   Float64     Float64   Float64       Float64 
+
+           τ    0.9361    1.4286     0.0452    0.0594    518.1317    0.9991        5.7086
+        λ[1]   10.9980   15.4067     0.4872    0.6976    466.4646    1.0033        5.1394
+        λ[2]    0.4934    0.7068     0.0223    0.0227    907.8114    1.0021       10.0020
+        λ[3]    1.1991    2.0495     0.0648    0.0643    981.7976    1.0035       10.8172
+        λ[4]    1.1391    1.4539     0.0460    0.0650    639.5463    0.9997        7.0463
+        λ[5]    1.2285    2.2036     0.0697    0.0733    771.8797    1.0034        8.5043
+           σ    0.8506    1.3755     0.0435    0.0594    685.4138    1.0002        7.5517
+        β[1]   -1.6771    0.1910     0.0060    0.0064    920.9217    0.9993       10.1464
+        β[2]    0.0162    0.0020     0.0001    0.0001   1142.6505    0.9990       12.5894
+        β[3]    0.1114    0.0865     0.0027    0.0031    718.5753    0.9992        7.9171
+        β[4]    0.0959    0.0153     0.0005    0.0004   1132.1662    0.9993       12.4739
+        β[5]    0.1021    0.0118     0.0004    0.0004    869.2085    0.9999        9.5767
+
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5% 
+      Symbol   Float64   Float64   Float64   Float64   Float64 
+
+           τ    0.0513    0.2551    0.5591    1.0551    4.1911
+        λ[1]    1.1021    3.5425    6.6721   13.0485   47.5960
+        λ[2]    0.0281    0.1149    0.2683    0.5840    2.3417
+        λ[3]    0.0650    0.3625    0.7063    1.3983    4.6179
+        λ[4]    0.1094    0.4109    0.7536    1.3183    4.7938
+        λ[5]    0.1194    0.4239    0.7649    1.2889    5.0621
+           σ    0.0507    0.2487    0.4977    0.9753    3.1844
+        β[1]   -2.0502   -1.8040   -1.6787   -1.5443   -1.3105
+        β[2]    0.0122    0.0148    0.0162    0.0176    0.0200
+        β[3]   -0.0269    0.0436    0.1048    0.1703    0.2917
+        β[4]    0.0684    0.0852    0.0959    0.1058    0.1272
+        β[5]    0.0782    0.0946    0.1021    0.1099    0.1258
+
+julia&gt; CRRao.set_rng(StableRNG(7750))
+julia&gt; container_cloglog = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Cloglog(), Prior_HorseShoe())
+Chains MCMC chain (1000×24×1 Array{Float64, 3}):
+
+Iterations        = 501:1:1500
+Number of chains  = 1
+Samples per chain = 1000
+Wall duration     = 94.09 seconds
+Compute duration  = 94.09 seconds
+parameters        = τ, λ[1], λ[2], λ[3], λ[4], λ[5], σ, β[1], β[2], β[3], β[4], β[5]
+internals         = lp, n_steps, is_accept, acceptance_rate, log_density, hamiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, tree_depth, numerical_error, step_size, nom_step_size
+
+Summary Statistics
+  parameters      mean       std   naive_se      mcse         ess      rhat   ess_per_sec 
+      Symbol   Float64   Float64    Float64   Float64     Float64   Float64       Float64 
+
+           τ    1.6055   10.8894     0.3444    0.4607    563.7698    1.0009        5.9916
+        λ[1]   12.0709   18.6874     0.5909    0.6065    606.1712    1.0007        6.4422
+        λ[2]    0.5384    0.9729     0.0308    0.0282    934.6438    0.9991        9.9331
+        λ[3]    1.2516    2.0053     0.0634    0.0708    719.1385    1.0009        7.6428
+        λ[4]    0.9365    1.0546     0.0333    0.0375    706.7728    0.9990        7.5113
+        λ[5]    1.1632    1.8148     0.0574    0.0621    637.0480    1.0002        6.7703
+           σ    0.8427    1.4313     0.0453    0.0634    743.6152    1.0109        7.9029
+        β[1]   -1.8752    0.1799     0.0057    0.0067    685.7310    0.9990        7.2877
+        β[2]    0.0147    0.0018     0.0001    0.0001   1010.6479    0.9990       10.7408
+        β[3]    0.1313    0.0869     0.0027    0.0029    635.0589    0.9996        6.7492
+        β[4]    0.0770    0.0116     0.0004    0.0004    803.1570    0.9992        8.5357
+        β[5]    0.0969    0.0108     0.0003    0.0004    631.0117    0.9994        6.7062
+
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5% 
+      Symbol   Float64   Float64   Float64   Float64   Float64 
+
+           τ    0.0679    0.2685    0.5739    1.0915    8.0842
+        λ[1]    1.2178    3.5342    6.6865   13.2847   58.1702
+        λ[2]    0.0232    0.1050    0.2616    0.6176    2.7919
+        λ[3]    0.0779    0.3932    0.7325    1.3764    5.5664
+        λ[4]    0.0972    0.3363    0.6103    1.1374    3.4275
+        λ[5]    0.1142    0.3990    0.7305    1.2619    4.7179
+           σ    0.0319    0.2244    0.4916    0.9191    4.2356
+        β[1]   -2.2334   -1.9932   -1.8766   -1.7558   -1.5183
+        β[2]    0.0111    0.0134    0.0147    0.0159    0.0180
+        β[3]   -0.0100    0.0650    0.1297    0.1920    0.3038
+        β[4]    0.0530    0.0690    0.0767    0.0847    0.0999
+        β[5]    0.0765    0.0894    0.0966    0.1039    0.1198
+
+julia&gt; CRRao.set_rng(StableRNG(7750))
+julia&gt; container_cauchit = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Cauchit(), Prior_HorseShoe())
+┌ Info: Found initial step size
+└   ϵ = 0.8
+Chains MCMC chain (1000×24×1 Array{Float64, 3}):
+
+Iterations        = 501:1:1500
+Number of chains  = 1
+Samples per chain = 1000
+Wall duration     = 58.31 seconds
+Compute duration  = 58.31 seconds
+parameters        = τ, λ[1], λ[2], λ[3], λ[4], λ[5], σ, β[1], β[2], β[3], β[4], β[5]
+internals         = lp, n_steps, is_accept, acceptance_rate, log_density, hamiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, tree_depth, numerical_error, step_size, nom_step_size
+
+Summary Statistics
+  parameters      mean       std   naive_se      mcse         ess      rhat   ess_per_sec 
+      Symbol   Float64   Float64    Float64   Float64     Float64   Float64       Float64 
+
+           τ    1.0708    1.5386     0.0487    0.0643    593.4742    0.9991       10.1776
+        λ[1]   15.3511   26.4777     0.8373    1.3810    350.8906    0.9991        6.0175
+        λ[2]    0.6148    0.9366     0.0296    0.0477    424.3585    1.0011        7.2774
+        λ[3]    0.9767    1.4798     0.0468    0.0740    452.3447    1.0003        7.7573
+        λ[4]    1.6912    2.8264     0.0894    0.1299    409.0444    1.0014        7.0148
+        λ[5]    1.2917    1.8591     0.0588    0.0643    601.0381    1.0004       10.3073
+           σ    1.0216    1.8927     0.0599    0.0726    636.1415    0.9990       10.9093
+        β[1]   -3.0273    0.3875     0.0123    0.0199    451.7525    0.9996        7.7472
+        β[2]    0.0297    0.0044     0.0001    0.0002    471.3925    1.0005        8.0840
+        β[3]    0.1006    0.1311     0.0041    0.0050    639.1553    0.9990       10.9610
+        β[4]    0.2376    0.0382     0.0012    0.0012   1088.5251    0.9992       18.6673
+        β[5]    0.1653    0.0243     0.0008    0.0012    505.5200    0.9991        8.6692
+
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5% 
+      Symbol   Float64   Float64   Float64   Float64   Float64 
+
+           τ    0.0703    0.3114    0.6561    1.2853    4.6674
+        λ[1]    1.1598    3.8901    7.8699   15.9998   76.0001
+        λ[2]    0.0306    0.1398    0.3299    0.6663    3.1801
+        λ[3]    0.0238    0.2307    0.5136    1.1709    4.5934
+        λ[4]    0.1611    0.5298    0.9386    1.7458    7.8814
+        λ[5]    0.1182    0.4297    0.8235    1.4823    5.0292
+           σ    0.0713    0.3226    0.5813    1.1611    4.1744
+        β[1]   -3.7724   -3.2934   -3.0226   -2.7394   -2.3257
+        β[2]    0.0216    0.0266    0.0297    0.0327    0.0390
+        β[3]   -0.1005    0.0049    0.0767    0.1826    0.4019
+        β[4]    0.1614    0.2127    0.2382    0.2638    0.3140
+        β[5]    0.1201    0.1472    0.1657    0.1804    0.2148
+</code></pre></div><a class="docs-sourcelink" target="_blank" href="https://github.com/xKDR/CRRao.jl/blob/e6fec62ed0ff644729d44301e3f207033d45ed50/src/bayesian/logistic_regression.jl#L831-L1030">source</a></section></article><h2 id="Negative-Binomial-Regression"><a class="docs-heading-anchor" href="#Negative-Binomial-Regression">Negative Binomial Regression</a><a id="Negative-Binomial-Regression-1"></a><a class="docs-heading-anchor-permalink" href="#Negative-Binomial-Regression" title="Permalink"></a></h2><h3 id="Negative-Binomial-Regression-with-Ridge-Prior"><a class="docs-heading-anchor" href="#Negative-Binomial-Regression-with-Ridge-Prior">Negative Binomial Regression with Ridge Prior</a><a id="Negative-Binomial-Regression-with-Ridge-Prior-1"></a><a class="docs-heading-anchor-permalink" href="#Negative-Binomial-Regression-with-Ridge-Prior" title="Permalink"></a></h3><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="StatsAPI.fit" href="#StatsAPI.fit"><code>StatsAPI.fit</code></a> — <span class="docstring-category">Function</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><pre><code class="language-julia hljs">fit(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression, prior::Prior_Ridge, h::Float64 = 1.0, sim_size::Int64 = 1000)</code></pre><p>Fit a Bayesian Negative Binomial Regression model on the input data with a Ridge prior.</p><p><strong>Example</strong></p><pre><code class="language-julia-repl hljs">julia&gt; using CRRao, RDatasets, StableRNGs, StatsModels
+julia&gt; sanction = dataset(&quot;Zelig&quot;, &quot;sanction&quot;)
+78×8 DataFrame
+ Row │ Mil    Coop   Target  Import  Export  Cost   Num    NCost         
+     │ Int32  Int32  Int32   Int32   Int32   Int32  Int32  Cat…          
+─────┼───────────────────────────────────────────────────────────────────
+   1 │     1      4       3       1       1      4     15  major loss
+   2 │     0      2       3       0       1      3      4  modest loss
+   3 │     0      1       3       1       0      2      1  little effect
+   4 │     1      1       3       1       1      2      1  little effect
+  ⋮  │   ⋮      ⋮      ⋮       ⋮       ⋮       ⋮      ⋮          ⋮
+  76 │     0      4       3       1       0      2     13  little effect
+  77 │     0      1       2       0       0      1      1  net gain
+  78 │     1      3       1       1       1      2     10  little effect
+
+julia&gt; CRRao.set_rng(StableRNG(123))
+StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
+  
+julia&gt; container = fit(@formula(Num ~ Target + Coop + NCost), sanction, NegBinomRegression(), Prior_Ridge())
+┌ Info: Found initial step size
+└   ϵ = 0.05
+Chains MCMC chain (1000×19×1 Array{Float64, 3}):
+
+Iterations        = 501:1:1500
+Number of chains  = 1
+Samples per chain = 1000
+Wall duration     = 2.1 seconds
+Compute duration  = 2.1 seconds
+parameters        = λ, β[1], β[2], β[3], β[4], β[5], β[6]
+internals         = lp, n_steps, is_accept, acceptance_rate, log_density, hamiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, tree_depth, numerical_error, step_size, nom_step_size
+
+Summary Statistics
+  parameters      mean       std   naive_se      mcse        ess      rhat   ess_per_sec 
+      Symbol   Float64   Float64    Float64   Float64    Float64   Float64       Float64 
+
+           λ    2.0335    0.4164     0.0132    0.0144   602.6989    1.0028      287.2731
+        β[1]   -1.1009    0.5388     0.0170    0.0349   216.8922    0.9992      103.3804
+        β[2]    0.0011    0.1636     0.0052    0.0095   304.5594    0.9995      145.1665
+        β[3]    1.0603    0.1306     0.0041    0.0074   370.3104    0.9994      176.5064
+        β[4]   -0.1579    0.5449     0.0172    0.0214   884.5495    1.0033      421.6156
+        β[5]    1.2946    0.3216     0.0102    0.0120   734.1990    1.0016      349.9519
+        β[6]    0.1590    0.2913     0.0092    0.0143   426.8561    0.9990      203.4586
+
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5% 
+      Symbol   Float64   Float64   Float64   Float64   Float64 
+
+           λ    1.3742    1.7265    2.0057    2.2686    2.9704
+        β[1]   -2.1760   -1.4541   -1.0944   -0.7251   -0.0849
+        β[2]   -0.3026   -0.1087   -0.0005    0.1103    0.3231
+        β[3]    0.7923    0.9728    1.0539    1.1497    1.3159
+        β[4]   -1.1527   -0.5150   -0.1671    0.1970    1.0099
+        β[5]    0.6724    1.0801    1.2830    1.5037    1.9353
+        β[6]   -0.4259   -0.0374    0.1497    0.3484    0.7325
+
+julia&gt; predict(container,sanction)
+78-element Vector{Float64}:
+22.79273367298059
+10.581746802932752
+0.9868233460913254
+0.9868233460913254
+0.9868233460913254
+0.9868233460913254
+2.7991113722871277
+0.9868233460913254
+⋮
+3.3444210972984827
+8.219200484970807
+3.3499195503093064
+0.9868233460913254
+24.39047761169405
+1.1542620442281972
+8.219200484970807</code></pre></div><a class="docs-sourcelink" target="_blank" href="https://github.com/xKDR/CRRao.jl/blob/e6fec62ed0ff644729d44301e3f207033d45ed50/src/bayesian/negativebinomial_regression.jl#L17-L100">source</a></section></article><h3 id="Negative-Binomial-Regression-with-Laplace-Prior"><a class="docs-heading-anchor" href="#Negative-Binomial-Regression-with-Laplace-Prior">Negative Binomial Regression with Laplace Prior</a><a id="Negative-Binomial-Regression-with-Laplace-Prior-1"></a><a class="docs-heading-anchor-permalink" href="#Negative-Binomial-Regression-with-Laplace-Prior" title="Permalink"></a></h3><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="StatsAPI.fit" href="#StatsAPI.fit"><code>StatsAPI.fit</code></a> — <span class="docstring-category">Function</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><pre><code class="language-julia hljs">fit(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression, prior::Prior_Laplace, h::Float64 = 0.01, sim_size::Int64 = 1000)</code></pre><p>Fit a Bayesian Negative Binomial Regression model on the input data with a Laplace prior.</p><p><strong>Example</strong></p><pre><code class="language-julia-repl hljs">julia&gt; using CRRao, RDatasets, StableRNGs, StatsModels
+julia&gt; sanction = dataset(&quot;Zelig&quot;, &quot;sanction&quot;)
+78×8 DataFrame
+ Row │ Mil    Coop   Target  Import  Export  Cost   Num    NCost         
+     │ Int32  Int32  Int32   Int32   Int32   Int32  Int32  Cat…          
+─────┼───────────────────────────────────────────────────────────────────
+   1 │     1      4       3       1       1      4     15  major loss
+   2 │     0      2       3       0       1      3      4  modest loss
+   3 │     0      1       3       1       0      2      1  little effect
+   4 │     1      1       3       1       1      2      1  little effect
+  ⋮  │   ⋮      ⋮      ⋮       ⋮       ⋮       ⋮      ⋮          ⋮
+  76 │     0      4       3       1       0      2     13  little effect
+  77 │     0      1       2       0       0      1      1  net gain
+  78 │     1      3       1       1       1      2     10  little effect
+
+julia&gt; CRRao.set_rng(StableRNG(123))
+StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
+
+julia&gt; container = fit(@formula(Num ~ Target + Coop + NCost), sanction, NegBinomRegression(), Prior_Laplace())
+┌ Info: Found initial step size
+└   ϵ = 0.05
+Chains MCMC chain (1000×19×1 Array{Float64, 3}):
+
+Iterations        = 501:1:1500
+Number of chains  = 1
+Samples per chain = 1000
+Wall duration     = 2.06 seconds
+Compute duration  = 2.06 seconds
+parameters        = λ, β[1], β[2], β[3], β[4], β[5], β[6]
+internals         = lp, n_steps, is_accept, acceptance_rate, log_density, hamiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, tree_depth, numerical_error, step_size, nom_step_size
+
+Summary Statistics
+  parameters      mean       std   naive_se      mcse        ess      rhat   ess_per_sec 
+      Symbol   Float64   Float64    Float64   Float64    Float64   Float64       Float64 
+
+           λ    2.1157    0.4443     0.0141    0.0154   961.8068    0.9990      465.9917
+        β[1]   -1.0085    0.5101     0.0161    0.0250   289.3129    1.0108      140.1710
+        β[2]   -0.0248    0.1554     0.0049    0.0064   476.0466    1.0043      230.6427
+        β[3]    1.0521    0.1305     0.0041    0.0055   342.3108    1.0075      165.8482
+        β[4]   -0.1528    0.5179     0.0164    0.0183   630.1413    1.0002      305.3010
+        β[5]    1.2862    0.3096     0.0098    0.0113   576.8927    1.0023      279.5023
+        β[6]    0.1316    0.2634     0.0083    0.0114   491.5701    1.0014      238.1638
+
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5% 
+      Symbol   Float64   Float64   Float64   Float64   Float64 
+
+           λ    1.3970    1.8074    2.0635    2.3653    3.1272
+        β[1]   -2.0432   -1.3326   -0.9808   -0.6653   -0.0397
+        β[2]   -0.3230   -0.1281   -0.0271    0.0741    0.2848
+        β[3]    0.8077    0.9677    1.0496    1.1381    1.3186
+        β[4]   -1.1888   -0.4738   -0.1480    0.1743    0.8940
+        β[5]    0.6787    1.0819    1.3003    1.4830    1.8838
+        β[6]   -0.3786   -0.0462    0.1339    0.3186    0.6422
+        
+julia&gt; predict(container,sanction)
+78-element Vector{Float64}:
+21.842690660989987
+10.491546187713833
+1.0011451666062938
+1.0011451666062938
+1.0011451666062938
+1.0011451666062938
+2.890144338154678
+1.0011451666062938
+⋮
+3.29313752935312
+8.611185000528977
+3.4080264307792745
+1.0011451666062938
+23.744012407689187
+1.1547110091441486
+8.611185000528977</code></pre></div><a class="docs-sourcelink" target="_blank" href="https://github.com/xKDR/CRRao.jl/blob/e6fec62ed0ff644729d44301e3f207033d45ed50/src/bayesian/negativebinomial_regression.jl#L132-L215">source</a></section></article><h3 id="Negative-Binomial-Regression-with-Cauchy-Prior"><a class="docs-heading-anchor" href="#Negative-Binomial-Regression-with-Cauchy-Prior">Negative Binomial Regression with Cauchy Prior</a><a id="Negative-Binomial-Regression-with-Cauchy-Prior-1"></a><a class="docs-heading-anchor-permalink" href="#Negative-Binomial-Regression-with-Cauchy-Prior" title="Permalink"></a></h3><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="StatsAPI.fit" href="#StatsAPI.fit"><code>StatsAPI.fit</code></a> — <span class="docstring-category">Function</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><pre><code class="language-julia hljs">fit(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression, prior::Prior_Cauchy, h::Float64 = 1.0, sim_size::Int64 = 1000)</code></pre><p>Fit a Bayesian Negative Binomial Regression model on the input data with a Cauchy prior.</p><p><strong>Example</strong></p><pre><code class="language-julia-repl hljs">julia&gt; using CRRao, RDatasets, StableRNGs, StatsModels
+julia&gt; sanction = dataset(&quot;Zelig&quot;, &quot;sanction&quot;)
+78×8 DataFrame
+ Row │ Mil    Coop   Target  Import  Export  Cost   Num    NCost         
+     │ Int32  Int32  Int32   Int32   Int32   Int32  Int32  Cat…          
+─────┼───────────────────────────────────────────────────────────────────
+   1 │     1      4       3       1       1      4     15  major loss
+   2 │     0      2       3       0       1      3      4  modest loss
+   3 │     0      1       3       1       0      2      1  little effect
+   4 │     1      1       3       1       1      2      1  little effect
+  ⋮  │   ⋮      ⋮      ⋮       ⋮       ⋮       ⋮      ⋮          ⋮
+  76 │     0      4       3       1       0      2     13  little effect
+  77 │     0      1       2       0       0      1      1  net gain
+  78 │     1      3       1       1       1      2     10  little effect
+                                                          71 rows omitted
+
+julia&gt; CRRao.set_rng(StableRNG(123))
+StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
+julia&gt; container = fit(@formula(Num ~ Target + Coop + NCost), sanction, NegBinomRegression(), Prior_Cauchy())
+┌ Info: Found initial step size
+└   ϵ = 0.05
+┌ Warning: The current proposal will be rejected due to numerical error(s).
+│   isfinite.((θ, r, ℓπ, ℓκ)) = (true, false, false, false)
+└ @ AdvancedHMC ~/.julia/packages/AdvancedHMC/iWHPQ/src/hamiltonian.jl:47
+Chains MCMC chain (1000×19×1 Array{Float64, 3}):
+
+Iterations        = 501:1:1500
+Number of chains  = 1
+Samples per chain = 1000
+Wall duration     = 2.5 seconds
+Compute duration  = 2.5 seconds
+parameters        = λ, β[1], β[2], β[3], β[4], β[5], β[6]
+internals         = lp, n_steps, is_accept, acceptance_rate, log_density, hamiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, tree_depth, numerical_error, step_size, nom_step_size
+
+Summary Statistics
+  parameters      mean       std   naive_se      mcse        ess      rhat   ess_per_sec 
+      Symbol   Float64   Float64    Float64   Float64    Float64   Float64       Float64 
+
+           λ    2.0094    0.4380     0.0139    0.0169   690.8506    1.0028      276.7831
+        β[1]   -1.0783    0.5492     0.0174    0.0254   373.3703    1.0000      149.5875
+        β[2]   -0.0077    0.1702     0.0054    0.0075   431.5668    0.9991      172.9034
+        β[3]    1.0621    0.1340     0.0042    0.0052   498.3356    0.9999      199.6537
+        β[4]   -0.1812    0.5431     0.0172    0.0239   653.5156    1.0022      261.8252
+        β[5]    1.2693    0.3302     0.0104    0.0128   624.9936    0.9991      250.3981
+        β[6]    0.1551    0.2951     0.0093    0.0106   548.9336    1.0019      219.9253
+
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5% 
+      Symbol   Float64   Float64   Float64   Float64   Float64 
+
+           λ    1.3395    1.7025    1.9368    2.2640    3.0577
+        β[1]   -2.2001   -1.4242   -1.0651   -0.7256   -0.0066
+        β[2]   -0.3558   -0.1220   -0.0026    0.0946    0.3230
+        β[3]    0.7907    0.9789    1.0606    1.1386    1.3336
+        β[4]   -1.1899   -0.5662   -0.1798    0.1778    0.9467
+        β[5]    0.6384    1.0495    1.2673    1.4884    1.9266
+        β[6]   -0.4275   -0.0388    0.1676    0.3465    0.7206
+</code></pre></div><a class="docs-sourcelink" target="_blank" href="https://github.com/xKDR/CRRao.jl/blob/e6fec62ed0ff644729d44301e3f207033d45ed50/src/bayesian/negativebinomial_regression.jl#L247-L315">source</a></section></article><h3 id="Negative-Binomial-Regression-with-T-Distributed-Prior"><a class="docs-heading-anchor" href="#Negative-Binomial-Regression-with-T-Distributed-Prior">Negative Binomial Regression with T-Distributed Prior</a><a id="Negative-Binomial-Regression-with-T-Distributed-Prior-1"></a><a class="docs-heading-anchor-permalink" href="#Negative-Binomial-Regression-with-T-Distributed-Prior" title="Permalink"></a></h3><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="StatsAPI.fit" href="#StatsAPI.fit"><code>StatsAPI.fit</code></a> — <span class="docstring-category">Function</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><pre><code class="language-julia hljs">fit(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression, prior::Prior_TDist, h::Float64 = 1.0, sim_size::Int64 = 1000)</code></pre><p>Fit a Bayesian Negative Binomial Regression model on the input data with a t(ν) distributed prior.</p><p><strong>Example</strong></p><pre><code class="language-julia-repl hljs">julia&gt; using CRRao, RDatasets, StableRNGs, StatsModels
+julia&gt; sanction = dataset(&quot;Zelig&quot;, &quot;sanction&quot;)
+78×8 DataFrame
+ Row │ Mil    Coop   Target  Import  Export  Cost   Num    NCost         
+     │ Int32  Int32  Int32   Int32   Int32   Int32  Int32  Cat…          
+─────┼───────────────────────────────────────────────────────────────────
+   1 │     1      4       3       1       1      4     15  major loss
+   2 │     0      2       3       0       1      3      4  modest loss
+   3 │     0      1       3       1       0      2      1  little effect
+   4 │     1      1       3       1       1      2      1  little effect
+  ⋮  │   ⋮      ⋮      ⋮       ⋮       ⋮       ⋮      ⋮          ⋮
+  76 │     0      4       3       1       0      2     13  little effect
+  77 │     0      1       2       0       0      1      1  net gain
+  78 │     1      3       1       1       1      2     10  little effect
+                                                          71 rows omitted
+julia&gt; CRRao.set_rng(StableRNG(123))
+StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
+julia&gt; container = fit(@formula(Num ~ Target + Coop + NCost), sanction, NegBinomRegression(), Prior_TDist())
+┌ Info: Found initial step size
+└   ϵ = 0.05
+Chains MCMC chain (1000×20×1 Array{Float64, 3}):
+
+Iterations        = 501:1:1500
+Number of chains  = 1
+Samples per chain = 1000
+Wall duration     = 2.71 seconds
+Compute duration  = 2.71 seconds
+parameters        = λ, ν, β[1], β[2], β[3], β[4], β[5], β[6]
+internals         = lp, n_steps, is_accept, acceptance_rate, log_density, hamiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, tree_depth, numerical_error, step_size, nom_step_size
+
+Summary Statistics
+  parameters      mean        std   naive_se      mcse        ess      rhat   ess_per_sec 
+      Symbol   Float64    Float64    Float64   Float64    Float64   Float64       Float64 
+
+           λ    2.0088     0.4446     0.0141    0.0161   819.9421    0.9990      302.1157
+           ν   21.7233   116.4227     3.6816    4.9619   685.3526    0.9996      252.5249
+        β[1]   -1.0604     0.5311     0.0168    0.0283   397.1943    0.9997      146.3502
+        β[2]   -0.0109     0.1620     0.0051    0.0068   654.7909    1.0005      241.2642
+        β[3]    1.0601     0.1326     0.0042    0.0071   449.7489    0.9992      165.7144
+        β[4]   -0.1635     0.5340     0.0169    0.0187   724.3698    0.9996      266.9012
+        β[5]    1.2760     0.3239     0.0102    0.0119   679.5304    1.0006      250.3797
+        β[6]    0.1456     0.2862     0.0091    0.0133   500.7724    0.9991      184.5145
+
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%      97.5% 
+      Symbol   Float64   Float64   Float64   Float64    Float64 
+
+           λ    1.2838    1.6993    1.9651    2.2594     3.0105
+           ν    0.7203    1.9770    4.0830   10.1954   152.7865
+        β[1]   -2.1498   -1.4146   -1.0534   -0.6976    -0.0150
+        β[2]   -0.3198   -0.1253   -0.0024    0.1027     0.3046
+        β[3]    0.8080    0.9688    1.0538    1.1519     1.3261
+        β[4]   -1.2265   -0.5194   -0.1622    0.2064     0.8424
+        β[5]    0.6213    1.0451    1.2792    1.4909     1.8955
+        β[6]   -0.4084   -0.0453    0.1477    0.3433     0.7080
+</code></pre></div><a class="docs-sourcelink" target="_blank" href="https://github.com/xKDR/CRRao.jl/blob/e6fec62ed0ff644729d44301e3f207033d45ed50/src/bayesian/negativebinomial_regression.jl#L346-L412">source</a></section></article><h3 id="Negative-Binomial-Regression-with-HorseShoe-Prior"><a class="docs-heading-anchor" href="#Negative-Binomial-Regression-with-HorseShoe-Prior">Negative Binomial Regression with HorseShoe Prior</a><a id="Negative-Binomial-Regression-with-HorseShoe-Prior-1"></a><a class="docs-heading-anchor-permalink" href="#Negative-Binomial-Regression-with-HorseShoe-Prior" title="Permalink"></a></h3><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="StatsAPI.fit" href="#StatsAPI.fit"><code>StatsAPI.fit</code></a> — <span class="docstring-category">Function</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><pre><code class="language-julia hljs">fit(formula::FormulaTerm,data::DataFrame,modelClass::NegBinomRegression,prior::Prior_HorseShoe,sim_size::Int64 = 1000)</code></pre><p>Fit a Bayesian Negative Binomial Regression model on the input data with a HorseShoe prior. </p><p><strong>Example</strong></p><pre><code class="language-julia-repl hljs">julia&gt; using CRRao, RDatasets, StableRNGs, StatsPlots, StatsModels
+julia&gt; sanction = dataset(&quot;Zelig&quot;, &quot;sanction&quot;);
+julia&gt; CRRao.set_rng(StableRNG(123))
+julia&gt; container = fit(@formula(Num ~ Target + Coop + NCost), sanction, NegBinomRegression(), Prior_HorseShoe())
+┌ Info: Found initial step size
+└   ϵ = 0.05
+Chains MCMC chain (1000×26×1 Array{Float64, 3}):
+
+Iterations        = 501:1:1500
+Number of chains  = 1
+Samples per chain = 1000
+Wall duration     = 3.74 seconds
+Compute duration  = 3.74 seconds
+parameters        = τ, λ[1], λ[2], λ[3], λ[4], λ[5], λ[6], σ, β[1], β[2], β[3], β[4], β[5], β[6]
+internals         = lp, n_steps, is_accept, acceptance_rate, log_density, hamiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, tree_depth, numerical_error, step_size, nom_step_size
+
+Summary Statistics
+  parameters      mean       std   naive_se      mcse        ess      rhat   ess_per_sec 
+      Symbol   Float64   Float64    Float64   Float64    Float64   Float64       Float64 
+
+           τ    0.4838    0.4157     0.0131    0.0308   173.3105    1.0086       46.3397
+        λ[1]    1.5987    2.6514     0.0838    0.1408   419.8568    1.0017      112.2612
+        λ[2]    0.5508    0.8382     0.0265    0.0342   585.4782    1.0002      156.5450
+        λ[3]    2.0960    2.2974     0.0726    0.1275   359.7626    1.0205       96.1932
+        λ[4]    0.9183    1.2790     0.0404    0.0631   447.9905    1.0010      119.7835
+        λ[5]    2.5239    3.4791     0.1100    0.1755   369.0944    1.0009       98.6883
+        λ[6]    0.7963    3.1672     0.1002    0.1031   906.7498    0.9990      242.4465
+           σ    2.3692    0.5405     0.0171    0.0335   160.7206    1.0116       42.9734
+        β[1]   -0.6991    0.4640     0.0147    0.0403    74.1265    1.0119       19.8199
+        β[2]   -0.0675    0.1221     0.0039    0.0084   157.2105    1.0021       42.0349
+        β[3]    0.9701    0.1417     0.0045    0.0129    45.9995    1.0279       12.2993
+        β[4]   -0.0838    0.3660     0.0116    0.0201   289.6569    1.0192       77.4484
+        β[5]    1.2784    0.3110     0.0098    0.0193   190.0338    1.0033       50.8112
+        β[6]   -0.0028    0.2110     0.0067    0.0169    95.8876    1.0065       25.6384
+
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5% 
+      Symbol   Float64   Float64   Float64   Float64   Float64 
+
+           τ    0.0879    0.2295    0.3679    0.5927    1.4404
+        λ[1]    0.0227    0.4536    0.9371    1.8603    6.6116
+        λ[2]    0.0162    0.1229    0.2742    0.6572    2.5594
+        λ[3]    0.2818    0.9145    1.5319    2.3517    7.9027
+        λ[4]    0.0562    0.2805    0.5363    1.0203    4.5210
+        λ[5]    0.3047    0.9296    1.5168    2.8306   10.3197
+        λ[6]    0.0241    0.1982    0.3462    0.8242    3.1959
+           σ    1.5715    1.9489    2.3025    2.6799    3.6985
+        β[1]   -1.6118   -1.0219   -0.7054   -0.3626    0.0332
+        β[2]   -0.2998   -0.1666   -0.0557    0.0150    0.1638
+        β[3]    0.7268    0.8657    0.9770    1.0755    1.2406
+        β[4]   -0.9419   -0.2720   -0.0234    0.1072    0.6187
+        β[5]    0.6108    1.0708    1.2936    1.5336    1.8016
+        β[6]   -0.3937   -0.1448   -0.0029    0.1130    0.4378</code></pre></div><a class="docs-sourcelink" target="_blank" href="https://github.com/xKDR/CRRao.jl/blob/e6fec62ed0ff644729d44301e3f207033d45ed50/src/bayesian/negativebinomial_regression.jl#L445-L508">source</a></section></article><h2 id="Poisson-Regression"><a class="docs-heading-anchor" href="#Poisson-Regression">Poisson Regression</a><a id="Poisson-Regression-1"></a><a class="docs-heading-anchor-permalink" href="#Poisson-Regression" title="Permalink"></a></h2><h3 id="Poisson-Regression-with-Ridge-Prior"><a class="docs-heading-anchor" href="#Poisson-Regression-with-Ridge-Prior">Poisson Regression with Ridge Prior</a><a id="Poisson-Regression-with-Ridge-Prior-1"></a><a class="docs-heading-anchor-permalink" href="#Poisson-Regression-with-Ridge-Prior" title="Permalink"></a></h3><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="StatsAPI.fit" href="#StatsAPI.fit"><code>StatsAPI.fit</code></a> — <span class="docstring-category">Function</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><pre><code class="language-julia hljs">fit(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression, prior::Prior_Ridge, h::Float64 = 0.1, sim_size::Int64 = 1000)</code></pre><p>Fit a Bayesian Poisson Regression model on the input data with a Ridge prior.</p><p><strong>Example</strong></p><pre><code class="language-julia-repl hljs">julia&gt; using CRRao, RDatasets, StableRNGs, StatsModels
+julia&gt; sanction = dataset(&quot;Zelig&quot;, &quot;sanction&quot;)
+78×8 DataFrame
+ Row │ Mil    Coop   Target  Import  Export  Cost   Num    NCost         
+     │ Int32  Int32  Int32   Int32   Int32   Int32  Int32  Cat…          
+─────┼───────────────────────────────────────────────────────────────────
+   1 │     1      4       3       1       1      4     15  major loss
+   2 │     0      2       3       0       1      3      4  modest loss
+   3 │     0      1       3       1       0      2      1  little effect
+   4 │     1      1       3       1       1      2      1  little effect
+  ⋮  │   ⋮      ⋮      ⋮       ⋮       ⋮       ⋮      ⋮          ⋮
+  76 │     0      4       3       1       0      2     13  little effect
+  77 │     0      1       2       0       0      1      1  net gain
+  78 │     1      3       1       1       1      2     10  little effect
+
+julia&gt; CRRao.set_rng(StableRNG(123))
+StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
+  
+julia&gt; container = fit(@formula(Num ~ Target + Coop + NCost), sanction, PoissonRegression(), Prior_Ridge())
+┌ Info: Found initial step size
+└   ϵ = 0.025
+Chains MCMC chain (1000×19×1 Array{Float64, 3}):
+
+Iterations        = 501:1:1500
+Number of chains  = 1
+Samples per chain = 1000
+Wall duration     = 1.82 seconds
+Compute duration  = 1.82 seconds
+parameters        = λ, β[1], β[2], β[3], β[4], β[5], β[6]
+internals         = lp, n_steps, is_accept, acceptance_rate, log_density, hamiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, tree_depth, numerical_error, step_size, nom_step_size
+
+Summary Statistics
+  parameters      mean       std   naive_se      mcse        ess      rhat   ess_per_sec 
+      Symbol   Float64   Float64    Float64   Float64    Float64   Float64       Float64 
+
+           λ    1.3067    0.4614     0.0146    0.0187   619.3195    0.9991      339.9119
+        β[1]   -1.7954    0.2642     0.0084    0.0116   469.7099    0.9999      257.7990
+        β[2]    0.1387    0.0647     0.0020    0.0026   654.1981    0.9993      359.0549
+        β[3]    1.1327    0.0538     0.0017    0.0017   653.9282    0.9992      358.9068
+        β[4]   -0.3230    0.2179     0.0069    0.0075   743.3958    0.9994      408.0108
+        β[5]    1.6961    0.0979     0.0031    0.0036   756.8072    1.0002      415.3717
+        β[6]    0.4041    0.1715     0.0054    0.0068   571.0010    0.9999      313.3924
+
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5% 
+      Symbol   Float64   Float64   Float64   Float64   Float64 
+
+           λ    0.7431    1.0176    1.2106    1.5135    2.5469
+        β[1]   -2.3068   -1.9807   -1.7939   -1.6064   -1.2936
+        β[2]    0.0182    0.0939    0.1375    0.1795    0.2709
+        β[3]    1.0273    1.0957    1.1309    1.1687    1.2394
+        β[4]   -0.7491   -0.4674   -0.3303   -0.1709    0.1006
+        β[5]    1.5116    1.6290    1.6943    1.7634    1.8955
+        β[6]    0.0665    0.2867    0.4031    0.5242    0.7363
+
+julia&gt; predict(container,sanction)
+78-element Vector{Float64}:
+    17.245248953660397
+    13.311751426697569
+    0.7896838153702627
+    0.7896838153702627
+    0.7896838153702627
+    0.7896838153702627
+    2.12053910182601
+    0.7896838153702627
+    ⋮
+    3.1972595300758626
+    5.726972543900231
+    2.7850411549518532
+    0.7896838153702627
+    23.451157821412178
+    1.0317165509592108
+    5.726972543900231
+        </code></pre></div><a class="docs-sourcelink" target="_blank" href="https://github.com/xKDR/CRRao.jl/blob/e6fec62ed0ff644729d44301e3f207033d45ed50/src/bayesian/poisson_regression.jl#L12-L96">source</a></section></article><h3 id="Poisson-Regression-with-Laplace-Prior"><a class="docs-heading-anchor" href="#Poisson-Regression-with-Laplace-Prior">Poisson Regression with Laplace Prior</a><a id="Poisson-Regression-with-Laplace-Prior-1"></a><a class="docs-heading-anchor-permalink" href="#Poisson-Regression-with-Laplace-Prior" title="Permalink"></a></h3><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="StatsAPI.fit" href="#StatsAPI.fit"><code>StatsAPI.fit</code></a> — <span class="docstring-category">Function</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><pre><code class="language-julia hljs">fit(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression, prior::Prior_Laplace, h::Float64 = 0.1, sim_size::Int64 = 1000)</code></pre><p>Fit a Bayesian Poisson Regression model on the input data with a Laplace prior.</p><p><strong>Example</strong></p><pre><code class="language-julia-repl hljs">julia&gt; using CRRao, RDatasets, StableRNGs, StatsModels
+julia&gt; sanction = dataset(&quot;Zelig&quot;, &quot;sanction&quot;)
+78×8 DataFrame
+ Row │ Mil    Coop   Target  Import  Export  Cost   Num    NCost         
+     │ Int32  Int32  Int32   Int32   Int32   Int32  Int32  Cat…          
+─────┼───────────────────────────────────────────────────────────────────
+   1 │     1      4       3       1       1      4     15  major loss
+   2 │     0      2       3       0       1      3      4  modest loss
+   3 │     0      1       3       1       0      2      1  little effect
+   4 │     1      1       3       1       1      2      1  little effect
+  ⋮  │   ⋮      ⋮      ⋮       ⋮       ⋮       ⋮      ⋮          ⋮
+  76 │     0      4       3       1       0      2     13  little effect
+  77 │     0      1       2       0       0      1      1  net gain
+  78 │     1      3       1       1       1      2     10  little effect
+71 rows omitted
+julia&gt; CRRao.set_rng(StableRNG(123))
+StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
+julia&gt; container = fit(@formula(Num ~ Target + Coop + NCost), sanction, PoissonRegression(), Prior_Laplace())
+┌ Info: Found initial step size
+└   ϵ = 0.025
+Chains MCMC chain (1000×19×1 Array{Float64, 3}):
+
+Iterations        = 501:1:1500
+Number of chains  = 1
+Samples per chain = 1000
+Wall duration     = 1.83 seconds
+Compute duration  = 1.83 seconds
+parameters        = λ, β[1], β[2], β[3], β[4], β[5], β[6]
+internals         = lp, n_steps, is_accept, acceptance_rate, log_density, hamiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, tree_depth, numerical_error, step_size, nom_step_size
+
+Summary Statistics
+  parameters      mean       std   naive_se      mcse        ess      rhat   ess_per_sec 
+      Symbol   Float64   Float64    Float64   Float64    Float64   Float64       Float64 
+
+           λ    1.0888    0.5555     0.0176    0.0299   479.8254    1.0001      262.4865
+        β[1]   -1.7821    0.2695     0.0085    0.0134   462.2693    0.9996      252.8826
+        β[2]    0.1346    0.0613     0.0019    0.0025   677.6548    0.9992      370.7083
+        β[3]    1.1312    0.0573     0.0018    0.0025   539.8120    0.9993      295.3020
+        β[4]   -0.3032    0.2243     0.0071    0.0080   665.6348    1.0004      364.1328
+        β[5]    1.6986    0.0987     0.0031    0.0036   701.9177    0.9991      383.9812
+        β[6]    0.3837    0.1743     0.0055    0.0069   605.4188    1.0001      331.1919
+
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5% 
+      Symbol   Float64   Float64   Float64   Float64   Float64 
+
+           λ    0.4487    0.7271    0.9567    1.2873    2.4804
+        β[1]   -2.3044   -1.9714   -1.7767   -1.5968   -1.2912
+        β[2]    0.0216    0.0939    0.1302    0.1750    0.2612
+        β[3]    1.0107    1.0931    1.1321    1.1708    1.2404
+        β[4]   -0.7412   -0.4491   -0.2980   -0.1489    0.1149
+        β[5]    1.5122    1.6303    1.6944    1.7690    1.8982
+        β[6]    0.0486    0.2672    0.3897    0.4973    0.7221
+julia&gt; predict(container,sanction)
+78-element Vector{Float64}:
+    17.600829854957034
+    13.353816665957497
+    0.7892315194893381
+    0.7892315194893381
+    0.7892315194893381
+    0.7892315194893381
+    2.1250050292583618
+    0.7892315194893381
+    ⋮
+    3.149014396126593
+    5.759286021571133
+    2.7567571295421613
+    0.7892315194893381
+    23.288584913402246
+    1.0177004055294072
+    5.759286021571133</code></pre></div><a class="docs-sourcelink" target="_blank" href="https://github.com/xKDR/CRRao.jl/blob/e6fec62ed0ff644729d44301e3f207033d45ed50/src/bayesian/poisson_regression.jl#L127-L208">source</a></section></article><h3 id="Poisson-Regression-with-Cauchy-Prior"><a class="docs-heading-anchor" href="#Poisson-Regression-with-Cauchy-Prior">Poisson Regression with Cauchy Prior</a><a id="Poisson-Regression-with-Cauchy-Prior-1"></a><a class="docs-heading-anchor-permalink" href="#Poisson-Regression-with-Cauchy-Prior" title="Permalink"></a></h3><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="StatsAPI.fit" href="#StatsAPI.fit"><code>StatsAPI.fit</code></a> — <span class="docstring-category">Function</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><pre><code class="language-julia hljs">fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, prior::Prior_Cauchy, h::Float64 = 1.0, sim_size::Int64 = 1000)</code></pre><p>Fit a Bayesian Poisson Regression model on the input data with a Cauchy prior.</p><p><strong>Example</strong></p><pre><code class="language-julia-repl hljs">julia&gt; using CRRao, RDatasets, StableRNGs, StatsModels
+julia&gt; sanction = dataset(&quot;Zelig&quot;, &quot;sanction&quot;)
+78×8 DataFrame
+ Row │ Mil    Coop   Target  Import  Export  Cost   Num    NCost         
+     │ Int32  Int32  Int32   Int32   Int32   Int32  Int32  Cat…          
+─────┼───────────────────────────────────────────────────────────────────
+   1 │     1      4       3       1       1      4     15  major loss
+   2 │     0      2       3       0       1      3      4  modest loss
+   3 │     0      1       3       1       0      2      1  little effect
+   4 │     1      1       3       1       1      2      1  little effect
+  ⋮  │   ⋮      ⋮      ⋮       ⋮       ⋮       ⋮      ⋮          ⋮
+  76 │     0      4       3       1       0      2     13  little effect
+  77 │     0      1       2       0       0      1      1  net gain
+  78 │     1      3       1       1       1      2     10  little effect
+71 rows omitted
+julia&gt; CRRao.set_rng(StableRNG(123))
+StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
+julia&gt; container = fit(@formula(Num ~ Target + Coop + NCost), sanction, PoissonRegression(), Prior_Cauchy())
+┌ Info: Found initial step size
+└   ϵ = 0.025
+Chains MCMC chain (1000×19×1 Array{Float64, 3}):
+
+Iterations        = 501:1:1500
+Number of chains  = 1
+Samples per chain = 1000
+Wall duration     = 1.82 seconds
+Compute duration  = 1.82 seconds
+parameters        = λ, β[1], β[2], β[3], β[4], β[5], β[6]
+internals         = lp, n_steps, is_accept, acceptance_rate, log_density, hamiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, tree_depth, numerical_error, step_size, nom_step_size
+
+Summary Statistics
+  parameters      mean       std   naive_se      mcse        ess      rhat   ess_per_sec 
+      Symbol   Float64   Float64    Float64   Float64    Float64   Float64       Float64 
+
+           λ    0.8433    0.4191     0.0133    0.0170   651.9481    1.0030      357.2318
+        β[1]   -1.7880    0.2531     0.0080    0.0117   440.1548    1.0012      241.1807
+        β[2]    0.1374    0.0640     0.0020    0.0027   596.1778    0.9992      326.6728
+        β[3]    1.1299    0.0558     0.0018    0.0018   747.2077    1.0009      409.4289
+        β[4]   -0.2965    0.2204     0.0070    0.0106   526.3280    1.0032      288.3989
+        β[5]    1.7036    0.0973     0.0031    0.0043   600.4246    0.9992      328.9998
+        β[6]    0.3928    0.1705     0.0054    0.0068   754.6819    1.0010      413.5243
+
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5% 
+      Symbol   Float64   Float64   Float64   Float64   Float64 
+
+           λ    0.3101    0.5456    0.7598    1.0488    1.8316
+        β[1]   -2.3023   -1.9535   -1.7797   -1.6129   -1.3056
+        β[2]    0.0282    0.0920    0.1355    0.1794    0.2670
+        β[3]    1.0131    1.0925    1.1303    1.1680    1.2368
+        β[4]   -0.7701   -0.4356   -0.2757   -0.1448    0.1045
+        β[5]    1.5159    1.6388    1.7020    1.7689    1.9046
+        β[6]    0.0738    0.2632    0.3881    0.5176    0.7230</code></pre></div><a class="docs-sourcelink" target="_blank" href="https://github.com/xKDR/CRRao.jl/blob/e6fec62ed0ff644729d44301e3f207033d45ed50/src/bayesian/poisson_regression.jl#L239-L302">source</a></section></article><h3 id="Poisson-Regression-with-T-Distributed-Prior"><a class="docs-heading-anchor" href="#Poisson-Regression-with-T-Distributed-Prior">Poisson Regression with T-Distributed Prior</a><a id="Poisson-Regression-with-T-Distributed-Prior-1"></a><a class="docs-heading-anchor-permalink" href="#Poisson-Regression-with-T-Distributed-Prior" title="Permalink"></a></h3><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="StatsAPI.fit" href="#StatsAPI.fit"><code>StatsAPI.fit</code></a> — <span class="docstring-category">Function</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><pre><code class="language-julia hljs">fit(formula::FormulaTerm, data::DataFrame, modelClass::PoissonRegression, prior::Prior_TDist, h::Float64 = 2.0, sim_size::Int64 = 1000)</code></pre><p>Fit a Bayesian Poisson Regression model on the input data with a t(ν) distributed prior.</p><p><strong>Example</strong></p><pre><code class="language-julia-repl hljs">julia&gt; using CRRao, RDatasets, StableRNGs, StatsModels
+julia&gt; CRRao.set_rng(StableRNG(123))
+StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
+julia&gt; sanction = dataset(&quot;Zelig&quot;, &quot;sanction&quot;)
+78×8 DataFrame
+ Row │ Mil    Coop   Target  Import  Export  Cost   Num    NCost         
+     │ Int32  Int32  Int32   Int32   Int32   Int32  Int32  Cat…          
+─────┼───────────────────────────────────────────────────────────────────
+   1 │     1      4       3       1       1      4     15  major loss
+   2 │     0      2       3       0       1      3      4  modest loss
+   3 │     0      1       3       1       0      2      1  little effect
+   4 │     1      1       3       1       1      2      1  little effect
+  ⋮  │   ⋮      ⋮      ⋮       ⋮       ⋮       ⋮      ⋮          ⋮
+  76 │     0      4       3       1       0      2     13  little effect
+  77 │     0      1       2       0       0      1      1  net gain
+  78 │     1      3       1       1       1      2     10  little effect
+71 rows omitted
+julia&gt; CRRao.set_rng(StableRNG(123))
+StableRNGs.LehmerRNG(state=0x000000000000000000000000000000f7)
+julia&gt; container = fit(@formula(Num ~ Target + Coop + NCost), sanction, PoissonRegression(), Prior_TDist())
+┌ Info: Found initial step size
+└   ϵ = 0.025
+Chains MCMC chain (1000×20×1 Array{Float64, 3}):
+
+Iterations        = 501:1:1500
+Number of chains  = 1
+Samples per chain = 1000
+Wall duration     = 0.68 seconds
+Compute duration  = 0.68 seconds
+parameters        = λ, ν, β[1], β[2], β[3], β[4], β[5], β[6]
+internals         = lp, n_steps, is_accept, acceptance_rate, log_density, hamiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, tree_depth, numerical_error, step_size, nom_step_size
+
+Summary Statistics
+  parameters      mean       std   naive_se      mcse        ess      rhat   ess_per_sec 
+      Symbol   Float64   Float64    Float64   Float64    Float64   Float64       Float64 
+
+           λ    0.9539    0.3968     0.0125    0.0138   724.4593    0.9991     1071.6854
+           ν    2.7018    3.4303     0.1085    0.1503   473.2383    1.0014      700.0567
+        β[1]   -1.7913    0.2504     0.0079    0.0130   301.7822    0.9992      446.4233
+        β[2]    0.1368    0.0650     0.0021    0.0030   512.6922    0.9998      758.4204
+        β[3]    1.1322    0.0536     0.0017    0.0026   349.4069    0.9995      516.8741
+        β[4]   -0.3148    0.2317     0.0073    0.0080   824.9216    0.9993     1220.2983
+        β[5]    1.7001    0.1017     0.0032    0.0039   661.7511    1.0054      978.9218
+        β[6]    0.3909    0.1681     0.0053    0.0068   459.0907    0.9994      679.1283
+
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5% 
+      Symbol   Float64   Float64   Float64   Float64   Float64 
+
+           λ    0.3999    0.6705    0.8799    1.1535    1.8898
+           ν    0.5494    1.1003    1.7737    2.9372    9.8194
+        β[1]   -2.2817   -1.9561   -1.7941   -1.6262   -1.2766
+        β[2]    0.0151    0.0891    0.1383    0.1795    0.2614
+        β[3]    1.0322    1.0932    1.1310    1.1688    1.2362
+        β[4]   -0.7680   -0.4694   -0.3020   -0.1519    0.1128
+        β[5]    1.5030    1.6252    1.7037    1.7682    1.8936
+        β[6]    0.0701    0.2710    0.3911    0.5023    0.7236</code></pre></div><a class="docs-sourcelink" target="_blank" href="https://github.com/xKDR/CRRao.jl/blob/e6fec62ed0ff644729d44301e3f207033d45ed50/src/bayesian/poisson_regression.jl#L333-L400">source</a></section></article><h3 id="Poisson-Regression-with-Horse-Shoe-Prior"><a class="docs-heading-anchor" href="#Poisson-Regression-with-Horse-Shoe-Prior">Poisson Regression with Horse Shoe Prior</a><a id="Poisson-Regression-with-Horse-Shoe-Prior-1"></a><a class="docs-heading-anchor-permalink" href="#Poisson-Regression-with-Horse-Shoe-Prior" title="Permalink"></a></h3><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="StatsAPI.fit" href="#StatsAPI.fit"><code>StatsAPI.fit</code></a> — <span class="docstring-category">Function</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><pre><code class="language-julia hljs">fit(formula::FormulaTerm,data::DataFrame,modelClass::PoissonRegression,prior::Prior_HorseShoe,sim_size::Int64 = 1000)</code></pre><p>Fit a Bayesian Poisson Regression model on the input data with a Horse Shoe prior.</p><p><strong>Example</strong></p><pre><code class="language-julia-repl hljs">julia&gt; using CRRao, RDatasets, StableRNGs, StatsModels
+julia&gt; sanction = dataset(&quot;Zelig&quot;, &quot;sanction&quot;);
+julia&gt; CRRao.set_rng(StableRNG(123))
+julia&gt; container = fit(@formula(Num ~ Target + Coop + NCost), sanction, PoissonRegression(), Prior_HorseShoe())
+┌ Info: Found initial step size
+└   ϵ = 0.025
+Chains MCMC chain (1000×25×1 Array{Float64, 3}):
+
+Iterations        = 501:1:1500
+Number of chains  = 1
+Samples per chain = 1000
+Wall duration     = 4.1 seconds
+Compute duration  = 4.1 seconds
+parameters        = τ, λ[1], λ[2], λ[3], λ[4], λ[5], λ[6], β[1], β[2], β[3], β[4], β[5], β[6]
+internals         = lp, n_steps, is_accept, acceptance_rate, log_density, hamiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, tree_depth, numerical_error, step_size, nom_step_size
+
+Summary Statistics
+  parameters      mean       std   naive_se      mcse        ess      rhat   ess_per_sec 
+      Symbol   Float64   Float64    Float64   Float64    Float64   Float64       Float64 
+
+           τ    1.0968    0.7202     0.0228    0.0309   495.7869    1.0052      120.9531
+        λ[1]    3.1027    3.8858     0.1229    0.1974   409.1763    1.0058       99.8234
+        λ[2]    0.7001    1.3791     0.0436    0.0493   705.5283    0.9990      172.1220
+        λ[3]    2.3944    3.2504     0.1028    0.1437   501.7931    1.0042      122.4184
+        λ[4]    0.9352    1.7652     0.0558    0.0791   582.3219    1.0034      142.0644
+        λ[5]    3.3768    6.5014     0.2056    0.2544   610.2202    1.0001      148.8705
+        λ[6]    1.2451    2.2218     0.0703    0.1224   350.1233    1.0004       85.4168
+        β[1]   -1.7490    0.2761     0.0087    0.0128   431.8956    0.9998      105.3661
+        β[2]    0.1184    0.0706     0.0022    0.0034   468.3049    0.9991      114.2486
+        β[3]    1.1297    0.0571     0.0018    0.0025   564.1507    1.0001      137.6313
+        β[4]   -0.2202    0.2117     0.0067    0.0063   733.3563    0.9997      178.9110
+        β[5]    1.7059    0.1021     0.0032    0.0035   909.1702    0.9994      221.8029
+        β[6]    0.3723    0.1751     0.0055    0.0063   559.1851    0.9990      136.4199
+
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5% 
+      Symbol   Float64   Float64   Float64   Float64   Float64 
+
+           τ    0.2712    0.6245    0.8979    1.3762    2.9053
+        λ[1]    0.5269    1.2258    2.0465    3.3300   14.0447
+        λ[2]    0.0259    0.1688    0.3584    0.7633    3.2174
+        λ[3]    0.3468    0.8696    1.4059    2.5462   12.1721
+        λ[4]    0.0374    0.2091    0.5065    0.9706    4.2828
+        λ[5]    0.4982    1.2214    1.9925    3.4033   14.6181
+        λ[6]    0.1048    0.3658    0.6567    1.2087    7.2850
+        β[1]   -2.3007   -1.9417   -1.7414   -1.5683   -1.2303
+        β[2]   -0.0040    0.0678    0.1152    0.1684    0.2634
+        β[3]    1.0235    1.0905    1.1299    1.1665    1.2456
+        β[4]   -0.6741   -0.3592   -0.2024   -0.0517    0.1380
+        β[5]    1.4992    1.6387    1.7051    1.7718    1.9102
+        β[6]    0.0305    0.2485    0.3763    0.4911    0.7002
+julia&gt; using StatsPlots
+julia&gt; plot(container.chain)</code></pre></div><a class="docs-sourcelink" target="_blank" href="https://github.com/xKDR/CRRao.jl/blob/e6fec62ed0ff644729d44301e3f207033d45ed50/src/bayesian/poisson_regression.jl#L434-L497">source</a></section></article></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../frequentist_regression/">« Frequentist Regression Models</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.7.0 on <span class="colophon-date" title="Wednesday 23 October 2024 08:09">Wednesday 23 October 2024</span>. Using Julia version 1.11.0.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
