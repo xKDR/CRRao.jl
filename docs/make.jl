@@ -23,8 +23,7 @@ makedocs(;
             "Frequentist Regression Models" => "api/frequentist_regression.md",
             "Bayesian Regression Models" => "api/bayesian_regression.md"
         ]
-    ],
-    strict = :doctest
+    ]
 )
 
 deploydocs(;

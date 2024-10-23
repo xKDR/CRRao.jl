@@ -8,6 +8,7 @@ BayesianRegression
 
 ### Linear Regression with User Specific Gaussian Prior
 ```@docs
+fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, prior::Prior_Gauss, alpha_prior_mean::Float64, beta_prior_mean::Vector{Float64}, sim_size::Int64 = 1000)
 fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, prior::Prior_Gauss, alpha_prior_mean::Float64, alpha_prior_sd::Float64, beta_prior_mean::Vector{Float64}, beta_prior_sd::Vector{Float64}, sim_size::Int64 = 1000)
 ```
 
@@ -80,7 +81,7 @@ fit(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression, prior
 
 ### Negative Binomial Regression with HorseShoe Prior
 ```@docs
-fit(formula::FormulaTerm,data::DataFrame,modelClass::NegBinomRegression,prior::Prior_HorseShoe,sim_size::Int64 = 1000)
+fit(formula::FormulaTerm,data::DataFrame,modelClass::NegBinomRegression,prior::Prior_HorseShoe, h::Float64 = 1.0, sim_size::Int64 = 1000)
 ```
 
 ## Poisson Regression

@@ -50,7 +50,7 @@ sigma(model)
 
 We can also get the predicted response of the model, along with other measures like the vector of Cook's distances using the [`predict`](@ref) and [`cooksdistance`](@ref) functions exported by CRRao. Here's a plot of the vector of Cook's distances.
 
-```@example ols_linear_regression
+```@repl ols_linear_regression
 plot(cooksdistance(model))
 ```
 

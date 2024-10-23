@@ -16,7 +16,7 @@ end
 
 """
 ```julia
-fit(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression, prior::Prior_Ridge, h::Float64 = 0.1, sim_size::Int64 = 1000)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::NegBinomRegression, prior::Prior_Ridge, h::Float64 = 1.0, sim_size::Int64 = 1000)
 ```
 
 Fit a Bayesian Negative Binomial Regression model on the input data with a Ridge prior.
@@ -103,7 +103,7 @@ function fit(
     data::DataFrame,
     modelClass::NegBinomRegression,
     prior::Prior_Ridge,
-    h::Float64 = 0.1,
+    h::Float64 = 1.0,
     sim_size::Int64 = 1000
 )
     @model NegativeBinomialRegression(X, y) = begin
@@ -218,7 +218,7 @@ function fit(
     data::DataFrame,
     modelClass::NegBinomRegression,
     prior::Prior_Laplace,
-    h::Float64 = 0.1,
+    h::Float64 = 1.0,
     sim_size::Int64 = 1000
 )
     @model NegativeBinomialRegression(X, y) = begin
@@ -511,6 +511,7 @@ function fit(
     data::DataFrame,
     modelClass::NegBinomRegression,
     prior::Prior_HorseShoe,
+    h::Float64 = 1.0,
     sim_size::Int64 = 1000
 )
     @model NegativeBinomialRegression(X, y) = begin
@@ -523,11 +524,11 @@ function fit(
         
         τ ~ halfcauchy    ## Global Shrinkage
         λ ~ filldist(halfcauchy, p) ## Local Shrinkage
-        σ ~ halfcauchy
+        σ ~ InverseGamma(h, h)
         #α ~ Normal(0, τ * σ)
         β0 = repeat([0], p)  ## prior mean
-        β ~ MvNormal(β0, λ * τ *σ)
-
+        # β ~ MvNormal(β0, λ * τ *σ)
+        β ~ MvNormal(β0, λ * τ)
 
         ## link
         #z = α .+ X * β
