@@ -28,7 +28,7 @@ NLSolversBase = "7"
 Optim = "1"
 StatsAPI = "1"
 StatsBase = "0.33, 0.34"
-StatsModels = "0.6"
+StatsModels = "0.6, 0.7"
 Turing = "0.23.2, 0.24, 0.32, 0.34, 0.35"
 julia = "1"
 
