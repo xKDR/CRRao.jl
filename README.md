@@ -8,7 +8,7 @@
 [![Milestones](https://img.shields.io/badge/-milestones-brightgreen)](https://github.com/xKDR/CRRao.jl/milestones)
 
 ## To install: 
-### For version 0.1.0 (stable)
+### For version 0.1.1 (stable)
 ```Julia
 using Pkg; Pkg.add("CRRao")
 ```
