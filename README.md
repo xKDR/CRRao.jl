@@ -12,7 +12,7 @@
 ```Julia
 using Pkg; Pkg.add("CRRao")
 ```
-### For version 0.1.1 (under development)
+### For version 0.1.2 (under development)
 ```Julia
 using Pkg; Pkg.add(url = "https://github.com/xKDR/CRRao.jl.git")
 ```
