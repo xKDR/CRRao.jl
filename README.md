@@ -19,7 +19,7 @@ using Pkg; Pkg.add(url = "https://github.com/xKDR/CRRao.jl.git")
 
 # Introduction to CRRao
 
-You can watch [this](https://www.youtube.com/live/XIXdO8vNCh4?si=_RXyu47JTSX1TVKh) youtube video to get a brief introduction to `CRRao`.
+You may watch [this](https://www.youtube.com/live/XIXdO8vNCh4?si=_RXyu47JTSX1TVKh) youtube video to get a brief introduction to `CRRao`.
 
 # CRRao: A single API for diverse statistical models
 
