@@ -1,4 +1,5 @@
-using CRRao, Test, StableRNGs, Logging, RDatasets, StatsModels, GLM, Statistics
+using CRRao, Test, StableRNGs, Logging, RDatasets, StatsModels, GLM, Statistics, Distances
+using GaussianProcesses: MeanZero, SE, get_params, noise_variance
 
 Logging.disable_logging(Logging.Warn)
 
@@ -34,6 +35,10 @@ CRRao.set_rng(StableRNG(123))
         end
 
         @testset "Bayesian" begin
+            @testset "Gaussian Processes Regression" begin
+                include("numerical/bayesian/GaussianProcessesRegression.jl")
+            end
+
             @testset "Linear Regression" begin
                 include("numerical/bayesian/LinearRegression.jl")
             end
@@ -52,3 +57,4 @@ CRRao.set_rng(StableRNG(123))
         end
     end
 end
+
