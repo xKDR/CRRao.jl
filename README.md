@@ -17,6 +17,10 @@ using Pkg; Pkg.add("CRRao")
 using Pkg; Pkg.add(url = "https://github.com/xKDR/CRRao.jl.git")
 ```
 
+# Introduction to CRRao
+
+You can watch [this](https://www.youtube.com/live/XIXdO8vNCh4?si=_RXyu47JTSX1TVKh) youtube video to get a brief introduction to `CRRao`.
+
 # CRRao: A single API for diverse statistical models
 
 Many statistical models can be estimated in Julia, and the diversity of the model ecosystem is steadily improving. Drawing inspiration from the [Zelig](http://docs.zeligproject.org/index.html) package in the R world, the CRRao package gives a simple and consistent API to the end user. The end-user then faces the fixed cost of getting a hang of this, once, and after that a wide array of models and associated capabilities become available with a consistent syntax. We hope others developing statistical models will build within this framework. 
