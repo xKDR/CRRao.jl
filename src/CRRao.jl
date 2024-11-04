@@ -397,6 +397,7 @@ export Prior_Ridge, Prior_Laplace, Prior_Cauchy, Prior_TDist, Prior_HorseShoe, P
 export CRRaoLink, Logit, Probit, Cloglog, Cauchit, fit
 export coef, coeftable, r2, adjr2, loglikelihood, aic, bic, sigma, predict, residuals, cooksdistance, BPTest, pvalue
 export FrequentistRegression, BayesianRegression
+export KMeansClustering
 
 include("random_number_generator.jl")
 include("general_stats.jl")
