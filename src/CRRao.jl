@@ -1,10 +1,14 @@
 module CRRao
 
+
 using DataFrames, GLM, Turing, StatsModels, StatsBase
 using StatsBase, Distributions, LinearAlgebra
 using Optim, NLSolversBase, Random, HypothesisTests
+using GaussianProcesses, Distances, StatsModels
+
 import StatsBase: coef, coeftable, r2, adjr2, loglikelihood, aic, bic, predict, residuals, cooksdistance, fit
 import HypothesisTests: pvalue
+
 
 """
 ```julia
@@ -96,10 +100,35 @@ struct PoissonRegression end
 
 """
 ```julia
+GaussianProcessesRegression
+```
+Type representing the Gaussian Processes Regression model class.
+
+```math
+    y = f(X) + \\varepsilon,
+```
+where
+```math
+\\varepsilon \\sim N(0,\\sigma^2),
+```
+    + ``y`` is the response vector of size ``n``, representing the observed target values,
+    + ``X`` is the matrix of input variables of size ``n \\times p``, where ``n`` is the sample size and ``p`` is the number of input variables,
+    + ``f(X)`` is the latent function that represents the underlying unknown relationship between ``X`` and ``y``,
+    + ``\\varepsilon`` is the noise term that follows a Gaussian distribution with zero mean and variance ``\\sigma^2``.
+    + ``\\sigma`` is the standard deviation of the noise ``\\varepsilon``.
+
+The latent function `f(X)` is assumed to follow a Gaussian process, completely specified by its mean function and covariance function. The mean function provides the prior expectation of the latent function, and the covariance function captures the dependence structure between different input points.
+
+"""
+struct GaussianProcessesRegression end 
+
+"""
+```julia
 Boot_Residual
 ```
 Type representing Residual Bootstrap.
 """
+
 struct Boot_Residual end
 
 """
@@ -307,6 +336,8 @@ y_i \\sim D(\\mu_i,\\sigma), i=1,2,\\cdots,n
 """
 struct Prior_HorseShoe end
 
+
+
 """
 ```julia
 CRRaoLink
@@ -392,7 +423,7 @@ end
 
 Cauchit() = Cauchit(Cauchit_Link)
 
-export LinearRegression, LogisticRegression, PoissonRegression, NegBinomRegression, Boot_Residual
+export LinearRegression, LogisticRegression, PoissonRegression, NegBinomRegression, Boot_Residual, GaussianProcessesRegression
 export Prior_Ridge, Prior_Laplace, Prior_Cauchy, Prior_TDist, Prior_HorseShoe, Prior_Gauss
 export CRRaoLink, Logit, Probit, Cloglog, Cauchit, fit
 export coef, coeftable, r2, adjr2, loglikelihood, aic, bic, sigma, predict, residuals, cooksdistance, BPTest, pvalue
@@ -401,5 +432,5 @@ export FrequentistRegression, BayesianRegression
 include("random_number_generator.jl")
 include("general_stats.jl")
 include("fitmodel.jl")
-
+include("bayesian/gaussian_processes_regression.jl")
 end
