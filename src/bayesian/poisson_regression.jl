@@ -6,7 +6,7 @@ function poisson_reg(formula::FormulaTerm, data::DataFrame, turingModel::Functio
         @warn "Simulation size should generally be atleast 500."
     end
     chain = sample(CRRao_rng, turingModel(X, y), NUTS(), sim_size)
-    return BayesianRegression(:PoissonRegression, chain, formula)
+    return BayesianRegressionMCMC(:PoissonRegression, chain, formula)
 end
 
 """

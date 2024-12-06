@@ -22,12 +22,12 @@ FrequentistRegression(RegressionType::Symbol, model, formula, link = GLM.Identit
 
 """
 ```julia
-BayesianRegression{RegressionType}
+BayesianRegressionMCMC{RegressionType}
 ```
 
-Type to represent bayesian regression models returned by `fit` functions. This type is used internally by the package to represent all bayesian regression models. `RegressionType` is a `Symbol` representing the model class.
+Type to represent bayesian regression models (using MCMC) returned by `fit` functions. This type is used internally by the package to represent all bayesian regression models using MCMC. `RegressionType` is a `Symbol` representing the model class.
 """
-struct BayesianRegression{RegressionType} <: RegressionModel
+struct BayesianRegressionMCMC{RegressionType} <: RegressionModel
     chain
     formula::FormulaTerm
     link
@@ -35,12 +35,35 @@ end
 
 """
 ```julia
-BayesianRegression(::Symbol, chain)
+BayesianRegressionMCMC(::Symbol, chain)
 ```
 
-Constructor for `BayesianRegression`. `model` can be any regression model. Used by `fit` functions to return a bayesian regression model container.
+Constructor for `BayesianRegressionMCMC`. `model` can be any regression model. Used by `fit` functions to return a bayesian regression model container.
 """
-BayesianRegression(RegressionType::Symbol, chain, formula, link = Identity()) = BayesianRegression{RegressionType}(chain, formula, link)
+BayesianRegressionMCMC(RegressionType::Symbol, chain, formula, link = Identity()) = BayesianRegressionMCMC{RegressionType}(chain, formula, link)
+
+"""
+```julia
+BayesianRegressionVI{RegressionType}
+```
+
+Type to represent bayesian regression models (using VI) returned by `fit` functions. This type is used internally by the package to represent all bayesian regression models using VI. `RegressionType` is a `Symbol` representing the model class.
+"""
+struct BayesianRegressionVI{RegressionType} <: RegressionModel
+    dist
+    formula::FormulaTerm
+    symbol_to_range
+    link
+end
+
+"""
+```julia
+BayesianRegressionVI(::Symbol, dist)
+```
+
+Constructor for `BayesianRegressionVI`. `model` can be any regression model. Used by `fit` functions to return a bayesian regression model container.
+"""
+BayesianRegressionVI(RegressionType::Symbol, dist, formula, symbol_to_range, link = Identity()) = BayesianRegressionVI{RegressionType}(dist, formula, symbol_to_range, link)
 
 # Print Messages
 include("print.jl")
