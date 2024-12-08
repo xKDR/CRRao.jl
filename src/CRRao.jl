@@ -2,7 +2,7 @@ module CRRao
 
 using DataFrames, GLM, Turing, StatsModels, StatsBase
 using StatsBase, Distributions, LinearAlgebra
-using Optim, NLSolversBase, Random, HypothesisTests
+using Optim, NLSolversBase, Random, HypothesisTests, AdvancedVI
 import StatsBase: coef, coeftable, r2, adjr2, loglikelihood, aic, bic, predict, residuals, cooksdistance, fit
 import HypothesisTests: pvalue
 
@@ -396,7 +396,7 @@ export LinearRegression, LogisticRegression, PoissonRegression, NegBinomRegressi
 export Prior_Ridge, Prior_Laplace, Prior_Cauchy, Prior_TDist, Prior_HorseShoe, Prior_Gauss
 export CRRaoLink, Logit, Probit, Cloglog, Cauchit, fit
 export coef, coeftable, r2, adjr2, loglikelihood, aic, bic, sigma, predict, residuals, cooksdistance, BPTest, pvalue
-export FrequentistRegression, BayesianRegression
+export FrequentistRegression, BayesianRegressionMCMC, BayesianRegressionVI
 
 include("random_number_generator.jl")
 include("general_stats.jl")
