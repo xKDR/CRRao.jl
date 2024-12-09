@@ -30,6 +30,6 @@ end
 function Base.show(io::IO, container::BayesianRegression)
     println(io, "Formula: ", container.formula)
     println(io, "Link: ", container.link)
-    print(io, "Chain: ")
-    show(io, MIME("text/plain"), container.chain)
+    print(io, "Samples: ")
+    show(io, MIME("text/plain"), container.samples)
 end
