@@ -6,7 +6,14 @@ function logistic_reg(formula::FormulaTerm, data::DataFrame, Link::CRRaoLink, tu
         @warn "Simulation size should generally be atleast 500."
     end
     chain = sample(CRRao_rng, turingModel(X, y), NUTS(), sim_size)
-    return BayesianRegressionMCMC(:LogisticRegression, chain, formula, Link)
+    params = get_params(chain[:,:,:])
+    samples = params.β
+    if isa(samples, Tuple)
+        samples = reduce(hcat, samples)
+    end
+    samples = samples'
+
+    return BayesianRegression(:LogisticRegression, samples, formula, Link)
 end
 
 """

@@ -6,7 +6,14 @@ function linear_reg_mcmc(formula::FormulaTerm, data::DataFrame, turingModel::Fun
         @warn "Simulation size should generally be atleast 500."
     end
     chain = sample(CRRao_rng, turingModel(X, y), NUTS(), sim_size)
-    return BayesianRegressionMCMC(:LinearRegression, chain, formula)
+    params = get_params(chain[:,:,:])
+    samples = params.β
+    if isa(samples, Tuple)
+        samples = reduce(hcat, samples)
+    end
+    samples = samples'
+
+    return BayesianRegression(:LinearRegression, samples, formula)
 end
 
 function linear_reg_vi(formula::FormulaTerm, data::DataFrame, turingModel::Function, max_iter::Int64)
@@ -16,10 +23,13 @@ function linear_reg_vi(formula::FormulaTerm, data::DataFrame, turingModel::Funct
     if max_iter < 500
         @warn "Max iterations should generally be atleast 500."
     end
+
     model = turingModel(X, y)
     dist = vi(model, ADVI(100, max_iter))
+    samples = rand(CRRao_rng, dist, max_iter)
     _, symbol_to_range = bijector(model, Val(true))
-    return BayesianRegressionVI(:LinearRegression, dist, formula, symbol_to_range)
+    samples = samples[union(symbol_to_range[:β]...), :]
+    return BayesianRegression(:LinearRegression, samples, formula)
 end
 
 """
