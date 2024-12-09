@@ -432,7 +432,7 @@ VI() = VI(1000, 10000, 100)
 
 export LinearRegression, LogisticRegression, PoissonRegression, NegBinomRegression, Boot_Residual
 export Prior_Ridge, Prior_Laplace, Prior_Cauchy, Prior_TDist, Prior_HorseShoe, Prior_Gauss
-export CRRaoLink, Logit, Probit, Cloglog, Cauchit, fit, MCMC, VI
+export CRRaoLink, Logit, Probit, Cloglog, Cauchit, fit, BayesianAlgorithm, MCMC, VI
 export coef, coeftable, r2, adjr2, loglikelihood, aic, bic, sigma, predict, residuals, cooksdistance, BPTest, pvalue
 export FrequentistRegression, BayesianRegression
 
