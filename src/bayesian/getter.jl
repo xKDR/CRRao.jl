@@ -1,6 +1,6 @@
-function predict(container::BayesianRegression{:LinearRegression}, newdata::DataFrame, prediction_chain_start::Int64 = 200)
+function predict(container::BayesianRegression{:LinearRegression}, newdata::DataFrame)
     X = modelmatrix(container.formula, newdata)
-    W = container.samples[:, prediction_chain_start:end]
+    W = container.samples
     predictions = X * W
     return vec(mean(predictions, dims=2))
 end

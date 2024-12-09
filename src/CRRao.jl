@@ -392,9 +392,47 @@ end
 
 Cauchit() = Cauchit(Cauchit_Link)
 
+"""
+```julia
+BayesianAlgorithm
+```
+
+Abstract type representing bayesian algorithms which are used to dispatch to appropriate calls.
+"""
+abstract type BayesianAlgorithm end
+
+"""
+```julia
+MCMC <: BayesianAlgorithm
+```
+
+A type representing MCMC algorithms.
+"""
+struct MCMC <: BayesianAlgorithm
+    sim_size::Int64
+    prediction_chain_start::Int64
+end
+
+MCMC() = MCMC(1000, 200)
+
+"""
+```julia
+VI <: BayesianAlgorithm
+```
+
+A type representing variational inference algorithms.
+"""
+struct VI <: BayesianAlgorithm
+    distribution_sample_count::Int64
+    vi_max_iters::Int64
+    vi_samples_per_step::Int64
+end
+
+VI() = VI(1000, 10000, 100)
+
 export LinearRegression, LogisticRegression, PoissonRegression, NegBinomRegression, Boot_Residual
 export Prior_Ridge, Prior_Laplace, Prior_Cauchy, Prior_TDist, Prior_HorseShoe, Prior_Gauss
-export CRRaoLink, Logit, Probit, Cloglog, Cauchit, fit
+export CRRaoLink, Logit, Probit, Cloglog, Cauchit, fit, MCMC, VI
 export coef, coeftable, r2, adjr2, loglikelihood, aic, bic, sigma, predict, residuals, cooksdistance, BPTest, pvalue
 export FrequentistRegression, BayesianRegression
 
