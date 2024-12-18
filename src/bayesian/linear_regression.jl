@@ -1,17 +1,47 @@
-function linear_reg(formula::FormulaTerm, data::DataFrame, turingModel::Function, sim_size::Int64)
-    formula = apply_schema(formula, schema(formula, data),RegressionModel)
+function linear_reg(formula::FormulaTerm, data::DataFrame, turingModel::Function, algorithm::MCMC)
+    formula = apply_schema(formula, schema(formula, data), RegressionModel)
     y, X = modelcols(formula, data)
 
-    if sim_size < 500
+    if algorithm.sim_size < 500
         @warn "Simulation size should generally be atleast 500."
     end
-    chain = sample(CRRao_rng, turingModel(X, y), NUTS(), sim_size)
-    return BayesianRegression(:LinearRegression, chain, formula)
+    chain = sample(CRRao_rng, turingModel(X, y), NUTS(), algorithm.sim_size)
+    params = get_params(chain[algorithm.prediction_chain_start:end,:,:])
+    samples = params.β
+    if isa(samples, Tuple)
+        samples = reduce(hcat, samples)
+    end
+    samples = samples'
+
+    return BayesianRegression(:LinearRegression, samples, formula)
+end
+
+function linear_reg(formula::FormulaTerm, data::DataFrame, turingModel::Function, algorithm::VI)
+    formula = apply_schema(formula, schema(formula, data), RegressionModel)
+    y, X = modelcols(formula, data)
+
+    if algorithm.vi_max_iters < 500
+        @warn "Max iterations should generally be atleast 500."
+    end
+
+    model = turingModel(X, y)
+    dist = vi(model, ADVI(algorithm.vi_samples_per_step, algorithm.vi_max_iters))
+    samples = rand(CRRao_rng, dist, algorithm.distribution_sample_count)
+    _, symbol_to_range = bijector(model, Val(true))
+    samples = samples[union(symbol_to_range[:β]...), :]
+    return BayesianRegression(:LinearRegression, samples, formula)
 end
 
 """
 ```julia
-fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, prior::Prior_Ridge, h::Float64 = 0.01, sim_size::Int64 = 1000)
+fit(
+    formula::FormulaTerm,
+    data::DataFrame,
+    modelClass::LinearRegression,
+    prior::Prior_Ridge,
+    algorithm::BayesianAlgorithm = MCMC(),
+    h::Float64 = 0.01,
+)
 ```
 
 Fit a Bayesian Linear Regression model on the input data with a Ridge prior.
@@ -77,8 +107,8 @@ function fit(
     data::DataFrame,
     modelClass::LinearRegression,
     prior::Prior_Ridge,
+    algorithm::BayesianAlgorithm = MCMC(),
     h::Float64 = 0.01,
-    sim_size::Int64 = 1000
 )
     @model LinearRegression(X, y) = begin
         p = size(X, 2)
@@ -97,12 +127,19 @@ function fit(
         y ~ MvNormal(X * β, σ)
     end
 
-    return linear_reg(formula, data, LinearRegression, sim_size)
+    return linear_reg(formula, data, LinearRegression, algorithm)
 end
 
 """
 ```julia
-fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, prior::Prior_Laplace, h::Float64 = 0.01, sim_size::Int64 = 1000)
+fit(
+    formula::FormulaTerm,
+    data::DataFrame,
+    modelClass::LinearRegression,
+    prior::Prior_Laplace,
+    algorithm::BayesianAlgorithm = MCMC(),
+    h::Float64 = 0.01,
+)
 ```
 
 Fit a Bayesian Linear Regression model on the input data with a Laplace prior.
@@ -166,8 +203,8 @@ function fit(
     data::DataFrame,
     modelClass::LinearRegression,
     prior::Prior_Laplace,
+    algorithm::BayesianAlgorithm = MCMC(),
     h::Float64 = 0.01,
-    sim_size::Int64 = 1000
 )
     @model LinearRegression(X, y) = begin
         p = size(X, 2)
@@ -185,12 +222,18 @@ function fit(
         y ~ MvNormal(X * β, σ)
     end
 
-    return linear_reg(formula, data, LinearRegression, sim_size)
+    return linear_reg(formula, data, LinearRegression, algorithm)
 end
 
 """
 ```julia
-fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, prior::Prior_Cauchy, sim_size::Int64 = 1000)
+fit(
+    formula::FormulaTerm,
+    data::DataFrame,
+    modelClass::LinearRegression,
+    prior::Prior_Cauchy,
+    algorithm::BayesianAlgorithm = MCMC(),
+)
 ```
 
 Fit a Bayesian Linear Regression model on the input data with a Cauchy prior.
@@ -253,7 +296,7 @@ function fit(
     data::DataFrame,
     modelClass::LinearRegression,
     prior::Prior_Cauchy,
-    sim_size::Int64 = 1000
+    algorithm::BayesianAlgorithm = MCMC(),
 )
     @model LinearRegression(X, y) = begin
         p = size(X, 2)
@@ -268,12 +311,19 @@ function fit(
         y ~ MvNormal(X * β, σ)
     end
 
-    return linear_reg(formula, data, LinearRegression, sim_size)
+    return linear_reg(formula, data, LinearRegression, algorithm)
 end
 
 """
 ```julia
-fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, prior::Prior_TDist, h::Float64 = 2.0, sim_size::Int64 = 1000)
+fit(
+    formula::FormulaTerm,
+    data::DataFrame,
+    modelClass::LinearRegression,
+    prior::Prior_TDist,
+    algorithm::BayesianAlgorithm = MCMC(),
+    h::Float64 = 2.0,
+)
 ```
 
 Fit a Bayesian Linear Regression model on the input data with a t(ν) distributed prior.
@@ -340,8 +390,8 @@ function fit(
     data::DataFrame,
     modelClass::LinearRegression,
     prior::Prior_TDist,
+    algorithm::BayesianAlgorithm = MCMC(),
     h::Float64 = 2.0,
-    sim_size::Int64 = 1000
 )
     @model LinearRegression(X, y) = begin
         p = size(X, 2)
@@ -359,13 +409,19 @@ function fit(
         y ~ MvNormal(X * β, σ)
     end
 
-    return linear_reg(formula, data, LinearRegression, sim_size)
+    return linear_reg(formula, data, LinearRegression, algorithm)
 end
 
 
 """
 ```julia
-fit(formula::FormulaTerm,data::DataFrame,modelClass::LinearRegression,prior::Prior_HorseShoe,sim_size::Int64 = 1000)
+fit(
+    formula::FormulaTerm,
+    data::DataFrame,
+    modelClass::LinearRegression,
+    prior::Prior_HorseShoe,
+    algorithm::BayesianAlgorithm = MCMC(),
+)
 ```
 
 Fit a Bayesian Linear Regression model on the input data with a HorseShoe prior.
@@ -425,7 +481,7 @@ function fit(
     data::DataFrame,
     modelClass::LinearRegression,
     prior::Prior_HorseShoe,
-    sim_size::Int64 = 1000
+    algorithm::BayesianAlgorithm = MCMC(),
 )
     @model LinearRegression(X, y) = begin
         p = size(X, 2)
@@ -446,12 +502,20 @@ function fit(
         y ~ MvNormal( X * β, σ)
     end
 
-    return linear_reg(formula, data, LinearRegression, sim_size)
+    return linear_reg(formula, data, LinearRegression, algorithm)
 end
 
 """
 ```julia
-fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, prior::Prior_Gauss,alpha_prior_mean::Float64 = 0.0, beta_prior_mean::Float64, sim_size::Int64 = 1000, h::Float64 = 0.1)
+fit(
+    formula::FormulaTerm, 
+    ata::DataFrame,
+    modelClass::LinearRegression,
+    prior::Prior_Gauss,
+    alpha_prior_mean::Float64,
+    beta_prior_mean::Vector{Float64},
+    algorithm::BayesianAlgorithm = MCMC(),
+)
 ```
 
 Fit a Bayesian Linear Regression model on the input data with a Gaussian prior with user specific prior mean for α and β. User doesnot have
@@ -497,13 +561,13 @@ Quantiles
 ```
 """
 function fit(
-    formula::FormulaTerm
-    , data::DataFrame
-    , modelClass::LinearRegression
-    , prior::Prior_Gauss
-    , alpha_prior_mean::Float64
-    , beta_prior_mean::Vector{Float64}
-    , sim_size::Int64 = 1000
+    formula::FormulaTerm,
+    data::DataFrame,
+    modelClass::LinearRegression,
+    prior::Prior_Gauss,
+    alpha_prior_mean::Float64,
+    beta_prior_mean::Vector{Float64},
+    algorithm::BayesianAlgorithm = MCMC(),
 )
     @model LinearRegression(X, y) = begin
         p = size(X, 2)
@@ -529,13 +593,23 @@ function fit(
         y ~ MvNormal(X * β, σ)
     end
 
-    return linear_reg(formula, data, LinearRegression, sim_size)
+    return linear_reg(formula, data, LinearRegression, algorithm)
 end
 
 
 """
 ```julia
-fit(formula::FormulaTerm, data::DataFrame, modelClass::LinearRegression, prior::Prior_Gauss, alpha_prior_mean::Float64, alpha_prior_sd::Float64, beta_prior_mean::Vector{Float64}, beta_prior_sd::Vector{Float64}, sim_size::Int64 = 1000)
+fit(
+    formula::FormulaTerm,
+    data::DataFrame,
+    modelClass::LinearRegression,
+    prior::Prior_Gauss,
+    alpha_prior_mean::Float64,
+    alpha_prior_sd::Float64,
+    beta_prior_mean::Vector{Float64},
+    beta_prior_sd::Vector{Float64},
+    algorithm::BayesianAlgorithm = MCMC(),
+)
 ```
 
 Fit a Bayesian Linear Regression model on the input data with a Gaussian prior with user specific prior mean and sd for α and β. 
@@ -580,15 +654,15 @@ Quantiles
 ```
 """
 function fit(
-    formula::FormulaTerm
-    , data::DataFrame
-    , modelClass::LinearRegression
-    , prior::Prior_Gauss
-    , alpha_prior_mean::Float64
-    , alpha_prior_sd::Float64
-    , beta_prior_mean::Vector{Float64}
-    , beta_prior_sd::Vector{Float64}
-    , sim_size::Int64 = 1000
+    formula::FormulaTerm,
+    data::DataFrame,
+    modelClass::LinearRegression,
+    prior::Prior_Gauss,
+    alpha_prior_mean::Float64,
+    alpha_prior_sd::Float64,
+    beta_prior_mean::Vector{Float64},
+    beta_prior_sd::Vector{Float64},
+    algorithm::BayesianAlgorithm = MCMC(),
 )
     @model LinearRegression(X, y) = begin
         p = size(X, 2)
@@ -616,5 +690,5 @@ function fit(
         y ~ MvNormal(X * β, σ)
     end
 
-    return linear_reg(formula, data, LinearRegression, sim_size)
+    return linear_reg(formula, data, LinearRegression, algorithm)
 end

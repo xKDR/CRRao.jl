@@ -4,6 +4,7 @@ authors = ["xKDR Forum, Sourish Das"]
 version = "0.1.1"
 
 [deps]
+AdvancedVI = "b5ca4192-6429-45e5-a2d9-87aec30a685c"
 DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
 Distributions = "31c24e10-a181-5473-b8eb-7969acd0382f"
 Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
@@ -19,6 +20,7 @@ StatsModels = "3eaba693-59b7-5ba5-a881-562e759f1c8d"
 Turing = "fce5fe82-541a-59a6-adf8-730c64b5f9a0"
 
 [compat]
+AdvancedVI = "0.2.11"
 DataFrames = "1"
 Distributions = "0.25"
 Documenter = "0.27, 1"
