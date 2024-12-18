@@ -60,35 +60,9 @@ Gear          1.01998    0.851408     1.20    0.2410  -0.72405     2.76401
  2000 │ white     59     10.0   0.5523      0
 <span class="sgr36">                             1985 rows omitted</span></code></pre><p>And finally, we do the inference using our proposed model.</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; model = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), Logit(), Prior_Ridge())</code><code class="nohighlight hljs ansi" style="display:block;">Formula: Vote ~ 1 + Age + Race + Income + Educate
 Link: Logit(CRRao.Logit_Link)
-Chain: Chains MCMC chain (1000×18×1 Array{Float64, 3}):
-
-Iterations        = 501:1:1500
-Number of chains  = 1
-Samples per chain = 1000
-Wall duration     = 63.68 seconds
-Compute duration  = 63.68 seconds
-parameters        = λ, β[1], β[2], β[3], β[4], β[5]
-internals         = lp, n_steps, is_accept, acceptance_rate, log_density, hamiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, tree_depth, numerical_error, step_size, nom_step_size
-
-Summary Statistics
- <span class="sgr1"> parameters </span> <span class="sgr1">    mean </span> <span class="sgr1">     std </span> <span class="sgr1">    mcse </span> <span class="sgr1"> ess_bulk </span> <span class="sgr1"> ess_tail </span> <span class="sgr1">    rhat </span> <span class="sgr1"> e</span> ⋯
- <span class="sgr90">     Symbol </span> <span class="sgr90"> Float64 </span> <span class="sgr90"> Float64 </span> <span class="sgr90"> Float64 </span> <span class="sgr90">  Float64 </span> <span class="sgr90">  Float64 </span> <span class="sgr90"> Float64 </span> <span class="sgr90">  </span> ⋯
-
-           λ    1.5023    0.6390    0.0275   642.1138   577.3064    0.9991     ⋯
-        β[1]   -2.8445    0.3306    0.0147   509.5635   586.9190    1.0000     ⋯
-        β[2]    0.0269    0.0035    0.0001   716.8825   699.6500    1.0005     ⋯
-        β[3]    0.2277    0.1483    0.0058   665.4130   536.1637    1.0006     ⋯
-        β[4]    0.1773    0.0258    0.0010   725.4058   590.8078    1.0002     ⋯
-        β[5]    0.1667    0.0213    0.0009   555.2670   580.5220    1.0060     ⋯
-<span class="sgr36">                                                                1 column omitted</span>
-
-Quantiles
- <span class="sgr1"> parameters </span> <span class="sgr1">    2.5% </span> <span class="sgr1">   25.0% </span> <span class="sgr1">   50.0% </span> <span class="sgr1">   75.0% </span> <span class="sgr1">   97.5% </span>
- <span class="sgr90">     Symbol </span> <span class="sgr90"> Float64 </span> <span class="sgr90"> Float64 </span> <span class="sgr90"> Float64 </span> <span class="sgr90"> Float64 </span> <span class="sgr90"> Float64 </span>
-
-           λ    0.7489    1.0781    1.3564    1.7368    3.3274
-        β[1]   -3.5030   -3.0601   -2.8332   -2.6283   -2.2052
-        β[2]    0.0202    0.0246    0.0268    0.0292    0.0336
-        β[3]   -0.0505    0.1277    0.2255    0.3224    0.5127
-        β[4]    0.1259    0.1614    0.1766    0.1941    0.2246
-        β[5]    0.1251    0.1512    0.1680    0.1806    0.2077</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../">« Home</a><a class="docs-footer-nextpage" href="../../api/interface/">General Interface »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.7.0 on <span class="colophon-date" title="Sunday 3 November 2024 21:44">Sunday 3 November 2024</span>. Using Julia version 1.11.0.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+Samples: 5×1000 adjoint(::Matrix{Float64}) with eltype Float64:
+ -2.42039    -3.02914    -3.05071    …  -3.70252    -3.30008    -3.26628
+  0.0245422   0.0316705   0.0298038      0.0382991   0.0282907   0.0269815
+  0.204987    0.154003    0.0379463      0.172006    0.100997    0.0933954
+  0.15165     0.149148    0.203124       0.143408    0.164322    0.188711
+  0.150494    0.17838     0.181912       0.19617     0.208982    0.210563</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../">« Home</a><a class="docs-footer-nextpage" href="../../api/interface/">General Interface »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.8.0 on <span class="colophon-date" title="Wednesday 18 December 2024 07:06">Wednesday 18 December 2024</span>. Using Julia version 1.11.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
