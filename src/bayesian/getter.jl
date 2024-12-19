@@ -12,7 +12,16 @@ function predict(container::BayesianRegression{:LogisticRegression}, newdata::Da
     return vec(mean(container.link.link_function.(z), dims=2))
 end
 
-function predict(container::BayesianRegression{:NegativeBinomialRegression}, newdata::DataFrame, prediction_chain_start::Int64 = 200)
+function predict(container::BayesianRegressionVI{:LogisticRegression}, newdata::DataFrame, number_of_samples::Int64 = 1000)
+    X = modelmatrix(container.formula, newdata)
+    
+    W = rand(CRRao_rng, container.dist, number_of_samples)
+    W = W[union(container.symbol_to_range[:β]...), :]
+    z = X * W 
+    return vec(mean(container.link.link_function.(z), dims=2))
+end
+
+function predict(container::BayesianRegressionMCMC{:NegativeBinomialRegression}, newdata::DataFrame, prediction_chain_start::Int64 = 200)
     X = modelmatrix(container.formula, newdata)
     W = container.samples[:, prediction_chain_start:end]
     z =  X * W

@@ -1,4 +1,4 @@
-function logistic_reg(formula::FormulaTerm, data::DataFrame, Link::CRRaoLink, turingModel::Function, sim_size::Int64)
+function logistic_reg_mcmc(formula::FormulaTerm, data::DataFrame, Link::CRRaoLink, turingModel::Function, sim_size::Int64)
     formula = apply_schema(formula, schema(formula, data),RegressionModel)
     y, X = modelcols(formula, data)
 
@@ -16,9 +16,31 @@ function logistic_reg(formula::FormulaTerm, data::DataFrame, Link::CRRaoLink, tu
     return BayesianRegression(:LogisticRegression, samples, formula, Link)
 end
 
+function logistic_reg_vi(formula::FormulaTerm, data::DataFrame, Link::CRRaoLink, turingModel::Function, max_iter::Int64)
+    formula = apply_schema(formula, schema(formula, data),RegressionModel)
+    y, X = modelcols(formula, data)
+
+    if max_iter < 500
+        @warn "Max iterations should generally be atleast 500."
+    end
+    model = turingModel(X, y)
+    dist = vi(model, ADVI(100, max_iter))
+    _, symbol_to_range = bijector(model, Val(true))
+    return BayesianRegressionVI(:LinearRegression, dist, formula, symbol_to_range)
+end
+
 """
 ```julia
-fit(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_Ridge, h::Float64 = 0.1, level::Float64 = 0.95, sim_size::Int64 = 1000)
+fit(
+    formula::FormulaTerm,
+    data::DataFrame,
+    modelClass::LogisticRegression,
+    Link::CRRaoLink, prior::Prior_Ridge,
+    use_vi::Bool = false,
+    h::Float64 = 0.1,
+    level::Float64 = 0.95,
+    sim_size::Int64 = use_vi ? 20000 : 1000
+)
 ```
 
 Fit a Bayesian Logistic Regression model on the input data with a Ridge prior with the provided `Link` function.
@@ -192,9 +214,10 @@ function fit(
     modelClass::LogisticRegression,
     Link::CRRaoLink,
     prior::Prior_Ridge,
+    use_vi::Bool = false,
     h::Float64 = 0.1,
     level::Float64 = 0.95,
-    sim_size::Int64 = 1000
+    sim_size::Int64 = use_vi ? 20000 : 1000
 )
     @model LogisticRegression(X, y) = begin
         p = size(X, 2)
@@ -217,12 +240,26 @@ function fit(
         end
     end
 
-    return logistic_reg(formula, data, Link, LogisticRegression, sim_size)
+    if use_vi
+        return logistic_reg_vi(formula, data, Link, LogisticRegression, sim_size)
+    else
+        return logistic_reg_mcmc(formula, data, Link, LogisticRegression, sim_size)
+    end
 end
 
 """
 ```julia
-fit(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_Laplace, h::Float64 = 0.1, level::Float64 = 0.95, sim_size::Int64 = 1000)
+fit(
+    formula::FormulaTerm,
+    data::DataFrame,
+    modelClass::LogisticRegression,
+    Link::CRRaoLink,
+    prior::Prior_Laplace,
+    use_vi::Bool = false,
+    h::Float64 = 0.1,
+    level::Float64 = 0.95,
+    sim_size::Int64 = use_vi ? 20000 : 1000
+)
 ```
 
 Fit a Bayesian Logistic Regression model on the input data with a Laplace prior with the provided `Link` function.
@@ -391,9 +428,10 @@ function fit(
     modelClass::LogisticRegression,
     Link::CRRaoLink,
     prior::Prior_Laplace,
+    use_vi::Bool = false,
     h::Float64 = 0.1,
     level::Float64 = 0.95,
-    sim_size::Int64 = 1000
+    sim_size::Int64 = use_vi ? 20000 : 1000
 )
     @model LogisticRegression(X, y) = begin
         p = size(X, 2)
@@ -416,12 +454,26 @@ function fit(
         end
     end
 
-    return logistic_reg(formula, data, Link, LogisticRegression, sim_size)
+    if use_vi
+        return logistic_reg_vi(formula, data, Link, LogisticRegression, sim_size)
+    else
+        return logistic_reg_mcmc(formula, data, Link, LogisticRegression, sim_size)
+    end
 end
 
 """
 ```julia
-fit(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_Cauchy, h::Float64 = 0.1, level::Float64 = 0.95, sim_size::Int64 = 1000)
+fit(
+    formula::FormulaTerm,
+    data::DataFrame,
+    modelClass::LogisticRegression,
+    Link::CRRaoLink,
+    prior::Prior_Cauchy,
+    use_vi::Bool = false,
+    h::Float64 = 0.1,
+    level::Float64 = 0.95,
+    sim_size::Int64 = use_vi ? 20000 : 1000
+)
 ```
 
 Fit a Bayesian Logistic Regression model on the input data with a Cauchy prior with the provided `Link` function.
@@ -585,9 +637,10 @@ function fit(
     modelClass::LogisticRegression,
     Link::CRRaoLink,
     prior::Prior_Cauchy,
+    use_vi::Bool = false,
     h::Float64 = 0.1,
     level::Float64 = 0.95,
-    sim_size::Int64 = 1000
+    sim_size::Int64 = use_vi ? 20000 : 1000
 )
     @model LogisticRegression(X, y) = begin
         p = size(X, 2)
@@ -610,12 +663,26 @@ function fit(
         end
     end
 
-    return logistic_reg(formula, data, Link, LogisticRegression, sim_size)
+    if use_vi
+        return logistic_reg_vi(formula, data, Link, LogisticRegression, sim_size)
+    else
+        return logistic_reg_mcmc(formula, data, Link, LogisticRegression, sim_size)
+    end
 end
 
 """
 ```julia
-fit(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_TDist, h::Float64 = 1.0, level::Float64 = 0.95, sim_size::Int64 = 1000)
+fit(
+    formula::FormulaTerm,
+    data::DataFrame,
+    modelClass::LogisticRegression,
+    Link::CRRaoLink,
+    prior::Prior_TDist,
+    use_vi::Bool = false,
+    h::Float64 = 3.0,
+    level::Float64 = 0.95,
+    sim_size::Int64 = use_vi ? 20000 : 1000
+)
 ```
 
 Fit a Bayesian Logistic Regression model on the input data with a T-Dist prior with the provided `Link` function.
@@ -804,9 +871,10 @@ function fit(
     modelClass::LogisticRegression,
     Link::CRRaoLink,
     prior::Prior_TDist,
+    use_vi::Bool = false,
     h::Float64 = 3.0,
     level::Float64 = 0.95,
-    sim_size::Int64 = 1000
+    sim_size::Int64 = use_vi ? 20000 : 1000
 )
     @model LogisticRegression(X, y) = begin
         p = size(X, 2)
@@ -830,14 +898,27 @@ function fit(
         end
     end
 
-    return logistic_reg(formula, data, Link, LogisticRegression, sim_size)
+    if use_vi
+        return logistic_reg_vi(formula, data, Link, LogisticRegression, sim_size)
+    else
+        return logistic_reg_mcmc(formula, data, Link, LogisticRegression, sim_size)
+    end
 end
 
 
 
 """
 ```julia
-fit(formula::FormulaTerm,data::DataFrame,modelClass::LogisticRegression,Link::CRRaoLink,prior::Prior_HorseShoe,level::Float64 = 0.95,sim_size::Int64 = 1000)
+fit(
+    formula::FormulaTerm,
+    data::DataFrame,
+    modelClass::LogisticRegression,
+    Link::CRRaoLink,
+    use_vi::Bool = false,
+    prior::Prior_HorseShoe,
+    level::Float64 = 0.95,
+    sim_size::Int64 = use_vi ? 20000 : 1000
+)
 ```
 
 Fit a Bayesian Logistic Regression model on the input data with a HorseShoe prior with the provided `Link` function.
@@ -1040,9 +1121,10 @@ function fit(
   data::DataFrame,
   modelClass::LogisticRegression,
   Link::CRRaoLink,
+  use_vi::Bool = false,
   prior::Prior_HorseShoe,
   level::Float64 = 0.95,
-  sim_size::Int64 = 1000
+  sim_size::Int64 = use_vi ? 20000 : 1000
 )
   @model LogisticRegression(X, y) = begin
       p = size(X, 2)
@@ -1076,5 +1158,9 @@ function fit(
       end
   end
 
-  return logistic_reg(formula, data, Link, LogisticRegression, sim_size)
+  if use_vi
+      return logistic_reg_vi(formula, data, Link, LogisticRegression, sim_size)
+  else
+      return logistic_reg_mcmc(formula, data, Link, LogisticRegression, sim_size)
+  end
 end
