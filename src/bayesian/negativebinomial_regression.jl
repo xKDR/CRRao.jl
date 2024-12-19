@@ -11,7 +11,14 @@ function negativebinomial_reg(
         @warn "Simulation size should generally be atleast 500."
     end
     chain = sample(CRRao_rng, turingModel(X, y), NUTS(), sim_size)
-    return BayesianRegressionMCMC(:NegativeBinomialRegression, chain, formula)
+    params = get_params(chain[:,:,:])
+    samples = params.β
+    if isa(samples, Tuple)
+        samples = reduce(hcat, samples)
+    end
+    samples = samples'
+
+    return BayesianRegression(:NegativeBinomialRegression, samples, formula)
 end
 
 """

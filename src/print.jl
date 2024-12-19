@@ -27,16 +27,9 @@ function Base.show(io::IO, container::FrequentistRegression{:PoissonRegression})
 end
 
 # Bayesian Models
-function Base.show(io::IO, container::BayesianRegressionMCMC)
+function Base.show(io::IO, container::BayesianRegression)
     println(io, "Formula: ", container.formula)
     println(io, "Link: ", container.link)
-    print(io, "Chain: ")
-    show(io, MIME("text/plain"), container.chain)
-end
-
-function Base.show(io::IO, container::BayesianRegressionVI)
-    println(io, "Formula: ", container.formula)
-    println(io, "Link: ", container.link)
-    print(io, "Distribution: ")
-    show(io, MIME("text/plain"), container.dist)
+    print(io, "Samples: ")
+    show(io, MIME("text/plain"), container.samples)
 end

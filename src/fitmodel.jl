@@ -22,48 +22,25 @@ FrequentistRegression(RegressionType::Symbol, model, formula, link = GLM.Identit
 
 """
 ```julia
-BayesianRegressionMCMC{RegressionType}
+BayesianRegression{RegressionType}
 ```
 
 Type to represent bayesian regression models (using MCMC) returned by `fit` functions. This type is used internally by the package to represent all bayesian regression models using MCMC. `RegressionType` is a `Symbol` representing the model class.
 """
-struct BayesianRegressionMCMC{RegressionType} <: RegressionModel
-    chain
+struct BayesianRegression{RegressionType} <: RegressionModel
+    samples
     formula::FormulaTerm
     link
 end
 
 """
 ```julia
-BayesianRegressionMCMC(::Symbol, chain)
+BayesianRegression(::Symbol, samples)
 ```
 
-Constructor for `BayesianRegressionMCMC`. `model` can be any regression model. Used by `fit` functions to return a bayesian regression model container.
+Constructor for `BayesianRegression`. `model` can be any regression model. Used by `fit` functions to return a bayesian regression model container.
 """
-BayesianRegressionMCMC(RegressionType::Symbol, chain, formula, link = Identity()) = BayesianRegressionMCMC{RegressionType}(chain, formula, link)
-
-"""
-```julia
-BayesianRegressionVI{RegressionType}
-```
-
-Type to represent bayesian regression models (using VI) returned by `fit` functions. This type is used internally by the package to represent all bayesian regression models using VI. `RegressionType` is a `Symbol` representing the model class.
-"""
-struct BayesianRegressionVI{RegressionType} <: RegressionModel
-    dist
-    formula::FormulaTerm
-    symbol_to_range
-    link
-end
-
-"""
-```julia
-BayesianRegressionVI(::Symbol, dist)
-```
-
-Constructor for `BayesianRegressionVI`. `model` can be any regression model. Used by `fit` functions to return a bayesian regression model container.
-"""
-BayesianRegressionVI(RegressionType::Symbol, dist, formula, symbol_to_range, link = Identity()) = BayesianRegressionVI{RegressionType}(dist, formula, symbol_to_range, link)
+BayesianRegression(RegressionType::Symbol, samples, formula, link = Identity()) = BayesianRegression{RegressionType}(samples, formula, link)
 
 # Print Messages
 include("print.jl")
