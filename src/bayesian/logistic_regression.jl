@@ -889,8 +889,8 @@ fit(
     data::DataFrame,
     modelClass::LogisticRegression,
     Link::CRRaoLink,
-    algorithm::BayesianAlgorithm = MCMC(),
     prior::Prior_HorseShoe,
+    algorithm::BayesianAlgorithm = MCMC(),
     level::Float64 = 0.95,
 )
 ```
@@ -1095,8 +1095,8 @@ function fit(
     data::DataFrame,
     modelClass::LogisticRegression,
     Link::CRRaoLink,
-    algorithm::BayesianAlgorithm = MCMC(),
     prior::Prior_HorseShoe,
+    algorithm::BayesianAlgorithm = MCMC(),
     level::Float64 = 0.95
 )
     @model LogisticRegression(X, y) = begin
