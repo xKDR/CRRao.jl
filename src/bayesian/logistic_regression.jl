@@ -1,11 +1,11 @@
-function logistic_reg_mcmc(formula::FormulaTerm, data::DataFrame, Link::CRRaoLink, turingModel::Function, sim_size::Int64)
+function logistic_reg(formula::FormulaTerm, data::DataFrame, Link::CRRaoLink, turingModel::Function, algorithm::MCMC)
     formula = apply_schema(formula, schema(formula, data),RegressionModel)
     y, X = modelcols(formula, data)
 
-    if sim_size < 500
+    if algorithm.sim_size < 500
         @warn "Simulation size should generally be atleast 500."
     end
-    chain = sample(CRRao_rng, turingModel(X, y), NUTS(), sim_size)
+    chain = sample(CRRao_rng, turingModel(X, y), NUTS(), algorithm.sim_size)
     params = get_params(chain[:,:,:])
     samples = params.β
     if isa(samples, Tuple)
@@ -16,17 +16,18 @@ function logistic_reg_mcmc(formula::FormulaTerm, data::DataFrame, Link::CRRaoLin
     return BayesianRegression(:LogisticRegression, samples, formula, Link)
 end
 
-function logistic_reg_vi(formula::FormulaTerm, data::DataFrame, Link::CRRaoLink, turingModel::Function, max_iter::Int64)
+function logistic_reg(formula::FormulaTerm, data::DataFrame, Link::CRRaoLink, turingModel::Function, algorithm::VI)
     formula = apply_schema(formula, schema(formula, data),RegressionModel)
     y, X = modelcols(formula, data)
 
-    if max_iter < 500
+    if algorithm.vi_max_iters < 500
         @warn "Max iterations should generally be atleast 500."
     end
     model = turingModel(X, y)
-    dist = vi(model, ADVI(100, max_iter))
+    dist = vi(model, ADVI(algorithm.vi_samples_per_step, algorithm.vi_max_iters))
     _, symbol_to_range = bijector(model, Val(true))
-    return BayesianRegressionVI(:LinearRegression, dist, formula, symbol_to_range)
+    samples = samples[union(symbol_to_range[:β]...), :]
+    return BayesianRegression(:LogisticRegression, samples, formula, Link)
 end
 
 """
@@ -35,11 +36,11 @@ fit(
     formula::FormulaTerm,
     data::DataFrame,
     modelClass::LogisticRegression,
-    Link::CRRaoLink, prior::Prior_Ridge,
-    use_vi::Bool = false,
+    Link::CRRaoLink,
+    prior::Prior_Ridge,
+    algorithm::BayesianAlgorithm = MCMC(),
     h::Float64 = 0.1,
     level::Float64 = 0.95,
-    sim_size::Int64 = use_vi ? 20000 : 1000
 )
 ```
 
@@ -214,10 +215,9 @@ function fit(
     modelClass::LogisticRegression,
     Link::CRRaoLink,
     prior::Prior_Ridge,
-    use_vi::Bool = false,
+    algorithm::BayesianAlgorithm = MCMC(),
     h::Float64 = 0.1,
     level::Float64 = 0.95,
-    sim_size::Int64 = use_vi ? 20000 : 1000
 )
     @model LogisticRegression(X, y) = begin
         p = size(X, 2)
@@ -239,12 +239,7 @@ function fit(
             y[i] ~ Bernoulli(prob[i])
         end
     end
-
-    if use_vi
-        return logistic_reg_vi(formula, data, Link, LogisticRegression, sim_size)
-    else
-        return logistic_reg_mcmc(formula, data, Link, LogisticRegression, sim_size)
-    end
+    return logistic_reg(formula, data, Link, LogisticRegression, algorithm)
 end
 
 """
@@ -255,10 +250,9 @@ fit(
     modelClass::LogisticRegression,
     Link::CRRaoLink,
     prior::Prior_Laplace,
-    use_vi::Bool = false,
+    algorithm::BayesianAlgorithm = MCMC(),
     h::Float64 = 0.1,
     level::Float64 = 0.95,
-    sim_size::Int64 = use_vi ? 20000 : 1000
 )
 ```
 
@@ -428,10 +422,9 @@ function fit(
     modelClass::LogisticRegression,
     Link::CRRaoLink,
     prior::Prior_Laplace,
-    use_vi::Bool = false,
+    algorithm::BayesianAlgorithm = MCMC(),
     h::Float64 = 0.1,
-    level::Float64 = 0.95,
-    sim_size::Int64 = use_vi ? 20000 : 1000
+    level::Float64 = 0.95
 )
     @model LogisticRegression(X, y) = begin
         p = size(X, 2)
@@ -454,11 +447,7 @@ function fit(
         end
     end
 
-    if use_vi
-        return logistic_reg_vi(formula, data, Link, LogisticRegression, sim_size)
-    else
-        return logistic_reg_mcmc(formula, data, Link, LogisticRegression, sim_size)
-    end
+    return logistic_reg(formula, data, Link, LogisticRegression, algorithm)
 end
 
 """
@@ -469,10 +458,9 @@ fit(
     modelClass::LogisticRegression,
     Link::CRRaoLink,
     prior::Prior_Cauchy,
-    use_vi::Bool = false,
+    algorithm::BayesianAlgorithm = MCMC(),
     h::Float64 = 0.1,
     level::Float64 = 0.95,
-    sim_size::Int64 = use_vi ? 20000 : 1000
 )
 ```
 
@@ -637,10 +625,9 @@ function fit(
     modelClass::LogisticRegression,
     Link::CRRaoLink,
     prior::Prior_Cauchy,
-    use_vi::Bool = false,
+    algorithm::BayesianAlgorithm = MCMC(),
     h::Float64 = 0.1,
-    level::Float64 = 0.95,
-    sim_size::Int64 = use_vi ? 20000 : 1000
+    level::Float64 = 0.95
 )
     @model LogisticRegression(X, y) = begin
         p = size(X, 2)
@@ -662,12 +649,7 @@ function fit(
             y[i] ~ Bernoulli(prob[i])
         end
     end
-
-    if use_vi
-        return logistic_reg_vi(formula, data, Link, LogisticRegression, sim_size)
-    else
-        return logistic_reg_mcmc(formula, data, Link, LogisticRegression, sim_size)
-    end
+    return logistic_reg(formula, data, Link, LogisticRegression, algorithm)
 end
 
 """
@@ -678,10 +660,9 @@ fit(
     modelClass::LogisticRegression,
     Link::CRRaoLink,
     prior::Prior_TDist,
-    use_vi::Bool = false,
+    algorithm::BayesianAlgorithm = MCMC(),
     h::Float64 = 3.0,
     level::Float64 = 0.95,
-    sim_size::Int64 = use_vi ? 20000 : 1000
 )
 ```
 
@@ -871,10 +852,9 @@ function fit(
     modelClass::LogisticRegression,
     Link::CRRaoLink,
     prior::Prior_TDist,
-    use_vi::Bool = false,
+    algorithm::BayesianAlgorithm = MCMC(),
     h::Float64 = 3.0,
-    level::Float64 = 0.95,
-    sim_size::Int64 = use_vi ? 20000 : 1000
+    level::Float64 = 0.95
 )
     @model LogisticRegression(X, y) = begin
         p = size(X, 2)
@@ -897,12 +877,7 @@ function fit(
             y[i] ~ Bernoulli(prob[i])
         end
     end
-
-    if use_vi
-        return logistic_reg_vi(formula, data, Link, LogisticRegression, sim_size)
-    else
-        return logistic_reg_mcmc(formula, data, Link, LogisticRegression, sim_size)
-    end
+    return logistic_reg(formula, data, Link, LogisticRegression, algorithm)
 end
 
 
@@ -914,10 +889,9 @@ fit(
     data::DataFrame,
     modelClass::LogisticRegression,
     Link::CRRaoLink,
-    use_vi::Bool = false,
+    algorithm::BayesianAlgorithm = MCMC(),
     prior::Prior_HorseShoe,
     level::Float64 = 0.95,
-    sim_size::Int64 = use_vi ? 20000 : 1000
 )
 ```
 
@@ -1117,50 +1091,44 @@ Quantiles
 ```
 """
 function fit(
-  formula::FormulaTerm,
-  data::DataFrame,
-  modelClass::LogisticRegression,
-  Link::CRRaoLink,
-  use_vi::Bool = false,
-  prior::Prior_HorseShoe,
-  level::Float64 = 0.95,
-  sim_size::Int64 = use_vi ? 20000 : 1000
+    formula::FormulaTerm,
+    data::DataFrame,
+    modelClass::LogisticRegression,
+    Link::CRRaoLink,
+    algorithm::BayesianAlgorithm = MCMC(),
+    prior::Prior_HorseShoe,
+    level::Float64 = 0.95
 )
-  @model LogisticRegression(X, y) = begin
-      p = size(X, 2)
-      n = size(X, 1)
-      #priors
-      #v ~ InverseGamma(h, h)
-      #α ~ TDist(1)
-      #β ~ filldist(Uniform(-v, v), p)
+    @model LogisticRegression(X, y) = begin
+        p = size(X, 2)
+        n = size(X, 1)
+        #priors
+        #v ~ InverseGamma(h, h)
+        #α ~ TDist(1)
+        #β ~ filldist(Uniform(-v, v), p)
 
-      halfcauchy = Truncated(TDist(1), 0, Inf)
-    
-      τ ~ halfcauchy    ## Global Shrinkage
-      λ ~ filldist(halfcauchy, p) ## Local Shrinkage
-      σ ~ halfcauchy
-      #α ~ Normal(0, τ * σ)
-      β0 = repeat([0], p)  ## prior mean
-      β ~ MvNormal(β0, λ * τ *σ)
+        halfcauchy = Truncated(TDist(1), 0, Inf)
+        
+        τ ~ halfcauchy    ## Global Shrinkage
+        λ ~ filldist(halfcauchy, p) ## Local Shrinkage
+        σ ~ halfcauchy
+        #α ~ Normal(0, τ * σ)
+        β0 = repeat([0], p)  ## prior mean
+        β ~ MvNormal(β0, λ * τ *σ)
 
 
-      #z = α .+ X * β
-      z = X * β
+        #z = α .+ X * β
+        z = X * β
 
-      ## Link Function
+        ## Link Function
 
-      #prob = Link.link.(z)
-      prob = Link.link_function.(z)
+        #prob = Link.link.(z)
+        prob = Link.link_function.(z)
 
-      #likelihood
-      for i = 1:n
-          y[i] ~ Bernoulli(prob[i])
-      end
-  end
-
-  if use_vi
-      return logistic_reg_vi(formula, data, Link, LogisticRegression, sim_size)
-  else
-      return logistic_reg_mcmc(formula, data, Link, LogisticRegression, sim_size)
-  end
+        #likelihood
+        for i = 1:n
+            y[i] ~ Bernoulli(prob[i])
+        end
+    end
+    return logistic_reg(formula, data, Link, LogisticRegression, algorithm)
 end

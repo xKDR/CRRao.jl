@@ -46,24 +46,24 @@ fit(formula::FormulaTerm,data::DataFrame,modelClass::LinearRegression,prior::Pri
 
 ### Logistic Regression with Ridge Prior
 ```@docs
-fit(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_Ridge, h::Float64 = 0.1, level::Float64 = 0.95, sim_size::Int64 = 1000)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_Ridge, algorithm::BayesianAlgorithm = MCMC(), h::Float64 = 0.1, level::Float64 = 0.95)
 ```
 ### Logistic Regression with Laplace Prior
 ```@docs
-fit(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_Laplace, h::Float64 = 0.1, level::Float64 = 0.95, sim_size::Int64 = 1000)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_Laplace, algorithm::BayesianAlgorithm = MCMC(), h::Float64 = 0.1, level::Float64 = 0.95)
 ```
 ### Logistic Regression with Cauchy Prior
 ```@docs
-fit(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_Cauchy, h::Float64 = 0.1, level::Float64 = 0.95, sim_size::Int64 = 1000)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_Cauchy, algorithm::BayesianAlgorithm = MCMC(), h::Float64 = 0.1, level::Float64 = 0.95)
 ```
 ### Logistic Regression with T-Distributed Prior
 ```@docs
-fit(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_TDist, h::Float64 = 1.0, level::Float64 = 0.95, sim_size::Int64 = 1000)
+fit(formula::FormulaTerm, data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_TDist, algorithm::BayesianAlgorithm = MCMC(), h::Float64 = 1.0, level::Float64 = 0.95)
 ```
 
 ### Logistic Regression with Horse Shoe Prior
 ```@docs
-fit(formula::FormulaTerm,data::DataFrame,modelClass::LogisticRegression,Link::CRRaoLink,prior::Prior_HorseShoe,level::Float64 = 0.95,sim_size::Int64 = 1000)
+fit(formula::FormulaTerm,data::DataFrame, modelClass::LogisticRegression, Link::CRRaoLink, prior::Prior_HorseShoe, algorithm::BayesianAlgorithm = MCMC(), level::Float64 = 0.95)
 ```
 
 ## Negative Binomial Regression

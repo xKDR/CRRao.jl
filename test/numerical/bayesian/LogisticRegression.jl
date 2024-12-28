@@ -53,15 +53,15 @@ for (prior, prior_testcases) in tests
     for (link, test_mean) in prior_testcases
         CRRao.set_rng(StableRNG(123))
         model = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), link, prior)
-        prediction = predict(model, turnout)
-        @test mean(prediction) - 2 * std(prediction) <= test_mean && test_mean <= mean(prediction) + 2 * std(prediction)
+        mcmc_prediction = predict(model, turnout)
+        @test mean(mcmc_prediction) - 2 * std(mcmc_prediction) <= test_mean && test_mean <= mean(mcmc_prediction) + 2 * std(mcmc_prediction)
     end
 
     # VI
     for (link, test_mean) in prior_testcases
         CRRao.set_rng(StableRNG(123))
-        model = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), link, prior, true)
-        prediction = predict(model, turnout)
-        @test mean(prediction) - 2 * std(prediction) <= test_mean && test_mean <= mean(prediction) + 2 * std(prediction)
+        model = fit(@formula(Vote ~ Age + Race + Income + Educate), turnout, LogisticRegression(), link, prior, VI())
+        vi_prediction = predict(model, turnout)
+        @test mean(vi_prediction) - 2 * std(vi_prediction) <= test_mean && test_mean <= mean(vi_prediction) + 2 * std(vi_prediction)
     end
 end
